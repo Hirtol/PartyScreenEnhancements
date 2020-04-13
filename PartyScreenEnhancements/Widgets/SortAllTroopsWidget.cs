@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Collections.Generic;
 using PartyScreenEnhancements.Comparers;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
@@ -10,34 +7,33 @@ using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI;
 using TaleWorlds.Library;
-using TaleWorlds.MountAndBlade;
 
 namespace PartyScreenEnhancements
 {
     /// <summary>
-    /// The ButtonWidget for sorting troops based on a given Comparer.
-    /// This does not follow the MVVM pattern in the slightest, primarily because I wanted to avoid transpiling a custom VM in place of the normal PartyVM
-    /// If I run into a method to do this in a compatible way I'll happily switch to that.
+    ///     The ButtonWidget for sorting troops based on a given Comparer.
+    ///     This does not follow the MVVM pattern in the slightest, primarily because I wanted to avoid transpiling a custom VM
+    ///     in place of the normal PartyVM
+    ///     If I run into a method to do this in a compatible way I'll happily switch to that.
     /// </summary>
     public class SortAllTroopsWidget : ButtonWidget
     {
-
         private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
-        private readonly PartyVM _partyVM;
         private readonly PartyScreenLogic _partyLogic;
-        private PartySort _partySorter;
+        private readonly PartySort _partySorter;
+        private readonly PartyVM _partyVM;
 
         public SortAllTroopsWidget(UIContext context) : base(context)
         {
             if (ScreenManager.TopScreen is GauntletPartyScreen)
             {
-                this._partyVM = (PartyVM) ((GauntletPartyScreen) ScreenManager.TopScreen).GetField("_dataSource");
-                this._partyLogic = (PartyScreenLogic) _partyVM.GetField("_partyScreenLogic");
-                this._mainPartyList = _partyVM.MainPartyTroops;
+                _partyVM = (PartyVM) ((GauntletPartyScreen) ScreenManager.TopScreen).GetField("_dataSource");
+                _partyLogic = (PartyScreenLogic) _partyVM.GetField("_partyScreenLogic");
+                _mainPartyList = _partyVM.MainPartyTroops;
             }
 
-            this._partySorter = new TypeComparer(new TrueTierComparer(true), false);
-            this.EventFire += EventHandler;
+            _partySorter = new TypeComparer(new TrueTierComparer(true), false);
+            EventFire += EventHandler;
         }
 
         /**
@@ -46,17 +42,11 @@ namespace PartyScreenEnhancements
          */
         private void EventHandler(Widget widget, string eventName, object[] args)
         {
-            if (base.IsVisible)
+            if (IsVisible)
             {
-                if (eventName == "HoverBegin")
-                {
-                    InformationManager.AddHintInformation("Sort Party");
-                }
+                if (eventName == "HoverBegin") InformationManager.AddHintInformation("Sort Party");
 
-                if (eventName == "HoverEnd")
-                {
-                    InformationManager.HideInformations();
-                }
+                if (eventName == "HoverEnd") InformationManager.HideInformations();
             }
         }
 
@@ -65,11 +55,11 @@ namespace PartyScreenEnhancements
             base.OnClick();
             // Probably a better way than this, but it's rare enough that the simplicity permits the performance overhead
 
-            List<TroopRosterElement> sortedList = new List<TroopRosterElement>();
+            var sortedList = new List<TroopRosterElement>();
 
-            for (int i = 0; i < _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].Count; i++)
+            for (var i = 0; i < _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].Count; i++)
             {
-                var t = _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right]
+                TroopRosterElement t = _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right]
                     .GetElementCopyAtIndex(i);
                 sortedList.Add(t);
             }
@@ -78,11 +68,9 @@ namespace PartyScreenEnhancements
             sortedList.Sort(new TroopComparer(_partySorter));
 
             foreach (TroopRosterElement rosterElement in sortedList)
-            {
                 _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
-                    rosterElement.Character, rosterElement.Number, false, rosterElement.WoundedNumber, rosterElement.Xp,
-                    true);
-            }
+                    rosterElement.Character, rosterElement.Number, false, rosterElement.WoundedNumber,
+                    rosterElement.Xp);
 
             // Other option, no need to reset 
             //_partyVM.Call("InitializeTroopLists");
@@ -94,11 +82,13 @@ namespace PartyScreenEnhancements
 
     internal class VMComparer : IComparer<PartyCharacterVM>
     {
-        private IComparer<CharacterObject> _trueComparer;
+        private readonly IComparer<CharacterObject> _trueComparer;
+
         public VMComparer(IComparer<CharacterObject> trueComparer)
         {
-            this._trueComparer = trueComparer;
+            _trueComparer = trueComparer;
         }
+
         public int Compare(PartyCharacterVM x, PartyCharacterVM y)
         {
             return _trueComparer.Compare(x.Character, y.Character);
@@ -107,11 +97,13 @@ namespace PartyScreenEnhancements
 
     internal class TroopComparer : IComparer<TroopRosterElement>
     {
-        private IComparer<CharacterObject> _trueComparer;
+        private readonly IComparer<CharacterObject> _trueComparer;
+
         public TroopComparer(IComparer<CharacterObject> trueComparer)
         {
-            this._trueComparer = trueComparer;
+            _trueComparer = trueComparer;
         }
+
         public int Compare(TroopRosterElement x, TroopRosterElement y)
         {
             return _trueComparer.Compare(x.Character, y.Character);

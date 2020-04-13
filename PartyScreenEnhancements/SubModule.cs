@@ -1,10 +1,7 @@
 ﻿using HarmonyLib;
-using System;
-using System.Diagnostics;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 
 namespace PartyScreenEnhancements
@@ -29,17 +26,14 @@ namespace PartyScreenEnhancements
 
         protected override void OnSubModuleUnloaded()
         {
-
         }
 
         protected override void OnBeforeInitialModuleScreenSetAsRoot()
         {
-
         }
 
         protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
         {
-
         }
     }
 }

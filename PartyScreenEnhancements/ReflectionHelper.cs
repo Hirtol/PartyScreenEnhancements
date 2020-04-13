@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PartyScreenEnhancements
 {
@@ -13,7 +9,6 @@ namespace PartyScreenEnhancements
         {
             MethodInfo method = o.GetType().GetMethod(methodName, BindingFlags.Instance | BindingFlags.NonPublic);
             if (method != null)
-            {
                 try
                 {
                     return method.Invoke(o, args);
@@ -21,7 +16,7 @@ namespace PartyScreenEnhancements
                 catch (Exception)
                 {
                 }
-            }
+
             return null;
         }
 
@@ -29,7 +24,6 @@ namespace PartyScreenEnhancements
         {
             FieldInfo field = o.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
             if (field != null)
-            {
                 try
                 {
                     return field.GetValue(o);
@@ -37,7 +31,7 @@ namespace PartyScreenEnhancements
                 catch (Exception)
                 {
                 }
-            }
+
             return null;
         }
     }

@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Module>
-	<Name value="PartyScreenEnhancements"/>
-	<Id value="PartyScreenEnhancements"/>
-	<Version value="v1.0.0"/>
-	<SingleplayerModule value="true"/>
-	<MultiplayerModule value="false"/>
+	<Name value="PartyScreenEnhancements" />
+	<Id value="PartyScreenEnhancements" />
+	<Version value="v1.0.0" />
+	<SingleplayerModule value="true" />
+	<MultiplayerModule value="false" />
 	<DependedModules>
-         <DependedModule Id="Native"/>
-         <DependedModule Id="SandBoxCore"/>
-         <DependedModule Id="Sandbox"/>
-         <DependedModule Id="CustomBattle"/>
-         <DependedModule Id="StoryMode" />
-     </DependedModules>
+		<DependedModule Id="Native" />
+		<DependedModule Id="SandBoxCore" />
+		<DependedModule Id="Sandbox" />
+		<DependedModule Id="CustomBattle" />
+		<DependedModule Id="StoryMode" />
+	</DependedModules>
 	<SubModules>
 		<SubModule>
-			<Name value="PartyScreenEnhancements"/>
-			<DLLName value="PartyScreenEnhancements.dll"/>
-			<SubModuleClassType value="PartyScreenEnhancements.SubModule"/>
+			<Name value="PartyScreenEnhancements" />
+			<DLLName value="PartyScreenEnhancements.dll" />
+			<SubModuleClassType value="PartyScreenEnhancements.SubModule" />
 			<Tags>
 				<Tag key="DedicatedServerType" value="none" />
 				<Tag key="IsNoRenderModeElement" value="false" />
 			</Tags>
 		</SubModule>
 	</SubModules>
-	
-	<Xmls/>
+
+	<Xmls />
 </Module>

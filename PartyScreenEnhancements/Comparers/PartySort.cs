@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using TaleWorlds.CampaignSystem;
 
 namespace PartyScreenEnhancements.Comparers
@@ -12,13 +8,8 @@ namespace PartyScreenEnhancements.Comparers
         public int Compare(CharacterObject x, CharacterObject y)
         {
             if (x.IsHero || y.IsHero)
-            {
                 return 1;
-            }
-            else
-            {
-                return localCompare(x, y);
-            }
+            return localCompare(x, y);
         }
 
         protected abstract int localCompare(CharacterObject x, CharacterObject y);
