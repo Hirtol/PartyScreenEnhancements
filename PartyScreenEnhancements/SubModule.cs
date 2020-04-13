@@ -17,12 +17,12 @@ namespace PartyScreenEnhancements
             PartyScreenConfig.Initialize();
             PartyScreenConfig.Save();
 
-            UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
+            //UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }
 
         protected override void OnApplicationTick(float dt)
         {
-            UIResourceManager.UIResourceDepot.CheckForChanges();
+            //UIResourceManager.UIResourceDepot.CheckForChanges();
         }
 
         protected override void OnSubModuleUnloaded()
