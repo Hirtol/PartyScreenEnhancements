@@ -237,6 +237,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreen.xml" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>

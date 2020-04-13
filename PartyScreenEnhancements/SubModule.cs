@@ -15,6 +15,7 @@ namespace PartyScreenEnhancements
             harmony.PatchAll();
 
             PartyScreenConfig.Initialize();
+            PartyScreenConfig.Save();
 
             UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }

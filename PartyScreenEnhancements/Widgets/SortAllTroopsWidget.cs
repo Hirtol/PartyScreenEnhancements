@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using PartyScreenEnhancements.Comparers;
+using PartyScreenEnhancements.Saving;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -32,7 +33,7 @@ namespace PartyScreenEnhancements
                 _mainPartyList = _partyVM.MainPartyTroops;
             }
 
-            _partySorter = new TypeComparer(new TrueTierComparer(true), false);
+            _partySorter = new TypeComparer(new TrueTierComparer(null, true), false);
             EventFire += EventHandler;
         }
 
@@ -65,7 +66,7 @@ namespace PartyScreenEnhancements
             }
 
             _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].Clear();
-            sortedList.Sort(new TroopComparer(_partySorter));
+            sortedList.Sort(new TroopComparer(PartyScreenConfig.Sorter));
 
             foreach (TroopRosterElement rosterElement in sortedList)
                 _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
@@ -76,7 +77,7 @@ namespace PartyScreenEnhancements
             //_partyVM.Call("InitializeTroopLists");
 
             // Update the current View, not necessary for the state to be preserved.
-            _mainPartyList.Sort(new VMComparer(_partySorter));
+            _mainPartyList.Sort(new VMComparer(PartyScreenConfig.Sorter));
         }
     }
 

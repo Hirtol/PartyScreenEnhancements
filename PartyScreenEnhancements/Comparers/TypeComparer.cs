@@ -1,28 +1,29 @@
-﻿using TaleWorlds.CampaignSystem;
+﻿using System.Xml.Serialization;
+using TaleWorlds.CampaignSystem;
 
 namespace PartyScreenEnhancements.Comparers
 {
     public class TypeComparer : PartySort
     {
-        private readonly bool _descending;
-        private readonly PartySort _equalSorter;
-
-        public TypeComparer(PartySort equalSorter, bool descending)
+        public TypeComparer(PartySort equalSorter, bool descending) : base(descending, equalSorter)
         {
-            _equalSorter = equalSorter;
-            _descending = descending;
+        }
+
+        internal TypeComparer()
+        {
+
         }
 
         protected override int localCompare(CharacterObject x, CharacterObject y)
         {
-            if (_descending
+            if (Descending
                 ? x.CurrentFormationClass < y.CurrentFormationClass
                 : x.CurrentFormationClass > y.CurrentFormationClass) return 1;
 
             if (y.CurrentFormationClass == x.CurrentFormationClass)
             {
-                if (_equalSorter != null)
-                    return _equalSorter.Compare(x, y);
+                if (EqualSorter != null)
+                    return EqualSorter.Compare(x, y);
                 return 0;
             }
 

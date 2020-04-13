@@ -40,7 +40,6 @@ namespace PartyScreenEnhancements
                 {
                     InformationManager.AddHintInformation("Upgrade All Troops");
                 }
-
                 if (eventName == "HoverEnd")
                 {
                     InformationManager.HideInformations();

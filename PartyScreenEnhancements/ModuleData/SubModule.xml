@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <Module>
-	<Name value="PartyScreenEnhancements" />
+	<Name value="Party Screen Enhancements" />
 	<Id value="PartyScreenEnhancements" />
 	<Version value="v1.0.0" />
 	<SingleplayerModule value="true" />

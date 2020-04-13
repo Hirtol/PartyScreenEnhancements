@@ -1,0 +1,40 @@
+﻿<Brushes>
+	<Brush Name="Party.Enhancement.UpgradeAll">
+		<Layers>
+			<BrushLayer Name="Default" Sprite="PartyScreen\upgrade_icon" />
+		</Layers>
+		<Styles>
+			<Style Name="Default">
+				<BrushLayer Name="Default" ColorFactor="1.0"/>
+			</Style>
+			<Style Name="Hovered">
+				<BrushLayer Name="Default" ColorFactor="1.2" />
+			</Style>
+			<Style Name="Pressed">
+				<BrushLayer Name="Default" ColorFactor="0.8" />
+			</Style>
+			<Style Name="Disabled">
+				<BrushLayer Name="Default" ColorFactor="0.6" />
+			</Style>
+		</Styles>
+	</Brush>
+	<Brush Name="Party.Enhancement.SortParty">
+		<Layers>
+			<BrushLayer Name="Default" Sprite="InventoryPartyExtension\Extension\inspect" />
+		</Layers>
+		<Styles>
+			<Style Name="Default">
+				<BrushLayer Name="Default" ColorFactor="1.0"/>
+			</Style>
+			<Style Name="Hovered">
+				<BrushLayer Name="Default" ColorFactor="1.2" />
+			</Style>
+			<Style Name="Pressed">
+				<BrushLayer Name="Default" ColorFactor="0.8" />
+			</Style>
+			<Style Name="Disabled">
+				<BrushLayer Name="Default" ColorFactor="0.6" />
+			</Style>
+		</Styles>
+	</Brush>
+</Brushes>
