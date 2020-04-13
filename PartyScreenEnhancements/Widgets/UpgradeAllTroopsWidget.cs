@@ -63,52 +63,52 @@ namespace PartyScreenEnhancements
 
         private void UpgradeAllTroopsPath()
         {
-            Dictionary<PartyCharacterVM, int> dict = new Dictionary<PartyCharacterVM, int>();
+            var toUpgrade = new Dictionary<PartyCharacterVM, int>();
 
             foreach (PartyCharacterVM character in _mainPartyList)
             {
                 if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
                 {
-                    dict.Add(character, 0);
+                    toUpgrade.Add(character, 0);
                 }
                 else if (!character.IsUpgrade1Available && character.IsUpgrade2Available)
                 {
-                    dict.Add(character, 1);
+                    toUpgrade.Add(character, 1);
                 }
                 else if(character.IsUpgrade1Available && character.IsUpgrade2Available)
                 {
                     if (PartyScreenConfig.PathsToUpgrade.ContainsKey(character.Character.StringId))
                     {
-                        dict.Add(character, PartyScreenConfig.PathsToUpgrade[character.Character.StringId]);
+                        toUpgrade.Add(character, PartyScreenConfig.PathsToUpgrade[character.Character.StringId]);
                     }
                 }
                 
             }
 
-            foreach (var keyValuePair in dict)
+            int totalUpgrades = 0;
+
+            foreach (var keyValuePair in toUpgrade)
             {
-                Upgrade(keyValuePair.Key, keyValuePair.Value);
+                Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
             }
+
             _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm.InitializeUpgrades());
-            //InformationManager.DisplayMessage(new InformationMessage($"Upgraded {amountUpgrade} troops to the next level!"));
+            InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops to the next level!"));
         }
 
-        private void Upgrade(PartyCharacterVM character, int upgradeIndex)
+        private void Upgrade(PartyCharacterVM character, int upgradeIndex, ref int totalUpgrades)
         {
-            int num = ((upgradeIndex == 0) ? character.IsUpgrade1Available : character.IsUpgrade2Available) ? 1 : 0;
-            bool flag = (upgradeIndex == 0) ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
-            if (num == 0 || flag)
+            bool anyInsufficient = (upgradeIndex == 0) ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
+            if(!anyInsufficient)
             {
-                return;
-            }
-
-            if(character.Character.UpgradeTargets.Length > upgradeIndex)
-            {
-                ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType) upgradeIndex, character);
+                if (character.Character.UpgradeTargets.Length > upgradeIndex)
+                {
+                    ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType) upgradeIndex, character, ref totalUpgrades);
+                }
             }
         }
 
-        private void ExecuteUpgrade(PartyScreenLogic.PartyCommand.UpgradeTargetType upgradeTargetType, PartyCharacterVM character)
+        private void ExecuteUpgrade(PartyScreenLogic.PartyCommand.UpgradeTargetType upgradeTargetType, PartyCharacterVM character, ref int totalUpgrades)
         {
             character.InitializeUpgrades();
 
@@ -117,6 +117,7 @@ namespace PartyScreenEnhancements
                 int val = (upgradeTargetType == PartyScreenLogic.PartyCommand.UpgradeTargetType.UpgradeTarget1) ? character.NumOfTarget1UpgradesAvailable : character.NumOfTarget2UpgradesAvailable;
                 if(val > 0)
                 {
+                    totalUpgrades += val;
                     PartyScreenLogic.PartyCommand partyCommand = new PartyScreenLogic.PartyCommand();
                     partyCommand.FillForUpgradeTroop(character.Side, character.Type, character.Character, val,
                         upgradeTargetType);

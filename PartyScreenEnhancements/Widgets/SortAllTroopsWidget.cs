@@ -36,7 +36,7 @@ namespace PartyScreenEnhancements
                 this._mainPartyList = _partyVM.MainPartyTroops;
             }
 
-            this._partySorter = new TypeComparer();
+            this._partySorter = new TypeComparer(new TrueTierComparer(true), false);
             this.EventFire += EventHandler;
         }
 

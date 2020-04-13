@@ -1,6 +1,7 @@
 ﻿using HarmonyLib;
 using System;
 using System.Diagnostics;
+using PartyScreenEnhancements.Saving;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Localization;
@@ -15,6 +16,8 @@ namespace PartyScreenEnhancements
             base.OnSubModuleLoad();
             var harmony = new Harmony("top.hirtol.patch");
             harmony.PatchAll();
+
+            PartyScreenConfig.Initialize();
 
             UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }

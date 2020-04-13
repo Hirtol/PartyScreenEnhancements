@@ -33,11 +33,21 @@ namespace PartyScreenEnhancements.Patches
                 {
                     if(upgradeIndex < __instance.Character.UpgradeTargets.Length)
                     {
-                        if (PartyScreenConfig.PathsToUpgrade.ContainsKey(__instance.Character.StringId) && PartyScreenConfig.PathsToUpgrade[__instance.Character.StringId] == upgradeIndex)
+                        if (PartyScreenConfig.PathsToUpgrade.ContainsKey(__instance.Character.StringId))
                         {
-                            PartyScreenConfig.PathsToUpgrade.Remove(__instance.Character.StringId);
-                            InformationManager.DisplayMessage(new InformationMessage(
-                                $"Removed the set upgrade path for {__instance.Name}", Color.ConvertStringToColor("#a83123FF")));
+                            if(PartyScreenConfig.PathsToUpgrade[__instance.Character.StringId] == upgradeIndex)
+                            {
+                                PartyScreenConfig.PathsToUpgrade.Remove(__instance.Character.StringId);
+                                InformationManager.DisplayMessage(new InformationMessage(
+                                    $"Removed the set upgrade path for {__instance.Name}",
+                                    Color.ConvertStringToColor("#a83123FF")));
+                            }
+                            else
+                            {
+                                PartyScreenConfig.PathsToUpgrade[__instance.Character.StringId] = upgradeIndex;
+                                InformationManager.DisplayMessage(new InformationMessage(
+                                    $"Changed the upgrade target of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}", Color.ConvertStringToColor("#0bbd0bFF")));
+                            }
                         }
                         else
                         {
@@ -45,6 +55,7 @@ namespace PartyScreenEnhancements.Patches
                             InformationManager.DisplayMessage(new InformationMessage(
                                 $"Set the upgrade target of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}", Color.ConvertStringToColor("#0bbd0bFF")));
                         }
+                        PartyScreenConfig.Save();
                         return false;
                     }
                     else
