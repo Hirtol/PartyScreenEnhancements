@@ -21,7 +21,6 @@ namespace PartyScreenEnhancements
     {
         private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
         private readonly PartyScreenLogic _partyLogic;
-        private readonly PartySort _partySorter;
         private readonly PartyVM _partyVM;
 
         public SortAllTroopsWidget(UIContext context) : base(context)
@@ -33,7 +32,6 @@ namespace PartyScreenEnhancements
                 _mainPartyList = _partyVM.MainPartyTroops;
             }
 
-            _partySorter = new TypeComparer(new TrueTierComparer(null, true), false);
             EventFire += EventHandler;
         }
 

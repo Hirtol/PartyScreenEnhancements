@@ -6,6 +6,7 @@ namespace PartyScreenEnhancements.Comparers
 {
     [XmlInclude(typeof(TrueTierComparer))]
     [XmlInclude(typeof(TypeComparer))]
+    [XmlInclude(typeof(AlphabetComparer))]
     public abstract class PartySort : IComparer<CharacterObject>
     {
         [XmlElement("Descending")]

@@ -224,6 +224,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Comparers\AlphabetComparer.cs" />
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />

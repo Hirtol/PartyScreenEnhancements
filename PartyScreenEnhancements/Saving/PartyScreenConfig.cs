@@ -16,27 +16,47 @@ namespace PartyScreenEnhancements.Saving
     {
         internal static Dictionary<string, int> PathsToUpgrade =
             new Dictionary<string, int>();
-        internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(null, true), false);
+        internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
+
+        internal const double VERSION = 1.02;
 
         private static readonly string modDir = Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
         private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
         private static readonly string _sorterfile = modDir + "Sorter.xml";
+        // Used to reset Sorters to their initial state in case some changes were made.
+        private static bool _upgradedVersion = true;
 
         public static void Initialize()
         {
             Directory.CreateDirectory(modDir);
+            
+            if (!File.Exists(_filename))
+            {
+                Save();
+            }
+            else
+            {
+                Load();
+                if (_upgradedVersion)
+                {
+                    Save();
+                }
+            }
             if (!File.Exists(_sorterfile))
             {
                 SaveSorter();
             }
             else
             {
-                LoadSorter();
+                if(!_upgradedVersion)
+                {
+                    LoadSorter();
+                }
+                else
+                {
+                    SaveSorter();
+                }
             }
-            if (!File.Exists(_filename))
-                Save();
-            else
-                Load();
         }
 
         public static void SaveSorter()
@@ -70,7 +90,10 @@ namespace PartyScreenEnhancements.Saving
                 xmlDocument.AppendChild(modNode);
 
                 var sortingOptions = xmlDocument.CreateElement("Options");
+                var version = xmlDocument.CreateElement("Version");
+                version.InnerText = VERSION.ToString();
 
+                sortingOptions.AppendChild(version);
                 modNode.AppendChild(sortingOptions);
 
                 var el = new XElement("UpgradePaths",
@@ -117,11 +140,25 @@ namespace PartyScreenEnhancements.Saving
                         PathsToUpgrade = rootElement.Elements()
                             .ToDictionary(key => key.Name.LocalName, val => int.Parse(val.Value));
                     }
+
+                    if (xmlNode.Name == "Options")
+                    {
+                        XElement options = XElement.Parse(xmlNode.OuterXml);
+                        foreach (XElement element in options.Elements())
+                        {
+                            if (element.Name == "Version")
+                            {
+                                if(Double.Parse(element.Value) == VERSION)
+                                    _upgradedVersion = false;
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception e)
             {
                 Trace.WriteLine(e.ToString());
+                Save();
             }
         }
     }
