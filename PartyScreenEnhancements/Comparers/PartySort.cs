@@ -38,7 +38,7 @@ namespace PartyScreenEnhancements.Comparers
             {
                 return -1;
             }
-            else if (y.IsHero)
+            else if (y.IsPlayerCharacter)
             {
                 return 1;
             }
