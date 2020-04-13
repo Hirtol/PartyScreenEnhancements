@@ -34,8 +34,26 @@ namespace PartyScreenEnhancements.Comparers
 
         public int Compare(CharacterObject x, CharacterObject y)
         {
-            if (x.IsHero || y.IsHero)
+            if (x.IsPlayerCharacter)
+            {
+                return -1;
+            }
+            else if (y.IsHero)
+            {
                 return 1;
+            }
+            if (x.IsHero && !y.IsHero)
+            {
+                return -1;
+            } 
+            else if (y.IsHero && !x.IsHero)
+            {
+                return 1;
+            }
+            else if (x.IsHero && y.IsHero)
+            {
+                return 0;
+            }
             return localCompare(x, y);
         }
 

@@ -11,7 +11,7 @@ namespace PartyScreenEnhancements
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
-            var harmony = new Harmony("top.hirtol.patch");
+            var harmony = new Harmony("top.hirtol.patch.partyenhancements");
             harmony.PatchAll();
 
             PartyScreenConfig.Initialize();

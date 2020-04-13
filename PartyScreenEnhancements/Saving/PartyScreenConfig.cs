@@ -111,7 +111,6 @@ namespace PartyScreenEnhancements.Saving
                 foreach (object obj in xmlDocument.DocumentElement.ChildNodes)
                 {
                     var xmlNode = (XmlNode) obj;
-                    Trace.WriteLine("Node name " + xmlNode.Name);
                     if (xmlNode.Name == "UpgradePaths")
                     {
                         XElement rootElement = XElement.Parse(xmlNode.OuterXml);
