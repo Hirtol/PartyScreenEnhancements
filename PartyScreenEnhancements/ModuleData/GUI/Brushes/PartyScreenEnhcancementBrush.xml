@@ -37,4 +37,23 @@
 			</Style>
 		</Styles>
 	</Brush>
+	<Brush Name="Party.Enhancement.RecruitPrisoners">
+		<Layers>
+			<BrushLayer Name="Default" Sprite="PartyScreen\recruit_prisoner" />
+		</Layers>
+		<Styles>
+			<Style Name="Default">
+				<BrushLayer Name="Default" ColorFactor="1.0"/>
+			</Style>
+			<Style Name="Hovered">
+				<BrushLayer Name="Default" ColorFactor="1.2" />
+			</Style>
+			<Style Name="Pressed">
+				<BrushLayer Name="Default" ColorFactor="0.8" />
+			</Style>
+			<Style Name="Disabled">
+				<BrushLayer Name="Default" ColorFactor="0.6" />
+			</Style>
+		</Styles>
+	</Brush>
 </Brushes>

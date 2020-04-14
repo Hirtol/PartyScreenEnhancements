@@ -30,22 +30,16 @@ namespace PartyScreenEnhancements.ViewModel
 
         private void UpgradeAllTroopsPath()
         {
+            var totalUpgrades = 0;
             var toUpgrade = new Dictionary<PartyCharacterVM, int>();
 
             foreach (PartyCharacterVM character in _mainPartyList)
             {
-                if (character.IsUpgrade1Available && character.IsUpgrade2Available)
+                if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
                 {
-                    if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
+                    if (upgradePath != -1)
                     {
-                        if (upgradePath != -1)
-                        {
-                            toUpgrade.Add(character, upgradePath);
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        toUpgrade.Add(character, upgradePath);
                     }
                 }
                 else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
@@ -57,8 +51,6 @@ namespace PartyScreenEnhancements.ViewModel
                     toUpgrade.Add(character, 1);
                 }
             }
-
-            var totalUpgrades = 0;
 
             foreach (var keyValuePair in toUpgrade)
             {

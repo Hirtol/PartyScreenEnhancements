@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Engine;
 using Path = System.IO.Path;
@@ -16,6 +17,7 @@ namespace PartyScreenEnhancements.Saving
     {
         internal static Dictionary<string, int> PathsToUpgrade =
             new Dictionary<string, int>();
+        internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
         internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
 
         internal const double VERSION = 1.02;
@@ -96,12 +98,8 @@ namespace PartyScreenEnhancements.Saving
                 sortingOptions.AppendChild(version);
                 modNode.AppendChild(sortingOptions);
 
-                var el = new XElement("UpgradePaths",
-                    PathsToUpgrade.Select(kv => new XElement(kv.Key, kv.Value)));
-
-                var element = xmlDocument.ReadNode(el.CreateReader()) as XmlElement;
-
-                modNode.AppendChild(element);
+                addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
+                addDictionaryToXML(ref PrisonersToRecruit, ref xmlDocument, ref modNode, nameof(PrisonersToRecruit));
 
                 xmlDocument.Save(_filename);
             }
@@ -109,6 +107,16 @@ namespace PartyScreenEnhancements.Saving
             {
                 Trace.WriteLine(e.ToString());
             }
+        }
+
+        private static void addDictionaryToXML(ref Dictionary<string, int> dictionary, ref XmlDocument document, ref XmlElement parent, string name)
+        {
+            var el = new XElement(name,
+                dictionary.Select(kv => new XElement(kv.Key, kv.Value)));
+
+            var element = document.ReadNode(el.CreateReader()) as XmlElement;
+
+            parent.AppendChild(element);
         }
 
         //TODO: To come back to

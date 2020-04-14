@@ -23,8 +23,8 @@ namespace PartyScreenEnhancements.Patches
                 screenLayer = new GauntletLayer(100);
 
                 var traverser = Traverse.Create(partyScreen);
-                var partyVM = traverser.Field<PartyVM>("_dataSource").Value;
-                var partyState = traverser.Field<PartyState>("_partyState").Value;
+                PartyVM partyVM = traverser.Field<PartyVM>("_dataSource").Value;
+                PartyState partyState = traverser.Field<PartyState>("_partyState").Value;
 
                 var enhancementVM = new PartyEnhancementsVM(partyVM, partyState.PartyScreenLogic);
                 screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVM);

@@ -29,21 +29,6 @@
 		<Constant Name="TopBackground.Height" BrushLayer="Default" BrushName="Party.TopLeft.Background"
 		          BrushValueType="Height" />
 
-		<Constant Name="Party.QuestProgress.Background.Width" BrushLayer="Default" BrushName="Party.QuestProgress.Background"
-		          BrushValueType="Width" />
-		<Constant Name="Party.QuestProgress.Background.Height" BrushLayer="Default"
-		          BrushName="Party.QuestProgress.Background" BrushValueType="Height" />
-
-		<Constant Name="Party.QuestProgress.BarCanvas.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas"
-		          BrushValueType="Width" />
-		<Constant Name="Party.QuestProgress.BarCanvas.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas"
-		          BrushValueType="Height" />
-
-		<Constant Name="Party.QuestProgress.BarFrame.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame"
-		          BrushValueType="Width" />
-		<Constant Name="Party.QuestProgress.BarFrame.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame"
-		          BrushValueType="Height" />
-
 		<Constant Name="Party.Formation.MainButton.Width" BrushLayer="Default" BrushName="Party.Formation.MainButton"
 		          BrushValueType="Width" />
 		<Constant Name="Party.Formation.MainButton.Height" BrushLayer="Default" BrushName="Party.Formation.MainButton"
@@ -68,18 +53,6 @@
 
 		<Constant Name="PartyNameLabel.Height" Value="80" />
 		<Constant Name="PartyToggle.LabelContainer.Margin" Value="10" />
-
-		<Constant Name="Prisoners.MarginTop" Value="4" />
-
-		<Constant Name="FormationListPanel.MarginTop" Value="13" />
-		<Constant Name="FormationListPanel.Height" Value="522" />
-		<Constant Name="FormationClipRect.Height" Additive="!FormationListPanel.MarginTop" Value="!FormationListPanel.Height" />
-		<Constant Name="FormationListPanel.NegativeHeight" MultiplyResult="-1" Value="!FormationListPanel.Height" />
-
-		<Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator"
-		          BrushValueType="Width" />
-		<Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator"
-		          BrushValueType="Height" />
 	</Constants>
 	<Variables>
 	</Variables>
@@ -116,23 +89,36 @@
 	</VisualDefinitions>
 	<Window>
 		<Widget Id="EnhancementScreenTopBar" VisualDefinition="TopMenu" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-		        SuggestedWidth="300" SuggestedHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="40" DoNotAcceptEvents="true">
+		        SuggestedWidth="300" SuggestedHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="30" DoNotAcceptEvents="true">
 			<Children>
+
+				<RecruitAllPrisonersWidget DataSource="{RecruitAllPrisoners}" Id="RecruitAllPrisonersButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				                           HeightSizePolicy="Fixed" SuggestedWidth="50"
+				                           SuggestedHeight="50" HorizontalAlignment="Right"
+				                           VerticalAlignment="Top" MarginRight="10"
+				                           MarginTop="7" Brush="Party.Enhancement.RecruitPrisoners" Command.Click="RecruitAll">
+					<Children>
+						<HintWidget DataSource="{RecruitHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+					</Children>
+				</RecruitAllPrisonersWidget>
+
 				<SortAllTroopsWidget DataSource="{SortAllTroops}" Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
 				                     HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
 				                     SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
-				                     VerticalAlignment="Top" MarginRight="30"
-				                     MarginTop="0" Brush="Party.Enhancement.SortParty" Command.Click="SortTroops" >
+				                     VerticalAlignment="Top" MarginRight="60"
+				                     MarginTop="10" Brush="Party.Enhancement.SortParty" Command.Click="SortTroops" >
 					<Children>
 						<HintWidget DataSource="{SortHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
 					</Children>
 				</SortAllTroopsWidget>
+
 				<UpgradeAllTroopsWidget DataSource="{UpgradeAllTroops}" Id="UpgradeAllTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
 				                        HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
 				                        SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
-				                        VerticalAlignment="Top" MarginRight="80"
-				                        MarginTop="0" Brush="Party.Enhancement.UpgradeAll" Command.Click="UpgradeAllTroopsPath">
+				                        VerticalAlignment="Top" MarginRight="110"
+				                        MarginTop="10" Brush="Party.Enhancement.UpgradeAll" Command.Click="UpgradeAllTroopsPath">
 					<Children>
 						<HintWidget DataSource="{UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />

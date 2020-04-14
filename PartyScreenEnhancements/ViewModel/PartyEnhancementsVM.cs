@@ -24,6 +24,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyScreenLogic = partyScreenLogic;
             this._sortTroopsVM = new SortAllTroopsVM(partyVM, partyScreenLogic);
             this._upgradeTroopsVM = new UpgradeAllTroopsVM(partyScreenLogic, partyVM);
+            this._recruitPrisonerVm = new RecruitPrisonerVM(partyVM, partyScreenLogic);
         }
 
 
@@ -40,6 +41,23 @@ namespace PartyScreenEnhancements.ViewModel
                 {
                     this._upgradeTroopsVM = value;
                     base.OnPropertyChanged("UpgradeAllTroops");
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public RecruitPrisonerVM RecruitAllPrisoners
+        {
+            get
+            {
+                return _recruitPrisonerVm;
+            }
+            set
+            {
+                if (value != this._recruitPrisonerVm)
+                {
+                    this._recruitPrisonerVm = value;
+                    base.OnPropertyChanged("RecruitAllPrisoners");
                 }
             }
         }
@@ -83,6 +101,7 @@ namespace PartyScreenEnhancements.ViewModel
 
         private SortAllTroopsVM _sortTroopsVM;
         private UpgradeAllTroopsVM _upgradeTroopsVM;
-        
+        private RecruitPrisonerVM _recruitPrisonerVm;
+
     }
 }
