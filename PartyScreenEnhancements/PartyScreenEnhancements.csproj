@@ -228,9 +228,12 @@
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
+    <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="ReflectionHelper.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
+    <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
+    <Compile Include="ViewModel\SortAllTroopsVM.cs" />
     <Compile Include="Widgets\SortAllTroopsWidget.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -240,6 +243,7 @@
   <ItemGroup>
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreen.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

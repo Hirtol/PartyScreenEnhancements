@@ -29,23 +29,23 @@ namespace PartyScreenEnhancements
                 _mainPartyList = _partyVM.MainPartyTroops;
             }
 
-            EventFire += EventHandler;
+            //EventFire += EventHandler;
         }
 
-        private void EventHandler(Widget widget, string eventName, object[] args)
-        {
-            if (IsVisible)
-            {
-                if (eventName == "HoverBegin")
-                {
-                    InformationManager.AddHintInformation("Upgrade All Troops");
-                }
-                if (eventName == "HoverEnd")
-                {
-                    InformationManager.HideInformations();
-                }
-            }
-        }
+        // private void EventHandler(Widget widget, string eventName, object[] args)
+        // {
+        //     if (IsVisible)
+        //     {
+        //         if (eventName == "HoverBegin")
+        //         {
+        //             InformationManager.AddHintInformation("Upgrade All Troops");
+        //         }
+        //         if (eventName == "HoverEnd")
+        //         {
+        //             InformationManager.HideInformations();
+        //         }
+        //     }
+        // }
 
         protected override void OnClick()
         {
