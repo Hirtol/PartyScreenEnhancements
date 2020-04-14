@@ -149,6 +149,13 @@ namespace PartyScreenEnhancements.Saving
                             .ToDictionary(key => key.Name.LocalName, val => int.Parse(val.Value));
                     }
 
+                    if (xmlNode.Name == nameof(PrisonersToRecruit))
+                    {
+                        XElement rootElement = XElement.Parse(xmlNode.OuterXml);
+                        PrisonersToRecruit = rootElement.Elements()
+                            .ToDictionary(key => key.Name.LocalName, val => int.Parse(val.Value));
+                    }
+
                     if (xmlNode.Name == "Options")
                     {
                         XElement options = XElement.Parse(xmlNode.OuterXml);

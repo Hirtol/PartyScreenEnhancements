@@ -246,6 +246,8 @@
   <ItemGroup>
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
+    <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
+    <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
