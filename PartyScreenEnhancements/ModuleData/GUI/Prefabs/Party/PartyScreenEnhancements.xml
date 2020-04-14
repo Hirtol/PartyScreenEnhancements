@@ -8,7 +8,8 @@
 		<Constant Name="PartyToggle.Height" BrushLayer="Default" BrushName="Party.Toggle.Left" BrushValueType="Height" />
 		<Constant Name="PartyToggle.Shadow.Height" SpriteName="PartyScreen\button_collapser_shadow" SpriteValueType="Height" />
 
-		<Constant Name="PartyToggle.Pressed.Width" BrushLayer="PressedLayer" BrushName="Party.Toggle.Left" BrushValueType="Width" />
+		<Constant Name="PartyToggle.Pressed.Width" BrushLayer="PressedLayer" BrushName="Party.Toggle.Left"
+		          BrushValueType="Width" />
 
 		<Constant Name="ToggleLabel.Margin" Value="260" />
 
@@ -25,30 +26,45 @@
 		<Constant Name="Scrollbar.Margin" Value="2" />
 
 		<Constant Name="TopBackground.Width" BrushLayer="Default" BrushName="Party.TopLeft.Background" BrushValueType="Width" />
-		<Constant Name="TopBackground.Height" BrushLayer="Default" BrushName="Party.TopLeft.Background" BrushValueType="Height" />
+		<Constant Name="TopBackground.Height" BrushLayer="Default" BrushName="Party.TopLeft.Background"
+		          BrushValueType="Height" />
 
-		<Constant Name="Party.QuestProgress.Background.Width" BrushLayer="Default" BrushName="Party.QuestProgress.Background" BrushValueType="Width" />
-		<Constant Name="Party.QuestProgress.Background.Height" BrushLayer="Default" BrushName="Party.QuestProgress.Background" BrushValueType="Height" />
+		<Constant Name="Party.QuestProgress.Background.Width" BrushLayer="Default" BrushName="Party.QuestProgress.Background"
+		          BrushValueType="Width" />
+		<Constant Name="Party.QuestProgress.Background.Height" BrushLayer="Default"
+		          BrushName="Party.QuestProgress.Background" BrushValueType="Height" />
 
-		<Constant Name="Party.QuestProgress.BarCanvas.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Width" />
-		<Constant Name="Party.QuestProgress.BarCanvas.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Height" />
+		<Constant Name="Party.QuestProgress.BarCanvas.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas"
+		          BrushValueType="Width" />
+		<Constant Name="Party.QuestProgress.BarCanvas.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas"
+		          BrushValueType="Height" />
 
-		<Constant Name="Party.QuestProgress.BarFrame.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame" BrushValueType="Width" />
-		<Constant Name="Party.QuestProgress.BarFrame.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame" BrushValueType="Height" />
+		<Constant Name="Party.QuestProgress.BarFrame.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame"
+		          BrushValueType="Width" />
+		<Constant Name="Party.QuestProgress.BarFrame.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame"
+		          BrushValueType="Height" />
 
-		<Constant Name="Party.Formation.MainButton.Width" BrushLayer="Default" BrushName="Party.Formation.MainButton" BrushValueType="Width" />
-		<Constant Name="Party.Formation.MainButton.Height" BrushLayer="Default" BrushName="Party.Formation.MainButton" BrushValueType="Height" />
+		<Constant Name="Party.Formation.MainButton.Width" BrushLayer="Default" BrushName="Party.Formation.MainButton"
+		          BrushValueType="Width" />
+		<Constant Name="Party.Formation.MainButton.Height" BrushLayer="Default" BrushName="Party.Formation.MainButton"
+		          BrushValueType="Height" />
 
-		<Constant Name="Party.Formation.Item.Width" BrushLayer="Default" BrushName="Party.Formation.Item" BrushValueType="Width" />
-		<Constant Name="Party.Formation.Item.Height" BrushLayer="Default" BrushName="Party.Formation.Item" BrushValueType="Height" />
+		<Constant Name="Party.Formation.Item.Width" BrushLayer="Default" BrushName="Party.Formation.Item"
+		          BrushValueType="Width" />
+		<Constant Name="Party.Formation.Item.Height" BrushLayer="Default" BrushName="Party.Formation.Item"
+		          BrushValueType="Height" />
 
-		<Constant Name="Party.Formation.Seperator.Width" BrushLayer="Default" BrushName="Party.Formation.Seperator" BrushValueType="Width" />
-		<Constant Name="Party.Formation.Seperator.Height" BrushLayer="Default" BrushName="Party.Formation.Seperator" BrushValueType="Height" />
+		<Constant Name="Party.Formation.Seperator.Width" BrushLayer="Default" BrushName="Party.Formation.Seperator"
+		          BrushValueType="Width" />
+		<Constant Name="Party.Formation.Seperator.Height" BrushLayer="Default" BrushName="Party.Formation.Seperator"
+		          BrushValueType="Height" />
 
 		<Constant Name="TransferAllButton.Margin" Value="5" />
 
-		<Constant Name="TransferAllButton.Width" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1" BrushValueType="Width" />
-		<Constant Name="TransferAllButton.Height" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1" BrushValueType="Height" />
+		<Constant Name="TransferAllButton.Width" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1"
+		          BrushValueType="Width" />
+		<Constant Name="TransferAllButton.Height" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1"
+		          BrushValueType="Height" />
 
 		<Constant Name="PartyNameLabel.Height" Value="80" />
 		<Constant Name="PartyToggle.LabelContainer.Margin" Value="10" />
@@ -60,8 +76,10 @@
 		<Constant Name="FormationClipRect.Height" Additive="!FormationListPanel.MarginTop" Value="!FormationListPanel.Height" />
 		<Constant Name="FormationListPanel.NegativeHeight" MultiplyResult="-1" Value="!FormationListPanel.Height" />
 
-		<Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Width" />
-		<Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Height" />
+		<Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator"
+		          BrushValueType="Width" />
+		<Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator"
+		          BrushValueType="Height" />
 	</Constants>
 	<Variables>
 	</Variables>
@@ -97,20 +115,30 @@
 
 	</VisualDefinitions>
 	<Window>
-		<UpgradeAllTroopsWidget Id="UpgradeAllTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-		                        HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
-		                        SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
-		                        VerticalAlignment="Top" MarginLeft="!TransferAllButton.Margin" MarginRight="80"
-		                        MarginTop="30" Brush="Party.Enhancement.UpgradeAll" >
+		<Widget Id="EnhancementScreenTopBar" VisualDefinition="TopMenu" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+		        SuggestedWidth="300" SuggestedHeight="50" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="40" DoNotAcceptEvents="true">
 			<Children>
-				<HintWidget DataSource="{UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+				<SortAllTroopsWidget DataSource="{SortAllTroops}" Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				                     HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
+				                     SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
+				                     VerticalAlignment="Top" MarginRight="30"
+				                     MarginTop="0" Brush="Party.Enhancement.SortParty" Command.Click="SortTroops" >
+					<Children>
+						<HintWidget DataSource="{SortHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+					</Children>
+				</SortAllTroopsWidget>
+				<UpgradeAllTroopsWidget DataSource="{UpgradeAllTroops}" Id="UpgradeAllTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				                        HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
+				                        SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
+				                        VerticalAlignment="Top" MarginRight="80"
+				                        MarginTop="0" Brush="Party.Enhancement.UpgradeAll" Command.Click="UpgradeAllTroopsPath">
+					<Children>
+						<HintWidget DataSource="{UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+					</Children>
+				</UpgradeAllTroopsWidget>
 			</Children>
-		</UpgradeAllTroopsWidget>
-
-		<SortAllTroopsWidget Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-		                     HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
-		                     SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
-		                     VerticalAlignment="Top" MarginLeft="!TransferAllButton.Margin" MarginRight="50"
-		                     MarginTop="30" Brush="Party.Enhancement.SortParty" />
+		</Widget>
 	</Window>
 </Prefab>

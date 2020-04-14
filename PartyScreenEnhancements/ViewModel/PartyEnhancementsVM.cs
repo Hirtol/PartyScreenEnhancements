@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PartyScreenEnhancements.ViewManagers;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;
@@ -21,29 +22,67 @@ namespace PartyScreenEnhancements.ViewModel
         {
             this._partyVM = partyVM;
             this._partyScreenLogic = partyScreenLogic;
-            _upgradeHint = new HintViewModel("Upgrade All Troops");
+            this._sortTroopsVM = new SortAllTroopsVM(partyVM, partyScreenLogic);
+            this._upgradeTroopsVM = new UpgradeAllTroopsVM(partyScreenLogic, partyVM);
         }
 
 
         [DataSourceProperty]
-        public HintViewModel UpgradeHint
+        public UpgradeAllTroopsVM UpgradeAllTroops
         {
             get
             {
-                return _upgradeHint;
+                return _upgradeTroopsVM;
             }
             set
             {
-                if (value != this._upgradeHint)
+                if (value != this._upgradeTroopsVM)
                 {
-                    this._upgradeHint = value;
-                    base.OnPropertyChanged("UpgradeHint");
+                    this._upgradeTroopsVM = value;
+                    base.OnPropertyChanged("UpgradeAllTroops");
                 }
             }
         }
 
+        [DataSourceProperty]
+        public SortAllTroopsVM SortAllTroops
+        {
+            get
+            {
+                return _sortTroopsVM;
+            }
+            set
+            {
+                if (value != this._sortTroopsVM)
+                {
+                    this._sortTroopsVM = value;
+                    base.OnPropertyChanged("SortAllTroops");
+                }
+            }
+        }
 
-        private HintViewModel _upgradeHint;
+        [DataSourceProperty]
+        public PartyVM EnhancementPartyVM
+        {
+            get
+            {
+                return this._partyVM;
+            }
+        }
 
+        [DataSourceProperty]
+        public PartyScreenLogic EnhancementPartyLogic
+        {
+            get
+            {
+                return this._partyScreenLogic;
+            }
+        }
+
+
+
+        private SortAllTroopsVM _sortTroopsVM;
+        private UpgradeAllTroopsVM _upgradeTroopsVM;
+        
     }
 }

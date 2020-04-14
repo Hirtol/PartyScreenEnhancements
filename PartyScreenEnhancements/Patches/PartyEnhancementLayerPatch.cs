@@ -20,7 +20,7 @@ namespace PartyScreenEnhancements.Patches
         {
             if(__instance is GauntletPartyScreen partyScreen && screenLayer == null)
             {
-                screenLayer = new GauntletLayer(1);
+                screenLayer = new GauntletLayer(100);
 
                 var traverser = Traverse.Create(partyScreen);
                 var partyVM = traverser.Field<PartyVM>("_dataSource").Value;
@@ -38,10 +38,9 @@ namespace PartyScreenEnhancements.Patches
         {
             if (__instance is GauntletPartyScreen partyScreen && screenLayer != null)
             {
-                screenLayer.InputRestrictions.ResetInputRestrictions();
-                partyScreen.RemoveLayer(screenLayer);
-                ScreenManager.TryLoseFocus(screenLayer);
+                var removingLayer = screenLayer;
                 screenLayer = null;
+                __instance.RemoveLayer(removingLayer);
             }
         }
     }

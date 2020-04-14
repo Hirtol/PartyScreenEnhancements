@@ -10,20 +10,18 @@ namespace PartyScreenEnhancements
     {
         protected override void OnSubModuleLoad()
         {
-            Harmony.DEBUG = true;
             base.OnSubModuleLoad();
             var harmony = new Harmony("top.hirtol.patch.partyenhancements");
             harmony.PatchAll();
             
             PartyScreenConfig.Initialize();
-            PartyScreenConfig.Save();
 
-            UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
+            //UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }
 
         protected override void OnApplicationTick(float dt)
         {
-            UIResourceManager.UIResourceDepot.CheckForChanges();
+            //UIResourceManager.UIResourceDepot.CheckForChanges();
         }
 
         protected override void OnSubModuleUnloaded()
