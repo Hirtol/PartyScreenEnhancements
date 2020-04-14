@@ -15,8 +15,7 @@ namespace PartyScreenEnhancements.Saving
 {
     public static class PartyScreenConfig
     {
-        internal static Dictionary<string, int> PathsToUpgrade =
-            new Dictionary<string, int>();
+        internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
         internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
 

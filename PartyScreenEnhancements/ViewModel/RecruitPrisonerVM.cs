@@ -31,8 +31,11 @@ namespace PartyScreenEnhancements.ViewModel
         public void RecruitAll()
         {
             int amountUpgraded = 0;
+            // Aah, concurrent modification exception, my old friend. Would be nice if the game gave a proper crash log >.>
+            PartyCharacterVM[] enumerator = new PartyCharacterVM[_mainPartyPrisoners.Count];
+            _mainPartyPrisoners.CopyTo(enumerator, 0);
 
-            foreach (PartyCharacterVM prisoner in _mainPartyPrisoners)
+            foreach (PartyCharacterVM prisoner in enumerator)
             {
                 int remainingPartySize = _partyLogic.RightOwnerParty.PartySizeLimit - _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].TotalManCount;
                 if(remainingPartySize > 0)
@@ -75,7 +78,7 @@ namespace PartyScreenEnhancements.ViewModel
 
                     this._partyLogic.AddCommand(partyCommand);
 
-                    Campaign.Current.GetCampaignBehavior<IRecruitPrisonersCampaignBehavior>().SetRecruitableNumber(character.Character, numberOfRecruitables - number);
+                    Campaign.Current.GetCampaignBehavior<IRecruitPrisonersCampaignBehavior>()?.SetRecruitableNumber(character.Character, numberOfRecruitables - number);
                     amount += number;
                     character.UpdateRecruitable();
                 }

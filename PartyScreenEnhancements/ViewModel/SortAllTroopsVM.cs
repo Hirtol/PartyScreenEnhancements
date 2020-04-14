@@ -9,7 +9,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
-namespace PartyScreenEnhancements.ViewManagers
+namespace PartyScreenEnhancements.ViewModel
 {
     public class SortAllTroopsVM : TaleWorlds.Library.ViewModel
     {
