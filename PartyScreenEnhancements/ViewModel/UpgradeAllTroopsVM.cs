@@ -38,9 +38,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
                 {
                     if (upgradePath != -1)
-                    {
                         toUpgrade.Add(character, upgradePath);
-                    }
                 }
                 else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
                 {
@@ -58,6 +56,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
 
             _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm.InitializeUpgrades());
+
             InformationManager.DisplayMessage(
                 new InformationMessage($"Upgraded {totalUpgrades} troops!"));
         }

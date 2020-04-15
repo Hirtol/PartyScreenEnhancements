@@ -24,8 +24,6 @@ namespace PartyScreenEnhancements.ViewModel
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._sortHint = new HintViewModel("Sort Troops");
         }
-
-
         public void SortTroops()
         {
             var sortedList = new List<TroopRosterElement>();
@@ -44,9 +42,6 @@ namespace PartyScreenEnhancements.ViewModel
                 _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
                     rosterElement.Character, rosterElement.Number, false, rosterElement.WoundedNumber,
                     rosterElement.Xp);
-
-            // Other option, no need to reset 
-            //_partyVM.Call("InitializeTroopLists");
 
             // Update the current View, not necessary for the state to be preserved.
             _mainPartyList.Sort(new VMComparer(PartyScreenConfig.Sorter));
@@ -93,7 +88,7 @@ namespace PartyScreenEnhancements.ViewModel
         {
             _trueComparer = trueComparer;
         }
-
+        
         public int Compare(TroopRosterElement x, TroopRosterElement y)
         {
             return _trueComparer.Compare(x.Character, y.Character);

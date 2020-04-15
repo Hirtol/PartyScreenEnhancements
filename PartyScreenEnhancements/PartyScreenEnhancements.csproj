@@ -225,6 +225,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Comparers\AlphabetComparer.cs" />
+    <Compile Include="Comparers\BasicTypeComparer.cs" />
+    <Compile Include="Comparers\LevelComparer.cs" />
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
