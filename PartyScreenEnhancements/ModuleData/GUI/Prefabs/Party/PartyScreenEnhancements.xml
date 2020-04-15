@@ -124,6 +124,12 @@
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
 					</Children>
 				</UpgradeAllTroopsWidget>
+
+				<ButtonWidget Id="OpenSettings" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				              HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
+				              SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
+				              VerticalAlignment="Top" MarginRight="160"
+				              MarginTop="10" Brush="Party.Enhancement.UpgradeAll" Command.Click="OpenSettingView"/>
 			</Children>
 		</Widget>
 	</Window>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using TaleWorlds.CampaignSystem;
 
@@ -34,6 +35,10 @@ namespace PartyScreenEnhancements.Comparers
         {
 
         }
+
+        public abstract string GetHintText();
+
+        public abstract string GetName();
 
         public int Compare(CharacterObject x, CharacterObject y)
         {

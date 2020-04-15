@@ -230,15 +230,21 @@
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
+    <Content Include="ModuleData\GUI\Prefabs\Party\PartyEnhancementSettings.xml" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
+    <Compile Include="SettingsData.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
+    <Compile Include="ViewModel\Settings\SettingScreenVM.cs" />
+    <Compile Include="ViewModel\Settings\SettingSide.cs" />
     <Compile Include="ViewModel\SortAllTroopsVM.cs" />
+    <Compile Include="ViewModel\Settings\SettingSortVM.cs" />
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
     <Compile Include="Widgets\RecruitAllPrisonersWidget.cs" />
+    <Compile Include="Widgets\SettingSortWidget.cs" />
     <Compile Include="Widgets\SortAllTroopsWidget.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -249,6 +255,8 @@
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
     <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\backup.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSort.xml" />
     <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>

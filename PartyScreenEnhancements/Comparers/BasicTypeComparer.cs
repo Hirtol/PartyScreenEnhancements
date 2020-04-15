@@ -9,12 +9,22 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class BasicTypeComparer : PartySort
     {
-        public BasicTypeComparer(bool descending, PartySort equalSorter) : base(@descending, equalSorter)
+        public BasicTypeComparer(PartySort equalSorter, bool descending) : base(descending, equalSorter)
         {
         }
 
         public BasicTypeComparer()
         {
+        }
+
+        public override string GetHintText()
+        {
+            return "Compares units based on their unit type (Infantry, Archers, Mounted).\nFormation Type Order does something similar so for more control use that.\nAscending order Cavalry -> Archers -> Infantry.\nDescending order is Infantry -> Archers -> Cavalry";
+        }
+
+        public override string GetName()
+        {
+            return "Unit Type Comparer";
         }
 
         protected override int localCompare(CharacterObject x, CharacterObject y)

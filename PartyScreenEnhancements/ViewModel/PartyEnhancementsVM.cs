@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PartyScreenEnhancements.ViewModel.Settings;
+using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Engine.GauntletUI;
+using TaleWorlds.Engine.Screens;
+using TaleWorlds.GauntletUI.Data;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel
@@ -17,15 +23,47 @@ namespace PartyScreenEnhancements.ViewModel
         protected readonly PartyScreenLogic _partyScreenLogic;
         
 
-        public PartyEnhancementsVM(PartyVM partyVM, PartyScreenLogic partyScreenLogic)
+        private GauntletLayer _settingLayer;
+        private GauntletPartyScreen _parentScreen;
+        private GauntletMovie _currentMovie;
+        
+
+        public PartyEnhancementsVM(PartyVM partyVM, PartyScreenLogic partyScreenLogic, GauntletPartyScreen parentScreen)
         {
             this._partyVM = partyVM;
             this._partyScreenLogic = partyScreenLogic;
             this._sortTroopsVM = new SortAllTroopsVM(partyVM, partyScreenLogic);
             this._upgradeTroopsVM = new UpgradeAllTroopsVM(partyScreenLogic, partyVM);
             this._recruitPrisonerVm = new RecruitPrisonerVM(partyVM, partyScreenLogic);
+            this._parentScreen = parentScreen;
         }
 
+        public void OpenSettingView()
+        {
+            if (_settingLayer == null)
+            {
+                _settingLayer = new GauntletLayer(200);
+                _settingScreenVm = new SettingScreenVM(this);
+                _currentMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
+                _settingLayer.IsFocusLayer = true;
+                ScreenManager.TrySetFocus(_settingLayer);
+                this._settingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
+                _parentScreen.AddLayer(_settingLayer);
+                this._settingLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
+            }
+        }
+
+        public void CloseSettingView()
+        {
+            if (_settingLayer != null)
+            {
+                _settingLayer.ReleaseMovie(_currentMovie);
+                _parentScreen.RemoveLayer(_settingLayer);
+                _settingLayer.InputRestrictions.ResetInputRestrictions();
+                _settingLayer = null;
+                _settingScreenVm = null;
+            }
+        }
 
         [DataSourceProperty]
         public UpgradeAllTroopsVM UpgradeAllTroops
@@ -101,6 +139,7 @@ namespace PartyScreenEnhancements.ViewModel
         private SortAllTroopsVM _sortTroopsVM;
         private UpgradeAllTroopsVM _upgradeTroopsVM;
         private RecruitPrisonerVM _recruitPrisonerVm;
+        protected SettingScreenVM _settingScreenVm;
 
     }
 }

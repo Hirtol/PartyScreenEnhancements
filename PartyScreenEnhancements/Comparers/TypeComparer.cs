@@ -14,6 +14,17 @@ namespace PartyScreenEnhancements.Comparers
 
         }
 
+        public override string GetHintText()
+        {
+            return
+                "Compares units based on their Formation Class.\nAscending order is low to high.\nDescending order is high to low.";
+        }
+
+        public override string GetName()
+        {
+            return "Formation Type Comparer";
+        }
+
         protected override int localCompare(CharacterObject x, CharacterObject y)
         {
             if (Descending

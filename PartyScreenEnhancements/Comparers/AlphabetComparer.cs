@@ -18,6 +18,16 @@ namespace PartyScreenEnhancements.Comparers
 
         }
 
+        public override string GetHintText()
+        {
+            return "Compares units based on their names.\nThis Comparer is advised as your last one in the list to resolve any remaining conflicts.\nAscending order is A->Z.\nDescending order is Z->A";
+        }
+
+        public override string GetName()
+        {
+            return "Name Comparer";
+        }
+
         protected override int localCompare(CharacterObject x, CharacterObject y)
         {
             int result;
