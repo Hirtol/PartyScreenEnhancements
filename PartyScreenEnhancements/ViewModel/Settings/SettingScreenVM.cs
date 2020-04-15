@@ -32,6 +32,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public void OnFinalize()
         {
+            SaveSettingList();
+
             _partyEnhancementsVm = null;
             _possibleSettingList = null;
             _settingList = null;
@@ -39,7 +41,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public void TransferSorter(SettingSortVM sorter, SettingSide side)
         {
-            InformationManager.DisplayMessage(new InformationMessage($"Transfer from character: {sorter.Name} - {side}"));
+            ExecuteTransfer(sorter, -1, side.GetOtherSide());
+            InformationManager.DisplayMessage(new InformationMessage($"Transfer from character: {sorter.Name} - {side.GetOtherSide()}"));
         }
 
         public void ExecuteCloseSettings()
@@ -50,13 +53,114 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public void ExecuteListTransfer(SettingSortVM sorter, int index, string targetTag)
         {
+            if (targetTag == "SettingList")
+            {
+                if(sorter.Side != SettingSide.RIGHT)
+                    ExecuteTransfer(sorter, index, SettingSide.RIGHT);
+                else
+                {
+
+                    _settingList.Remove(sorter);
+                    if (index > _settingList.Count)
+                    {
+                        _settingList.Add(sorter);
+                    }
+                    else
+                    {
+                        _settingList.Insert(index, sorter);
+                    }
+                }
+            }
+            else if (targetTag == "PossibleSettingList")
+            {
+                if(sorter.Side != SettingSide.LEFT)
+                    ExecuteTransfer(sorter, index, SettingSide.LEFT);
+                else
+                {
+                    _possibleSettingList.Remove(sorter);
+                    if (index > _possibleSettingList.Count)
+                    {
+                        _possibleSettingList.Add(sorter);
+                    }
+                    else
+                    {
+                        _possibleSettingList.Insert(index, sorter);
+                    }
+                }
+            }
             InformationManager.DisplayMessage(new InformationMessage($"Transfer from list: {sorter.Name} - {index} - {targetTag}"));
+        }
+
+        private void ExecuteTransfer(SettingSortVM sorter, int index, SettingSide sideToMoveTo)
+        {
+            if (sideToMoveTo == SettingSide.LEFT)
+            {
+                sorter.UpdateValues(sideToMoveTo);
+                _possibleSettingList.Insert(index != -1 ? index : _possibleSettingList.Count, sorter);
+                _settingList.Remove(sorter);
+            }
+            else if (sideToMoveTo == SettingSide.RIGHT)
+            {
+                sorter.UpdateValues(sideToMoveTo);
+                _settingList.Insert(index != -1 ? index : _settingList.Count, sorter);
+                _possibleSettingList.Remove(sorter);
+            }
+        }
+
+        public void SaveSettingList()
+        {
+            if(_settingList.Count > 0)
+            {
+                PartyScreenConfig.Sorter = GetFullPartySorter(0);
+            }
+            else
+            {
+                PartyScreenConfig.Sorter = new AlphabetComparer(null, false);
+            }
+            PartyScreenConfig.SaveSorter();
+        }
+
+        private PartySort GetFullPartySorter(int n)
+        {
+            // PartySort result = null;
+            // for (int i = _settingList.Count-1; i != 0; i--)
+            // {
+            //     if (result == null)
+            //     {
+            //         result = _settingList[i].SortingComparer;
+            //         continue;
+            //     }
+            //
+            //     result = (_settingList[i].SortingComparer = result);
+            // }
+            //
+            // return result;
+            if (n == _settingList.Count-1)
+            {
+                return _settingList[n].SortingComparer;
+            }
+            
+            var toReturn = _settingList[n].SortingComparer;
+            toReturn.EqualSorter = GetFullPartySorter(n + 1);
+            return toReturn;
         }
 
         private void InitialiseSettingLists()
         {
             InitialisePossibleSettingList();
             InitialiseSettingList();
+
+            foreach (SettingSortVM settingSortVm in _settingList)
+            {
+                for (int i = 0; i < _possibleSettingList.Count; i++)
+                {
+                    if (_possibleSettingList[i].SortingComparer.GetType() == settingSortVm.SortingComparer.GetType())
+                    {
+                        _possibleSettingList.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
         }
 
         //TODO: Consider using reflection here instead of manual declaration

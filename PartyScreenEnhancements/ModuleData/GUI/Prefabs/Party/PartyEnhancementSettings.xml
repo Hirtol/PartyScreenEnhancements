@@ -36,7 +36,7 @@
 								<Widget Id="EnhancementSettingsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
 									<Children>
 										<ListPanel Id="List" DataSource="{PossibleSettingList}" WidthSizePolicy="StretchToParent"
-												   HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
+												   HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Top"
 												   AcceptDrop="true" Command.Drop="..\ExecuteListTransfer" CommandParameter.Drop="PossibleSettingList"
 												   LayoutImp.LayoutMethod="VerticalBottomToTop" MarginTop="100">
 											<ItemTemplate>
@@ -67,7 +67,7 @@
 								<Widget Id="EnhancementSettingsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
 									<Children>
 										<ListPanel Id="List" DataSource="{SettingList}" WidthSizePolicy="StretchToParent"
-												   HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
+												   HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Top"
 												   AcceptDrop="true" Command.Drop="..\ExecuteListTransfer" CommandParameter.Drop="SettingList"
 												   LayoutImp.LayoutMethod="VerticalBottomToTop" MarginTop="100">
 											<ItemTemplate>

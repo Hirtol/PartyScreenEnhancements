@@ -23,13 +23,7 @@ namespace PartyScreenEnhancements.Widgets
             this._main.SetState(state);
         }
 
-		protected override void OnDisconnectedFromRoot()
-		{
-			base.OnDisconnectedFromRoot();
-			InformationManager.DisplayMessage(new InformationMessage("Disconnected from root"));
-        }
-
-		protected override void RefreshState()
+        protected override void RefreshState()
 		{
 			base.RefreshState();
             if (base.IsDisabled)
@@ -55,32 +49,10 @@ namespace PartyScreenEnhancements.Widgets
 			this.SetWidgetsState("Default");
 		}
 
-		private void AssignScreenWidget()
-		{
-			Widget widget = this;
-			while (widget != base.EventManager.Root && this._screenWidget == null)
-			{
-				PartyScreenWidget screenWidget;
-				if ((screenWidget = (widget as PartyScreenWidget)) != null)
-				{
-					this._screenWidget = screenWidget;
-				}
-				else
-				{
-					widget = widget.ParentWidget;
-				}
-			}
-		}
-
-		protected override void OnMouseReleased()
+        protected override void OnMouseReleased()
 		{
 			base.OnMouseReleased();
-			PartyScreenWidget screenWidget = this.ScreenWidget;
-			if (screenWidget == null)
-			{
-				return;
-			}
-			//screenWidget.SetCurrentTuple(this, this.IsTupleLeftSide);
+            //screenWidget.SetCurrentTuple(this, this.IsTupleLeftSide);
 		}
 
 		public void ResetIsSelected()
@@ -93,18 +65,6 @@ namespace PartyScreenEnhancements.Widgets
 			if (arg2 == "ValueInt")
 			{
 				base.AcceptDrag = ((int)arg3 > 0);
-			}
-		}
-
-		public PartyScreenWidget ScreenWidget
-		{
-			get
-			{
-				if (this._screenWidget == null)
-				{
-					this.AssignScreenWidget();
-				}
-				return this._screenWidget;
 			}
 		}
 
@@ -126,6 +86,5 @@ namespace PartyScreenEnhancements.Widgets
         }
 
         private Widget _main;
-        private PartyScreenWidget _screenWidget;
-	}
+    }
 }

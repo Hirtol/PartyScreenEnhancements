@@ -41,9 +41,17 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             this._transferCallBack(this, this._side);
         }
 
+        public void UpdateValues(SettingSide newSide)
+        {
+            this.Side = newSide;
+        }
 
         [DataSourceProperty]
-        public PartySort SortingComparer { get; }
+        public PartySort SortingComparer
+        {
+            get;
+            set;
+        }
 
         [DataSourceProperty]
         public string Name => SortingComparer.GetName();
@@ -100,6 +108,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 {
                     this._side = value;
                     base.OnPropertyChanged(nameof(Side));
+                    this.TransferHint = new HintViewModel($"Click to transfer to the {Side.GetOtherSide().ToString().ToLower()} side!");
                 }
             }
         }
