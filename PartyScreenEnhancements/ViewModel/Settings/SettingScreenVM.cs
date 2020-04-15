@@ -44,8 +44,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public void ExecuteCloseSettings()
         {
-            this.OnFinalize();
             _partyEnhancementsVm.CloseSettingView();
+            this.OnFinalize();
         }
 
         public void ExecuteListTransfer(SettingSortVM sorter, int index, string targetTag)

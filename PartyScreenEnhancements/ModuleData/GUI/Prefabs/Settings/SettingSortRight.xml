@@ -72,24 +72,18 @@
 		</VisualDefinition>
 	</VisualDefinitions>
 	<Window>
-		<SettingSortWidget Id="SettingSort" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" Command.Click="ExecuteSetSelected" DragWidget="DragWidget" IsTransferable="@IsTransferable" Main="Main">
+		<SettingSortWidget Id="SettingSort" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" Command.Click="ExecuteSetSelected" DragWidget="DragWidget" IsTransferable="@IsTransferable" Main="MainBar">
 			<Children>
-				<Widget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Left">
+				<Widget Id="MainBar" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.TroopTupple.Right">
 					<Children>
-						<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Button.TransferAll.Width" SuggestedHeight="!Button.TransferAll.Height" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="ButtonLeftArrowBrush1" Command.Click="TransferSides" IsVisible="@IsTransferable">
+						<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Button.TransferAll.Width" SuggestedHeight="!Button.TransferAll.Height" HorizontalAlignment="Left" VerticalAlignment="Center" Brush="ButtonRightArrowBrush1" Command.Click="TransferSides" IsVisible="@IsTransferable">
 							<Children>
 								<HintWidget DataSource="{TransferHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
 							</Children>
 						</ButtonWidget>
 
-						<RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="!NameLeft" MarginTop="10" MarginBottom="10" Brush="Party.Text.Tuple" Brush.TextHorizontalAlignment="Left" IsDisabled="true" Text="@Name"  />
-
-						<RichTextWidget  WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="20" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="50" MarginTop="10" MarginBottom="10" Brush="Party.Text.Tuple" Brush.TextHorizontalAlignment="Left" IsDisabled="false" Sprite="Icons\icon_quest_available">
-							<Children>
-								<HintWidget DataSource="{SettingHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-							</Children>
-						</RichTextWidget>
-
+						<TextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="!NameLeft" MarginTop="10" MarginBottom="10" Brush="Party.Text.Tuple" Brush.TextHorizontalAlignment="Left" IsDisabled="true" Text="@Name" />
+						<HintWidget DataSource="{SettingHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
 					</Children>
 				</Widget>
 

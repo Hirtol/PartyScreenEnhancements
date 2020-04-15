@@ -257,6 +257,7 @@
     <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\backup.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSort.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSortRight.xml" />
     <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>

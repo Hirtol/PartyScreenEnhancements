@@ -129,7 +129,7 @@
 				              HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width"
 				              SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right"
 				              VerticalAlignment="Top" MarginRight="160"
-				              MarginTop="10" Brush="Party.Enhancement.UpgradeAll" Command.Click="OpenSettingView"/>
+				              MarginTop="10" Brush="Party.Enhancement.Settings" Command.Click="OpenSettingView"/>
 			</Children>
 		</Widget>
 	</Window>
