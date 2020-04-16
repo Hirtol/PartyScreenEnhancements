@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -27,11 +28,11 @@ namespace PartyScreenEnhancements.Comparers
             return "Level Comparer";
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
-            if (Descending ? x.Level > y.Level : y.Level > x.Level) return -1;
+            if (Descending ? x.Character.Level > y.Character.Level : y.Character.Level > x.Character.Level) return -1;
 
-            if (x.Level == y.Level) return EqualSorter?.Compare(x, y) ?? 0;
+            if (x.Character.Level == y.Character.Level) return EqualSorter?.Compare(x, y) ?? 0;
 
             return 1;
         }

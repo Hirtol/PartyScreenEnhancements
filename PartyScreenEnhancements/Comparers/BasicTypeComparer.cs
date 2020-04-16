@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -27,17 +28,17 @@ namespace PartyScreenEnhancements.Comparers
             return "Unit Type Comparer";
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
-            if (Descending ? x.IsMounted && !y.IsMounted : x.IsInfantry && !y.IsInfantry) return -1;
+            if (Descending ? x.Character.IsMounted && !y.Character.IsMounted : x.Character.IsInfantry && !y.Character.IsInfantry) return -1;
 
-            if ((x.IsInfantry && y.IsInfantry) || (x.IsMounted && y.IsMounted) || (x.IsArcher && y.IsArcher)) return EqualSorter?.Compare(x, y) ?? 0;
+            if ((x.Character.IsInfantry && y.Character.IsInfantry) || (x.Character.IsMounted && y.Character.IsMounted) || (x.Character.IsArcher && y.Character.IsArcher)) return EqualSorter?.Compare(x, y) ?? 0;
 
-            if (Descending ? x.IsArcher && y.IsInfantry : x.IsArcher && y.IsMounted) return -1;
+            if (Descending ? x.Character.IsArcher && y.Character.IsInfantry : x.Character.IsArcher && y.Character.IsMounted) return -1;
 
-            if (Descending ? x.IsArcher && !y.IsMounted : x.IsArcher && !y.IsInfantry) return 1;
+            if (Descending ? x.Character.IsArcher && y.Character.IsMounted : x.Character.IsArcher && y.Character.IsInfantry) return 1;
 
-            if (Descending ? x.IsInfantry && !y.IsInfantry : x.IsMounted && !y.IsMounted) return 1;
+            if (Descending ? x.Character.IsInfantry && !y.Character.IsInfantry : x.Character.IsMounted && !y.Character.IsMounted) return 1;
 
             return -1;
         }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -29,13 +30,13 @@ namespace PartyScreenEnhancements.Comparers
             return "Culture Comparer";
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             int result;
             if (Descending)
-                result = _nameComparer.Compare(y.Culture.Name.ToString(), x.Culture.Name.ToString());
+                result = _nameComparer.Compare(y.Character.Culture.Name.ToString(), x.Character.Culture.Name.ToString());
             else
-                result = _nameComparer.Compare(x.Culture.Name.ToString(), y.Culture.Name.ToString());
+                result = _nameComparer.Compare(x.Character.Culture.Name.ToString(), y.Character.Culture.Name.ToString());
 
             if (result == 0)
             {

@@ -233,11 +233,11 @@
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyEnhancementSettings.xml" />
+    <Compile Include="Comparers\UpgradeableComparer.cs" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
-    <Compile Include="SettingsData.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
     <Compile Include="ViewModel\Settings\SettingScreenVM.cs" />
@@ -245,6 +245,7 @@
     <Compile Include="ViewModel\SortAllTroopsVM.cs" />
     <Compile Include="ViewModel\Settings\SettingSortVM.cs" />
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
+    <Compile Include="Widgets\AscDescWidget.cs" />
     <Compile Include="Widgets\RecruitAllPrisonersWidget.cs" />
     <Compile Include="Widgets\SettingSortWidget.cs" />
     <Compile Include="Widgets\SortAllTroopsWidget.cs" />

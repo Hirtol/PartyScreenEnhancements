@@ -7,6 +7,7 @@ using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
@@ -26,6 +27,8 @@ namespace PartyScreenEnhancements.ViewModel
         private GauntletLayer _settingLayer;
         private GauntletPartyScreen _parentScreen;
         private GauntletMovie _currentMovie;
+
+        private HintViewModel _settingsHint;
         
 
         public PartyEnhancementsVM(PartyVM partyVM, PartyScreenLogic partyScreenLogic, GauntletPartyScreen parentScreen)
@@ -36,6 +39,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._upgradeTroopsVM = new UpgradeAllTroopsVM(partyScreenLogic, partyVM);
             this._recruitPrisonerVm = new RecruitPrisonerVM(partyVM, partyScreenLogic);
             this._parentScreen = parentScreen;
+            this._settingsHint = new HintViewModel("Settings");
         }
 
         public void OpenSettingView()
@@ -62,6 +66,33 @@ namespace PartyScreenEnhancements.ViewModel
                 _settingLayer.InputRestrictions.ResetInputRestrictions();
                 _settingLayer = null;
                 _settingScreenVm = null;
+            }
+        }
+
+        public bool IsHotKeyPressed(string hotkey)
+        {
+            if (this._settingLayer != null)
+            {
+                return this._settingLayer.Input.IsHotKeyReleased(hotkey);
+            }
+
+            return false;
+        }
+
+        [DataSourceProperty]
+        public HintViewModel SettingHint
+        {
+            get
+            {
+                return this._settingsHint;
+            }
+            set
+            {
+                if (value != this._settingsHint)
+                {
+                    this._settingsHint = value;
+                    base.OnPropertyChanged(nameof(SettingHint));
+                }
             }
         }
 
@@ -134,12 +165,10 @@ namespace PartyScreenEnhancements.ViewModel
             }
         }
 
-
-
         private SortAllTroopsVM _sortTroopsVM;
         private UpgradeAllTroopsVM _upgradeTroopsVM;
         private RecruitPrisonerVM _recruitPrisonerVm;
-        protected SettingScreenVM _settingScreenVm;
+        private SettingScreenVM _settingScreenVm;
 
     }
 }

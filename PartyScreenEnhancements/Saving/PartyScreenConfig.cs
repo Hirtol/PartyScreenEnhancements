@@ -74,10 +74,19 @@ namespace PartyScreenEnhancements.Saving
 
         public static void LoadSorter()
         {
-            var test = new XmlSerializer(typeof(PartySort));
-            StreamReader sw = new StreamReader(_sorterfile);
-            Sorter = test.Deserialize(sw) as PartySort;
-            sw.Close();
+            try
+            {
+                using(var sw = new StreamReader(_sorterfile))
+                {
+                    var test = new XmlSerializer(typeof(PartySort));
+                    Sorter = test.Deserialize(sw) as PartySort;
+                }
+            }
+            catch(Exception e)
+            {
+                File.Delete(_sorterfile);
+                throw new XmlException("Could not load Sorter.xml from PartyScreenEnhancements, please try again!" + e.ToString());
+            }
         }
 
         public static void Save()

@@ -18,7 +18,23 @@
 												Text="Party Enhancement Settings" Brush.FontSize="40" />
 							</Children>
 						</Widget>
-
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="300"
+										PositionYOffset="0" HorizontalAlignment="Center" VerticalAlignment="Center" DoNotAcceptEvents="true">
+							<Children>
+								<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+														PositionYOffset="-80" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+														Text="Drag and drop the sorters you want from the left to the right in order to use them." Brush.FontSize="20" />
+								<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+								PositionYOffset="-20" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+								Text="Click the green/orange arrow to change between ascending and descending order." Brush.FontSize="20" />
+								<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+								PositionYOffset="40" PositionXOffset="0" Brush="Recruitment.Popup.Title.Text"
+								Text="The Active Sorters will be used Top to Bottom" Brush.FontSize="20" />
+								<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+								PositionYOffset="80" PositionXOffset="0" Brush="Recruitment.Popup.Title.Text"
+								Text="For information about each sorter hover over the exclamation mark" Brush.FontSize="20" />
+							</Children>
+						</Widget>
 						<Widget Id="PossibleSettingsList" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
 								SuggestedWidth="500" HorizontalAlignment="Left" VerticalAlignment="Center"
 								PositionXOffset="50" MarginTop="200" MarginBottom="100"
@@ -60,7 +76,7 @@
 									<Children>
 										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
 														PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
-														Text="Current Sorters" Brush.FontSize="40" />
+														Text="Active Sorters" Brush.FontSize="40" />
 									</Children>
 								</Widget>
 

@@ -8,7 +8,9 @@ using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;
 using TaleWorlds.Core;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel.Settings
@@ -26,17 +28,17 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             PossibleSettingList = new MBBindingList<SettingSortVM>();
             SettingList = new MBBindingList<SettingSortVM>();
             this._partyEnhancementsVm = parent;
-
+            if(Game.Current != null)
+                Game.Current.AfterTick = (Action<float>)Delegate.Combine(Game.Current.AfterTick, new Action<float>(this.AfterTick));
             InitialiseSettingLists();
         }
 
-        public void OnFinalize()
+        public void AfterTick(float dt)
         {
-            SaveSettingList();
-
-            _partyEnhancementsVm = null;
-            _possibleSettingList = null;
-            _settingList = null;
+            if (_partyEnhancementsVm.IsHotKeyPressed("Exit"))
+            {
+                ExecuteCloseSettings();
+            }
         }
 
         public void TransferSorter(SettingSortVM sorter, SettingSide side)
@@ -83,6 +85,29 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             InformationManager.DisplayMessage(new InformationMessage($"Transfer from list: {sorter.Name} - {index} - {targetTag}"));
         }
 
+        public void OnFinalize()
+        {
+            if (Game.Current != null)
+                Game.Current.AfterTick = (Action<float>)Delegate.Remove(Game.Current.AfterTick, new Action<float>(this.AfterTick));
+            SaveSettingList();
+
+            _partyEnhancementsVm = null;
+            _possibleSettingList = null;
+            _settingList = null;
+        }
+        public void SaveSettingList()
+        {
+            if (_settingList.Count > 0)
+            {
+                PartyScreenConfig.Sorter = GetFullPartySorter(0);
+            }
+            else
+            {
+                PartyScreenConfig.Sorter = new AlphabetComparer(null, false);
+            }
+            PartyScreenConfig.SaveSorter();
+        }
+
         private void ExecuteTransfer(SettingSortVM sorter, int index, SettingSide sideToMoveTo)
         {
             if (sideToMoveTo == SettingSide.LEFT)
@@ -97,19 +122,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 _settingList.Insert(index != -1 ? index : _settingList.Count, sorter);
                 _possibleSettingList.Remove(sorter);
             }
-        }
-
-        public void SaveSettingList()
-        {
-            if(_settingList.Count > 0)
-            {
-                PartyScreenConfig.Sorter = GetFullPartySorter(0);
-            }
-            else
-            {
-                PartyScreenConfig.Sorter = new AlphabetComparer(null, false);
-            }
-            PartyScreenConfig.SaveSorter();
         }
 
         private PartySort GetFullPartySorter(int n)
@@ -150,7 +162,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             _possibleSettingList.Add(new SettingSortVM(new TypeComparer(null, false), TransferSorter, SettingSide.LEFT));
             _possibleSettingList.Add(new SettingSortVM(new LevelComparer(null, true), TransferSorter, SettingSide.LEFT));
             _possibleSettingList.Add(new SettingSortVM(new TrueTierComparer(null, true), TransferSorter, SettingSide.LEFT));
-            _possibleSettingList.Add(new SettingSortVM(new CultureComparer(null, true), TransferSorter, SettingSide.LEFT));
+            _possibleSettingList.Add(new SettingSortVM(new CultureComparer(null, false), TransferSorter, SettingSide.LEFT));
+            _possibleSettingList.Add(new SettingSortVM(new NumberComparer(null, true), TransferSorter, SettingSide.LEFT));
+            _possibleSettingList.Add(new SettingSortVM(new UpgradeableComparer(null, true), TransferSorter, SettingSide.LEFT));
         }
 
         private void InitialiseSettingList()

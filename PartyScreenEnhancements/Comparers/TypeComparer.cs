@@ -1,5 +1,6 @@
 ﻿using System.Xml.Serialization;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -25,13 +26,13 @@ namespace PartyScreenEnhancements.Comparers
             return "Formation Type Comparer";
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             if (Descending
-                ? x.CurrentFormationClass < y.CurrentFormationClass
-                : x.CurrentFormationClass > y.CurrentFormationClass) return 1;
+                ? x.Character.CurrentFormationClass < y.Character.CurrentFormationClass
+                : x.Character.CurrentFormationClass > y.Character.CurrentFormationClass) return 1;
 
-            if (y.CurrentFormationClass == x.CurrentFormationClass)
+            if (y.Character.CurrentFormationClass == x.Character.CurrentFormationClass)
             {
                 if (EqualSorter != null)
                     return EqualSorter.Compare(x, y);

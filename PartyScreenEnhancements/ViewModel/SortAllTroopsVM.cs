@@ -27,36 +27,18 @@ namespace PartyScreenEnhancements.ViewModel
         }
         public void SortTroops()
         {
-            Trace.WriteLine("Test");
-            var sortedList = new List<TroopRosterElement>();
-
-            for (int i = 0; i < _partyLogic.MemberRosters[1].Count; i++)
-            {
-                var test = _partyLogic.MemberRosters[1].GetElementCopyAtIndex(i);
-                Trace.WriteLine($"TroopElement: XP:{test.Xp} Wounded Numb: {test.WoundedNumber} Number: {test.Number} Name: {test.Character.Name.ToString()} UpgradeNumber: {test.NumberReadyToUpgrade}");
-                var test2 = _mainPartyList[i];
-                Trace.WriteLine($"PartyCharacter: XP:{test2.CurrentXP} Wounded Numb: {test2.WoundedCount} Number: {test2.Number} Name: {test2.Name.ToString()} UpgradeNumber: {test2.Troop}");
-            }
-
-            for (var i = 0; i < _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].Count; i++)
-            {
-                TroopRosterElement t = _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right]
-                    .GetElementCopyAtIndex(i);
-                sortedList.Add(t);
-            }
+            _mainPartyList.Sort(PartyScreenConfig.Sorter);
 
             _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].Clear();
-            sortedList.Sort(new TroopComparer(PartyScreenConfig.Sorter));
 
-            foreach (TroopRosterElement rosterElement in sortedList)
+
+            foreach (var character in _mainPartyList)
             {
-                _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
-                    rosterElement.Character, rosterElement.Number, false, rosterElement.WoundedNumber,
-                    rosterElement.Xp);
+                _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
+                    character.Troop.Character, character.Troop.Number, false, character.Troop.WoundedNumber,
+                    character.Troop.Xp);
             }
 
-            // Update the current View, not necessary for the state to be preserved.
-            _mainPartyList.Sort(new VMComparer(PartyScreenConfig.Sorter));
         }
 
         [DataSourceProperty]
@@ -74,36 +56,6 @@ namespace PartyScreenEnhancements.ViewModel
                     base.OnPropertyChanged("SortHint");
                 }
             }
-        }
-    }
-
-    internal class VMComparer : IComparer<PartyCharacterVM>
-    {
-        private readonly IComparer<CharacterObject> _trueComparer;
-
-        public VMComparer(IComparer<CharacterObject> trueComparer)
-        {
-            _trueComparer = trueComparer;
-        }
-
-        public int Compare(PartyCharacterVM x, PartyCharacterVM y)
-        {
-            return _trueComparer.Compare(x.Character, y.Character);
-        }
-    }
-
-    internal class TroopComparer : IComparer<TroopRosterElement>
-    {
-        private readonly IComparer<CharacterObject> _trueComparer;
-
-        public TroopComparer(IComparer<CharacterObject> trueComparer)
-        {
-            _trueComparer = trueComparer;
-        }
-        
-        public int Compare(TroopRosterElement x, TroopRosterElement y)
-        {
-            return _trueComparer.Compare(x.Character, y.Character);
         }
     }
 }

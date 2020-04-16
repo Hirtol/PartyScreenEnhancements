@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -28,7 +29,7 @@ namespace PartyScreenEnhancements.Comparers
             return "Name Comparer";
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             int result;
             if (Descending)

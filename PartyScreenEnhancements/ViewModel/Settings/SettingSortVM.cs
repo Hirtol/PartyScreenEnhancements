@@ -16,6 +16,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private HintViewModel _settingHint;
         private HintViewModel _transferHint;
+        private HintViewModel _ascDescHint;
 
         private Action<SettingSortVM, SettingSide> _transferCallBack;
 
@@ -26,9 +27,17 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             this.SortingComparer = sortingComparer;
             this.SettingHint = new HintViewModel(SortingComparer.GetHintText());
             this._transferHint = new HintViewModel($"Click to transfer to the {side.GetOtherSide().ToString().ToLower()} side!");
+            this.AscDescHint = new HintViewModel($"Current Mode: {(IsDescending ? "Descending" : "Ascending")}");
             this.IsTransferable = true;
+            this.IsDescending = SortingComparer.Descending;
             this._transferCallBack = transferCallBack;
             this._side = side;
+        }
+
+        public void ExecuteChangeDirection()
+        {
+            this.IsDescending = !this.IsDescending;
+            SortingComparer.Descending = this.IsDescending;
         }
 
         public void ExecuteSetSelected()
@@ -57,6 +66,21 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         public string Name => SortingComparer.GetName();
 
         [DataSourceProperty]
+        public bool IsDescending
+        {
+            get => SortingComparer.Descending;
+            set
+            {
+                if (value != this.SortingComparer.Descending)
+                {
+                    this.SortingComparer.Descending = value;
+                    base.OnPropertyChanged(nameof(IsDescending));
+                    this.AscDescHint.HintText = $"Current Mode: {(value ? "Descending" : "Ascending")}";
+                }
+            }
+        }
+
+        [DataSourceProperty]
         public bool IsTransferable
         {
             get { return _isTransferable; }
@@ -66,6 +90,20 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 {
                     this._isTransferable = value;
                     base.OnPropertyChanged(nameof(IsTransferable));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public HintViewModel AscDescHint
+        {
+            get { return _ascDescHint; }
+            set
+            {
+                if (value != this._ascDescHint)
+                {
+                    this._ascDescHint = value;
+                    base.OnPropertyChanged(nameof(AscDescHint));
                 }
             }
         }
@@ -108,7 +146,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 {
                     this._side = value;
                     base.OnPropertyChanged(nameof(Side));
-                    this.TransferHint = new HintViewModel($"Click to transfer to the {Side.GetOtherSide().ToString().ToLower()} side!");
+                    this.TransferHint.HintText = $"Click to transfer to the {Side.GetOtherSide().ToString().ToLower()} side!";
                 }
             }
         }

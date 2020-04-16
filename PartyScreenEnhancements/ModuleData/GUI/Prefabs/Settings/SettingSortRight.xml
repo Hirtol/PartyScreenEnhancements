@@ -90,6 +90,12 @@
 							</Children>
 						</Widget>
 
+						<AscDescWidget Id="OrderWidget"  WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="20" SuggestedWidth="20" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="70" MarginTop="10" MarginBottom="10" IsDisabled="false" Brush="Party.Enhancement.ArrowUp" UpArrowBrush="Party.Enhancement.ArrowUp" DownArrowBrush="Party.Enhancement.ArrowDown" IsDescending="@IsDescending" Command.Click="ExecuteChangeDirection">
+							<Children>
+								<HintWidget DataSource="{AscDescHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+							</Children>
+						</AscDescWidget>
+
 					</Children>
 				</Widget>
 

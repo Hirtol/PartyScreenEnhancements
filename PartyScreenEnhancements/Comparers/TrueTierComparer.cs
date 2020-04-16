@@ -1,4 +1,5 @@
 ﻿using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -24,13 +25,13 @@ namespace PartyScreenEnhancements.Comparers
             return "Tier Comparer";
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
-            if (Descending ? x.Tier < y.Tier : x.Tier > y.Tier)
+            if (Descending ? x.Character.Tier < y.Character.Tier : x.Character.Tier > y.Character.Tier)
             {
                 return 1;
             }
-            if (x.Tier == y.Tier)
+            if (x.Character.Tier == y.Character.Tier)
             {
                 if (EqualSorter != null)
                 {
