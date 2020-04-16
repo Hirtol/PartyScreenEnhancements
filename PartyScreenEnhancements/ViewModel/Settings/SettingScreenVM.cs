@@ -44,7 +44,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         public void TransferSorter(SettingSortVM sorter, SettingSide side)
         {
             ExecuteTransfer(sorter, -1, side.GetOtherSide());
-            InformationManager.DisplayMessage(new InformationMessage($"Transfer from character: {sorter.Name} - {side.GetOtherSide()}"));
         }
 
         public void ExecuteCloseSettings()
@@ -82,7 +81,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                         _possibleSettingList.Insert(index, sorter);
                 }
             }
-            InformationManager.DisplayMessage(new InformationMessage($"Transfer from list: {sorter.Name} - {index} - {targetTag}"));
         }
 
         public void OnFinalize()

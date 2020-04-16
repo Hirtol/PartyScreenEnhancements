@@ -72,7 +72,7 @@
 		</VisualDefinition>
 	</VisualDefinitions>
 	<Window>
-		<SettingSortWidget Id="SettingSort" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" Command.Click="ExecuteSetSelected" DragWidget="DragWidget" IsTransferable="@IsTransferable" Main="Main">
+		<SettingSortWidget Id="SettingSort" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" DragWidget="DragWidget" IsTransferable="@IsTransferable" Main="Main">
 			<Children>
 				<Widget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Left">
 					<Children>

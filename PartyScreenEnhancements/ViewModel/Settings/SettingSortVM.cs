@@ -40,11 +40,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             SortingComparer.Descending = this.IsDescending;
         }
 
-        public void ExecuteSetSelected()
-        {
-            InformationManager.DisplayMessage(new InformationMessage("Hey, selected " + SortingComparer.GetName()));
-        }
-
         public void TransferSides()
         {
             this._transferCallBack(this, this._side);

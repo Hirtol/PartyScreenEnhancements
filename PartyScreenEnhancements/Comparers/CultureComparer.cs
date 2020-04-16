@@ -10,10 +10,8 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class CultureComparer : PartySort
     {
-        private StringComparer _nameComparer;
         public CultureComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
-            this._nameComparer = StringComparer.CurrentCulture;
         }
 
         public CultureComparer()
@@ -34,9 +32,9 @@ namespace PartyScreenEnhancements.Comparers
         {
             int result;
             if (Descending)
-                result = _nameComparer.Compare(y.Character.Culture.Name.ToString(), x.Character.Culture.Name.ToString());
+                result = StringComparer.CurrentCulture.Compare(y.Troop.Character.Culture.Name.ToString(), x.Troop.Character.Culture.Name.ToString());
             else
-                result = _nameComparer.Compare(x.Character.Culture.Name.ToString(), y.Character.Culture.Name.ToString());
+                result = StringComparer.CurrentCulture.Compare(x.Troop.Character.Culture.Name?.ToString(), y.Troop.Character.Culture.Name?.ToString());
 
             if (result == 0)
             {
