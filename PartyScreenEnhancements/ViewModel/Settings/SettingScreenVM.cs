@@ -50,7 +50,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             _partyEnhancementsVm.CloseSettingView();
             this.OnFinalize();
         }
-
+        //TODO: FIX TRANSFER WITH 3 ITEMS IN LIST -> DRAG TOP TO VERY BOTTOM AND IT TRIES INDEX 3???. IF YOU TRY IN BETWEEN IT PUTS IT LAST IN LIST????
         public void ExecuteListTransfer(SettingSortVM sorter, int index, string targetTag)
         {
             if (targetTag == "SettingList")
@@ -62,13 +62,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
                     _settingList.Remove(sorter);
                     if (index > _settingList.Count)
-                    {
-                        _settingList.Add(sorter);
-                    }
+                        _settingList.Insert(index-1, sorter);
                     else
-                    {
                         _settingList.Insert(index, sorter);
-                    }
                 }
             }
             else if (targetTag == "PossibleSettingList")
@@ -79,13 +75,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 {
                     _possibleSettingList.Remove(sorter);
                     if (index > _possibleSettingList.Count)
-                    {
-                        _possibleSettingList.Add(sorter);
-                    }
+                        _possibleSettingList.Insert(index-1, sorter);
                     else
-                    {
                         _possibleSettingList.Insert(index, sorter);
-                    }
                 }
             }
             InformationManager.DisplayMessage(new InformationMessage($"Transfer from list: {sorter.Name} - {index} - {targetTag}"));
@@ -122,19 +114,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private PartySort GetFullPartySorter(int n)
         {
-            // PartySort result = null;
-            // for (int i = _settingList.Count-1; i != 0; i--)
-            // {
-            //     if (result == null)
-            //     {
-            //         result = _settingList[i].SortingComparer;
-            //         continue;
-            //     }
-            //
-            //     result = (_settingList[i].SortingComparer = result);
-            // }
-            //
-            // return result;
             if (n == _settingList.Count-1)
             {
                 return _settingList[n].SortingComparer;
@@ -171,13 +150,16 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             _possibleSettingList.Add(new SettingSortVM(new TypeComparer(null, false), TransferSorter, SettingSide.LEFT));
             _possibleSettingList.Add(new SettingSortVM(new LevelComparer(null, true), TransferSorter, SettingSide.LEFT));
             _possibleSettingList.Add(new SettingSortVM(new TrueTierComparer(null, true), TransferSorter, SettingSide.LEFT));
+            _possibleSettingList.Add(new SettingSortVM(new CultureComparer(null, true), TransferSorter, SettingSide.LEFT));
         }
 
         private void InitialiseSettingList()
         {
             for (var currentSort = PartyScreenConfig.Sorter; currentSort != null; currentSort = currentSort.EqualSorter)
             {
-                var settingSortVM = new SettingSortVM(currentSort, TransferSorter, SettingSide.RIGHT);
+                PartySort freshSorter = currentSort.GetType().GetConstructor(new Type[] {typeof(PartySort), typeof(bool)})
+                    ?.Invoke(new object[] {null, currentSort.Descending}) as PartySort;
+                var settingSortVM = new SettingSortVM(freshSorter, TransferSorter, SettingSide.RIGHT);
                 _settingList.Add(settingSortVM);
             }
         }

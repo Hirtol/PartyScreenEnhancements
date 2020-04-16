@@ -7,24 +7,24 @@ using TaleWorlds.CampaignSystem;
 
 namespace PartyScreenEnhancements.Comparers
 {
-    public class LevelComparer : PartySort
+    public class NumberComparer : PartySort
     {
-        public LevelComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
+        public NumberComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
         }
 
-        public LevelComparer()
+        public NumberComparer()
         {
         }
 
         public override string GetHintText()
         {
-            return "Compares units based on their Level.\nAscending order is low to high.\nDescending order is high to low.";
+            return "Compares units based on the amount of troops you currently have.\nAscending order is low to high.\nDescending order is high to low.";
         }
 
         public override string GetName()
         {
-            return "Level Comparer";
+            return "Troop Number Comparer";
         }
 
         protected override int localCompare(CharacterObject x, CharacterObject y)

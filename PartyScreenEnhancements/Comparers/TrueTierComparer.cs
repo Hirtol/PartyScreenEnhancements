@@ -4,7 +4,7 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class TrueTierComparer : PartySort
     {
-        public TrueTierComparer(PartySort equalSorter, bool descending) : base(descending, equalSorter)
+        public TrueTierComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
         }
 

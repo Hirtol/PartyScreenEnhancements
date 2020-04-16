@@ -5,7 +5,7 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class TypeComparer : PartySort
     {
-        public TypeComparer(PartySort equalSorter, bool descending) : base(descending, equalSorter)
+        public TypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
         }
 

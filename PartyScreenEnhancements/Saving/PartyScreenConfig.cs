@@ -63,12 +63,12 @@ namespace PartyScreenEnhancements.Saving
         public static void SaveSorter()
         {
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            var test = new XmlSerializer(typeof(PartySort));
+            var xmlSerializer = new XmlSerializer(typeof(PartySort));
 
             ns.Add("", "");
 
             StreamWriter sw = new StreamWriter(_sorterfile);
-            test.Serialize(sw, Sorter, ns);
+            xmlSerializer.Serialize(sw, Sorter, ns);
             sw.Close();
         }
 
@@ -77,6 +77,7 @@ namespace PartyScreenEnhancements.Saving
             var test = new XmlSerializer(typeof(PartySort));
             StreamReader sw = new StreamReader(_sorterfile);
             Sorter = test.Deserialize(sw) as PartySort;
+            sw.Close();
         }
 
         public static void Save()

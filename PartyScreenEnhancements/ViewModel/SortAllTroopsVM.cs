@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,7 +27,16 @@ namespace PartyScreenEnhancements.ViewModel
         }
         public void SortTroops()
         {
+            Trace.WriteLine("Test");
             var sortedList = new List<TroopRosterElement>();
+
+            for (int i = 0; i < _partyLogic.MemberRosters[1].Count; i++)
+            {
+                var test = _partyLogic.MemberRosters[1].GetElementCopyAtIndex(i);
+                Trace.WriteLine($"TroopElement: XP:{test.Xp} Wounded Numb: {test.WoundedNumber} Number: {test.Number} Name: {test.Character.Name.ToString()} UpgradeNumber: {test.NumberReadyToUpgrade}");
+                var test2 = _mainPartyList[i];
+                Trace.WriteLine($"PartyCharacter: XP:{test2.CurrentXP} Wounded Numb: {test2.WoundedCount} Number: {test2.Number} Name: {test2.Name.ToString()} UpgradeNumber: {test2.Troop}");
+            }
 
             for (var i = 0; i < _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].Count; i++)
             {
@@ -39,9 +49,11 @@ namespace PartyScreenEnhancements.ViewModel
             sortedList.Sort(new TroopComparer(PartyScreenConfig.Sorter));
 
             foreach (TroopRosterElement rosterElement in sortedList)
-                _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
+            {
+                _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right].AddToCounts(
                     rosterElement.Character, rosterElement.Number, false, rosterElement.WoundedNumber,
                     rosterElement.Xp);
+            }
 
             // Update the current View, not necessary for the state to be preserved.
             _mainPartyList.Sort(new VMComparer(PartyScreenConfig.Sorter));

@@ -226,7 +226,9 @@
   <ItemGroup>
     <Compile Include="Comparers\AlphabetComparer.cs" />
     <Compile Include="Comparers\BasicTypeComparer.cs" />
+    <Compile Include="Comparers\CultureComparer.cs" />
     <Compile Include="Comparers\LevelComparer.cs" />
+    <Compile Include="Comparers\NumberComparer.cs" />
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
@@ -255,7 +257,6 @@
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
     <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
-    <Content Include="ModuleData\GUI\Prefabs\Settings\backup.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSort.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSortRight.xml" />
     <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />

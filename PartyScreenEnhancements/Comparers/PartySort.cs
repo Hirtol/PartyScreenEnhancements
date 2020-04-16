@@ -10,6 +10,8 @@ namespace PartyScreenEnhancements.Comparers
     [XmlInclude(typeof(AlphabetComparer))]
     [XmlInclude(typeof(BasicTypeComparer))]
     [XmlInclude(typeof(LevelComparer))]
+    [XmlInclude(typeof(CultureComparer))]
+    [XmlInclude(typeof(NumberComparer))]
     public abstract class PartySort : IComparer<CharacterObject>
     {
         [XmlElement("Descending")]
@@ -25,7 +27,7 @@ namespace PartyScreenEnhancements.Comparers
             set;
         }
 
-        protected PartySort(bool descending, PartySort equalSorter = null)
+        protected PartySort(PartySort equalSorter, bool descending)
         {
             EqualSorter = equalSorter;
             Descending = descending;
