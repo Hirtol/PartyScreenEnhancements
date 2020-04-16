@@ -18,44 +18,55 @@ namespace PartyScreenEnhancements.Patches
     {
         public static bool Prefix(int upgradeIndex, ref PartyCharacterVM __instance)
         {
-            if (ScreenManager.TopScreen is GauntletPartyScreen)
+            if (ScreenManager.TopScreen is GauntletPartyScreen screen && screen.DebugInput.IsControlDown())
             {
-                var screen = (GauntletPartyScreen) ScreenManager.TopScreen;
-                if (screen.DebugInput.IsControlDown())
+                if (PartyScreenConfig.PathsToUpgrade.TryGetValue(__instance.Character.StringId, out var upgradeValue))
                 {
-                    if (upgradeIndex < __instance.Character.UpgradeTargets.Length)
+                    if (upgradeValue == upgradeIndex)
                     {
-                        if (PartyScreenConfig.PathsToUpgrade.ContainsKey(__instance.Character.StringId))
+                        PartyScreenConfig.PathsToUpgrade.Remove(__instance.Character.StringId);
+                        InformationManager.DisplayMessage(new InformationMessage(
+                            $"Removed the set upgrade path for {__instance.Name}",
+                            Color.ConvertStringToColor("#a83123FF")));
+                    }
+                    else
+                    {
+                        if (upgradeValue == -1)
                         {
-                            if (PartyScreenConfig.PathsToUpgrade[__instance.Character.StringId] == upgradeIndex)
-                            {
-                                PartyScreenConfig.PathsToUpgrade.Remove(__instance.Character.StringId);
-                                InformationManager.DisplayMessage(new InformationMessage(
-                                    $"Removed the set upgrade path for {__instance.Name}",
-                                    Color.ConvertStringToColor("#a83123FF")));
-                            }
-                            else
-                            {
-                                PartyScreenConfig.PathsToUpgrade[__instance.Character.StringId] = upgradeIndex;
-                                InformationManager.DisplayMessage(new InformationMessage(
-                                    $"Changed the upgrade target of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}",
-                                    Color.ConvertStringToColor("#0bbd0bFF")));
-                            }
+                            PartyScreenConfig.PathsToUpgrade.Remove(__instance.Character.StringId);
+                            InformationManager.DisplayMessage(new InformationMessage(
+                                $"Allowed single-path upgrading of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}",
+                                Color.ConvertStringToColor("#0bbd0bFF")));
                         }
                         else
                         {
-                            PartyScreenConfig.PathsToUpgrade.Add(__instance.Character.StringId, upgradeIndex);
+                            PartyScreenConfig.PathsToUpgrade[__instance.Character.StringId] = upgradeIndex;
                             InformationManager.DisplayMessage(new InformationMessage(
-                                $"Set the upgrade target of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}",
+                                $"Changed the upgrade target of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}",
                                 Color.ConvertStringToColor("#0bbd0bFF")));
                         }
-
-                        PartyScreenConfig.Save();
-                        return false;
                     }
-
-                    Debug.PrintError("Error, upgradeIndex was greater than the allow UpgradeTargets Length!");
                 }
+                else
+                {
+                    if (__instance.Character.UpgradeTargets.Length == 1)
+                    {
+                        PartyScreenConfig.PathsToUpgrade.Add(__instance.Character.StringId, -1);
+                        InformationManager.DisplayMessage(new InformationMessage(
+                            $"Disallowed single-path upgrading of {__instance.Name}",
+                            Color.ConvertStringToColor("#a83123FF")));
+                    }
+                    else
+                    {
+                        PartyScreenConfig.PathsToUpgrade.Add(__instance.Character.StringId, upgradeIndex);
+                        InformationManager.DisplayMessage(new InformationMessage(
+                            $"Set the upgrade target of {__instance.Name} to {__instance.Character.UpgradeTargets[upgradeIndex].Name}",
+                            Color.ConvertStringToColor("#0bbd0bFF")));
+                    }
+                }
+
+                PartyScreenConfig.Save();
+                return false;
             }
 
             return true;

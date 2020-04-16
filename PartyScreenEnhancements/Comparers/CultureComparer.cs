@@ -8,34 +8,33 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
-    public class AlphabetComparer : PartySort
+    public class CultureComparer : PartySort
     {
-        public AlphabetComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
+        public CultureComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
         }
 
-        internal AlphabetComparer()
+        public CultureComparer()
         {
-
         }
 
         public override string GetHintText()
         {
-            return "Compares units based on their names.\nThis Comparer is should probably be the last one in the list to resolve any remaining conflicts.\nAscending order is A->Z.\nDescending order is Z->A";
+            return "Compares units based on their Culture names.\nAscending order is A->Z.\nDescending order is Z->A";
         }
 
         public override string GetName()
         {
-            return "Name Comparer";
+            return "Culture Comparer";
         }
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             int result;
             if (Descending)
-                result = StringComparer.CurrentCulture.Compare(y.Name.ToString(), x.Name.ToString());
+                result = StringComparer.CurrentCulture.Compare(y.Troop.Character.Culture.Name.ToString(), x.Troop.Character.Culture.Name.ToString());
             else
-                result = StringComparer.CurrentCulture.Compare(x.Name.ToString(), y.Name.ToString());
+                result = StringComparer.CurrentCulture.Compare(x.Troop.Character.Culture.Name?.ToString(), y.Troop.Character.Culture.Name?.ToString());
 
             if (result == 0)
             {

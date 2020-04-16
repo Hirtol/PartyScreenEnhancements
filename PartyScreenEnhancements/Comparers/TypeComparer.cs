@@ -1,11 +1,12 @@
 ﻿using System.Xml.Serialization;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
     public class TypeComparer : PartySort
     {
-        public TypeComparer(PartySort equalSorter, bool descending) : base(descending, equalSorter)
+        public TypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
         }
 
@@ -14,13 +15,24 @@ namespace PartyScreenEnhancements.Comparers
 
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        public override string GetHintText()
+        {
+            return
+                "Compares units based on their Formation Class.\nAscending order is low to high.\nDescending order is high to low.";
+        }
+
+        public override string GetName()
+        {
+            return "Formation Type Comparer";
+        }
+
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             if (Descending
-                ? x.CurrentFormationClass < y.CurrentFormationClass
-                : x.CurrentFormationClass > y.CurrentFormationClass) return 1;
+                ? x.Character.CurrentFormationClass < y.Character.CurrentFormationClass
+                : x.Character.CurrentFormationClass > y.Character.CurrentFormationClass) return 1;
 
-            if (y.CurrentFormationClass == x.CurrentFormationClass)
+            if (y.Character.CurrentFormationClass == x.Character.CurrentFormationClass)
             {
                 if (EqualSorter != null)
                     return EqualSorter.Compare(x, y);

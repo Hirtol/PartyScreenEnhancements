@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SpriteData>
+	<SpriteCategories>
+		<SpriteCategory>
+			<Name>enhancement_icons</Name>
+			<SpriteSheetCount>1</SpriteSheetCount>
+			<SpriteSheetSize ID="1" Width="192" Height="192" />
+		</SpriteCategory>
+	</SpriteCategories>
+	<SpriteParts>
+		<SpritePart>
+			<SheetID>1</SheetID>
+			<Name>SortIcon</Name>
+			<Width>192</Width>
+			<Height>192</Height>
+			<SheetX>0</SheetX>
+			<SheetY>0</SheetY>
+			<CategoryName>enhancement_icons</CategoryName>
+		</SpritePart>
+	</SpriteParts>
+	<Sprites>
+		<GenericSprite>
+			<Name>SortIcon</Name>
+			<SpritePartName>SortIcon</SpritePartName>
+		</GenericSprite>
+	</Sprites>
+</SpriteData>

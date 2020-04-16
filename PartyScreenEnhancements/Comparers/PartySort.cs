@@ -1,13 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
     [XmlInclude(typeof(TrueTierComparer))]
     [XmlInclude(typeof(TypeComparer))]
     [XmlInclude(typeof(AlphabetComparer))]
-    public abstract class PartySort : IComparer<CharacterObject>
+    [XmlInclude(typeof(BasicTypeComparer))]
+    [XmlInclude(typeof(LevelComparer))]
+    [XmlInclude(typeof(CultureComparer))]
+    [XmlInclude(typeof(NumberComparer))]
+    [XmlInclude(typeof(UpgradeableComparer))]
+    public abstract class PartySort : IComparer<PartyCharacterVM>
     {
         [XmlElement("Descending")]
         public bool Descending
@@ -22,7 +29,7 @@ namespace PartyScreenEnhancements.Comparers
             set;
         }
 
-        protected PartySort(bool descending, PartySort equalSorter = null)
+        protected PartySort(PartySort equalSorter, bool descending)
         {
             EqualSorter = equalSorter;
             Descending = descending;
@@ -33,13 +40,17 @@ namespace PartyScreenEnhancements.Comparers
 
         }
 
-        public int Compare(CharacterObject x, CharacterObject y)
+        public abstract string GetHintText();
+
+        public abstract string GetName();
+
+        public int Compare(PartyCharacterVM x, PartyCharacterVM y)
         {
-            if (x.IsPlayerCharacter)
+            if (x.Character.IsPlayerCharacter)
             {
                 return -1;
             }
-            else if (y.IsPlayerCharacter)
+            else if (y.Character.IsPlayerCharacter)
             {
                 return 1;
             }
@@ -55,9 +66,9 @@ namespace PartyScreenEnhancements.Comparers
             {
                 return 0;
             }
-            return localCompare(x, y);
+            return localCompare(ref x, ref y);
         }
 
-        protected abstract int localCompare(CharacterObject x, CharacterObject y);
+        protected abstract int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y);
     }
 }

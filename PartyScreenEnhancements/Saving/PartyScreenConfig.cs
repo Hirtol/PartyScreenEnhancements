@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Engine;
 using Path = System.IO.Path;
@@ -14,8 +15,8 @@ namespace PartyScreenEnhancements.Saving
 {
     public static class PartyScreenConfig
     {
-        internal static Dictionary<string, int> PathsToUpgrade =
-            new Dictionary<string, int>();
+        internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
+        internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
         internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
 
         internal const double VERSION = 1.02;
@@ -62,20 +63,30 @@ namespace PartyScreenEnhancements.Saving
         public static void SaveSorter()
         {
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            var test = new XmlSerializer(typeof(PartySort));
+            var xmlSerializer = new XmlSerializer(typeof(PartySort));
 
             ns.Add("", "");
 
             StreamWriter sw = new StreamWriter(_sorterfile);
-            test.Serialize(sw, Sorter, ns);
+            xmlSerializer.Serialize(sw, Sorter, ns);
             sw.Close();
         }
 
         public static void LoadSorter()
         {
-            var test = new XmlSerializer(typeof(PartySort));
-            StreamReader sw = new StreamReader(_sorterfile);
-            Sorter = test.Deserialize(sw) as PartySort;
+            try
+            {
+                using(var sw = new StreamReader(_sorterfile))
+                {
+                    var test = new XmlSerializer(typeof(PartySort));
+                    Sorter = test.Deserialize(sw) as PartySort;
+                }
+            }
+            catch(Exception e)
+            {
+                File.Delete(_sorterfile);
+                throw new XmlException("Could not load Sorter.xml from PartyScreenEnhancements, please try again!" + e.ToString());
+            }
         }
 
         public static void Save()
@@ -96,12 +107,8 @@ namespace PartyScreenEnhancements.Saving
                 sortingOptions.AppendChild(version);
                 modNode.AppendChild(sortingOptions);
 
-                var el = new XElement("UpgradePaths",
-                    PathsToUpgrade.Select(kv => new XElement(kv.Key, kv.Value)));
-
-                var element = xmlDocument.ReadNode(el.CreateReader()) as XmlElement;
-
-                modNode.AppendChild(element);
+                addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
+                addDictionaryToXML(ref PrisonersToRecruit, ref xmlDocument, ref modNode, nameof(PrisonersToRecruit));
 
                 xmlDocument.Save(_filename);
             }
@@ -109,6 +116,16 @@ namespace PartyScreenEnhancements.Saving
             {
                 Trace.WriteLine(e.ToString());
             }
+        }
+
+        private static void addDictionaryToXML(ref Dictionary<string, int> dictionary, ref XmlDocument document, ref XmlElement parent, string name)
+        {
+            var el = new XElement(name,
+                dictionary.Select(kv => new XElement(kv.Key, kv.Value)));
+
+            var element = document.ReadNode(el.CreateReader()) as XmlElement;
+
+            parent.AppendChild(element);
         }
 
         //TODO: To come back to
@@ -138,6 +155,13 @@ namespace PartyScreenEnhancements.Saving
                     {
                         XElement rootElement = XElement.Parse(xmlNode.OuterXml);
                         PathsToUpgrade = rootElement.Elements()
+                            .ToDictionary(key => key.Name.LocalName, val => int.Parse(val.Value));
+                    }
+
+                    if (xmlNode.Name == nameof(PrisonersToRecruit))
+                    {
+                        XElement rootElement = XElement.Parse(xmlNode.OuterXml);
+                        PrisonersToRecruit = rootElement.Elements()
                             .ToDictionary(key => key.Name.LocalName, val => int.Parse(val.Value));
                     }
 

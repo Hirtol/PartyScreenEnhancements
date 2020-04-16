@@ -1,15 +1,11 @@
 ﻿using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
     public class TrueTierComparer : PartySort
     {
-        /// <summary>
-        ///     Creates a <code>IComparer</code> instance which sorts Characters in the Party list based on their tier in game.
-        /// </summary>
-        /// <param name="descending">Whether to sort on descending order or ascending. (top to bottom)</param>
-        /// <param name="equalSorter">An additional sorter that could be used for parts where two characters are equal</param>
-        public TrueTierComparer(PartySort equalSorter, bool descending) : base(descending, equalSorter)
+        public TrueTierComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
         {
         }
 
@@ -18,13 +14,24 @@ namespace PartyScreenEnhancements.Comparers
 
         }
 
-        protected override int localCompare(CharacterObject x, CharacterObject y)
+        public override string GetHintText()
         {
-            if (Descending ? x.Tier < y.Tier : x.Tier > y.Tier)
+            return
+                "Compares units based on their Tier (which by default range from 1-6)\nAscending order is low to high.\nDescending order is high to low.";
+        }
+
+        public override string GetName()
+        {
+            return "Tier Comparer";
+        }
+
+        protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
+        {
+            if (Descending ? x.Character.Tier < y.Character.Tier : x.Character.Tier > y.Character.Tier)
             {
                 return 1;
             }
-            if (x.Tier == y.Tier)
+            if (x.Character.Tier == y.Character.Tier)
             {
                 if (EqualSorter != null)
                 {
