@@ -29,8 +29,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public void AddSettingVms()
         {
-            _options.Add(new BooleanOptionDataVM(_settings.DisplayCategoryNumbers, "Display Category Numbers", "Display how many infantry, archers, and cavalry you have", (value) => _settings.DisplayCategoryNumbers = value));
-            _options.Add(new BooleanOptionDataVM(_settings.RecruitByDefault, "Recruit By Default", "Determines all prisoners are eligible for recruitment with the Recruit All button.\n If turned off you'll have to CTRL + click each prisoner's recruitment button to allow their recruitment.", (value) => _settings.RecruitByDefault = value));
+            _options.Add(new BooleanOptionDataVM(_settings.DisplayCategoryNumbers, "Display Category Numbers", "Display how many Infantry, Archers, and Cavalry you have on the Party screen", (value) => _settings.DisplayCategoryNumbers = value));
+            _options.Add(new BooleanOptionDataVM(_settings.RecruitByDefault, "Recruit By Default", "Determines whether all prisoners eligible for recruitment will be enlisted with the Recruit All button.\nIf turned off you'll have to CTRL + click each prisoner's recruitment button to allow their recruitment explicitly.", (value) => _settings.RecruitByDefault = value));
             _options.Add(new BooleanOptionDataVM(_settings.ShowGeneralLogMessage, "Display Log Messages", "Display log messages on the bottom left detailing how many units were upgraded/recruited.", (value) => _settings.ShowGeneralLogMessage = value));
         }
 
@@ -38,7 +38,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         {
             this._options = null;
             this._settings = null;
-            PartyScreenConfig.Save();
         }
 
         [DataSourceProperty]

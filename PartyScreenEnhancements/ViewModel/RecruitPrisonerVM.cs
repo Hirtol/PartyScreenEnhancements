@@ -43,9 +43,10 @@ namespace PartyScreenEnhancements.ViewModel
                     if (prisoner.IsTroopRecruitable)
                     {
                         this._partyVM.CurrentCharacter = prisoner;
-                        if (PartyScreenConfig.PrisonersToRecruit.TryGetValue(prisoner.Character.StringId, out int val) && val == -1)
+                        if (PartyScreenConfig.PrisonersToRecruit.TryGetValue(prisoner.Character.StringId, out int val))
                         {
-                            continue;
+                            if(val == -1 && PartyScreenConfig.ExtraSettings.RecruitByDefault)
+                                continue;
                         }
 
                         RecruitPrisoner(prisoner, remainingPartySize, ref amountUpgraded);

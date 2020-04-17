@@ -244,10 +244,10 @@
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
     <Compile Include="ViewModel\Settings\Options\BooleanOptionDataVM.cs" />
     <Compile Include="ViewModel\Settings\Options\GenericOptionDataVM.cs" />
-    <Compile Include="ViewModel\Settings\SettingGeneralPaneVM.cs" />
+    <Compile Include="ViewModel\Settings\Tabs\SettingGeneralPaneVM.cs" />
     <Compile Include="ViewModel\Settings\SettingScreenVM.cs" />
     <Compile Include="ViewModel\Settings\SettingSide.cs" />
-    <Compile Include="ViewModel\Settings\SettingSorterPaneVM.cs" />
+    <Compile Include="ViewModel\Settings\Tabs\SettingSorterPaneVM.cs" />
     <Compile Include="ViewModel\SortAllTroopsVM.cs" />
     <Compile Include="ViewModel\Settings\SettingSortVM.cs" />
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />

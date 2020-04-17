@@ -21,7 +21,7 @@ namespace PartyScreenEnhancements.Patches
         {
             if (ScreenManager.TopScreen is GauntletPartyScreen screen && screen.DebugInput.IsControlDown())
             {
-                if (!PartyScreenConfig.PrisonersToRecruit.ContainsKey(__instance.Character.StringId))
+                if ((!PartyScreenConfig.PrisonersToRecruit.ContainsKey(__instance.Character.StringId) && PartyScreenConfig.ExtraSettings.RecruitByDefault) || (PartyScreenConfig.PrisonersToRecruit.ContainsKey(__instance.Character.StringId) && !PartyScreenConfig.ExtraSettings.RecruitByDefault))
                 {
                     PartyScreenConfig.PrisonersToRecruit.Add(__instance.Character.StringId, -1);
                     InformationManager.DisplayMessage(new InformationMessage(

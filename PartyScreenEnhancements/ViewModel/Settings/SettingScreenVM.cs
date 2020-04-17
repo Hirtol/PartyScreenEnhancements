@@ -52,12 +52,14 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         public new void OnFinalize()
         {
             base.OnFinalize();
+            PartyScreenConfig.Save();
             if (Game.Current != null)
                 Game.Current.AfterTick = (Action<float>)Delegate.Remove(Game.Current.AfterTick, new Action<float>(this.AfterTick));
 
             _partyEnhancementsVm = null;
             _sorterPane = null;
             _generalPane = null;
+            
         }
 
         [DataSourceProperty]
