@@ -57,8 +57,8 @@ namespace PartyScreenEnhancements.ViewModel
 
             _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm.InitializeUpgrades());
 
-            InformationManager.DisplayMessage(
-                new InformationMessage($"Upgraded {totalUpgrades} troops!"));
+            if(PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
         }
 
         private void Upgrade(PartyCharacterVM character, int upgradeIndex, ref int totalUpgrades)
@@ -116,7 +116,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (value != this._upgradeHint)
                 {
                     this._upgradeHint = value;
-                    base.OnPropertyChanged("UpgradeHint");
+                    base.OnPropertyChanged(nameof(UpgradeHint));
                 }
             }
         }

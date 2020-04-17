@@ -53,7 +53,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (value != this._sortHint)
                 {
                     this._sortHint = value;
-                    base.OnPropertyChanged("SortHint");
+                    base.OnPropertyChanged(nameof(SortHint));
                 }
             }
         }

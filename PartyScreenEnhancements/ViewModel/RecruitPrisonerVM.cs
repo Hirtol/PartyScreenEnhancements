@@ -53,12 +53,13 @@ namespace PartyScreenEnhancements.ViewModel
                 }
                 else
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Party size limit reached, {amountUpgraded} recruited!"));
+                    if(PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                        InformationManager.DisplayMessage(new InformationMessage($"Party size limit reached, {amountUpgraded} recruited!"));
                     return;
                 }
             }
-
-            InformationManager.DisplayMessage(new InformationMessage($"Recruited {amountUpgraded} prisoners"));
+            if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                InformationManager.DisplayMessage(new InformationMessage($"Recruited {amountUpgraded} prisoners"));
         }
 
         private void RecruitPrisoner(PartyCharacterVM character, int remainingSize, ref int amount)
@@ -97,7 +98,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (value != this._recruitHint)
                 {
                     this._recruitHint = value;
-                    base.OnPropertyChanged("RecruitHint");
+                    base.OnPropertyChanged(nameof(RecruitHint));
                 }
             }
         }

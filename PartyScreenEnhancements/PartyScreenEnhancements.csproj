@@ -232,16 +232,22 @@
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
-    <Content Include="ModuleData\GUI\Prefabs\Party\PartyEnhancementSettings.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\General\PartyEnhancementGeneralTab.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\PartyEnhancementSettings.xml" />
     <Compile Include="Comparers\UpgradeableComparer.cs" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
+    <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
+    <Compile Include="ViewModel\Settings\Options\BooleanOptionDataVM.cs" />
+    <Compile Include="ViewModel\Settings\Options\GenericOptionDataVM.cs" />
+    <Compile Include="ViewModel\Settings\SettingGeneralPaneVM.cs" />
     <Compile Include="ViewModel\Settings\SettingScreenVM.cs" />
     <Compile Include="ViewModel\Settings\SettingSide.cs" />
+    <Compile Include="ViewModel\Settings\SettingSorterPaneVM.cs" />
     <Compile Include="ViewModel\SortAllTroopsVM.cs" />
     <Compile Include="ViewModel\Settings\SettingSortVM.cs" />
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
@@ -258,8 +264,10 @@
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
     <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
-    <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSort.xml" />
-    <Content Include="ModuleData\GUI\Prefabs\Settings\SettingSortRight.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\PESettingsTabToggle.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PartyEnhancementSortingTab.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSort.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSortRight.xml" />
     <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>

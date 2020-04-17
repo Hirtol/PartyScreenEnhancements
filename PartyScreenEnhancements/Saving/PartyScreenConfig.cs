@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Xml.XPath;
 using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Engine;
@@ -18,6 +19,7 @@ namespace PartyScreenEnhancements.Saving
         internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
         internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
+        internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
         internal const double VERSION = 1.02;
 
@@ -100,12 +102,20 @@ namespace PartyScreenEnhancements.Saving
                 XmlElement modNode = xmlDocument.CreateElement("PartyScreenConfig");
                 xmlDocument.AppendChild(modNode);
 
-                var sortingOptions = xmlDocument.CreateElement("Options");
+                var options = xmlDocument.CreateElement("Options");
                 var version = xmlDocument.CreateElement("Version");
                 version.InnerText = VERSION.ToString();
 
-                sortingOptions.AppendChild(version);
-                modNode.AppendChild(sortingOptions);
+                var node = xmlDocument.CreateNode(XmlNodeType.Text, "test", null);
+
+                options.AppendChild(version);
+                options.AppendChild(node);
+
+                node = node.ReplaceWithSerializationOf(ExtraSettings);
+
+                
+
+                modNode.AppendChild(options);
 
                 addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
                 addDictionaryToXML(ref PrisonersToRecruit, ref xmlDocument, ref modNode, nameof(PrisonersToRecruit));
@@ -172,8 +182,24 @@ namespace PartyScreenEnhancements.Saving
                         {
                             if (element.Name == "Version")
                             {
-                                if(Double.Parse(element.Value) == VERSION)
+                                if(double.Parse(element.Value) == VERSION)
                                     _upgradedVersion = false;
+                            }
+
+                            if (element.Name == nameof(ExtraSettings))
+                            {
+                                try
+                                {
+                                    using (var writer = element.CreateNavigator().ReadSubtree())
+                                    {
+                                        var test = new XmlSerializer(typeof(ExtraSettings));
+                                        ExtraSettings = test.Deserialize(writer) as ExtraSettings;
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    throw new XmlException("Could not load Sorter.xml from PartyScreenEnhancements, please try again!" + e.ToString());
+                                }
                             }
                         }
                     }
@@ -185,7 +211,35 @@ namespace PartyScreenEnhancements.Saving
                 Save();
             }
         }
+
+    }
+    public static class XmlNodeExtensions
+    {
+        public static XmlNode ReplaceWithSerializationOf<T>(this XmlNode node, T replacement)
+        {
+            if (node == null)
+                throw new ArgumentNullException();
+            var parent = node.ParentNode;
+            var serializer = new XmlSerializer(replacement == null ? typeof(T) : replacement.GetType());
+
+            using (var writer = node.CreateNavigator().InsertAfter())
+            {
+                // WriteWhitespace needed to avoid error "WriteStartDocument cannot
+                // be called on writers created with ConformanceLevel.Fragment."
+                writer.WriteWhitespace("");
+
+                // Set up an appropriate initial namespace.
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add(node.GetNamespaceOfPrefix(node.NamespaceURI), node.NamespaceURI);
+
+                // Serialize
+                serializer.Serialize(writer, replacement, ns);
+            }
+
+            var nextNode = node.NextSibling;
+            parent.RemoveChild(node);
+            return nextNode;
+        }
     }
 
-    
 }
