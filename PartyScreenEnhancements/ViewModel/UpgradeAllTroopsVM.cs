@@ -63,13 +63,17 @@ namespace PartyScreenEnhancements.ViewModel
 
         private void Upgrade(PartyCharacterVM character, int upgradeIndex, ref int totalUpgrades)
         {
+            //Somehow, for some people, character seems to be null at random times. Haven't been able to reproduce it so far
+            //So this simple null check will have to stay.
+            if (character == null) return;
+
             var anyInsufficient =
                 upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
             if (!anyInsufficient)
             {
                 if (character.Character.UpgradeTargets.Length > upgradeIndex)
                 {
-                    ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType)upgradeIndex, character,
+                    ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType) upgradeIndex, character,
                         ref totalUpgrades);
                 }
             }

@@ -32,7 +32,7 @@ namespace PartyScreenEnhancements.Comparers
         {
             int result;
             if (Descending)
-                result = StringComparer.CurrentCulture.Compare(y.Troop.Character.Culture.Name.ToString(), x.Troop.Character.Culture.Name.ToString());
+                result = StringComparer.CurrentCulture.Compare(y.Troop.Character.Culture.Name?.ToString(), x.Troop.Character.Culture.Name?.ToString());
             else
                 result = StringComparer.CurrentCulture.Compare(x.Troop.Character.Culture.Name?.ToString(), y.Troop.Character.Culture.Name?.ToString());
 
