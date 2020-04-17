@@ -42,7 +42,7 @@
 											</Children>
 										</ListPanel>
 
-										<Widget Id="DescriptionsRightPanel" MarginTop="110" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" SuggestedWidth="650" HorizontalAlignment="Right" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
+										<Widget Id="DescriptionsRightPanel" MarginTop="110" MarginRight="40" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" SuggestedWidth="650" HorizontalAlignment="Right" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
 											<Children>
 
 												<ListPanel Id="DescriptionsListPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="40" MarginTop="100" LayoutImp.LayoutMethod="VerticalBottomToTop" >

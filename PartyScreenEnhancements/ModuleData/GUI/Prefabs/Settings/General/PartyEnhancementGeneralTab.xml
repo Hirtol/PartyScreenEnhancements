@@ -7,11 +7,11 @@
 
 		<Widget Id="OptionsInnerPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
 		        HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="57" MarginBottom="400"
-		        LayoutImp.LayoutMethod="VerticalBottomToTop">
+		        LayoutImp.LayoutMethod="VerticalTopToBottom">
 			<Children>
 				<ListPanel DataSource="{Options}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
 				           HorizontalAlignment="Center" VerticalAlignment="Center" MarginBottom="20"
-				           LayoutImp.LayoutMethod="VerticalBottomToTop">
+				           LayoutImp.LayoutMethod="VerticalTopToBottom">
 					<ItemTemplate>
 
 						<OptionsItemWidget Id="OptionItem" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"

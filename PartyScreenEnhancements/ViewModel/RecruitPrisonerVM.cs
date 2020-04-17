@@ -9,6 +9,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel
@@ -18,49 +19,62 @@ namespace PartyScreenEnhancements.ViewModel
         private readonly MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
         private readonly PartyScreenLogic _partyLogic;
         private readonly PartyVM _partyVM;
+        private readonly PartyEnhancementsVM _parent;
         private HintViewModel _recruitHint;
-        public RecruitPrisonerVM(PartyVM partyVm, PartyScreenLogic partyScreenLogic)
+        public RecruitPrisonerVM(PartyEnhancementsVM parent)
         {
-            this._partyVM = partyVm;
-            this._partyLogic = partyScreenLogic;
+            this._parent = parent;
+            this._partyVM = parent.EnhancementPartyVM;
+            this._partyLogic = parent.EnhancementPartyLogic;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
-            this._recruitHint = new HintViewModel("Recruit All Prisoners");
+            this._recruitHint = new HintViewModel("Recruit All Prisoners.\nClick with CTRL pressed to ignore party size limits");
         }
 
 
         public void RecruitAll()
         {
+            bool shouldIgnoreLimit = ScreenManager.TopScreen.DebugInput.IsControlDown();
             int amountUpgraded = 0;
-            // Aah, concurrent modification exception, my old friend. Would be nice if the game gave a proper crash log >.>
-            PartyCharacterVM[] enumerator = new PartyCharacterVM[_mainPartyPrisoners.Count];
+
+            var enumerator = new PartyCharacterVM[_mainPartyPrisoners.Count];
             _mainPartyPrisoners.CopyTo(enumerator, 0);
 
             foreach (PartyCharacterVM prisoner in enumerator)
             {
-                int remainingPartySize = _partyLogic.RightOwnerParty.PartySizeLimit - _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right].TotalManCount;
-                if(remainingPartySize > 0)
+                if(prisoner != null)
                 {
-                    if (prisoner.IsTroopRecruitable)
+                    int remainingPartySize = _partyLogic.RightOwnerParty.PartySizeLimit - _partyLogic
+                        .MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right]
+                        .TotalManCount;
+                    if (remainingPartySize > 0 || shouldIgnoreLimit)
                     {
-                        this._partyVM.CurrentCharacter = prisoner;
-                        if (PartyScreenConfig.PrisonersToRecruit.TryGetValue(prisoner.Character.StringId, out int val))
+                        if (prisoner.IsTroopRecruitable)
                         {
-                            if(val == -1 && PartyScreenConfig.ExtraSettings.RecruitByDefault)
-                                continue;
-                        }
+                            _partyVM.CurrentCharacter = prisoner;
+                            if (PartyScreenConfig.PrisonersToRecruit.TryGetValue(prisoner.Character.StringId, out int val))
+                            {
+                                if (val == -1 && PartyScreenConfig.ExtraSettings.RecruitByDefault)
+                                    continue;
+                            }
+                            else if (!PartyScreenConfig.ExtraSettings.RecruitByDefault) continue;
 
-                        RecruitPrisoner(prisoner, remainingPartySize, ref amountUpgraded);
+                            RecruitPrisoner(prisoner, 
+                                shouldIgnoreLimit ? prisoner.NumOfRecruitablePrisoners : remainingPartySize,
+                                ref amountUpgraded);
+                        }
                     }
-                }
-                else
-                {
-                    if(PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
-                        InformationManager.DisplayMessage(new InformationMessage($"Party size limit reached, {amountUpgraded} recruited!"));
-                    return;
+                    else
+                    {
+                        if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                            InformationManager.DisplayMessage(
+                                new InformationMessage($"Party size limit reached, {amountUpgraded} recruited!"));
+                        return;
+                    }
                 }
             }
             if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
                 InformationManager.DisplayMessage(new InformationMessage($"Recruited {amountUpgraded} prisoners"));
+            _parent.RefreshValues();
         }
 
         private void RecruitPrisoner(PartyCharacterVM character, int remainingSize, ref int amount)

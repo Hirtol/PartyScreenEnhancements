@@ -35,11 +35,28 @@ namespace PartyScreenEnhancements.ViewModel
         {
             this._partyVM = partyVM;
             this._partyScreenLogic = partyScreenLogic;
-            this._sortTroopsVM = new SortAllTroopsVM(partyVM, partyScreenLogic);
-            this._upgradeTroopsVM = new UpgradeAllTroopsVM(partyScreenLogic, partyVM);
-            this._recruitPrisonerVm = new RecruitPrisonerVM(partyVM, partyScreenLogic);
+            this._sortTroopsVM = new SortAllTroopsVM(this);
+            this._upgradeTroopsVM = new UpgradeAllTroopsVM(this);
+            this._recruitPrisonerVm = new RecruitPrisonerVM(this);
+            this._unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops);
             this._parentScreen = parentScreen;
             this._settingsHint = new HintViewModel("Settings");
+            this._partyScreenLogic.AfterReset += AfterReset;
+        }
+
+        public void AfterReset(PartyScreenLogic logic)
+        {
+            this.RefreshValues();
+        }
+        public new void RefreshValues()
+        {
+            base.RefreshValues();
+            this._unitTallyVm.RefreshValues();
+        }
+
+        public new void OnFinalize()
+        {
+            this._partyScreenLogic.AfterReset -= AfterReset;
         }
 
         public void OpenSettingView()
@@ -66,6 +83,7 @@ namespace PartyScreenEnhancements.ViewModel
                 _settingLayer.InputRestrictions.ResetInputRestrictions();
                 _settingLayer = null;
                 _settingScreenVm = null;
+                this.RefreshValues();
             }
         }
 
@@ -148,6 +166,23 @@ namespace PartyScreenEnhancements.ViewModel
         }
 
         [DataSourceProperty]
+        public UnitTallyVM UnitTally
+        {
+            get
+            {
+                return _unitTallyVm;
+            }
+            set
+            {
+                if (value != this._unitTallyVm)
+                {
+                    this._unitTallyVm = value;
+                    base.OnPropertyChanged(nameof(UnitTally));
+                }
+            }
+        }
+
+        [DataSourceProperty]
         public PartyVM EnhancementPartyVM
         {
             get
@@ -169,6 +204,7 @@ namespace PartyScreenEnhancements.ViewModel
         private UpgradeAllTroopsVM _upgradeTroopsVM;
         private RecruitPrisonerVM _recruitPrisonerVm;
         private SettingScreenVM _settingScreenVm;
+        private UnitTallyVM _unitTallyVm;
 
     }
 }

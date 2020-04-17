@@ -10,6 +10,10 @@ using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
 namespace PartyScreenEnhancements.ViewModel.Settings.Options
 {
+    /**
+     * Almost an exact replica of the official BooleanOptionDataVM.
+     * The fact that they use hard baked enums made it less of a chore to just roll my own OptionVM than use theirs.
+     */
     public class BooleanOptionDataVM : GenericOptionDataVM
     {
         public BooleanOptionDataVM(bool initialValue, string name, string description, Action<bool> setter) : base(name, description, 0)

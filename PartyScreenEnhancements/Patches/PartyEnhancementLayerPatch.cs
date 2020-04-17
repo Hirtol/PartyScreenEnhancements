@@ -17,6 +17,7 @@ namespace PartyScreenEnhancements.Patches
     public class PartyEnhancementLayerPatch
     {
         internal static GauntletLayer screenLayer;
+        internal static PartyEnhancementsVM enhancementVm;
 
         [HarmonyPatch("AddLayer")]
         public static void Postfix(ref ScreenBase __instance)
@@ -29,8 +30,8 @@ namespace PartyScreenEnhancements.Patches
                 PartyVM partyVM = traverser.Field<PartyVM>("_dataSource").Value;
                 PartyState partyState = traverser.Field<PartyState>("_partyState").Value;
 
-                var enhancementVM = new PartyEnhancementsVM(partyVM, partyState.PartyScreenLogic, partyScreen);
-                screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVM);
+                enhancementVm = new PartyEnhancementsVM(partyVM, partyState.PartyScreenLogic, partyScreen);
+                screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVm);
                 screenLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
                 partyScreen.AddLayer(screenLayer);
             }
@@ -41,9 +42,10 @@ namespace PartyScreenEnhancements.Patches
         {
             if (__instance is GauntletPartyScreen partyScreen && screenLayer != null && layer.Input.IsCategoryRegistered(HotKeyManager.GetCategory("PartyHotKeyCategory")))
             {
-                var removingLayer = screenLayer;
+                __instance.RemoveLayer(screenLayer);
+                enhancementVm.OnFinalize();
+                enhancementVm = null;
                 screenLayer = null;
-                __instance.RemoveLayer(removingLayer);
             }
         }
     }

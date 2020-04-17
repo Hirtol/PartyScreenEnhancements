@@ -17,13 +17,15 @@ namespace PartyScreenEnhancements.ViewModel
         private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
         private readonly PartyScreenLogic _partyLogic;
         private readonly PartyVM _partyVM;
+        private readonly PartyEnhancementsVM _parent;
         private HintViewModel _upgradeHint;
 
 
-        public UpgradeAllTroopsVM(PartyScreenLogic partyLogic, PartyVM partyVm)
+        public UpgradeAllTroopsVM(PartyEnhancementsVM parent)
         {
-            _partyLogic = partyLogic;
-            _partyVM = partyVm;
+            _parent = parent;
+            _partyLogic = parent.EnhancementPartyLogic;
+            _partyVM = parent.EnhancementPartyVM;
             _mainPartyList = _partyVM.MainPartyTroops;
             _upgradeHint = new HintViewModel("Upgrade All Troops");
         }
@@ -35,18 +37,27 @@ namespace PartyScreenEnhancements.ViewModel
 
             foreach (PartyCharacterVM character in _mainPartyList)
             {
-                if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
+                if(character != null)
                 {
-                    if (upgradePath != -1)
-                        toUpgrade.Add(character, upgradePath);
-                }
-                else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
-                {
-                    toUpgrade.Add(character, 0);
-                }
-                else if (!character.IsUpgrade1Available && character.IsUpgrade2Available)
-                {
-                    toUpgrade.Add(character, 1);
+                    if (PartyScreenConfig.ExtraSettings.HalfHalfUpgrades && character.IsUpgrade1Available &&
+                        character.IsUpgrade2Available)
+                    {
+                        toUpgrade.Add(character, 2);
+                    }
+                    else if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId,
+                        out var upgradePath))
+                    {
+                        if (upgradePath != -1)
+                            toUpgrade.Add(character, upgradePath);
+                    }
+                    else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
+                    {
+                        toUpgrade.Add(character, 0);
+                    }
+                    else if (!character.IsUpgrade1Available && character.IsUpgrade2Available)
+                    {
+                        toUpgrade.Add(character, 1);
+                    }
                 }
             }
 
@@ -55,7 +66,9 @@ namespace PartyScreenEnhancements.ViewModel
                 Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
             }
 
-            _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm.InitializeUpgrades());
+            _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm?.InitializeUpgrades());
+
+            _parent.RefreshValues();
 
             if(PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
                 InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
@@ -69,9 +82,12 @@ namespace PartyScreenEnhancements.ViewModel
 
             var anyInsufficient =
                 upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
+            anyInsufficient = upgradeIndex == 2
+                ? character.IsUpgrade1Insufficient || character.IsUpgrade2Insufficient
+                : anyInsufficient;
             if (!anyInsufficient)
             {
-                if (character.Character.UpgradeTargets.Length > upgradeIndex)
+                if (character.Character.UpgradeTargets.Length > upgradeIndex || upgradeIndex == 2)
                 {
                     ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType) upgradeIndex, character,
                         ref totalUpgrades);

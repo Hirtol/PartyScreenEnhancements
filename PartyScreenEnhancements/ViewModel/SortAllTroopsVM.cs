@@ -17,11 +17,13 @@ namespace PartyScreenEnhancements.ViewModel
         private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
         private readonly PartyScreenLogic _partyLogic;
         private readonly PartyVM _partyVM;
+        private readonly PartyEnhancementsVM _parent;
         private HintViewModel _sortHint;
-        public SortAllTroopsVM(PartyVM partyVm, PartyScreenLogic partyScreenLogic)
+        public SortAllTroopsVM(PartyEnhancementsVM parent)
         {
-            this._partyVM = partyVm;
-            this._partyLogic = partyScreenLogic;
+            this._parent = parent;
+            this._partyVM = parent.EnhancementPartyVM;
+            this._partyLogic = parent.EnhancementPartyLogic;
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._sortHint = new HintViewModel("Sort Troops");
         }
