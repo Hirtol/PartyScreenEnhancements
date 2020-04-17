@@ -27,6 +27,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._sortHint = new HintViewModel("Sort Troops");
         }
+
         public void SortTroops()
         {
             _mainPartyList.Sort(PartyScreenConfig.Sorter);
