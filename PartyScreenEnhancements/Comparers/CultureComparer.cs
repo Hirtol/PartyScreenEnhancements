@@ -38,17 +38,29 @@ namespace PartyScreenEnhancements.Comparers
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
+            var xName = x.Troop.Character.Culture.Name?.ToString();
+            var yName = y.Troop.Character.Culture.Name?.ToString();
+
+            if (xName == null || yName == null)
+                return 1;
+
+            if (xName.Equals(yName))
+                return EqualSorter?.Compare(x, y) ?? 0;
+
             if (CustomSettingsList == null || CustomSettingsList.IsEmpty())
             {
                 FillCustomList();
             }
+
+            if (!CustomSettingsList.Contains(xName) || !CustomSettingsList.Contains(yName))
+            {
+                return !CustomSettingsList.Contains(xName) ? 1 : -1;
+            }
+
             foreach (var setting in CustomSettingsList)
             {
-                if (x.Troop.Character.Culture.Name.Equals(y.Troop.Character.Culture.Name))
-                    return EqualSorter?.Compare(x, y) ?? 0;
-
-                bool xMatch = x.Troop.Character.Culture.Name?.ToString().Equals(setting) ?? false;
-                bool yMatch = y.Troop.Character.Culture.Name?.ToString().Equals(setting) ?? false;
+                bool xMatch = xName.Equals(setting);
+                bool yMatch = yName.Equals(setting);
 
                 if (xMatch && !yMatch) return Descending ? -1 : 1;
                 if (yMatch && !xMatch) return Descending ? 1 : -1;
