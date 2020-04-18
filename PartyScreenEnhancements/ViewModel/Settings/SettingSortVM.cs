@@ -19,10 +19,11 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         private HintViewModel _ascDescHint;
 
         private Action<SettingSortVM, SettingSide> _transferCallBack;
+        private Action<SettingSortVM> _openSubSetting;
 
         private SettingSide _side;
 
-        public SettingSortVM(PartySort sortingComparer, Action<SettingSortVM, SettingSide> transferCallBack, SettingSide side)
+        public SettingSortVM(PartySort sortingComparer, Action<SettingSortVM, SettingSide> transferCallBack, SettingSide side, Action<SettingSortVM> openSubSetting)
         {
             this.SortingComparer = sortingComparer;
             this.SettingHint = new HintViewModel(SortingComparer.GetHintText());
@@ -31,6 +32,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             this.IsTransferable = true;
             this.IsDescending = SortingComparer.Descending;
             this._transferCallBack = transferCallBack;
+            this._openSubSetting = openSubSetting;
             this._side = side;
         }
 
@@ -38,6 +40,15 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         {
             this.IsDescending = !this.IsDescending;
             SortingComparer.Descending = this.IsDescending;
+        }
+
+
+        public void ExecuteOpenSubSetting()
+        {
+            if (SortingComparer.HasCustomSettings())
+            {
+                _openSubSetting(this);
+            }
         }
 
         public void TransferSides()
@@ -59,6 +70,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         [DataSourceProperty]
         public string Name => SortingComparer.GetName();
+
+        [DataSourceProperty]
+        public bool HasCustomSetting => SortingComparer.HasCustomSettings();
 
         [DataSourceProperty]
         public bool IsDescending

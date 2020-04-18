@@ -6,7 +6,7 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class TypeComparer : PartySort
     {
-        public TypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
+        public TypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, @descending, null)
         {
         }
 
@@ -24,6 +24,11 @@ namespace PartyScreenEnhancements.Comparers
         public override string GetName()
         {
             return "Formation Type Comparer";
+        }
+
+        public override bool HasCustomSettings()
+        {
+            return false;
         }
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)

@@ -1,0 +1,74 @@
+﻿<Prefab>
+	<Constants />
+	<Variables />
+	<Window>
+		<Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
+		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
+			<Children>
+				<Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1200"
+				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
+					<Children>
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="800"
+												PositionYOffset="-5" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
+												DoNotAcceptEvents="true">
+							<Children>
+								<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+												PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+												Text="@Name" Brush.FontSize="40" />
+							</Children>
+						</Widget>
+						<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Children>
+								<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="300" MarginRight="200"
+																PositionYOffset="0" HorizontalAlignment="Right" VerticalAlignment="Center" DoNotAcceptEvents="true">
+									<Children>
+										<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+																PositionYOffset="-80" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+																Text="Drag and drop the values in the order that you want them" Brush.FontSize="20" />
+										<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+										PositionYOffset="-20" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+										Text="Ascending will use bottom to top, Descending top to bottom" Brush.FontSize="20" />
+									</Children>
+								</Widget>
+
+								<Widget Id="SortingOrderList" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+								        SuggestedWidth="500" SuggestedHeight="780" HorizontalAlignment="Left" VerticalAlignment="Center"
+								        PositionXOffset="100" MarginTop="150" MarginBottom="0"
+								        Brush="Frame1.Broken.Right">
+									<Children>
+										<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="576"
+												PositionYOffset="-17" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
+												DoNotAcceptEvents="true">
+											<Children>
+												<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+																PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+																Text="Sorting Order" Brush.FontSize="40" />
+											</Children>
+										</Widget>
+
+										<Widget Id="EnhancementSettingsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+											<Children>
+												<ListPanel Id="List" DataSource="{SortingOrder}" WidthSizePolicy="StretchToParent"
+														   HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Top"
+														   AcceptDrop="true" Command.Drop="..\ExecuteListTransfer" CommandParameter.Drop="SettingList"
+														   LayoutImp.LayoutMethod="VerticalBottomToTop" MarginTop="80">
+													<ItemTemplate>
+														<SettingSortingOrder ButtonType="Radio">
+														</SettingSortingOrder>
+													</ItemTemplate>
+												</ListPanel>
+											</Children>
+										</Widget>
+									</Children>
+								</Widget>
+							</Children>
+						</Widget>
+
+						<ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="50" SuggestedWidth="50" VerticalAlignment="Top" HorizontalAlignment="Center" MarginTop="20" MarginLeft="1100" Brush="Popup.CloseButton"/>
+
+					</Children>
+				</Widget>
+			</Children>
+		</Widget>
+	</Window>
+</Prefab>

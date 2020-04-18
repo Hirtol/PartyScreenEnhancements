@@ -21,6 +21,9 @@
 						<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
 						PositionYOffset="80" PositionXOffset="0" Brush="Recruitment.Popup.Title.Text"
 						Text="For information about each sorter hover over the exclamation mark" Brush.FontSize="20" />
+						<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+						            PositionYOffset="130" PositionXOffset="0" Brush="Recruitment.Popup.Title.Text"
+						            Text="Lastly, golden names indicate you can edit the internal sorting order, right click to edit" Brush.FontSize="20" />
 					</Children>
 				</Widget>
 

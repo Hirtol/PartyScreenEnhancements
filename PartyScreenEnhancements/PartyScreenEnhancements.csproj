@@ -235,6 +235,7 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\General\PartyEnhancementGeneralTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\PartyEnhancementSettings.xml" />
     <Compile Include="Comparers\UpgradeableComparer.cs" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
@@ -244,6 +245,8 @@
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
     <Compile Include="ViewModel\Settings\Options\BooleanOptionDataVM.cs" />
     <Compile Include="ViewModel\Settings\Options\GenericOptionDataVM.cs" />
+    <Compile Include="ViewModel\Settings\SortingOrders\SettingSortingOrderScreenVM.cs" />
+    <Compile Include="ViewModel\Settings\SortingOrders\SettingSortingOrderVM.cs" />
     <Compile Include="ViewModel\Settings\Tabs\SettingGeneralPaneVM.cs" />
     <Compile Include="ViewModel\Settings\SettingScreenVM.cs" />
     <Compile Include="ViewModel\Settings\SettingSide.cs" />
@@ -268,6 +271,7 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\PESettingsTabToggle.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PartyEnhancementSortingTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSort.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\SettingSortingOrder.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSortRight.xml" />
     <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />

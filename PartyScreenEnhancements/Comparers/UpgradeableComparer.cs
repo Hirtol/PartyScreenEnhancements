@@ -10,7 +10,7 @@ namespace PartyScreenEnhancements.Comparers
     public class UpgradeableComparer : PartySort
     {
 
-        public UpgradeableComparer(PartySort equalSorter, bool descending = true) : base(equalSorter, descending)
+        public UpgradeableComparer(PartySort equalSorter, bool descending = true) : base(equalSorter, @descending, null)
         {
         }
 
@@ -28,6 +28,11 @@ namespace PartyScreenEnhancements.Comparers
         public override string GetName()
         {
             return "Upgradable Comparer";
+        }
+
+        public override bool HasCustomSettings()
+        {
+            return false;
         }
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)

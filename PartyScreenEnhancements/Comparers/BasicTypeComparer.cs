@@ -10,7 +10,8 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class BasicTypeComparer : PartySort
     {
-        public BasicTypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
+        private Dictionary<string, Func<PartyCharacterVM, PartyCharacterVM, bool>> _compDictionary;
+        public BasicTypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, @descending, null)
         {
         }
 
@@ -28,6 +29,11 @@ namespace PartyScreenEnhancements.Comparers
             return "Unit Type Comparer";
         }
 
+        public override bool HasCustomSettings()
+        {
+            return false;
+        }
+
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             if (Descending ? x.Character.IsMounted && !y.Character.IsMounted : x.Character.IsInfantry && !y.Character.IsInfantry) return -1;
@@ -41,6 +47,12 @@ namespace PartyScreenEnhancements.Comparers
             if (Descending ? x.Character.IsInfantry && !y.Character.IsInfantry : x.Character.IsMounted && !y.Character.IsMounted) return 1;
 
             return -1;
+        }
+
+        public override void FillCustomList()
+        {
+            base.FillCustomList();
+            this._compDictionary = new Dictionary<string, Func<PartyCharacterVM, PartyCharacterVM, bool>>();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class NumberComparer : PartySort
     {
-        public NumberComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
+        public NumberComparer(PartySort equalSorter, bool descending) : base(equalSorter, @descending, null)
         {
         }
 
@@ -26,6 +26,11 @@ namespace PartyScreenEnhancements.Comparers
         public override string GetName()
         {
             return "Troop Number Comparer";
+        }
+
+        public override bool HasCustomSettings()
+        {
+            return false;
         }
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)

@@ -10,7 +10,7 @@ namespace PartyScreenEnhancements.Comparers
 {
     public class AlphabetComparer : PartySort
     {
-        public AlphabetComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending)
+        public AlphabetComparer(PartySort equalSorter, bool descending) : base(equalSorter, @descending, null)
         {
         }
 
@@ -27,6 +27,11 @@ namespace PartyScreenEnhancements.Comparers
         public override string GetName()
         {
             return "Name Comparer";
+        }
+
+        public override bool HasCustomSettings()
+        {
+            return false;
         }
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)

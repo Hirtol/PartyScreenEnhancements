@@ -16,6 +16,9 @@ namespace PartyScreenEnhancements.Comparers
     [XmlInclude(typeof(UpgradeableComparer))]
     public abstract class PartySort : IComparer<PartyCharacterVM>
     {
+
+        private List<string> _customSettings;
+
         [XmlElement("Descending")]
         public bool Descending
         {
@@ -29,10 +32,23 @@ namespace PartyScreenEnhancements.Comparers
             set;
         }
 
-        protected PartySort(PartySort equalSorter, bool descending)
+        [XmlElement("SortingOrder", IsNullable = false)]
+        public List<string> CustomSettingsList {
+            get
+            {
+                return _customSettings;
+            }
+            set => _customSettings = value;
+        }
+
+        protected PartySort(PartySort equalSorter, bool descending, List<string> customSort)
         {
             EqualSorter = equalSorter;
             Descending = descending;
+            if (customSort != null)
+            {
+                _customSettings = customSort;
+            }
         }
 
         internal PartySort()
@@ -43,6 +59,13 @@ namespace PartyScreenEnhancements.Comparers
         public abstract string GetHintText();
 
         public abstract string GetName();
+
+        public abstract bool HasCustomSettings();
+
+        public virtual void FillCustomList()
+        {
+            CustomSettingsList = new List<string>();
+        }
 
         public int Compare(PartyCharacterVM x, PartyCharacterVM y)
         {

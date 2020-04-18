@@ -64,7 +64,7 @@ namespace PartyScreenEnhancements.ViewModel
             if (_settingLayer == null)
             {
                 _settingLayer = new GauntletLayer(200);
-                _settingScreenVm = new SettingScreenVM(this);
+                _settingScreenVm = new SettingScreenVM(this, _parentScreen);
                 _currentMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
                 _settingLayer.IsFocusLayer = true;
                 ScreenManager.TrySetFocus(_settingLayer);

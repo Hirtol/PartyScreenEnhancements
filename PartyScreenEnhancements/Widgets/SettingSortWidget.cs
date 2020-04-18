@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.Core;
 using TaleWorlds.GauntletUI;
+using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade.GauntletUI.Widgets.Party;
 
 namespace PartyScreenEnhancements.Widgets
@@ -23,9 +24,19 @@ namespace PartyScreenEnhancements.Widgets
             this._main.SetState(state);
         }
 
+        protected override void OnLateUpdate(float dt)
+        {
+            base.OnLateUpdate(dt);
+            if (HasCustomSettings)
+            {
+                NameWidget.Brush.FontColor = Color.ConvertStringToColor("#FFD700FF");
+            }
+        }
+
         protected override void RefreshState()
 		{
 			base.RefreshState();
+
             if (base.IsDisabled)
 			{
 				this.SetWidgetsState("Disabled");
@@ -47,15 +58,10 @@ namespace PartyScreenEnhancements.Widgets
 				return;
 			}
 			this.SetWidgetsState("Default");
+            
 		}
 
-        protected override void OnMouseReleased()
-		{
-			base.OnMouseReleased();
-            //screenWidget.SetCurrentTuple(this, this.IsTupleLeftSide);
-		}
-
-		public void ResetIsSelected()
+        public void ResetIsSelected()
 		{
 			base.IsSelected = false;
 		}
@@ -80,11 +86,39 @@ namespace PartyScreenEnhancements.Widgets
                 if (this._main != value)
                 {
                     this._main = value;
-                    base.OnPropertyChanged(value, "Main");
+                    base.OnPropertyChanged(value, nameof(Main));
+                }
+            }
+        }
+
+        public RichTextWidget NameWidget
+        {
+            get => _nameWidget;
+            set
+            {
+                if (this._nameWidget != value)
+                {
+                    this._nameWidget = value;
+                    base.OnPropertyChanged(value, nameof(NameWidget));
+                }
+            }
+        }
+
+        public bool HasCustomSettings
+        {
+            get => _hasCustomSettings;
+            set
+            {
+                if (this._hasCustomSettings != value)
+                {
+                    this._hasCustomSettings = value;
+                    base.OnPropertyChanged(value, nameof(HasCustomSettings));
                 }
             }
         }
 
         private Widget _main;
+        private RichTextWidget _nameWidget;
+        private bool _hasCustomSettings;
     }
 }
