@@ -54,7 +54,7 @@ namespace PartyScreenEnhancements.Comparers
                 if (yMatch && !xMatch) return Descending ? 1 : -1;
             }
 
-            return -1;
+            return 1;
         }
 
         public override void FillCustomList()
