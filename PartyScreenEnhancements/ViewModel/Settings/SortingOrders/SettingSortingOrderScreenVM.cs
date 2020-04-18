@@ -56,7 +56,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.SortingOrders
 
         private void InitializeList()
         {
-            if (_sorter.CustomSettingsList == null)
+            if (_sorter.CustomSettingsList == null || _sorter.CustomSettingsList.IsEmpty())
             {
                 _sorter.FillCustomList();
             }

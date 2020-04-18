@@ -19,7 +19,7 @@ namespace PartyScreenEnhancements.Saving
 
         [XmlElement("GeneralLog")] public bool ShowGeneralLogMessage { get; set; } = true;
 
-        [XmlElement("RecruitByDefault")] public bool RecruitByDefault { get; set; } = false;
+        [XmlElement("RecruitByDefault")] public bool RecruitByDefault { get; set; } = true;
 
         [XmlElement("CategoryNumbers")]
         public bool DisplayCategoryNumbers
