@@ -70,15 +70,15 @@
 				</ButtonWidget>
 
 				<Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-				        HeightSizePolicy="Fixed" SuggestedWidth="120"
-				        SuggestedHeight="230" HorizontalAlignment="Right"
+				        HeightSizePolicy="Fixed" SuggestedWidth="200"
+				        SuggestedHeight="180" HorizontalAlignment="Right"
 				        VerticalAlignment="Bottom" MarginRight="670" MarginBottom="50" IsVisible="@IsEnabled">
 					<Children>
 						<ListPanel Id="UnitTallyList" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop">
 							<Children>
 								<Widget Id="InfantryLabelWidget" WidthSizePolicy="CoverChildren"
 								        HeightSizePolicy="Fixed" SuggestedWidth="50"
-								        SuggestedHeight="40" HorizontalAlignment="Center"
+								        SuggestedHeight="40" HorizontalAlignment="Right"
 								        VerticalAlignment="Top">
 									<Children>
 										<RichTextWidget isVisible="@IsEnabled"  WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
@@ -98,7 +98,7 @@
 								</Widget>
 								<Widget Id="CavalryLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren"
 								        HeightSizePolicy="Fixed" SuggestedWidth="50"
-								        SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="30"
+								        SuggestedHeight="40" HorizontalAlignment="Center"
 								        VerticalAlignment="Center">
 									<Children>
 										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
