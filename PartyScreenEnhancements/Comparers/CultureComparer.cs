@@ -47,11 +47,6 @@ namespace PartyScreenEnhancements.Comparers
             if (xName.Equals(yName))
                 return EqualSorter?.Compare(x, y) ?? 0;
 
-            if (CustomSettingsList == null || CustomSettingsList.IsEmpty())
-            {
-                FillCustomList();
-            }
-
             xName = CustomSettingsList.Contains(xName) ? xName : CultureCode.AnyOtherCulture.ToString();
             yName = CustomSettingsList.Contains(yName) ? yName : CultureCode.AnyOtherCulture.ToString();
 

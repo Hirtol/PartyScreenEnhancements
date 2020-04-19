@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core;
 
 namespace PartyScreenEnhancements.Comparers
 {
@@ -73,7 +74,7 @@ namespace PartyScreenEnhancements.Comparers
             {
                 return -1;
             }
-            else if (y.Character.IsPlayerCharacter)
+            if (y.Character.IsPlayerCharacter)
             {
                 return 1;
             }
@@ -81,14 +82,18 @@ namespace PartyScreenEnhancements.Comparers
             {
                 return -1;
             } 
-            else if (y.IsHero && !x.IsHero)
+            if (y.IsHero && !x.IsHero)
             {
                 return 1;
             }
-            else if (x.IsHero && y.IsHero)
+            if (x.IsHero && y.IsHero)
             {
                 return 0;
             }
+
+            if(HasCustomSettings() && (CustomSettingsList == null || CustomSettingsList.IsEmpty())) 
+                FillCustomList();
+
             return localCompare(ref x, ref y);
         }
 
