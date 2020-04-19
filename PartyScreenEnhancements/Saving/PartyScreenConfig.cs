@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
+using HarmonyLib;
 using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Engine;
@@ -16,12 +17,12 @@ namespace PartyScreenEnhancements.Saving
 {
     public static class PartyScreenConfig
     {
+        internal const double VERSION = 1.02;
+
         internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
         internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
-
-        internal const double VERSION = 1.02;
 
         private static readonly string modDir = Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
         private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
@@ -77,7 +78,7 @@ namespace PartyScreenEnhancements.Saving
             }
             catch (Exception e)
             {
-                Trace.WriteLine(e.ToString());
+                FileLog.Log(e.ToString());
             }
         }
 

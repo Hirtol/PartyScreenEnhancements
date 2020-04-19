@@ -52,10 +52,9 @@ namespace PartyScreenEnhancements.Comparers
                 FillCustomList();
             }
 
-            if (!CustomSettingsList.Contains(xName) || !CustomSettingsList.Contains(yName))
-            {
-                return !CustomSettingsList.Contains(xName) ? 1 : -1;
-            }
+            xName = CustomSettingsList.Contains(xName) ? xName : CultureCode.AnyOtherCulture.ToString();
+            yName = CustomSettingsList.Contains(yName) ? yName : CultureCode.AnyOtherCulture.ToString();
+
 
             foreach (var setting in CustomSettingsList)
             {
