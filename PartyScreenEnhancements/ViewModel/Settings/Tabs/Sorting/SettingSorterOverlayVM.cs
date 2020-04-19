@@ -24,6 +24,18 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             this._name = "Sorters";
         }
 
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            _mainParty.OnFinalize();
+            _mainPrisoners.OnFinalize();
+            _mainGarrison.OnFinalize();
+
+            _mainParty = null;
+            _mainPrisoners = null;
+            _mainGarrison = null;
+            _name = null;
+        }
 
         [DataSourceProperty]
         public string Name
