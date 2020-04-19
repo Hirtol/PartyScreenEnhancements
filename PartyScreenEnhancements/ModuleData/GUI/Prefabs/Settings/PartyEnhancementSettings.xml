@@ -27,7 +27,7 @@
 											<Children>
 												<TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Center">
 													<Children>
-														<PartyEnhancementSortingTab Id="SorterSettingsPage" DataSource="{SorterPane}" />
+														<PSESortingSelectorLayer Id="SorterSelectorLayer" DataSource="{SorterPane}" />
 														<PartyEnhancementGeneralTab Id="GeneralSettingsPage" DataSource="{GeneralPane}" />
 													</Children>
 												</TabControl>

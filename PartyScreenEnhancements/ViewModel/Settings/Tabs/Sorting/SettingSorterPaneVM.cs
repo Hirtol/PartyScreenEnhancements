@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
+using PartyScreenEnhancements.ViewModel.Settings.Sorting;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
@@ -8,51 +9,21 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
     public class SettingSorterPaneVM : TaleWorlds.Library.ViewModel
     {
         private readonly SettingScreenVM _parent;
+        private PartySort _sorter;
 
         private MBBindingList<SettingSortVM> _possibleSettingList;
         private MBBindingList<SettingSortVM> _settingList;
 
-        public SettingSorterPaneVM(SettingScreenVM parent)
+        public SettingSorterPaneVM(SettingScreenVM parent, string name, PartySort sorter)
         {
-            _parent = parent;
-            PossibleSettingList = new MBBindingList<SettingSortVM>();
-            SettingList = new MBBindingList<SettingSortVM>();
-            Name = "Sorters";
+            this._sorter = sorter;
+            this._parent = parent;
+            this.PossibleSettingList = new MBBindingList<SettingSortVM>();
+            this.SettingList = new MBBindingList<SettingSortVM>();
+            this.Name = name;
 
             InitialiseSettingLists();
         }
-
-        [DataSourceProperty]
-        public MBBindingList<SettingSortVM> PossibleSettingList
-        {
-            get => _possibleSettingList;
-            set
-            {
-                if (value != _possibleSettingList)
-                {
-                    _possibleSettingList = value;
-                    OnPropertyChanged(nameof(PossibleSettingList));
-                }
-            }
-        }
-
-        [DataSourceProperty]
-        public MBBindingList<SettingSortVM> SettingList
-        {
-            get => _settingList;
-            set
-            {
-                if (value != _settingList)
-                {
-                    _settingList = value;
-                    OnPropertyChanged(nameof(SettingList));
-                }
-            }
-        }
-
-
-        [DataSourceProperty] 
-        public string Name { get; set; }
 
         public void TransferSorter(SettingSortVM sorter, SettingSide side)
         {
@@ -103,14 +74,14 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         {
             if (_settingList.Count > 0)
             {
-                PartyScreenConfig.Sorter = GetFullPartySorter(0);
+                this._sorter = GetFullPartySorter(0);
             }
             else
             {
-                PartyScreenConfig.Sorter = new AlphabetComparer(null, false);
+                this._sorter = new AlphabetComparer(null, false);
             }
 
-            PartyScreenConfig.SaveSorter();
+            PartyScreenConfig.Save();
         }
 
         private void ExecuteTransfer(SettingSortVM sorter, int index, SettingSide sideToMoveTo)
@@ -182,9 +153,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 
         private void InitialiseSettingList()
         {
-            for (PartySort currentSort = PartyScreenConfig.Sorter;
-                currentSort != null;
-                currentSort = currentSort.EqualSorter)
+            for (PartySort currentSort = _sorter; currentSort != null; currentSort = currentSort.EqualSorter)
             {
                 PartySort freshSorter;
                 if (currentSort.HasCustomSettings())
@@ -201,10 +170,42 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
                         ?.Invoke(new object[] {null, currentSort.Descending}) as PartySort;
                 }
 
-                var settingSortVM =
-                    new SettingSortVM(freshSorter, TransferSorter, SettingSide.RIGHT, _parent.OpenSubSetting);
+                var settingSortVM = new SettingSortVM(freshSorter, TransferSorter, SettingSide.RIGHT, _parent.OpenSubSetting);
+
                 _settingList.Add(settingSortVM);
             }
         }
+
+        [DataSourceProperty]
+        public MBBindingList<SettingSortVM> PossibleSettingList
+        {
+            get => _possibleSettingList;
+            set
+            {
+                if (value != _possibleSettingList)
+                {
+                    _possibleSettingList = value;
+                    OnPropertyChanged(nameof(PossibleSettingList));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public MBBindingList<SettingSortVM> SettingList
+        {
+            get => _settingList;
+            set
+            {
+                if (value != _settingList)
+                {
+                    _settingList = value;
+                    OnPropertyChanged(nameof(SettingList));
+                }
+            }
+        }
+
+
+        [DataSourceProperty]
+        public string Name { get; set; }
     }
 }

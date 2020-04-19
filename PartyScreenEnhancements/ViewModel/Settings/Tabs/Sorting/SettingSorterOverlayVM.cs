@@ -18,9 +18,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 
         public SettingSorterOverlayVM(SettingScreenVM _parent)
         {
-            this._mainParty = new SettingSorterPaneVM(_parent);
-            this._mainPrisoners = new SettingSorterPaneVM(_parent);
-            this._mainGarrison = new SettingSorterPaneVM(_parent);
+            this._mainParty = new SettingSorterPaneVM(_parent, "Main Party", PartyScreenConfig.ExtraSettings.PartySorter);
+            this._mainPrisoners = new SettingSorterPaneVM(_parent, "Prisoners", PartyScreenConfig.ExtraSettings.PrisonerSorter);
+            this._mainGarrison = new SettingSorterPaneVM(_parent, "Garrisons", PartyScreenConfig.ExtraSettings.GarrisonSorter);
             this._name = "Sorters";
         }
 
@@ -40,15 +40,43 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         }
 
         [DataSourceProperty]
-        public MBBindingList<SettingSorterPaneVM> SorterList
+        public SettingSorterPaneVM PartySorterPane
         {
-            get => _sorterPanes;
+            get => this._mainParty;
             set
             {
-                if (value != _sorterPanes)
+                if (value != _mainParty)
                 {
-                    _sorterPanes = value;
-                    base.OnPropertyChanged(nameof(SorterList));
+                    _mainParty = value;
+                    base.OnPropertyChanged(nameof(PartySorterPane));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public SettingSorterPaneVM PrisonerSorterPane
+        {
+            get => this._mainPrisoners;
+            set
+            {
+                if (value != _mainPrisoners)
+                {
+                    _mainPrisoners = value;
+                    base.OnPropertyChanged(nameof(PrisonerSorterPane));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public SettingSorterPaneVM GarrisonSorterPane
+        {
+            get => this._mainGarrison;
+            set
+            {
+                if (value != _mainGarrison)
+                {
+                    _mainGarrison = value;
+                    base.OnPropertyChanged(nameof(GarrisonSorterPane));
                 }
             }
         }

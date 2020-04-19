@@ -27,8 +27,10 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private PartyEnhancementsVM _partyEnhancementsVm;
 
-        private SettingSorterPaneVM _sorterPane;
+        private SettingSorterOverlayVM _sorterPane;
         private SettingGeneralPaneVM _generalPane;
+
+        private SettingSorterPaneVM _sortersPane;
 
         private GauntletLayer _subSettingLayer;
         private GauntletPartyScreen _parentScreen;
@@ -39,10 +41,11 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         {
             this._partyEnhancementsVm = parent;
             this._parentScreen = parentScreen;
-            this._sorterPane = new SettingSorterPaneVM(this);
+            this._sorterPane = new SettingSorterOverlayVM(this);
             this._generalPane = new SettingGeneralPaneVM();
+            _sortersPane = new SettingSorterPaneVM(this, "Test", PartyScreenConfig.Sorter);
 
-            if(Game.Current != null)
+            if (Game.Current != null)
                 Game.Current.AfterTick = (Action<float>)Delegate.Combine(Game.Current.AfterTick, new Action<float>(this.AfterTick));
         }
 
@@ -109,7 +112,21 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         }
 
         [DataSourceProperty]
-        public SettingSorterPaneVM SorterPane
+        public SettingSorterPaneVM SortersPane
+        {
+            get => _sortersPane;
+            set
+            {
+                if (value != this._sortersPane)
+                {
+                    this._sortersPane = value;
+                    base.OnPropertyChanged(nameof(SortersPane));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public SettingSorterOverlayVM SorterPane
         {
             get => _sorterPane;
             set

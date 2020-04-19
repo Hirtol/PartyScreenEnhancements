@@ -2,14 +2,14 @@
 	<Constants />
 	<Variables />
 	<Window>
-		<Widget Id="SubSortingTabSelector" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotAcceptEvents="true">
+		<Widget Id="SubSortingTabSelector" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
 			<Children>
 			<!--TabControl-->
 			<Widget Id="TabRectangle" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
 				<Children>
 					<TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Center">
 						<Children>
-							<PartyEnhancementSortingTab Id="PartySortingSettingsPage" DataSource="{SorterPane}" />
+							<PartyEnhancementSortingTab Id="PartySortingSettingsPage" DataSource="{PartySorterPane}" />
 							<PartyEnhancementSortingTab Id="PrisonersSortingSettingsPage" DataSource="{PrisonerSorterPane}" />
 							<PartyEnhancementSortingTab Id="GarrisonSortingSettingsPage" DataSource="{GarrisonSorterPane}" />
 						</Children>
@@ -18,9 +18,9 @@
 			</Widget>
 
 			<!--Tabs themselves-->
-			<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginBottom="90" MarginLeft="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" LayoutImp.LayoutMethod="HorizontalLeftToRight" IsEnabled="@HasSeparateSorting" IsVisible="@HasSeparateSorting">
+			<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginBottom="0" MarginLeft="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" LayoutImp.LayoutMethod="HorizontalLeftToRight" IsEnabled="@HasSeparateSorting" IsVisible="@HasSeparateSorting">
 				<Children>
-					<PSESettingsTabToggle DataSource="{SorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="PartySorterSettingsPage" />
+					<PSESettingsTabToggle DataSource="{PartySorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="PartySorterSettingsPage" />
 					<PSESettingsTabToggle DataSource="{PrisonerSorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="PrisonerSorterSettingsPage" />
 					<PSESettingsTabToggle DataSource="{GarrisonSorterPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="GarrisonSorterSettingsPage" />
 				</Children>
