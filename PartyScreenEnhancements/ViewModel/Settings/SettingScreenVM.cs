@@ -8,6 +8,8 @@ using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.SortingOrders;
+using PartyScreenEnhancements.ViewModel.Settings.Tabs;
+using PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;

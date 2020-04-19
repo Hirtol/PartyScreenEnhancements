@@ -6,11 +6,10 @@
 	<Window>
 
 		<Widget Id="OptionsInnerPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-		        HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="57" MarginBottom="400"
-		        LayoutImp.LayoutMethod="VerticalTopToBottom">
+		        HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="57" MarginBottom="330">
 			<Children>
 				<ListPanel DataSource="{Options}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-				           HorizontalAlignment="Center" VerticalAlignment="Center" MarginBottom="20"
+				           HorizontalAlignment="Center" VerticalAlignment="Center"
 				           LayoutImp.LayoutMethod="VerticalTopToBottom">
 					<ItemTemplate>
 

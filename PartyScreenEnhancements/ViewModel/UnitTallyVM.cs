@@ -28,7 +28,6 @@ namespace PartyScreenEnhancements.ViewModel
             this.CavalryLabel = "Cavalry: NaN";
             this._mainPartyList = mainPartyList;
             this.IsEnabled = PartyScreenConfig.ExtraSettings.DisplayCategoryNumbers;
-            this.RefreshValues();
         }
 
         public void OnEnableChange(object sender, PropertyChangedEventArgs propertyChangedEventArgs)

@@ -1,4 +1,4 @@
-﻿namespace PartyScreenEnhancements.ViewModel.Settings
+﻿namespace PartyScreenEnhancements.ViewModel.Settings.Sorting
 {
     public enum SettingSide
     {

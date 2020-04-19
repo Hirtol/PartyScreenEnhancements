@@ -113,8 +113,6 @@ namespace PartyScreenEnhancements.Saving
 
                 node = node.ReplaceWithSerializationOf(ExtraSettings);
 
-                
-
                 modNode.AppendChild(options);
 
                 addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
@@ -137,17 +135,6 @@ namespace PartyScreenEnhancements.Saving
 
             parent.AppendChild(element);
         }
-
-        //TODO: To come back to
-        // var sorterElement = xmlDocument.CreateElement("Sorter");
-        //
-        // StreamWriter sw = new StreamWriter(_sorterfile);
-        // test.Serialize(sw, Sorter, ns);
-        // sw.Close();
-        //
-        //
-        // sorterElement.InnerXml = Convert.ToString(sw);
-        // sortingOptions.AppendChild(sorterElement);
 
         public static void Load()
         {

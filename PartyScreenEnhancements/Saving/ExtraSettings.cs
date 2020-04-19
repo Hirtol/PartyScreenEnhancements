@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using PartyScreenEnhancements.Comparers;
 
 namespace PartyScreenEnhancements.Saving
 {
@@ -34,7 +35,24 @@ namespace PartyScreenEnhancements.Saving
         [XmlElement("HalfHalfUpgrades")]
         public bool HalfHalfUpgrades { get; set; } = false;
 
-        
+        [XmlElement("SeparateSortingProfiles")]
+        public bool SeparateSortingProfiles { get; set; } = true;
+
+        [XmlElement("AutomaticSorting")]
+        public bool AutomaticSorting { get; set; } = false;
+
+        [XmlElement("PartySorter")]
+        public PartySort PartySorter { get; set; } = PartyScreenConfig.Sorter;
+
+        [XmlElement("PrisonerSorter")]
+        public PartySort PrisonerSorter { get; set; } = PartyScreenConfig.Sorter;
+
+        [XmlElement("GarrisonSorter")]
+        public PartySort GarrisonSorter { get; set; } = PartyScreenConfig.Sorter;
+
+
+
+
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

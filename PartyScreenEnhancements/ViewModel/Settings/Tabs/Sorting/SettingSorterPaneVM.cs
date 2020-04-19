@@ -3,7 +3,7 @@ using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.Library;
 
-namespace PartyScreenEnhancements.ViewModel.Settings
+namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 {
     public class SettingSorterPaneVM : TaleWorlds.Library.ViewModel
     {
@@ -51,7 +51,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         }
 
 
-        [DataSourceProperty] public string Name { get; set; }
+        [DataSourceProperty] 
+        public string Name { get; set; }
 
         public void TransferSorter(SettingSortVM sorter, SettingSide side)
         {
