@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,13 +16,16 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         private SettingSorterPaneVM _mainGarrison;
 
         private string _name;
+        private bool _hasSeparateSorting;
 
         public SettingSorterOverlayVM(SettingScreenVM _parent)
         {
+            PartyScreenConfig.ExtraSettings.PropertyChanged += OnEnableChange;
             this._mainParty = new SettingSorterPaneVM(_parent, "Main Party", PartyScreenConfig.ExtraSettings.PartySorter, value => PartyScreenConfig.ExtraSettings.PartySorter = value);
             this._mainPrisoners = new SettingSorterPaneVM(_parent, "Prisoners", PartyScreenConfig.ExtraSettings.PrisonerSorter, value => PartyScreenConfig.ExtraSettings.PrisonerSorter = value);
             this._mainGarrison = new SettingSorterPaneVM(_parent, "Garrisons", PartyScreenConfig.ExtraSettings.GarrisonSorter, value => PartyScreenConfig.ExtraSettings.GarrisonSorter = value);
             this._name = "Sorters";
+            this._hasSeparateSorting = PartyScreenConfig.ExtraSettings.SeparateSortingProfiles;
         }
 
         public override void OnFinalize()
@@ -37,7 +41,16 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             _name = null;
         }
 
-        [DataSourceProperty]
+        public void OnEnableChange(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName.Equals(nameof(PartyScreenConfig.ExtraSettings
+                .SeparateSortingProfiles)))
+            {
+                this.HasSeparateSorting = PartyScreenConfig.ExtraSettings.SeparateSortingProfiles;
+            }
+        }
+
+    [DataSourceProperty]
         public string Name
         {
             get => _name;
@@ -97,12 +110,12 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public bool HasSeparateSorting
         {
-            get => PartyScreenConfig.ExtraSettings.SeparateSortingProfiles;
+            get => _hasSeparateSorting;
             set
             {
-                if (value != PartyScreenConfig.ExtraSettings.SeparateSortingProfiles)
+                if (value != _hasSeparateSorting)
                 {
-                    PartyScreenConfig.ExtraSettings.SeparateSortingProfiles = value;
+                    _hasSeparateSorting = value;
                     base.OnPropertyChanged(nameof(HasSeparateSorting));
                 }
             }

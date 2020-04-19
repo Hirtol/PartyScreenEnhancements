@@ -43,7 +43,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             SortingComparer.Descending = this.IsDescending;
         }
 
-
         public void ExecuteOpenSubSetting()
         {
             if (SortingComparer.HasCustomSettings())

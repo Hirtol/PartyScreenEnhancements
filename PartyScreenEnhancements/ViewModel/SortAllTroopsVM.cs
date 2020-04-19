@@ -43,7 +43,7 @@ namespace PartyScreenEnhancements.ViewModel
                 SortAnyParty(_mainPartyPrisoners,
                     _partyLogic.PrisonerRosters[(int) PartyScreenLogic.PartyRosterSide.Right],
                     settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
-                if (_partyLogic.LeftOwnerParty?.MobileParty?.IsActive ?? false)
+                if (_partyLogic.LeftOwnerParty?.MobileParty?.IsGarrison ?? false)
                 {
                     InformationManager.DisplayMessage(new InformationMessage("Sorting Garrison!"));
                     SortAnyParty(_partyVM.OtherPartyTroops,

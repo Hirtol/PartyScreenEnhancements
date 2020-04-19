@@ -18,7 +18,7 @@ namespace PartyScreenEnhancements.Saving
     {
         internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
-        internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
+        internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
         internal const double VERSION = 1.02;
@@ -45,21 +45,6 @@ namespace PartyScreenEnhancements.Saving
                     Save();
                 }
             }
-            if (!File.Exists(_sorterfile))
-            {
-                SaveSorter();
-            }
-            else
-            {
-                if(!_upgradedVersion)
-                {
-                    LoadSorter();
-                }
-                else
-                {
-                    SaveSorter();
-                }
-            }
         }
 
         public static void SaveSorter()
@@ -70,7 +55,7 @@ namespace PartyScreenEnhancements.Saving
             ns.Add("", "");
 
             StreamWriter sw = new StreamWriter(_sorterfile);
-            xmlSerializer.Serialize(sw, Sorter, ns);
+            xmlSerializer.Serialize(sw, DefaultSorter, ns);
             sw.Close();
         }
 
@@ -81,7 +66,7 @@ namespace PartyScreenEnhancements.Saving
                 using(var sw = new StreamReader(_sorterfile))
                 {
                     var test = new XmlSerializer(typeof(PartySort));
-                    Sorter = test.Deserialize(sw) as PartySort;
+                    DefaultSorter = test.Deserialize(sw) as PartySort;
                 }
             }
             catch(Exception e)

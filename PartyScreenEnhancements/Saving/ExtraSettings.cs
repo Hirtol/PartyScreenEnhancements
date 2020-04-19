@@ -15,6 +15,7 @@ namespace PartyScreenEnhancements.Saving
         public event PropertyChangedEventHandler PropertyChanged;
 
         private bool _displayCategory = false;
+        private bool _separateSorting = true;
 
         public static List<object> GeneralSettings { get; set; } = new List<object>();
 
@@ -36,19 +37,26 @@ namespace PartyScreenEnhancements.Saving
         public bool HalfHalfUpgrades { get; set; } = false;
 
         [XmlElement("SeparateSortingProfiles")]
-        public bool SeparateSortingProfiles { get; set; } = true;
-
+        public bool SeparateSortingProfiles {
+            get => _separateSorting;
+            set
+            {
+                _separateSorting = value;
+                OnPropertyChanged();
+            }
+        } 
+        
         [XmlElement("AutomaticSorting")]
-        public bool AutomaticSorting { get; set; } = false;
+        public bool AutomaticSorting { get; set; } = true;
 
         [XmlElement("PartySorter")]
-        public PartySort PartySorter { get; set; } = PartyScreenConfig.Sorter;
+        public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
 
         [XmlElement("PrisonerSorter")]
-        public PartySort PrisonerSorter { get; set; } = PartyScreenConfig.Sorter;
+        public PartySort PrisonerSorter { get; set; } = PartyScreenConfig.DefaultSorter;
 
         [XmlElement("GarrisonSorter")]
-        public PartySort GarrisonSorter { get; set; } = PartyScreenConfig.Sorter;
+        public PartySort GarrisonSorter { get; set; } = PartyScreenConfig.DefaultSorter;
 
 
 
