@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.Sorting;
@@ -9,15 +10,17 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
     public class SettingSorterPaneVM : TaleWorlds.Library.ViewModel
     {
         private readonly SettingScreenVM _parent;
-        private PartySort _sorter;
+        private readonly Action<PartySort> _newSorterCallBack;
 
+        private PartySort _sorter;
         private MBBindingList<SettingSortVM> _possibleSettingList;
         private MBBindingList<SettingSortVM> _settingList;
 
-        public SettingSorterPaneVM(SettingScreenVM parent, string name, PartySort sorter)
+        public SettingSorterPaneVM(SettingScreenVM parent, string name, PartySort sorter, Action<PartySort> newSorterCallback)
         {
             this._sorter = sorter;
             this._parent = parent;
+            this._newSorterCallBack = newSorterCallback;
             this.PossibleSettingList = new MBBindingList<SettingSortVM>();
             this.SettingList = new MBBindingList<SettingSortVM>();
             this.Name = name;
@@ -74,11 +77,11 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         {
             if (_settingList.Count > 0)
             {
-                this._sorter = GetFullPartySorter(0);
+                _newSorterCallBack(GetFullPartySorter(0));
             }
             else
             {
-                this._sorter = new AlphabetComparer(null, false);
+                _newSorterCallBack(new AlphabetComparer(null, false));
             }
 
             PartyScreenConfig.Save();

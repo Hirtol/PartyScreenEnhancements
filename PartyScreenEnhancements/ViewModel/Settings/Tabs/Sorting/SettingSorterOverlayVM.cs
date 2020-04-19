@@ -18,9 +18,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 
         public SettingSorterOverlayVM(SettingScreenVM _parent)
         {
-            this._mainParty = new SettingSorterPaneVM(_parent, "Main Party", PartyScreenConfig.ExtraSettings.PartySorter);
-            this._mainPrisoners = new SettingSorterPaneVM(_parent, "Prisoners", PartyScreenConfig.ExtraSettings.PrisonerSorter);
-            this._mainGarrison = new SettingSorterPaneVM(_parent, "Garrisons", PartyScreenConfig.ExtraSettings.GarrisonSorter);
+            this._mainParty = new SettingSorterPaneVM(_parent, "Main Party", PartyScreenConfig.ExtraSettings.PartySorter, value => PartyScreenConfig.ExtraSettings.PartySorter = value);
+            this._mainPrisoners = new SettingSorterPaneVM(_parent, "Prisoners", PartyScreenConfig.ExtraSettings.PrisonerSorter, value => PartyScreenConfig.ExtraSettings.PrisonerSorter = value);
+            this._mainGarrison = new SettingSorterPaneVM(_parent, "Garrisons", PartyScreenConfig.ExtraSettings.GarrisonSorter, value => PartyScreenConfig.ExtraSettings.GarrisonSorter = value);
             this._name = "Sorters";
         }
 

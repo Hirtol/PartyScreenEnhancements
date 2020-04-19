@@ -36,19 +36,19 @@ namespace PartyScreenEnhancements.ViewModel
         public void SortTroops()
         {
             var settings = PartyScreenConfig.ExtraSettings;
-            SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right], PartyScreenConfig.Sorter);
+            SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right], settings.PartySorter);
 
             if(!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
             {
                 SortAnyParty(_mainPartyPrisoners,
                     _partyLogic.PrisonerRosters[(int) PartyScreenLogic.PartyRosterSide.Right],
-                    settings.SeparateSortingProfiles ? settings.PrisonerSorter : PartyScreenConfig.Sorter);
+                    settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
                 if (_partyLogic.LeftOwnerParty?.MobileParty?.IsActive ?? false)
                 {
                     InformationManager.DisplayMessage(new InformationMessage("Sorting Garrison!"));
                     SortAnyParty(_partyVM.OtherPartyTroops,
                         _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Left],
-                        settings.SeparateSortingProfiles ? settings.GarrisonSorter : PartyScreenConfig.Sorter);
+                        settings.SeparateSortingProfiles ? settings.GarrisonSorter : settings.PartySorter);
                 }
             }
         }

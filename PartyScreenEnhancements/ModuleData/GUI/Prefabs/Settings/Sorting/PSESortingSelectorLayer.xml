@@ -2,31 +2,31 @@
 	<Constants />
 	<Variables />
 	<Window>
-		<Widget Id="SubSortingTabSelector" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
+		<Widget Id="SubSortingTabSelector" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotAcceptEvents="false" DoNotPassEventsToChildren="false" >
 			<Children>
-			<!--TabControl-->
-			<Widget Id="TabRectangle" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
-				<Children>
-					<TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Center">
-						<Children>
-							<PartyEnhancementSortingTab Id="PartySortingSettingsPage" DataSource="{PartySorterPane}" />
-							<PartyEnhancementSortingTab Id="PrisonersSortingSettingsPage" DataSource="{PrisonerSorterPane}" />
-							<PartyEnhancementSortingTab Id="GarrisonSortingSettingsPage" DataSource="{GarrisonSorterPane}" />
-						</Children>
-					</TabControl>
-				</Children>
-			</Widget>
+				<!--TabControl-->
+				<Widget Id="TabRectangle" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
+					<Children>
+						<TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Center">
+							<Children>
+								<PartyEnhancementSortingTab Id="PartySorterSettingsPage" DataSource="{PartySorterPane}" />
+								<PartyEnhancementSortingTab Id="PrisonerSorterSettingsPage" DataSource="{PrisonerSorterPane}" />
+								<PartyEnhancementSortingTab Id="GarrisonSorterSettingsPage" DataSource="{GarrisonSorterPane}" />
+							</Children>
+						</TabControl>
+					</Children>
+				</Widget>
 
-			<!--Tabs themselves-->
-			<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginBottom="0" MarginLeft="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" LayoutImp.LayoutMethod="HorizontalLeftToRight" IsEnabled="@HasSeparateSorting" IsVisible="@HasSeparateSorting">
-				<Children>
-					<PSESettingsTabToggle DataSource="{PartySorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="PartySorterSettingsPage" />
-					<PSESettingsTabToggle DataSource="{PrisonerSorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="PrisonerSorterSettingsPage" />
-					<PSESettingsTabToggle DataSource="{GarrisonSorterPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="GarrisonSorterSettingsPage" />
-				</Children>
-			</ListPanel>
+				<!--Tabs themselves-->
+				<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginBottom="0" MarginLeft="20" HorizontalAlignment="Center" VerticalAlignment="Bottom" LayoutImp.LayoutMethod="HorizontalLeftToRight" IsEnabled="@HasSeparateSorting" IsVisible="@HasSeparateSorting">
+					<Children>
+						<PSESettingsTabToggle DataSource="{PartySorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="PartySorterSettingsPage" />
+						<PSESettingsTabToggle DataSource="{PrisonerSorterPane}" Parameter.ButtonBrush="Header.Tab.Center" Parameter.TabName="PrisonerSorterSettingsPage" />
+						<PSESettingsTabToggle DataSource="{GarrisonSorterPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="GarrisonSorterSettingsPage" />
+					</Children>
+				</ListPanel>
 
-			<!--End TabControl-->
+				<!--End TabControl-->
 			</Children>
 		</Widget>
 	</Window>
