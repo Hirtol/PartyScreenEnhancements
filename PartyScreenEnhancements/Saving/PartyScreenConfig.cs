@@ -25,7 +25,6 @@ namespace PartyScreenEnhancements.Saving
 
         private static readonly string modDir = Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
         private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
-        private static readonly string _sorterfile = modDir + "Sorter.xml";
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
 
@@ -44,35 +43,6 @@ namespace PartyScreenEnhancements.Saving
                 {
                     Save();
                 }
-            }
-        }
-
-        public static void SaveSorter()
-        {
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            var xmlSerializer = new XmlSerializer(typeof(PartySort));
-
-            ns.Add("", "");
-
-            StreamWriter sw = new StreamWriter(_sorterfile);
-            xmlSerializer.Serialize(sw, DefaultSorter, ns);
-            sw.Close();
-        }
-
-        public static void LoadSorter()
-        {
-            try
-            {
-                using(var sw = new StreamReader(_sorterfile))
-                {
-                    var test = new XmlSerializer(typeof(PartySort));
-                    DefaultSorter = test.Deserialize(sw) as PartySort;
-                }
-            }
-            catch(Exception e)
-            {
-                File.Delete(_sorterfile);
-                throw new XmlException("Could not load Sorter.xml from PartyScreenEnhancements, please try again!" + e.ToString());
             }
         }
 
