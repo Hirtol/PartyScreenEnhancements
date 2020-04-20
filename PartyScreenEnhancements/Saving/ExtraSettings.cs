@@ -17,8 +17,6 @@ namespace PartyScreenEnhancements.Saving
         private bool _displayCategory = false;
         private bool _separateSorting = true;
 
-        public static List<object> GeneralSettings { get; set; } = new List<object>();
-
         [XmlElement("GeneralLog")] public bool ShowGeneralLogMessage { get; set; } = true;
 
         [XmlElement("RecruitByDefault")] public bool RecruitByDefault { get; set; } = true;
@@ -47,7 +45,7 @@ namespace PartyScreenEnhancements.Saving
         } 
         
         [XmlElement("AutomaticSorting")]
-        public bool AutomaticSorting { get; set; } = true;
+        public bool AutomaticSorting { get; set; } = false;
 
         [XmlElement("PartySorter")]
         public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
@@ -57,10 +55,6 @@ namespace PartyScreenEnhancements.Saving
 
         [XmlElement("GarrisonSorter")]
         public PartySort GarrisonSorter { get; set; } = PartyScreenConfig.DefaultSorter;
-
-
-
-
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -88,7 +88,7 @@ namespace PartyScreenEnhancements.Comparers
             }
             if (x.IsHero && y.IsHero)
             {
-                return 0;
+                return StringComparer.CurrentCulture.Compare(x.Name, y.Name);
             }
 
             if(HasCustomSettings() && (CustomSettingsList == null || CustomSettingsList.IsEmpty())) 

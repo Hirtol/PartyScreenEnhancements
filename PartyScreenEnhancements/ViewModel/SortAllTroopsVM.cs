@@ -22,6 +22,10 @@ namespace PartyScreenEnhancements.ViewModel
         private readonly PartyScreenLogic _partyLogic;
         private readonly PartyVM _partyVM;
         private readonly PartyEnhancementsVM _parent;
+
+        private const int _leftSide = (int)PartyScreenLogic.PartyRosterSide.Left;
+            private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
+
         private HintViewModel _sortHint;
         public SortAllTroopsVM(PartyEnhancementsVM parent)
         {
@@ -36,24 +40,26 @@ namespace PartyScreenEnhancements.ViewModel
         public void SortTroops()
         {
             var settings = PartyScreenConfig.ExtraSettings;
-            SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right], settings.PartySorter);
+
+            SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
 
             if(!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
             {
                 SortAnyParty(_mainPartyPrisoners,
-                    _partyLogic.PrisonerRosters[(int) PartyScreenLogic.PartyRosterSide.Right],
+                    _partyLogic.PrisonerRosters[_rightSide],
                     settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
                 if (_partyLogic.LeftOwnerParty?.MobileParty?.IsGarrison ?? false)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage("Sorting Garrison!"));
                     SortAnyParty(_partyVM.OtherPartyTroops,
-                        _partyLogic.MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Left],
+                        _partyLogic.MemberRosters[_leftSide],
                         settings.SeparateSortingProfiles ? settings.GarrisonSorter : settings.PartySorter);
                 }
             }
         }
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)
         {
+            if(rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
+
             toSort.Sort(sorter);
             rosterToSort.Clear();
 
