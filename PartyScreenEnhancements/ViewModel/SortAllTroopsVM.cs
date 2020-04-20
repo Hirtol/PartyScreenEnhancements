@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HarmonyLib;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem;
@@ -61,6 +62,13 @@ namespace PartyScreenEnhancements.ViewModel
             if(rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
 
             toSort.Sort(sorter);
+
+            if(!toSort.IsOrdered(sorter))
+            {
+                FileLog.Log($"Attempted sort on party {toSort.Count} with sorter {sorter} but the result wasn't ordered!");
+                toSort.Sort(sorter);
+            }
+
             rosterToSort.Clear();
 
             foreach (PartyCharacterVM character in toSort)
