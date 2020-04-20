@@ -5,13 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core;
 
 namespace PartyScreenEnhancements.Comparers
 {
     public class BasicTypeComparer : PartySort
     {
-        private Dictionary<string, Func<PartyCharacterVM, PartyCharacterVM, bool>> _compDictionary;
-        public BasicTypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, @descending, null)
+        private Dictionary<string, Func<CharacterObject, CharacterObject, int>> _compDictionary;
+        public BasicTypeComparer(PartySort equalSorter, bool descending, List<string> customSort = null) : base(equalSorter, @descending, customSort)
         {
         }
 
@@ -21,7 +22,7 @@ namespace PartyScreenEnhancements.Comparers
 
         public override string GetHintText()
         {
-            return "Compares units based on their unit type (Infantry, Archers, Mounted).\nFormation Type Order does something similar so for more control use that.\nAscending order Cavalry -> Archers -> Infantry.\nDescending order is Infantry -> Archers -> Cavalry";
+            return "Compares units based on their unit type (Infantry, Archers, Mounted).\nAscending order Horse Archers -> Cavalry -> Archers -> Infantry.\nDescending order is Infantry -> Archers -> Cavalry -> Horse Archers";
         }
 
         public override string GetName()
@@ -31,28 +32,97 @@ namespace PartyScreenEnhancements.Comparers
 
         public override bool HasCustomSettings()
         {
-            return false;
+            return true;
         }
 
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
-            if (Descending ? x.Character.IsMounted && !y.Character.IsMounted : x.Character.IsInfantry && !y.Character.IsInfantry) return -1;
+            if (_compDictionary == null) FillDictionary();
 
-            if ((x.Character.IsInfantry && y.Character.IsInfantry) || (x.Character.IsMounted && y.Character.IsMounted) || (x.Character.IsArcher && y.Character.IsArcher)) return EqualSorter?.Compare(x, y) ?? 0;
+            var xChar = x.Character;
+            var yChar = y.Character;
 
-            if (Descending ? x.Character.IsArcher && y.Character.IsInfantry : x.Character.IsArcher && y.Character.IsMounted) return -1;
+            if (xChar == null || yChar == null)
+                return 1;
 
-            if (Descending ? x.Character.IsArcher && y.Character.IsMounted : x.Character.IsArcher && y.Character.IsInfantry) return 1;
+            bool isXHorseArcher = xChar.IsArcher && xChar.IsMounted;
+            bool isYHorseArcher = yChar.IsArcher && yChar.IsMounted;
 
-            if (Descending ? x.Character.IsInfantry && !y.Character.IsInfantry : x.Character.IsMounted && !y.Character.IsMounted) return 1;
+            if (isXHorseArcher || isYHorseArcher)
+            {
+                if(isXHorseArcher && isYHorseArcher)
+                    return EqualSorter?.Compare(x, y) ?? 0;
+            }
+            else
+            {
+                if ((x.Character.IsInfantry && y.Character.IsInfantry) || (x.Character.IsMounted && y.Character.IsMounted) || (x.Character.IsArcher && y.Character.IsArcher))
+                    return EqualSorter?.Compare(x, y) ?? 0;
+            }
 
-            return -1;
+            foreach (var order in CustomSettingsList)
+            {
+                var function = _compDictionary[order];
+                int value = function(xChar, yChar);
+
+                if (value != int.MaxValue)
+                {
+                    return value;
+                }
+            }
+
+            return 1;
         }
 
         public override void FillCustomList()
         {
             base.FillCustomList();
-            this._compDictionary = new Dictionary<string, Func<PartyCharacterVM, PartyCharacterVM, bool>>();
+            CustomSettingsList.AddRange(new[]{"Infantry", "Archers", "Cavalry", "Horse Archers"});
+            if(_compDictionary == null) FillDictionary();
+        }
+
+        private void FillDictionary()
+        {
+            this._compDictionary = new Dictionary<string, Func<CharacterObject, CharacterObject, int>>();
+            _compDictionary.Add("Infantry", InfantryCompare);
+            _compDictionary.Add("Archers", ArcherCompare);
+            _compDictionary.Add("Cavalry", CavalryCompare);
+            _compDictionary.Add("Horse Archers", HorseArcherCompare);
+        }
+
+        private int InfantryCompare(CharacterObject x, CharacterObject y)
+        {
+            if (Descending ? x.IsInfantry : y.IsInfantry) return -1;
+            if (Descending ? y.IsInfantry : x.IsInfantry) return 1;
+
+            // Need some sort of null value to indicate no match whatsoever.
+            return int.MaxValue;
+        }
+
+        private int ArcherCompare(CharacterObject x, CharacterObject y)
+        {
+            if (Descending ? !x.IsMounted && x.IsArcher : !y.IsMounted && y.IsArcher) return -1;
+            if (Descending ? !y.IsMounted && y.IsArcher : !x.IsMounted && x.IsArcher) return 1;
+
+            // Need some sort of null value to indicate no match whatsoever.
+            return int.MaxValue;
+        }
+
+        private int CavalryCompare(CharacterObject x, CharacterObject y)
+        {
+            if (Descending ? x.IsMounted && !x.IsArcher : y.IsMounted && !y.IsArcher) return -1;
+            if (Descending ? y.IsMounted && !y.IsArcher : x.IsMounted && !x.IsArcher) return 1;
+
+            // Need some sort of null value to indicate no match whatsoever.
+            return int.MaxValue;
+        }
+
+        private int HorseArcherCompare(CharacterObject x, CharacterObject y)
+        {
+            if (Descending ? x.IsMounted && x.IsArcher : y.IsMounted && y.IsArcher) return -1;
+            if (Descending ? y.IsMounted && y.IsArcher : x.IsMounted && x.IsArcher) return 1;
+
+            // Need some sort of null value to indicate no match whatsoever.
+            return int.MaxValue;
         }
     }
 }

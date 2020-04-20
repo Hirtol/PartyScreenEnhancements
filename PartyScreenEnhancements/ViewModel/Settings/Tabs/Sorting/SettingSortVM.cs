@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PartyScreenEnhancements.Comparers;
+using PartyScreenEnhancements.ViewModel.Settings.Sorting;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
-namespace PartyScreenEnhancements.ViewModel.Settings
+namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 {
     public class SettingSortVM : TaleWorlds.Library.ViewModel
     {
@@ -41,7 +42,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             this.IsDescending = !this.IsDescending;
             SortingComparer.Descending = this.IsDescending;
         }
-
 
         public void ExecuteOpenSubSetting()
         {

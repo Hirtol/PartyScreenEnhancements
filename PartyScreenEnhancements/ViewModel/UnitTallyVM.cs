@@ -17,6 +17,7 @@ namespace PartyScreenEnhancements.ViewModel
         private string _infantryLabel;
         private string _archersLabel;
         private string _cavalryLabel;
+        private string _horseArcherLabel;
         private bool _isEnabled;
         private MBBindingList<PartyCharacterVM> _mainPartyList;
 
@@ -26,9 +27,9 @@ namespace PartyScreenEnhancements.ViewModel
             this.InfantryLabel = "Infantry: NaN";
             this.ArchersLabel = "Archers: NaN";
             this.CavalryLabel = "Cavalry: NaN";
+            this.HorseArcherLabel = "Horse Archers: NaN";
             this._mainPartyList = mainPartyList;
             this.IsEnabled = PartyScreenConfig.ExtraSettings.DisplayCategoryNumbers;
-            this.RefreshValues();
         }
 
         public void OnEnableChange(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -45,13 +46,15 @@ namespace PartyScreenEnhancements.ViewModel
             base.RefreshValues();
             if(IsEnabled)
             {
-                int infantry = 0, archers = 0, cavalry = 0;
+                int infantry = 0, archers = 0, cavalry = 0, horseArchers = 0;
 
                 foreach (PartyCharacterVM character in _mainPartyList)
                 {
-                    if (character != null)
+                    if (character?.Character != null)
                     {
-                        if (character.Character.IsMounted) cavalry += character.Number;
+                        if (character.Character.IsMounted && character.Character.IsArcher)
+                            horseArchers += character.Number;
+                        else if (character.Character.IsMounted) cavalry += character.Number;
                         else if (character.Character.IsArcher) archers += character.Number;
                         else if (character.Character.IsInfantry) infantry += character.Number;
 
@@ -61,6 +64,7 @@ namespace PartyScreenEnhancements.ViewModel
                 InfantryLabel = $"Infantry: {infantry}";
                 ArchersLabel = $"Archers: {archers}";
                 CavalryLabel = $"Cavalry: {cavalry}";
+                HorseArcherLabel = $"Horse Archers: {horseArchers}";
             }
         }
 
@@ -128,6 +132,23 @@ namespace PartyScreenEnhancements.ViewModel
                 {
                     this._cavalryLabel = value;
                     base.OnPropertyChanged(nameof(CavalryLabel));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public string HorseArcherLabel
+        {
+            get
+            {
+                return this._horseArcherLabel;
+            }
+            set
+            {
+                if (value != this._horseArcherLabel)
+                {
+                    this._horseArcherLabel = value;
+                    base.OnPropertyChanged(nameof(HorseArcherLabel));
                 }
             }
         }

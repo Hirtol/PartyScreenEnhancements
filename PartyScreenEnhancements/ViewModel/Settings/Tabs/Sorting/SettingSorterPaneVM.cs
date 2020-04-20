@@ -1,57 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
+using PartyScreenEnhancements.ViewModel.Settings.Sorting;
 using TaleWorlds.Library;
 
-namespace PartyScreenEnhancements.ViewModel.Settings
+namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 {
     public class SettingSorterPaneVM : TaleWorlds.Library.ViewModel
     {
         private readonly SettingScreenVM _parent;
+        private readonly Action<PartySort> _newSorterCallBack;
 
+        private PartySort _sorter;
         private MBBindingList<SettingSortVM> _possibleSettingList;
         private MBBindingList<SettingSortVM> _settingList;
 
-        public SettingSorterPaneVM(SettingScreenVM parent)
+        public SettingSorterPaneVM(SettingScreenVM parent, string name, PartySort sorter, Action<PartySort> newSorterCallback)
         {
-            _parent = parent;
-            PossibleSettingList = new MBBindingList<SettingSortVM>();
-            SettingList = new MBBindingList<SettingSortVM>();
-            Name = "Sorters";
+            this._sorter = sorter;
+            this._parent = parent;
+            this._newSorterCallBack = newSorterCallback;
+            this.PossibleSettingList = new MBBindingList<SettingSortVM>();
+            this.SettingList = new MBBindingList<SettingSortVM>();
+            this.Name = name;
 
             InitialiseSettingLists();
         }
-
-        [DataSourceProperty]
-        public MBBindingList<SettingSortVM> PossibleSettingList
-        {
-            get => _possibleSettingList;
-            set
-            {
-                if (value != _possibleSettingList)
-                {
-                    _possibleSettingList = value;
-                    OnPropertyChanged(nameof(PossibleSettingList));
-                }
-            }
-        }
-
-        [DataSourceProperty]
-        public MBBindingList<SettingSortVM> SettingList
-        {
-            get => _settingList;
-            set
-            {
-                if (value != _settingList)
-                {
-                    _settingList = value;
-                    OnPropertyChanged(nameof(SettingList));
-                }
-            }
-        }
-
-
-        [DataSourceProperty] public string Name { get; set; }
 
         public void TransferSorter(SettingSortVM sorter, SettingSide side)
         {
@@ -102,14 +77,14 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         {
             if (_settingList.Count > 0)
             {
-                PartyScreenConfig.Sorter = GetFullPartySorter(0);
+                _newSorterCallBack(GetFullPartySorter(0));
             }
             else
             {
-                PartyScreenConfig.Sorter = new AlphabetComparer(null, false);
+                _newSorterCallBack(new AlphabetComparer(null, false));
             }
 
-            PartyScreenConfig.SaveSorter();
+            PartyScreenConfig.Save();
         }
 
         private void ExecuteTransfer(SettingSortVM sorter, int index, SettingSide sideToMoveTo)
@@ -163,7 +138,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         {
             _possibleSettingList.Add(new SettingSortVM(new AlphabetComparer(null, false), TransferSorter,
                 SettingSide.LEFT, _parent.OpenSubSetting));
-            _possibleSettingList.Add(new SettingSortVM(new BasicTypeComparer(null, false), TransferSorter,
+            _possibleSettingList.Add(new SettingSortVM(new BasicTypeComparer(null, true), TransferSorter,
                 SettingSide.LEFT, _parent.OpenSubSetting));
             _possibleSettingList.Add(new SettingSortVM(new TypeComparer(null, false), TransferSorter, SettingSide.LEFT,
                 _parent.OpenSubSetting));
@@ -181,9 +156,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private void InitialiseSettingList()
         {
-            for (PartySort currentSort = PartyScreenConfig.Sorter;
-                currentSort != null;
-                currentSort = currentSort.EqualSorter)
+            for (PartySort currentSort = _sorter; currentSort != null; currentSort = currentSort.EqualSorter)
             {
                 PartySort freshSorter;
                 if (currentSort.HasCustomSettings())
@@ -200,10 +173,42 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                         ?.Invoke(new object[] {null, currentSort.Descending}) as PartySort;
                 }
 
-                var settingSortVM =
-                    new SettingSortVM(freshSorter, TransferSorter, SettingSide.RIGHT, _parent.OpenSubSetting);
+                var settingSortVM = new SettingSortVM(freshSorter, TransferSorter, SettingSide.RIGHT, _parent.OpenSubSetting);
+
                 _settingList.Add(settingSortVM);
             }
         }
+
+        [DataSourceProperty]
+        public MBBindingList<SettingSortVM> PossibleSettingList
+        {
+            get => _possibleSettingList;
+            set
+            {
+                if (value != _possibleSettingList)
+                {
+                    _possibleSettingList = value;
+                    OnPropertyChanged(nameof(PossibleSettingList));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public MBBindingList<SettingSortVM> SettingList
+        {
+            get => _settingList;
+            set
+            {
+                if (value != _settingList)
+                {
+                    _settingList = value;
+                    OnPropertyChanged(nameof(SettingList));
+                }
+            }
+        }
+
+
+        [DataSourceProperty]
+        public string Name { get; set; }
     }
 }

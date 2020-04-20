@@ -8,6 +8,8 @@ using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.SortingOrders;
+using PartyScreenEnhancements.ViewModel.Settings.Tabs;
+using PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;
@@ -25,7 +27,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private PartyEnhancementsVM _partyEnhancementsVm;
 
-        private SettingSorterPaneVM _sorterPane;
+        private SettingSorterOverlayVM _sorterPane;
         private SettingGeneralPaneVM _generalPane;
 
         private GauntletLayer _subSettingLayer;
@@ -37,10 +39,10 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         {
             this._partyEnhancementsVm = parent;
             this._parentScreen = parentScreen;
-            this._sorterPane = new SettingSorterPaneVM(this);
+            this._sorterPane = new SettingSorterOverlayVM(this);
             this._generalPane = new SettingGeneralPaneVM();
 
-            if(Game.Current != null)
+            if (Game.Current != null)
                 Game.Current.AfterTick = (Action<float>)Delegate.Combine(Game.Current.AfterTick, new Action<float>(this.AfterTick));
         }
 
@@ -107,7 +109,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
         }
 
         [DataSourceProperty]
-        public SettingSorterPaneVM SorterPane
+        public SettingSorterOverlayVM SorterPane
         {
             get => _sorterPane;
             set

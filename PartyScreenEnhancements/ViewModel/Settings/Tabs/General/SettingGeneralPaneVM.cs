@@ -10,7 +10,7 @@ using TaleWorlds.Engine.Options;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace PartyScreenEnhancements.ViewModel.Settings
+namespace PartyScreenEnhancements.ViewModel.Settings.Tabs
 {
     public class SettingGeneralPaneVM : TaleWorlds.Library.ViewModel
     {
@@ -29,6 +29,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public void AddSettingVms()
         {
+            _options.Add(new BooleanOptionDataVM(_settings.AutomaticSorting, "Automatic Sorting", "Automatically sort everything present upon opening the party screen, or when upgrading/recruiting units using the top buttons", (value) => _settings.AutomaticSorting = value));
+            _options.Add(new BooleanOptionDataVM(_settings.SeparateSortingProfiles, "Separate Sorting Profiles", "Use different sorting rules for your main party/prisoners/garrisons", (value) => _settings.SeparateSortingProfiles = value));
             _options.Add(new BooleanOptionDataVM(_settings.HalfHalfUpgrades, "50/50 Upgrades", "Set the Upgrade All button to upgrade all units with 2 path choices 50/50.\nNote, any set path preferences will still be adhered to regardless of this setting.", (value) => _settings.HalfHalfUpgrades = value));
             _options.Add(new BooleanOptionDataVM(_settings.DisplayCategoryNumbers, "Display Category Numbers", "Display how many Infantry, Archers, and Cavalry you have on the Party screen", (value) => _settings.DisplayCategoryNumbers = value));
             _options.Add(new BooleanOptionDataVM(_settings.RecruitByDefault, "Recruit By Default", "Determines whether all prisoners eligible for recruitment will be enlisted with the Recruit All button.\nIf turned off you'll have to CTRL + click each prisoner's recruitment button to allow their recruitment explicitly.\n\nNote any previously disallowed units will now be allowed", (value) => _settings.RecruitByDefault = value));

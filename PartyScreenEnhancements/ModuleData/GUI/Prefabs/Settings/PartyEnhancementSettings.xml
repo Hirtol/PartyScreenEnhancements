@@ -27,7 +27,7 @@
 											<Children>
 												<TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Center">
 													<Children>
-														<PartyEnhancementSortingTab Id="SorterSettingsPage" DataSource="{SorterPane}" />
+														<PSESortingSelectorLayer Id="SorterSettingsPage" DataSource="{SorterPane}" />
 														<PartyEnhancementGeneralTab Id="GeneralSettingsPage" DataSource="{GeneralPane}" />
 													</Children>
 												</TabControl>
@@ -37,8 +37,8 @@
 										<!--Tabs themselves-->
 										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginTop="60" MarginLeft="20" HorizontalAlignment="Left" VerticalAlignment="Top" LayoutImp.LayoutMethod="HorizontalLeftToRight">
 											<Children>
-												<PESettingsTabToggle DataSource="{SorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="SorterSettingsPage" />
-												<PESettingsTabToggle DataSource="{GeneralPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="GeneralSettingsPage" />
+												<PSESettingsTabToggle DataSource="{SorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="SorterSettingsPage" />
+												<PSESettingsTabToggle DataSource="{GeneralPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="GeneralSettingsPage" />
 											</Children>
 										</ListPanel>
 

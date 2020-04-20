@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
+using HarmonyLib;
 using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Engine;
@@ -16,16 +17,15 @@ namespace PartyScreenEnhancements.Saving
 {
     public static class PartyScreenConfig
     {
+        internal const double VERSION = 1.02;
+
         internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
-        internal static PartySort Sorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
+        internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
-
-        internal const double VERSION = 1.02;
 
         private static readonly string modDir = Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
         private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
-        private static readonly string _sorterfile = modDir + "Sorter.xml";
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
 
@@ -44,50 +44,6 @@ namespace PartyScreenEnhancements.Saving
                 {
                     Save();
                 }
-            }
-            if (!File.Exists(_sorterfile))
-            {
-                SaveSorter();
-            }
-            else
-            {
-                if(!_upgradedVersion)
-                {
-                    LoadSorter();
-                }
-                else
-                {
-                    SaveSorter();
-                }
-            }
-        }
-
-        public static void SaveSorter()
-        {
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            var xmlSerializer = new XmlSerializer(typeof(PartySort));
-
-            ns.Add("", "");
-
-            StreamWriter sw = new StreamWriter(_sorterfile);
-            xmlSerializer.Serialize(sw, Sorter, ns);
-            sw.Close();
-        }
-
-        public static void LoadSorter()
-        {
-            try
-            {
-                using(var sw = new StreamReader(_sorterfile))
-                {
-                    var test = new XmlSerializer(typeof(PartySort));
-                    Sorter = test.Deserialize(sw) as PartySort;
-                }
-            }
-            catch(Exception e)
-            {
-                File.Delete(_sorterfile);
-                throw new XmlException("Could not load Sorter.xml from PartyScreenEnhancements, please try again!" + e.ToString());
             }
         }
 
@@ -113,8 +69,6 @@ namespace PartyScreenEnhancements.Saving
 
                 node = node.ReplaceWithSerializationOf(ExtraSettings);
 
-                
-
                 modNode.AppendChild(options);
 
                 addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
@@ -124,7 +78,7 @@ namespace PartyScreenEnhancements.Saving
             }
             catch (Exception e)
             {
-                Trace.WriteLine(e.ToString());
+                FileLog.Log(e.ToString());
             }
         }
 
@@ -137,17 +91,6 @@ namespace PartyScreenEnhancements.Saving
 
             parent.AppendChild(element);
         }
-
-        //TODO: To come back to
-        // var sorterElement = xmlDocument.CreateElement("Sorter");
-        //
-        // StreamWriter sw = new StreamWriter(_sorterfile);
-        // test.Serialize(sw, Sorter, ns);
-        // sw.Close();
-        //
-        //
-        // sorterElement.InnerXml = Convert.ToString(sw);
-        // sortingOptions.AppendChild(sorterElement);
 
         public static void Load()
         {

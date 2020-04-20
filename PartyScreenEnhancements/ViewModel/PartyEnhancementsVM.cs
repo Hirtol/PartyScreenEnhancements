@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
@@ -42,6 +43,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._parentScreen = parentScreen;
             this._settingsHint = new HintViewModel("Settings");
             this._partyScreenLogic.AfterReset += AfterReset;
+            this.RefreshValues();
         }
 
         public void AfterReset(PartyScreenLogic logic)
@@ -51,6 +53,9 @@ namespace PartyScreenEnhancements.ViewModel
         public new void RefreshValues()
         {
             base.RefreshValues();
+
+            if (PartyScreenConfig.ExtraSettings.AutomaticSorting) _sortTroopsVM.SortTroops();
+
             this._unitTallyVm.RefreshValues();
         }
 

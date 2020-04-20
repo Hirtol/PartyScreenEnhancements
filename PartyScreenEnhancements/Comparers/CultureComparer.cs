@@ -44,18 +44,11 @@ namespace PartyScreenEnhancements.Comparers
             if (xName == null || yName == null)
                 return 1;
 
+            xName = CustomSettingsList.Contains(xName) ? xName : CultureCode.AnyOtherCulture.ToString();
+            yName = CustomSettingsList.Contains(yName) ? yName : CultureCode.AnyOtherCulture.ToString();
+
             if (xName.Equals(yName))
                 return EqualSorter?.Compare(x, y) ?? 0;
-
-            if (CustomSettingsList == null || CustomSettingsList.IsEmpty())
-            {
-                FillCustomList();
-            }
-
-            if (!CustomSettingsList.Contains(xName) || !CustomSettingsList.Contains(yName))
-            {
-                return !CustomSettingsList.Contains(xName) ? 1 : -1;
-            }
 
             foreach (var setting in CustomSettingsList)
             {
