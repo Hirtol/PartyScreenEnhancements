@@ -28,7 +28,36 @@ namespace PartyScreenEnhancements.ViewModel
             _partyLogic = parent.EnhancementPartyLogic;
             _partyVM = parent.EnhancementPartyVM;
             _mainPartyList = _partyVM.MainPartyTroops;
-            _upgradeHint = new HintViewModel("Upgrade All Troops");
+            _upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
+        }
+
+        private void UpgradeAllTroopsRightClick()
+        {
+            var totalUpgrades = 0;
+            var toUpgrade = new Dictionary<PartyCharacterVM, int>();
+
+            foreach (PartyCharacterVM character in _mainPartyList)
+            {
+                if (character == null) continue;
+
+                if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
+                {
+                    if (upgradePath != -1)
+                        toUpgrade.Add(character, upgradePath);
+                }
+            }
+
+            foreach (var keyValuePair in toUpgrade)
+            {
+                Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
+            }
+
+            _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm?.InitializeUpgrades());
+
+            _parent.RefreshValues();
+
+            if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
         }
 
         private void UpgradeAllTroopsPath()

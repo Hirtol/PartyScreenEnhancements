@@ -41,7 +41,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._upgradeTroopsVM = new UpgradeAllTroopsVM(this);
             this._recruitPrisonerVm = new RecruitPrisonerVM(this);
             this._unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops);
-            this._transferWounded = new TransferWoundedTroopsVM(partyVM, partyVM.MainPartyTroops, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
+            this._transferWounded = new TransferWoundedTroopsVM(this, partyVM, partyVM.MainPartyTroops, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             this._parentScreen = parentScreen;
             this._settingsHint = new HintViewModel("Settings");
             this._partyScreenLogic.AfterReset += AfterReset;
