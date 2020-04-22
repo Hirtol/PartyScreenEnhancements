@@ -47,6 +47,9 @@ namespace PartyScreenEnhancements.Saving
         [XmlElement("AutomaticSorting")]
         public bool AutomaticSorting { get; set; } = false;
 
+        [XmlElement("KeepHeroesOnTop")]
+        public bool KeepHeroesOnTop { get; set; } = true;
+
         [XmlElement("PartySorter")]
         public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
 
