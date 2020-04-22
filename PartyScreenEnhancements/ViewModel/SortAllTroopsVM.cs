@@ -56,6 +56,11 @@ namespace PartyScreenEnhancements.ViewModel
                         settings.SeparateSortingProfiles ? settings.GarrisonSorter : settings.PartySorter);
                 }
             }
+
+            if (!_mainPartyList.IsEmpty() && (!_mainPartyList[0]?.Troop.Character?.IsPlayerCharacter ?? false))
+            {
+                InformationManager.DisplayMessage(new InformationMessage("Your player character is no longer at the top of the list due to sorting, do NOT save your game and notify the mod manager"));
+            }
         }
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)
         {

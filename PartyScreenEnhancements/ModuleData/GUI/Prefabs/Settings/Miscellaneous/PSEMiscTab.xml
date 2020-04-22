@@ -1,0 +1,28 @@
+﻿<Prefab>
+	<Constants>
+		<Constant Name="ButtonBrush.Width" BrushLayer="Default" BrushName="ButtonBrush4" BrushValueType="Width" />
+		<Constant Name="ButtonBrush.Height" BrushLayer="Default" BrushName="ButtonBrush4" BrushValueType="Height" />
+	</Constants>
+	<Window>
+		<Widget Id="OptionsInnerPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+		        HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="57" MarginBottom="270">
+			<Children>
+				<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="338" SuggestedHeight="42" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="60" Command.Click="ExecuteResetUpgradePaths" UpdateChildrenStates="true">
+					<Children>
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="362" SuggestedHeight="38" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Canvas" IsEnabled="false" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="400" SuggestedHeight="65" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Frame" IsEnabled="false" />
+						<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="Reset Upgrade Paths" />
+					</Children>
+				</ButtonWidget>
+
+				<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="338" SuggestedHeight="42" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="60" MarginTop="50" Command.Click="ExecuteResetPrisonerPaths" UpdateChildrenStates="true">
+					<Children>
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="362" SuggestedHeight="38" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Canvas" IsEnabled="false" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="400" SuggestedHeight="65" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Frame" IsEnabled="false" />
+						<TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="Reset Prisoner Paths" />
+					</Children>
+				</ButtonWidget>
+			</Children>
+		</Widget>
+	</Window>
+</Prefab>

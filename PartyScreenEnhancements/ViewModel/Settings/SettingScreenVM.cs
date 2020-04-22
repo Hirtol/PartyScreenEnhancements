@@ -9,6 +9,7 @@ using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.SortingOrders;
 using PartyScreenEnhancements.ViewModel.Settings.Tabs;
+using PartyScreenEnhancements.ViewModel.Settings.Tabs.Miscellaneous;
 using PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -29,6 +30,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private SettingSorterOverlayVM _sorterPane;
         private SettingGeneralPaneVM _generalPane;
+        private SettingMiscPaneVM _miscPane;
 
         private GauntletLayer _subSettingLayer;
         private GauntletPartyScreen _parentScreen;
@@ -41,6 +43,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             this._parentScreen = parentScreen;
             this._sorterPane = new SettingSorterOverlayVM(this);
             this._generalPane = new SettingGeneralPaneVM();
+            this._miscPane = new SettingMiscPaneVM();
 
             if (Game.Current != null)
                 Game.Current.AfterTick = (Action<float>)Delegate.Combine(Game.Current.AfterTick, new Action<float>(this.AfterTick));
@@ -132,6 +135,20 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 {
                     this._generalPane = value;
                     base.OnPropertyChanged(nameof(GeneralPane));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public SettingMiscPaneVM MiscPane
+        {
+            get => _miscPane;
+            set
+            {
+                if (value != this._miscPane)
+                {
+                    this._miscPane = value;
+                    base.OnPropertyChanged(nameof(MiscPane));
                 }
             }
         }

@@ -233,6 +233,7 @@
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\General\PartyEnhancementGeneralTab.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Settings\Miscellaneous\PSEMiscTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\PartyEnhancementSettings.xml" />
     <Compile Include="Comparers\UpgradeableComparer.cs" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PSESortingSelectorLayer.xml" />
@@ -250,6 +251,7 @@
     <Compile Include="ViewModel\Settings\SortingOrders\SettingSortingOrderVM.cs" />
     <Compile Include="ViewModel\Settings\Tabs\General\SettingGeneralPaneVM.cs" />
     <Compile Include="ViewModel\Settings\SettingScreenVM.cs" />
+    <Compile Include="ViewModel\Settings\Tabs\Miscellaneous\SettingMiscPaneVM.cs" />
     <Compile Include="ViewModel\Settings\Tabs\Sorting\SettingSide.cs" />
     <Compile Include="ViewModel\Settings\Tabs\Sorting\SettingSorterOverlayVM.cs" />
     <Compile Include="ViewModel\Settings\Tabs\Sorting\SettingSorterPaneVM.cs" />

@@ -29,6 +29,7 @@
 													<Children>
 														<PSESortingSelectorLayer Id="SorterSettingsPage" DataSource="{SorterPane}" />
 														<PartyEnhancementGeneralTab Id="GeneralSettingsPage" DataSource="{GeneralPane}" />
+														<PSEMiscTab Id="MiscellaneousSettingsPage" DataSource="{MiscPane}" />
 													</Children>
 												</TabControl>
 											</Children>
@@ -38,7 +39,8 @@
 										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginTop="60" MarginLeft="20" HorizontalAlignment="Left" VerticalAlignment="Top" LayoutImp.LayoutMethod="HorizontalLeftToRight">
 											<Children>
 												<PSESettingsTabToggle DataSource="{SorterPane}" Parameter.ButtonBrush="Header.Tab.Left" Parameter.TabName="SorterSettingsPage" />
-												<PSESettingsTabToggle DataSource="{GeneralPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="GeneralSettingsPage" />
+												<PSESettingsTabToggle DataSource="{GeneralPane}" Parameter.ButtonBrush="Header.Tab.Center" Parameter.TabName="GeneralSettingsPage" />
+												<PSESettingsTabToggle DataSource="{MiscPane}" Parameter.ButtonBrush="Header.Tab.Right" Parameter.TabName="MiscellaneousSettingsPage" />
 											</Children>
 										</ListPanel>
 

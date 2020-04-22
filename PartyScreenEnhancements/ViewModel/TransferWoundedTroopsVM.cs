@@ -15,9 +15,11 @@ namespace PartyScreenEnhancements.ViewModel
 
         private PartyVM _partyVm;
         private MBBindingList<PartyCharacterVM> _mainPartyList;
+        private PartyEnhancementsVM _parent;
 
-        public TransferWoundedTroopsVM(PartyVM partyVm, MBBindingList<PartyCharacterVM> mainPartyList, bool shouldShow)
+        public TransferWoundedTroopsVM(PartyEnhancementsVM parent, PartyVM partyVm, MBBindingList<PartyCharacterVM> mainPartyList, bool shouldShow)
         {
+            _parent = parent;
             _partyVm = partyVm;
             _mainPartyList = mainPartyList;
             this._shouldShowTransferWounded = shouldShow;
@@ -40,6 +42,7 @@ namespace PartyScreenEnhancements.ViewModel
                 }
             }
             this._partyVm?.ExecuteRemoveZeroCounts();
+            _parent.RefreshValues();
         }
 
         [DataSourceProperty]
