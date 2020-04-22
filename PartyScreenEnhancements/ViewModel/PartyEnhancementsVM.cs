@@ -9,6 +9,7 @@ using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
@@ -40,6 +41,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._upgradeTroopsVM = new UpgradeAllTroopsVM(this);
             this._recruitPrisonerVm = new RecruitPrisonerVM(this);
             this._unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops);
+            this._transferWounded = new TransferWoundedTroopsVM(partyVM, partyVM.MainPartyTroops, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             this._parentScreen = parentScreen;
             this._settingsHint = new HintViewModel("Settings");
             this._partyScreenLogic.AfterReset += AfterReset;
@@ -188,6 +190,20 @@ namespace PartyScreenEnhancements.ViewModel
         }
 
         [DataSourceProperty]
+        public TransferWoundedTroopsVM TransferWoundedTroops
+        {
+            get => _transferWounded;
+            set
+            {
+                if (value != this._transferWounded)
+                {
+                    this._transferWounded = value;
+                    base.OnPropertyChanged(nameof(TransferWoundedTroops));
+                }
+            }
+        }
+
+        [DataSourceProperty]
         public PartyVM EnhancementPartyVM
         {
             get
@@ -210,6 +226,6 @@ namespace PartyScreenEnhancements.ViewModel
         private RecruitPrisonerVM _recruitPrisonerVm;
         private SettingScreenVM _settingScreenVm;
         private UnitTallyVM _unitTallyVm;
-
+        private TransferWoundedTroopsVM _transferWounded;
     }
 }

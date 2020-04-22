@@ -255,6 +255,7 @@
     <Compile Include="ViewModel\Settings\Tabs\Sorting\SettingSorterPaneVM.cs" />
     <Compile Include="ViewModel\SortAllTroopsVM.cs" />
     <Compile Include="ViewModel\Settings\Tabs\Sorting\SettingSortVM.cs" />
+    <Compile Include="ViewModel\TransferWoundedTroopsVM.cs" />
     <Compile Include="ViewModel\UnitTallyVM.cs" />
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
     <Compile Include="Widgets\AscDescWidget.cs" />

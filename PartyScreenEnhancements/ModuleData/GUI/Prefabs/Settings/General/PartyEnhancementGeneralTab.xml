@@ -6,7 +6,7 @@
 	<Window>
 
 		<Widget Id="OptionsInnerPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-		        HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="57" MarginBottom="330">
+		        HorizontalAlignment="Center" VerticalAlignment="Top" MarginLeft="57" MarginBottom="270">
 			<Children>
 				<ListPanel DataSource="{Options}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
 				           HorizontalAlignment="Center" VerticalAlignment="Center"
