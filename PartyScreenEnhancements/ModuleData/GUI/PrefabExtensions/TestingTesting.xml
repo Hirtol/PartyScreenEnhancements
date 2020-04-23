@@ -1,0 +1,49 @@
+﻿<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true">
+	<Children>
+		<!--Upgrade Button 1-->
+		<PartyUpgradeButtonWidget Id="UpgradeButton12" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+		                          HeightSizePolicy="Fixed" SuggestedWidth="!Party.Slot.Width"
+		                          SuggestedHeight="!Party.Slot.Height" HorizontalAlignment="Right" VerticalAlignment="Center"
+		                          MarginLeft="10" MarginRight="60" Command.AlternateClick="ExecuteUpgradeEncyclopediaLink"
+		                          Command.Click="Upgrade" CommandParameter.AlternateClick="0" CommandParameter.Click="0"
+		                          DefaultBrush="Party.UpgradeSlot.Button" ImageIdentifierWidget="ImageIdentifier"
+		                          InsufficientBrush="Party.UpgradeSlot.ButtonInsufficient" IsAvailable="@IsUpgrade1Available"
+		                          IsInsufficient="@IsUpgrade1Insufficient" IsVisible="@IsUpgrade1Exists"
+		                          UnavailableBrush="Party.UpgradeSlot.ButtonUnavailable">
+			<Children>
+				<HintWidget DataSource="{Upgrade1Hint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+				            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+				<ImageIdentifierWidget Id="ImageIdentifier" DataSource="{UpgradeTroop1}" WidthSizePolicy="StretchToParent"
+				                       HeightSizePolicy="StretchToParent" MarginLeft="7" MarginRight="7" MarginTop="6"
+				                       MarginBottom="8" AdditionalArgs="@AdditionalArgs" ImageId="@Id"
+				                       ImageTypeCode="@ImageTypeCode" />
+				<TutorialHighlightItemWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+				                             Brush="TutorialHighlightBrush" IsHighlightEnabled="@IsUpgradeButtonsHiglighted"
+				                             IsVisible="false" />
+			</Children>
+		</PartyUpgradeButtonWidget>
+
+		<!--Upgrade Button 2-->
+		<PartyUpgradeButtonWidget Id="UpgradeButton22" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+		                          HeightSizePolicy="Fixed" SuggestedWidth="!Party.Slot.Width"
+		                          SuggestedHeight="!Party.Slot.Height" HorizontalAlignment="Right" VerticalAlignment="Center"
+		                          MarginLeft="10" MarginRight="150" Command.AlternateClick="ExecuteUpgradeEncyclopediaLink"
+		                          Command.Click="Upgrade" CommandParameter.AlternateClick="1" CommandParameter.Click="1"
+		                          DefaultBrush="Party.UpgradeSlot.Button" ImageIdentifierWidget="ImageIdentifier"
+		                          InsufficientBrush="Party.UpgradeSlot.ButtonInsufficient" IsAvailable="@IsUpgrade2Available"
+		                          IsInsufficient="@IsUpgrade2Insufficient" IsVisible="@IsUpgrade2Exists"
+		                          UnavailableBrush="Party.UpgradeSlot.ButtonUnavailable">
+			<Children>
+				<HintWidget DataSource="{Upgrade2Hint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+				            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+				<ImageIdentifierWidget Id="ImageIdentifier" DataSource="{UpgradeTroop2}" WidthSizePolicy="StretchToParent"
+				                       HeightSizePolicy="StretchToParent" MarginLeft="7" MarginRight="7" MarginTop="6"
+				                       MarginBottom="8" AdditionalArgs="@AdditionalArgs" ImageId="@Id"
+				                       ImageTypeCode="@ImageTypeCode" />
+				<TutorialHighlightItemWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+				                             Brush="TutorialHighlightBrush" IsHighlightEnabled="@IsUpgradeButtonsHiglighted"
+				                             IsVisible="false" />
+			</Children>
+		</PartyUpgradeButtonWidget>
+	</Children>
+</Widget>
