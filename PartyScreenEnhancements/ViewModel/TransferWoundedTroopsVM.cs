@@ -28,15 +28,16 @@ namespace PartyScreenEnhancements.ViewModel
 
         private void ExecuteTransferWounded()
         {
-            foreach (PartyCharacterVM character in _mainPartyList)
+            var enumerator = new PartyCharacterVM[_mainPartyList.Count];
+            _mainPartyList.CopyTo(enumerator, 0);
+            foreach (PartyCharacterVM character in enumerator)
             {
-                if (character.WoundedCount > 0)
+                if (character?.WoundedCount > 0)
                 {
                     if(character.IsTroopTransferrable)
                     {
-                        int wounded = character.WoundedCount;
+                        int wounded = Math.Min(character.WoundedCount, character.Number);
                         character.OnTransfer(character, -1, wounded, character.Side);
-                        character.ThrowOnPropertyChanged();
                         character.InitializeUpgrades();
                     }
                 }
