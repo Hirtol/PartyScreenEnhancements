@@ -23,12 +23,13 @@ namespace PartyScreenEnhancements
             var harmony = new Harmony("top.hirtol.patch.partyenhancements");
             harmony.PatchAll();
 
-            UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
+
+            //UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }
 
         protected override void OnApplicationTick(float dt)
         {
-            UIResourceManager.UIResourceDepot.CheckForChanges();
+            //UIResourceManager.UIResourceDepot.CheckForChanges();
         }
 
         protected override void OnSubModuleUnloaded()

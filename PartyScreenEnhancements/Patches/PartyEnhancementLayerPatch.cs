@@ -34,6 +34,13 @@ namespace PartyScreenEnhancements.Patches
                 screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVm);
                 screenLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
                 partyScreen.AddLayer(screenLayer);
+
+                //TODO: Move this to PartyCharacterVM Mixin for (hopefully) better performance
+                //This is necessarry for UpdateCurrentCharacterUpgrades (in PartyVM) to be called to instantiate Hints
+                foreach (PartyCharacterVM partyVmMainPartyTroop in partyVM.MainPartyTroops)
+                {
+                    partyVM.CurrentCharacter = partyVmMainPartyTroop;
+                }
             }
         }
 

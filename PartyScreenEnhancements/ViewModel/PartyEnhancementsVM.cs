@@ -51,6 +51,11 @@ namespace PartyScreenEnhancements.ViewModel
         public void AfterReset(PartyScreenLogic logic)
         {
             this.RefreshValues();
+            //TODO: Remove this after PCVM mixin.
+            foreach (PartyCharacterVM partyVmMainPartyTroop in _partyVM.MainPartyTroops)
+            {
+                _partyVM.CurrentCharacter = partyVmMainPartyTroop;
+            }
         }
         public new void RefreshValues()
         {

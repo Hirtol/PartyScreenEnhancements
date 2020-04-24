@@ -167,6 +167,10 @@
       <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Helpers.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="TaleWorlds.MountAndBlade.Launcher">
+      <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Launcher.exe</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="TaleWorlds.MountAndBlade.View">
       <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\Native\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.View.dll</HintPath>
       <Private>False</Private>
@@ -181,6 +185,10 @@
     </Reference>
     <Reference Include="TaleWorlds.Network">
       <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Network.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="TaleWorlds.ObjectSystem">
+      <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="TaleWorlds.PlatformService">
@@ -243,10 +251,11 @@
     <Compile Include="Comparers\UpgradeableComparer.cs" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PSESortingSelectorLayer.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
+    <Compile Include="Extensions\PartyCharacterVMMixin.cs" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
-    <Compile Include="Patches\PartyScreenPatch.cs" />
+    <Compile Include="Extensions\PartyScreenPatch.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />

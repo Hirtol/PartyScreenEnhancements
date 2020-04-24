@@ -16,7 +16,7 @@ namespace PartyScreenEnhancements.Patches
     [HarmonyPatch(typeof(PartyCharacterVM), "Upgrade")]
     public class ChooseUpgradePathPatch
     {
-        public static bool Prefix(int upgradeIndex, ref PartyCharacterVM __instance)
+        public static bool Prefix(int upgradeIndex, ref PartyCharacterVM __instance, ref PartyVM ____partyVm)
         {
             if (ScreenManager.TopScreen is GauntletPartyScreen screen && screen.DebugInput.IsControlDown())
             {
@@ -68,6 +68,8 @@ namespace PartyScreenEnhancements.Patches
                 PartyScreenConfig.Save();
                 return false;
             }
+
+            ____partyVm.CurrentCharacter = __instance;
 
             return true;
         }
