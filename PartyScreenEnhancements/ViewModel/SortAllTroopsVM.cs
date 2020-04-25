@@ -68,7 +68,7 @@ namespace PartyScreenEnhancements.ViewModel
 
             if(!toSort.IsOrdered(sorter))
             {
-                FileLog.Log($"Attempted sort on party {toSort.Count} with sorter {sorter} but the result wasn't ordered!");
+                //FileLog.Log($"Attempted sort on party {toSort.Count} with sorter {sorter} but the result wasn't ordered!");
                 toSort.Sort(sorter);
             }
 

@@ -1,4 +1,11 @@
-﻿using PartyScreenEnhancements.Saving;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
+using System.Text;
+using HarmonyLib;
+using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
@@ -47,6 +54,19 @@ namespace PartyScreenEnhancements.ViewModel
             _recruitPrisonerVm = new RecruitPrisonerVM(this, _partyVM, _partyScreenLogic);
             _unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops, partyVM.OtherPartyTroops, partyScreenLogic, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             _transferWounded = new TransferWoundedTroopsVM(this, partyVM, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
+
+            if (_partyScreenLogic.LeftOwnerParty != null)
+            {
+                FileLog.Log("------- START DUMP ------- ");
+
+                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(_partyScreenLogic.LeftOwnerParty.MobileParty))
+                {
+                    string name = descriptor.Name;
+                    object value = descriptor.GetValue(_partyScreenLogic.LeftOwnerParty.MobileParty);
+                    FileLog.Log($"{name}={value}");
+                }
+                FileLog.Log("------- END DUMP ------- ");
+            }
 
             _partyScreenLogic.AfterReset += AfterReset;
 
