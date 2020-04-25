@@ -40,7 +40,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._sortTroopsVM = new SortAllTroopsVM(this);
             this._upgradeTroopsVM = new UpgradeAllTroopsVM(this);
             this._recruitPrisonerVm = new RecruitPrisonerVM(this);
-            this._unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops);
+            this._unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops, partyVM.OtherPartyTroops, partyScreenLogic, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             this._transferWounded = new TransferWoundedTroopsVM(this, partyVM, partyVM.MainPartyTroops, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             this._parentScreen = parentScreen;
             this._settingsHint = new HintViewModel("Settings");

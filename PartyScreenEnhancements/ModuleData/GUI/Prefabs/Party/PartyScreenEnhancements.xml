@@ -13,6 +13,9 @@
 		        SuggestedWidth="650" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="30"
 		        DoNotAcceptEvents="true">
 			<Children>
+
+				<!-- Main Party Buttons-->
+
 				<RecruitAllPrisonersWidget DataSource="{RecruitAllPrisoners}" Id="RecruitAllPrisonersButton"
 				                           DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
 				                           HeightSizePolicy="Fixed" SuggestedWidth="50"
@@ -69,6 +72,8 @@
 					</Children>
 				</ButtonWidget>
 
+				<!-- Garrison Buttons-->
+
 				<ButtonWidget DataSource="{TransferWoundedTroops}" Id="TransferWoundedTroops" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
 				              HeightSizePolicy="Fixed" SuggestedWidth="45"
 				              SuggestedHeight="45" HorizontalAlignment="Left"
@@ -82,6 +87,8 @@
 						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.TransferWounded" />
 					</Children>
 				</ButtonWidget>
+
+				<!-- Party Unit Tally-->
 
 				<Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
 				        HeightSizePolicy="Fixed" SuggestedWidth="200"
@@ -128,6 +135,60 @@
 										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
 										                Brush="Recruitment.Popup.Title.Text"
 										                Text="@HorseArcherLabel" Brush.FontSize="22" />
+									</Children>
+								</Widget>
+							</Children>
+						</ListPanel>
+					</Children>
+				</Widget>
+
+				<!-- Garrison Unit Tally-->
+
+				<Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				        HeightSizePolicy="Fixed" SuggestedWidth="200"
+				        SuggestedHeight="180" HorizontalAlignment="Left"
+				        VerticalAlignment="Bottom" MarginLeft="670" MarginBottom="50" IsVisible="@ShouldShowGarrison">
+					<Children>
+						<ListPanel Id="UnitTallyGarrisonList" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop">
+							<Children>
+								<Widget Id="InfantryGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
+								        HeightSizePolicy="Fixed" SuggestedWidth="50"
+								        SuggestedHeight="40" HorizontalAlignment="Right"
+								        VerticalAlignment="Top">
+									<Children>
+										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+										                Brush="Recruitment.Popup.Title.Text"
+										                Text="@InfantryGarrisonLabel" Brush.FontSize="22" isDisabled="true" />
+									</Children>
+								</Widget>
+								<Widget Id="ArchersGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
+								        HeightSizePolicy="Fixed" SuggestedWidth="50"
+								        SuggestedHeight="40" HorizontalAlignment="Center"
+								        VerticalAlignment="Center">
+									<Children>
+										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+										                Brush="Recruitment.Popup.Title.Text"
+										                Text="@ArchersGarrisonLabel" Brush.FontSize="22" />
+									</Children>
+								</Widget>
+								<Widget Id="CavalryGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
+								        HeightSizePolicy="Fixed" SuggestedWidth="50"
+								        SuggestedHeight="40" HorizontalAlignment="Center"
+								        VerticalAlignment="Center">
+									<Children>
+										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+										                Brush="Recruitment.Popup.Title.Text"
+										                Text="@CavalryGarrisonLabel" Brush.FontSize="22" />
+									</Children>
+								</Widget>
+								<Widget Id="HorseArchersGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
+								        HeightSizePolicy="Fixed" SuggestedWidth="50"
+								        SuggestedHeight="40" HorizontalAlignment="Center"
+								        VerticalAlignment="Bottom">
+									<Children>
+										<RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+										                Brush="Recruitment.Popup.Title.Text"
+										                Text="@HorseArcherGarrisonLabel" Brush.FontSize="22" />
 									</Children>
 								</Widget>
 							</Children>
