@@ -1,24 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
     public class UpgradeAllTroopsVM : TaleWorlds.Library.ViewModel
     {
+        private const int HALF_HALF_VALUE = 2;
+
         private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
+        private readonly PartyEnhancementsVM _parent;
         private readonly PartyScreenLogic _partyLogic;
         private readonly PartyVM _partyVM;
-        private readonly PartyEnhancementsVM _parent;
+
         private HintViewModel _upgradeHint;
 
 
@@ -31,10 +30,11 @@ namespace PartyScreenEnhancements.ViewModel
             _upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
         }
 
-        private void UpgradeAllTroopsRightClick()
+        private void UpgradeAllTroopsPath(int shouldUseOnlyDictInt)
         {
             var totalUpgrades = 0;
             var toUpgrade = new Dictionary<PartyCharacterVM, int>();
+            var shouldUseOnlyDict = shouldUseOnlyDictInt == 1;
 
             foreach (PartyCharacterVM character in _mainPartyList)
             {
@@ -45,39 +45,12 @@ namespace PartyScreenEnhancements.ViewModel
                     if (upgradePath != -1)
                         toUpgrade.Add(character, upgradePath);
                 }
-            }
-
-            foreach (var keyValuePair in toUpgrade)
-            {
-                Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
-            }
-
-            _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm?.InitializeUpgrades());
-
-            _parent.RefreshValues();
-
-            if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
-                InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
-        }
-
-        private void UpgradeAllTroopsPath()
-        {
-            var totalUpgrades = 0;
-            var toUpgrade = new Dictionary<PartyCharacterVM, int>();
-
-            foreach (PartyCharacterVM character in _mainPartyList)
-            {
-                if(character != null)
+                else if (!shouldUseOnlyDict)
                 {
-                    if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
-                    {
-                        if (upgradePath != -1)
-                            toUpgrade.Add(character, upgradePath);
-                    }
-                    else if (PartyScreenConfig.ExtraSettings.HalfHalfUpgrades && character.IsUpgrade1Available &&
+                    if (PartyScreenConfig.ExtraSettings.HalfHalfUpgrades && character.IsUpgrade1Available &&
                         character.IsUpgrade2Available)
                     {
-                        toUpgrade.Add(character, 2);
+                        toUpgrade.Add(character, HALF_HALF_VALUE);
                     }
                     else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
                     {
@@ -95,11 +68,9 @@ namespace PartyScreenEnhancements.ViewModel
                 Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
             }
 
-            _mainPartyList.ApplyActionOnAllItems(partyCharacterVm => partyCharacterVm?.InitializeUpgrades());
-
             _parent.RefreshValues();
 
-            if(PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+            if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
                 InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
         }
 
@@ -111,12 +82,12 @@ namespace PartyScreenEnhancements.ViewModel
 
             var anyInsufficient =
                 upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
-            anyInsufficient = upgradeIndex == 2
+            anyInsufficient = upgradeIndex == HALF_HALF_VALUE
                 ? character.IsUpgrade1Insufficient || character.IsUpgrade2Insufficient
                 : anyInsufficient;
             if (!anyInsufficient)
             {
-                if (character.Character.UpgradeTargets.Length > upgradeIndex || upgradeIndex == 2)
+                if (character.Character.UpgradeTargets.Length > upgradeIndex || upgradeIndex == HALF_HALF_VALUE)
                 {
                     ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType) upgradeIndex, character,
                         ref totalUpgrades);
@@ -132,7 +103,7 @@ namespace PartyScreenEnhancements.ViewModel
             if (character.Side == PartyScreenLogic.PartyRosterSide.Right &&
                 character.Type == PartyScreenLogic.TroopType.Member)
             {
-                //TODO: See if mods use UpgradeTarget3, if so, switch away from it.
+                //HALF_HALF upgrade
                 if (upgradeTargetType == PartyScreenLogic.PartyCommand.UpgradeTargetType.UpgradeTarget3)
                 {
                     //Not sure how necessary this is, but better to be safe.
@@ -162,7 +133,8 @@ namespace PartyScreenEnhancements.ViewModel
             }
         }
 
-        private void SendCommand(PartyCharacterVM character, int amount, PartyScreenLogic.PartyCommand.UpgradeTargetType target)
+        private void SendCommand(PartyCharacterVM character, int amount,
+            PartyScreenLogic.PartyCommand.UpgradeTargetType target)
         {
             var partyCommand = new PartyScreenLogic.PartyCommand();
             partyCommand.FillForUpgradeTroop(character.Side, character.Type, character.Character, amount, target);
@@ -170,28 +142,18 @@ namespace PartyScreenEnhancements.ViewModel
             _partyLogic.AddCommand(partyCommand);
         }
 
-
         [DataSourceProperty]
         public HintViewModel UpgradeHint
         {
-            get
-            {
-                return _upgradeHint;
-            }
+            get => _upgradeHint;
             set
             {
-                if (value != this._upgradeHint)
+                if (value != _upgradeHint)
                 {
-                    this._upgradeHint = value;
-                    base.OnPropertyChanged(nameof(UpgradeHint));
+                    _upgradeHint = value;
+                    OnPropertyChanged(nameof(UpgradeHint));
                 }
             }
         }
-
     }
-
-
-   
-
-
 }

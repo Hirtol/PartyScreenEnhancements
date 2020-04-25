@@ -133,7 +133,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (value != this._upgradeTroopsVM)
                 {
                     this._upgradeTroopsVM = value;
-                    base.OnPropertyChanged("UpgradeAllTroops");
+                    base.OnPropertyChanged(nameof(UpgradeAllTroops));
                 }
             }
         }
@@ -150,7 +150,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (value != this._recruitPrisonerVm)
                 {
                     this._recruitPrisonerVm = value;
-                    base.OnPropertyChanged("RecruitAllPrisoners");
+                    base.OnPropertyChanged(nameof(RecruitAllPrisoners));
                 }
             }
         }
@@ -167,7 +167,7 @@ namespace PartyScreenEnhancements.ViewModel
                 if (value != this._sortTroopsVM)
                 {
                     this._sortTroopsVM = value;
-                    base.OnPropertyChanged("SortAllTroops");
+                    base.OnPropertyChanged(nameof(SortAllTroops));
                 }
             }
         }

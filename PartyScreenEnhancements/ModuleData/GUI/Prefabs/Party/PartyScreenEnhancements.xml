@@ -51,7 +51,7 @@
 				                        HeightSizePolicy="Fixed" SuggestedWidth="52"
 				                        SuggestedHeight="52" HorizontalAlignment="Right"
 				                        VerticalAlignment="Top" MarginRight="110"
-				                        MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="UpgradeAllTroopsPath" Command.AlternateClick="UpgradeAllTroopsRightClick">
+				                        MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="UpgradeAllTroopsPath" CommandParameter.Click="0" Command.AlternateClick="UpgradeAllTroopsPath" CommandParameter.AlternateClick="1">
 					<Children>
 						<HintWidget DataSource="{UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
