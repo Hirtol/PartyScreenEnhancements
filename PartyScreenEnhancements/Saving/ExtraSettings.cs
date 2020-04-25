@@ -10,6 +10,10 @@ using PartyScreenEnhancements.Comparers;
 
 namespace PartyScreenEnhancements.Saving
 {
+    /// <summary>
+    /// Settings class used for any 'small' settings such as simple booleans
+    /// Instantiated and used primarily by <see cref="PartyScreenConfig"/>
+    /// </summary>
     public class ExtraSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

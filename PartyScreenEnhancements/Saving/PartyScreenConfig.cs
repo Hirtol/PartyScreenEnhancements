@@ -14,6 +14,10 @@ using Path = System.IO.Path;
 
 namespace PartyScreenEnhancements.Saving
 {
+    /// <summary>
+    /// Primary Setting class, used for both storing values as well as serialization to XML
+    /// Makes use of <see cref="ExtraSettings"/>
+    /// </summary>
     public static class PartyScreenConfig
     {
         internal const double VERSION = 1.02;

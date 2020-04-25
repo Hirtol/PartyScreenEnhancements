@@ -273,12 +273,9 @@
     <Compile Include="ViewModel\UnitTallyVM.cs" />
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
     <Compile Include="Widgets\AscDescWidget.cs" />
-    <Compile Include="Widgets\RecruitAllPrisonersWidget.cs" />
     <Compile Include="Widgets\SettingSortWidget.cs" />
-    <Compile Include="Widgets\SortAllTroopsWidget.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Widgets\UpgradeAllTroopsWidget.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

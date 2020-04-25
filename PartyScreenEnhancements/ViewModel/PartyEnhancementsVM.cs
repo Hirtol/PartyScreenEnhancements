@@ -12,6 +12,10 @@ using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel
 {
+    /// <summary>
+    /// Primary VM for the overlay (includes buttons, unit tallies, etc)
+    /// Holds references to all other VMs relevant
+    /// </summary>
     public class PartyEnhancementsVM : TaleWorlds.Library.ViewModel
     {
         protected readonly PartyVM _partyVM;

@@ -16,12 +16,12 @@
 
 				<!-- Main Party Buttons-->
 
-				<RecruitAllPrisonersWidget DataSource="{RecruitAllPrisoners}" Id="RecruitAllPrisonersButton"
-				                           DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-				                           HeightSizePolicy="Fixed" SuggestedWidth="50"
-				                           SuggestedHeight="50" HorizontalAlignment="Right"
-				                           VerticalAlignment="Top" MarginRight="10"
-				                           MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="RecruitAll">
+				<ButtonWidget DataSource="{RecruitAllPrisoners}" Id="RecruitAllPrisonersButton"
+				              DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				              HeightSizePolicy="Fixed" SuggestedWidth="50"
+				              SuggestedHeight="50" HorizontalAlignment="Right"
+				              VerticalAlignment="Top" MarginRight="10"
+				              MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="RecruitAll">
 					<Children>
 						<HintWidget DataSource="{RecruitHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 									Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
@@ -29,14 +29,14 @@
 								SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="0"
 								VerticalAlignment="Center" MarginLeft="4" IsDisabled="false" Brush="Party.Enhancement.RecruitPrisoners" />
 					</Children>
-				</RecruitAllPrisonersWidget>
+				</ButtonWidget>
 
-				<SortAllTroopsWidget DataSource="{SortAllTroops}" Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true"
-									 WidthSizePolicy="Fixed"
-									 HeightSizePolicy="Fixed" SuggestedWidth="52"
-									 SuggestedHeight="52" HorizontalAlignment="Right"
-									 VerticalAlignment="Top" MarginRight="60"
-									 MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="SortTroops">
+				<ButtonWidget DataSource="{SortAllTroops}" Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true"
+				              WidthSizePolicy="Fixed"
+				              HeightSizePolicy="Fixed" SuggestedWidth="52"
+				              SuggestedHeight="52" HorizontalAlignment="Right"
+				              VerticalAlignment="Top" MarginRight="60"
+				              MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="SortTroops">
 					<Children>
 						<HintWidget DataSource="{SortHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
@@ -44,14 +44,14 @@
 						        SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="2"
 						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.SortParty" />
 					</Children>
-				</SortAllTroopsWidget>
+				</ButtonWidget>
 
-				<UpgradeAllTroopsWidget DataSource="{UpgradeAllTroops}" Id="UpgradeAllTroopsButton"
-				                        DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-				                        HeightSizePolicy="Fixed" SuggestedWidth="52"
-				                        SuggestedHeight="52" HorizontalAlignment="Right"
-				                        VerticalAlignment="Top" MarginRight="110"
-				                        MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="UpgradeAllTroopsPath" CommandParameter.Click="0" Command.AlternateClick="UpgradeAllTroopsPath" CommandParameter.AlternateClick="1">
+				<ButtonWidget DataSource="{UpgradeAllTroops}" Id="UpgradeAllTroopsButton"
+				              DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+				              HeightSizePolicy="Fixed" SuggestedWidth="52"
+				              SuggestedHeight="52" HorizontalAlignment="Right"
+				              VerticalAlignment="Top" MarginRight="110"
+				              MarginTop="10" Brush="Party.Enhancement.ButtonBackground" Command.Click="UpgradeAllTroopsPath" CommandParameter.Click="0" Command.AlternateClick="UpgradeAllTroopsPath" CommandParameter.AlternateClick="1">
 					<Children>
 						<HintWidget DataSource="{UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
@@ -59,7 +59,7 @@
 						        SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="0"
 						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.UpgradeAll" />
 					</Children>
-				</UpgradeAllTroopsWidget>
+				</ButtonWidget>
 
 				<ButtonWidget Id="OpenSettings" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
 				              HeightSizePolicy="Fixed" SuggestedWidth="45"

@@ -1,11 +1,8 @@
-﻿using System.Diagnostics;
-using System.Linq;
-using HarmonyLib;
+﻿using HarmonyLib;
 using PartyScreenEnhancements.ViewModel;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
-using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
@@ -13,6 +10,9 @@ using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.Patches
 {
+    /// <summary>
+    /// Simple patch in order to create the required overlay on top of the PartyScreen
+    /// </summary>
     [HarmonyPatch(typeof(ScreenBase))]
     public class PartyEnhancementLayerPatch
     {
@@ -40,7 +40,7 @@ namespace PartyScreenEnhancements.Patches
         [HarmonyPatch("RemoveLayer")]
         public static void Prefix(ref ScreenBase __instance, ref ScreenLayer layer)
         {
-            if (__instance is GauntletPartyScreen partyScreen && screenLayer != null && layer.Input.IsCategoryRegistered(HotKeyManager.GetCategory("PartyHotKeyCategory")))
+            if (__instance is GauntletPartyScreen && screenLayer != null && layer.Input.IsCategoryRegistered(HotKeyManager.GetCategory("PartyHotKeyCategory")))
             {
                 __instance.RemoveLayer(screenLayer);
                 enhancementVm.OnFinalize();
