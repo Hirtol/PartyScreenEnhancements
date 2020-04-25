@@ -41,5 +41,32 @@
 				                       ImageTypeCode="@ImageTypeCode" />
 			</Children>
 		</PartyUpgradeButtonWidget>
+
+		<RadioButtonWidget Id="Upgrade1Locked" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+		              HeightSizePolicy="Fixed" SuggestedWidth="20"
+		              SuggestedHeight="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+		              MarginLeft="10" MarginRight="170" Command.AlternateClick="ExecuteUpgradeEncyclopediaLink"
+		              Command.Click="Upgrade" CommandParameter.AlternateClick="1" CommandParameter.Click="1"
+		              DefaultBrush="Stages.Bar.Empty.Button" IsVisible="@IsUpgrade1Exists" EmptyBrush="Stages.Bar.Empty.Button" FullBrush="Stages.Bar.Full.Button" ButtonType="Toggle">
+			<Children>
+				<HintWidget DataSource="{Upgrade1Hint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+				            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+			</Children>
+		</RadioButtonWidget>
+
+		<!--Party.Enhancement.RadioButton-->
+		<!-- Make number 2 dependent on the other (reference via injection -> If it exists check if it is selected -> Deselect self if it is) -->
+
+		<RadioButtonWidget Id="Upgrade2Locked" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+		                   HeightSizePolicy="Fixed" SuggestedWidth="20"
+		                   SuggestedHeight="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+		                   MarginLeft="10" MarginRight="130" Command.AlternateClick="ExecuteUpgradeEncyclopediaLink"
+		                   Command.Click="Upgrade" CommandParameter.AlternateClick="1" CommandParameter.Click="1"
+		                   DefaultBrush="Stages.Bar.Empty.Button" IsVisible="@IsUpgrade2Exists" EmptyBrush="Stages.Bar.Empty.Button" FullBrush="Stages.Bar.Full.Button" ButtonType="Toggle">
+			<Children>
+				<HintWidget DataSource="{Upgrade2Hint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+				            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+			</Children>
+		</RadioButtonWidget>
 	</Children>
 </Widget>

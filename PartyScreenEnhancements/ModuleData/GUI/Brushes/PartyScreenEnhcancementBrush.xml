@@ -94,6 +94,30 @@
 			</Style>
 		</Styles>
 	</Brush>
+	<Brush Name="Party.Enhancement.RadioButton">
+		<Layers>
+			<BrushLayer Name="Default" Sprite="CharacterCreation\creation_progress_stone_empty" ExtendTop="2" ExtendBottom="2" />
+			<BrushLayer Name="SelectedLayer" Sprite="CharacterCreation\creation_progress_stone_full" ExtendTop="2" ExtendBottom="2" />
+		</Layers>
+		<Styles>
+			<Style Name="Default">
+				<BrushLayer Name="Default" IsHidden="false" AlphaFactor="1.0" />
+				<BrushLayer Name="SelectedLayer" IsHidden="true" AlphaFactor="1.0" />
+			</Style>
+			<Style Name="Hovered">
+				<BrushLayer Name="Default" ColorFactor="1.2" />
+				<BrushLayer Name="SelectedLayer" AlphaFactor="1.2" />
+			</Style>
+			<Style Name="Pressed">
+				<BrushLayer Name="Default" ColorFactor="0.8" />
+				<BrushLayer Name="SelectedLayer" AlphaFactor="0.8" />
+			</Style>
+			<Style Name="Selected">
+				<BrushLayer Name="Default" IsHidden="true" AlphaFactor="1.0" />
+				<BrushLayer Name="SelectedLayer" IsHidden="false" AlphaFactor="0.6" />
+			</Style>
+		</Styles>
+	</Brush>
 	<Brush Name="Party.Enhancement.ArrowUp">
 		<Layers>
 			<BrushLayer Name="Default" Sprite="SPScoreboard\arrow_up" ExtendTop="2" ExtendBottom="2" />
