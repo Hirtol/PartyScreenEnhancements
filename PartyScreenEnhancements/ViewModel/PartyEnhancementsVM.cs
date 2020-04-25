@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PartyScreenEnhancements.Saving;
+﻿using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
-using TaleWorlds.CampaignSystem.ViewModelCollection.Encyclopedia;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
@@ -21,49 +14,58 @@ namespace PartyScreenEnhancements.ViewModel
 {
     public class PartyEnhancementsVM : TaleWorlds.Library.ViewModel
     {
-
         protected readonly PartyVM _partyVM;
         protected readonly PartyScreenLogic _partyScreenLogic;
-        
+
+        private SortAllTroopsVM _sortTroopsVM;
+        private UpgradeAllTroopsVM _upgradeTroopsVM;
+        private RecruitPrisonerVM _recruitPrisonerVm;
+        private SettingScreenVM _settingScreenVm;
+        private UnitTallyVM _unitTallyVm;
+        private TransferWoundedTroopsVM _transferWounded;
 
         private GauntletLayer _settingLayer;
-        private GauntletPartyScreen _parentScreen;
+        private readonly GauntletPartyScreen _parentScreen;
         private GauntletMovie _currentMovie;
 
         private HintViewModel _settingsHint;
-        
+
 
         public PartyEnhancementsVM(PartyVM partyVM, PartyScreenLogic partyScreenLogic, GauntletPartyScreen parentScreen)
         {
-            this._partyVM = partyVM;
-            this._partyScreenLogic = partyScreenLogic;
-            this._sortTroopsVM = new SortAllTroopsVM(this);
-            this._upgradeTroopsVM = new UpgradeAllTroopsVM(this);
-            this._recruitPrisonerVm = new RecruitPrisonerVM(this);
-            this._unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops, partyVM.OtherPartyTroops, partyScreenLogic, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
-            this._transferWounded = new TransferWoundedTroopsVM(this, partyVM, partyVM.MainPartyTroops, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
-            this._parentScreen = parentScreen;
-            this._settingsHint = new HintViewModel("Settings");
-            this._partyScreenLogic.AfterReset += AfterReset;
-            this.RefreshValues();
+            _partyVM = partyVM;
+            _partyScreenLogic = partyScreenLogic;
+            _parentScreen = parentScreen;
+            _settingsHint = new HintViewModel("Settings");
+
+            _sortTroopsVM = new SortAllTroopsVM(_partyVM, _partyScreenLogic);
+            _upgradeTroopsVM = new UpgradeAllTroopsVM(this, _partyVM, _partyScreenLogic);
+            _recruitPrisonerVm = new RecruitPrisonerVM(this, _partyVM, _partyScreenLogic);
+            _unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops, partyVM.OtherPartyTroops, partyScreenLogic, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
+            _transferWounded = new TransferWoundedTroopsVM(this, partyVM, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
+
+            _partyScreenLogic.AfterReset += AfterReset;
+
+            RefreshValues();
         }
 
         public void AfterReset(PartyScreenLogic logic)
         {
-            this.RefreshValues();
+            RefreshValues();
         }
+
         public new void RefreshValues()
         {
             base.RefreshValues();
 
             if (PartyScreenConfig.ExtraSettings.AutomaticSorting) _sortTroopsVM.SortTroops();
 
-            this._unitTallyVm.RefreshValues();
+            _unitTallyVm.RefreshValues();
         }
 
         public new void OnFinalize()
         {
-            this._partyScreenLogic.AfterReset -= AfterReset;
+            _partyScreenLogic.AfterReset -= AfterReset;
         }
 
         public void OpenSettingView()
@@ -75,9 +77,9 @@ namespace PartyScreenEnhancements.ViewModel
                 _currentMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
                 _settingLayer.IsFocusLayer = true;
                 ScreenManager.TrySetFocus(_settingLayer);
-                this._settingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
+                _settingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
                 _parentScreen.AddLayer(_settingLayer);
-                this._settingLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
+                _settingLayer.InputRestrictions.SetInputRestrictions();
             }
         }
 
@@ -90,15 +92,15 @@ namespace PartyScreenEnhancements.ViewModel
                 _settingLayer.InputRestrictions.ResetInputRestrictions();
                 _settingLayer = null;
                 _settingScreenVm = null;
-                this.RefreshValues();
+                RefreshValues();
             }
         }
 
         public bool IsHotKeyPressed(string hotkey)
         {
-            if (this._settingLayer != null)
+            if (_settingLayer != null)
             {
-                return this._settingLayer.Input.IsHotKeyReleased(hotkey);
+                return _settingLayer.Input.IsHotKeyReleased(hotkey);
             }
 
             return false;
@@ -107,16 +109,13 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public HintViewModel SettingHint
         {
-            get
-            {
-                return this._settingsHint;
-            }
+            get => _settingsHint;
             set
             {
-                if (value != this._settingsHint)
+                if (value != _settingsHint)
                 {
-                    this._settingsHint = value;
-                    base.OnPropertyChanged(nameof(SettingHint));
+                    _settingsHint = value;
+                    OnPropertyChanged(nameof(SettingHint));
                 }
             }
         }
@@ -124,16 +123,13 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public UpgradeAllTroopsVM UpgradeAllTroops
         {
-            get
-            {
-                return _upgradeTroopsVM;
-            }
+            get => _upgradeTroopsVM;
             set
             {
-                if (value != this._upgradeTroopsVM)
+                if (value != _upgradeTroopsVM)
                 {
-                    this._upgradeTroopsVM = value;
-                    base.OnPropertyChanged(nameof(UpgradeAllTroops));
+                    _upgradeTroopsVM = value;
+                    OnPropertyChanged(nameof(UpgradeAllTroops));
                 }
             }
         }
@@ -141,16 +137,13 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public RecruitPrisonerVM RecruitAllPrisoners
         {
-            get
-            {
-                return _recruitPrisonerVm;
-            }
+            get => _recruitPrisonerVm;
             set
             {
-                if (value != this._recruitPrisonerVm)
+                if (value != _recruitPrisonerVm)
                 {
-                    this._recruitPrisonerVm = value;
-                    base.OnPropertyChanged(nameof(RecruitAllPrisoners));
+                    _recruitPrisonerVm = value;
+                    OnPropertyChanged(nameof(RecruitAllPrisoners));
                 }
             }
         }
@@ -158,16 +151,13 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public SortAllTroopsVM SortAllTroops
         {
-            get
-            {
-                return _sortTroopsVM;
-            }
+            get => _sortTroopsVM;
             set
             {
-                if (value != this._sortTroopsVM)
+                if (value != _sortTroopsVM)
                 {
-                    this._sortTroopsVM = value;
-                    base.OnPropertyChanged(nameof(SortAllTroops));
+                    _sortTroopsVM = value;
+                    OnPropertyChanged(nameof(SortAllTroops));
                 }
             }
         }
@@ -175,16 +165,13 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public UnitTallyVM UnitTally
         {
-            get
-            {
-                return _unitTallyVm;
-            }
+            get => _unitTallyVm;
             set
             {
-                if (value != this._unitTallyVm)
+                if (value != _unitTallyVm)
                 {
-                    this._unitTallyVm = value;
-                    base.OnPropertyChanged(nameof(UnitTally));
+                    _unitTallyVm = value;
+                    OnPropertyChanged(nameof(UnitTally));
                 }
             }
         }
@@ -195,37 +182,12 @@ namespace PartyScreenEnhancements.ViewModel
             get => _transferWounded;
             set
             {
-                if (value != this._transferWounded)
+                if (value != _transferWounded)
                 {
-                    this._transferWounded = value;
-                    base.OnPropertyChanged(nameof(TransferWoundedTroops));
+                    _transferWounded = value;
+                    OnPropertyChanged(nameof(TransferWoundedTroops));
                 }
             }
         }
-
-        [DataSourceProperty]
-        public PartyVM EnhancementPartyVM
-        {
-            get
-            {
-                return this._partyVM;
-            }
-        }
-
-        [DataSourceProperty]
-        public PartyScreenLogic EnhancementPartyLogic
-        {
-            get
-            {
-                return this._partyScreenLogic;
-            }
-        }
-
-        private SortAllTroopsVM _sortTroopsVM;
-        private UpgradeAllTroopsVM _upgradeTroopsVM;
-        private RecruitPrisonerVM _recruitPrisonerVm;
-        private SettingScreenVM _settingScreenVm;
-        private UnitTallyVM _unitTallyVm;
-        private TransferWoundedTroopsVM _transferWounded;
     }
 }

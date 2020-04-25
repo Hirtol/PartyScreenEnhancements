@@ -21,13 +21,14 @@ namespace PartyScreenEnhancements.ViewModel
         private HintViewModel _upgradeHint;
 
 
-        public UpgradeAllTroopsVM(PartyEnhancementsVM parent)
+        public UpgradeAllTroopsVM(PartyEnhancementsVM parent, PartyVM partyVm, PartyScreenLogic logic)
         {
-            _parent = parent;
-            _partyLogic = parent.EnhancementPartyLogic;
-            _partyVM = parent.EnhancementPartyVM;
-            _mainPartyList = _partyVM.MainPartyTroops;
-            _upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
+            this._parent = parent;
+            this._partyVM = partyVm;
+            this._partyLogic = logic;
+            this._mainPartyList = _partyVM.MainPartyTroops;
+
+            this._upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
         }
 
         private void UpgradeAllTroopsPath(int shouldUseOnlyDictInt)

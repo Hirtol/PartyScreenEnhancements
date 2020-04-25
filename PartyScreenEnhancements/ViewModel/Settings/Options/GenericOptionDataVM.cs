@@ -10,16 +10,13 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Options
 {
     public class GenericOptionDataVM : TaleWorlds.Library.ViewModel
     {
-        private string _name;
-        private string _description;
-        private int _id;
         private string[] _imageIDs;
 
         public GenericOptionDataVM(string name, string description, int id)
         {
-            _name = name;
-            _description = description;
-            _id = id;
+            Name = name;
+            Description = description;
+            OptionTypeID = id;
         }
 
 
@@ -35,30 +32,18 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Options
                 if (value != this._imageIDs)
                 {
                     this._imageIDs = value;
-                    base.OnPropertyChanged("ImageIDs");
+                    base.OnPropertyChanged(nameof(ImageIDs));
                 }
             }
         }
 
         [DataSourceProperty]
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; set; }
 
         [DataSourceProperty]
-        public int OptionTypeID
-        {
-            get => _id;
-            set => _id = value;
-        }
+        public int OptionTypeID { get; set; }
 
         [DataSourceProperty]
-        public string Description
-        {
-            get => _description;
-            set => _description = value;
-        }
+        public string Description { get; set; }
     }
 }

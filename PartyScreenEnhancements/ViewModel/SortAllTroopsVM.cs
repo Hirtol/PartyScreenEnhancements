@@ -22,17 +22,15 @@ namespace PartyScreenEnhancements.ViewModel
         private readonly MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
         private readonly PartyScreenLogic _partyLogic;
         private readonly PartyVM _partyVM;
-        private readonly PartyEnhancementsVM _parent;
 
         private const int _leftSide = (int)PartyScreenLogic.PartyRosterSide.Left;
             private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
 
         private HintViewModel _sortHint;
-        public SortAllTroopsVM(PartyEnhancementsVM parent)
+        public SortAllTroopsVM(PartyVM partyVm, PartyScreenLogic logic)
         {
-            this._parent = parent;
-            this._partyVM = parent.EnhancementPartyVM;
-            this._partyLogic = parent.EnhancementPartyLogic;
+            this._partyVM = partyVm;
+            this._partyLogic = logic;
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
             this._sortHint = new HintViewModel("Sort Troops\nCtrl Click to sort just main party");
@@ -87,10 +85,7 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public HintViewModel SortHint
         {
-            get
-            {
-                return _sortHint;
-            }
+            get => _sortHint;
             set
             {
                 if (value != this._sortHint)

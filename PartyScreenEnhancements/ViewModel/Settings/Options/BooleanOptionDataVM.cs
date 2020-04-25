@@ -41,7 +41,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Options
                 {
                     this._optionValue = value;
                     _setter(value);
-                    base.OnPropertyChanged("OptionValueAsBoolean");
+                    base.OnPropertyChanged(nameof(OptionValueAsBoolean));
                 }
             }
         }

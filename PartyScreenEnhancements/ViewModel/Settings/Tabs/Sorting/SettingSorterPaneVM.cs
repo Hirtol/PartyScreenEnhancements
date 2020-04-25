@@ -33,7 +33,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             ExecuteTransfer(sorter, -1, side.GetOtherSide());
         }
 
-        //TODO: FIX TRANSFER WITH 3 ITEMS IN LIST -> DRAG TOP TO VERY BOTTOM AND IT TRIES INDEX 3???. IF YOU TRY IN BETWEEN IT PUTS IT LAST IN LIST????
+        //TODO: FIX TRANSFER WITH 3 ITEMS IN LIST -> DRAG TOP TO VERY BOTTOM AND IT TRIES INDEX 3. IF YOU TRY IN BETWEEN IT PUTS IT LAST IN LIST
         public void ExecuteListTransfer(SettingSortVM sorter, int index, string targetTag)
         {
             if (targetTag == "SettingList")
@@ -206,7 +206,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
                 }
             }
         }
-
 
         [DataSourceProperty]
         public string Name { get; set; }

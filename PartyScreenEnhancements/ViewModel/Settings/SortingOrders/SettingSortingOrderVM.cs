@@ -13,21 +13,19 @@ namespace PartyScreenEnhancements.ViewModel.Settings
     {
         private HintViewModel _settingHint;
 
-        private string _displayText;
-
         public SettingSortingOrderVM(string displayText)
         {
             this.SettingHint = new HintViewModel(displayText);
-            this._displayText = displayText;
+            this.Name = displayText;
         }
 
-
-        [DataSourceProperty] public string Name => _displayText;
+        [DataSourceProperty]
+        public string Name { get; }
 
         [DataSourceProperty]
         public HintViewModel SettingHint
         {
-            get { return _settingHint; }
+            get => _settingHint;
             set
             {
                 if (value != this._settingHint)
