@@ -257,6 +257,7 @@
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
+    <Compile Include="ViewModel\RecruitTillLimitVM.cs" />
     <Compile Include="ViewModel\Settings\Options\BooleanOptionDataVM.cs" />
     <Compile Include="ViewModel\Settings\Options\GenericOptionDataVM.cs" />
     <Compile Include="ViewModel\Settings\SortingOrders\SettingSortingOrderScreenVM.cs" />

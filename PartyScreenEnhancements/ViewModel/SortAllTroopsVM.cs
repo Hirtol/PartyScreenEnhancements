@@ -47,6 +47,11 @@ namespace PartyScreenEnhancements.ViewModel
                 SortAnyParty(_mainPartyPrisoners,
                     _partyLogic.PrisonerRosters[_rightSide],
                     settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
+
+                SortAnyParty(_partyVM.OtherPartyPrisoners,
+                    _partyLogic.PrisonerRosters[_leftSide], 
+                    settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
+
                 if (_partyLogic.LeftOwnerParty?.MobileParty?.IsGarrison ?? false)
                 {
                     SortAnyParty(_partyVM.OtherPartyTroops,
