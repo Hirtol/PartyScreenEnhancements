@@ -52,11 +52,20 @@ namespace PartyScreenEnhancements.ViewModel
                     _partyLogic.PrisonerRosters[_leftSide], 
                     settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
 
-                if (_partyLogic.LeftOwnerParty?.MobileParty?.IsGarrison ?? false)
+                if (_partyLogic.LeftOwnerParty?.MobileParty != null)
+                {
+                    bool useGarrisonSorter = _partyLogic.LeftOwnerParty.MobileParty.IsGarrison &&
+                                             settings.SeparateSortingProfiles;
+
+                    SortAnyParty(_partyVM.OtherPartyTroops,
+                        _partyLogic.MemberRosters[_leftSide],
+                        useGarrisonSorter ? settings.GarrisonSorter : settings.PartySorter);
+                }
+                else
                 {
                     SortAnyParty(_partyVM.OtherPartyTroops,
                         _partyLogic.MemberRosters[_leftSide],
-                        settings.SeparateSortingProfiles ? settings.GarrisonSorter : settings.PartySorter);
+                        settings.PartySorter);
                 }
             }
 

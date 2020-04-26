@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using HarmonyLib;
@@ -10,6 +11,7 @@ using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
@@ -34,6 +36,7 @@ namespace PartyScreenEnhancements.ViewModel
         private SettingScreenVM _settingScreenVm;
         private UnitTallyVM _unitTallyVm;
         private TransferWoundedTroopsVM _transferWounded;
+        private RecruitTillLimitVM _recruitLimitVM;
 
         private GauntletLayer _settingLayer;
         private readonly GauntletPartyScreen _parentScreen;
@@ -54,23 +57,39 @@ namespace PartyScreenEnhancements.ViewModel
             _recruitPrisonerVm = new RecruitPrisonerVM(this, _partyVM, _partyScreenLogic);
             _unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops, partyVM.OtherPartyTroops, partyScreenLogic, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             _transferWounded = new TransferWoundedTroopsVM(this, partyVM, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
-
-            if (_partyScreenLogic.LeftOwnerParty != null)
-            {
-                FileLog.Log("------- START DUMP ------- ");
-
-                foreach (PropertyDescriptor descriptor in TypeDescriptor.GetProperties(_partyScreenLogic.LeftOwnerParty.MobileParty))
-                {
-                    string name = descriptor.Name;
-                    object value = descriptor.GetValue(_partyScreenLogic.LeftOwnerParty.MobileParty);
-                    FileLog.Log($"{name}={value}");
-                }
-                FileLog.Log("------- END DUMP ------- ");
-            }
+            _recruitLimitVM = new RecruitTillLimitVM(_partyVM,_partyScreenLogic);
 
             _partyScreenLogic.AfterReset += AfterReset;
+            _partyScreenLogic.Update += UpdateLabel;
+            PartyScreenConfig.ExtraSettings.PropertyChanged += OnEnableChange;
 
             RefreshValues();
+            UpdateLabel(null);
+        }
+
+        public void UpdateLabel(PartyScreenLogic.PartyCommand command)
+        {
+            if(!PartyScreenConfig.ExtraSettings.ShouldShowCompletePartyNumber) return;
+
+            var _otherParty = _partyVM.OtherPartyTroops;
+            var _mainParty = _partyVM.MainPartyTroops;
+
+            if (_mainParty != null && !_mainParty.IsEmpty() && (_partyScreenLogic.RightOwnerParty?.PartySizeLimit > 0))
+            {
+                _partyVM.MainPartyTroopsLbl =
+                    PopulatePartyList(_mainParty, _partyScreenLogic.RightOwnerParty.PartySizeLimit);
+            }
+
+            if (_otherParty != null && !_otherParty.IsEmpty() && (_partyScreenLogic.LeftOwnerParty?.PartySizeLimit > 0))
+            {
+                _partyVM.OtherPartyTroopsLbl = PopulatePartyList(_otherParty, _partyScreenLogic.LeftOwnerParty.PartySizeLimit);
+            }
+        }
+
+        private string PopulatePartyList(MBBindingList<PartyCharacterVM> list, int sizeLimit)
+        {
+            int troopNumb = list.Sum(character => Math.Max(0, character.Troop.Number));
+            return $"({troopNumb} / {sizeLimit})";
         }
 
         public void AfterReset(PartyScreenLogic logic)
@@ -90,6 +109,8 @@ namespace PartyScreenEnhancements.ViewModel
         public new void OnFinalize()
         {
             _partyScreenLogic.AfterReset -= AfterReset;
+            _partyScreenLogic.Update -= UpdateLabel;
+            PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
         }
 
         public void OpenSettingView()
@@ -128,6 +149,16 @@ namespace PartyScreenEnhancements.ViewModel
             }
 
             return false;
+        }
+
+        public void OnEnableChange(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+        {
+            if (propertyChangedEventArgs.PropertyName.Equals(nameof(PartyScreenConfig.ExtraSettings
+                .ShouldShowCompletePartyNumber)))
+            {
+                Traverse.Create(_partyVM).Method("RefreshPartyInformation").GetValue();
+                UpdateLabel(null);
+            }
         }
 
         [DataSourceProperty]
@@ -210,6 +241,20 @@ namespace PartyScreenEnhancements.ViewModel
                 {
                     _transferWounded = value;
                     OnPropertyChanged(nameof(TransferWoundedTroops));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public RecruitTillLimitVM RecruitTillLimit
+        {
+            get => _recruitLimitVM;
+            set
+            {
+                if (value != _recruitLimitVM)
+                {
+                    _recruitLimitVM = value;
+                    OnPropertyChanged(nameof(RecruitTillLimit));
                 }
             }
         }

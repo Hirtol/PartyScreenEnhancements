@@ -20,6 +20,7 @@ namespace PartyScreenEnhancements.Saving
 
         private bool _displayCategory = false;
         private bool _separateSorting = true;
+        private bool _shouldShowCompletePartyNumber = false;
 
         [XmlElement("GeneralLog")] public bool ShowGeneralLogMessage { get; set; } = true;
 
@@ -53,6 +54,17 @@ namespace PartyScreenEnhancements.Saving
 
         [XmlElement("KeepHeroesOnTop")]
         public bool KeepHeroesOnTop { get; set; } = true;
+
+        [XmlElement("ShouldShowCompletePartyNumber")]
+        public bool ShouldShowCompletePartyNumber 
+        {
+            get => _shouldShowCompletePartyNumber;
+            set
+            {
+                _shouldShowCompletePartyNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         [XmlElement("PartySorter")]
         public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
