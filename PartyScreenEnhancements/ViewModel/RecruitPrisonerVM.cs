@@ -16,10 +16,10 @@ namespace PartyScreenEnhancements.ViewModel
 {
     public class RecruitPrisonerVM : TaleWorlds.Library.ViewModel
     {
-        private readonly MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
-        private readonly PartyScreenLogic _partyLogic;
-        private readonly PartyVM _partyVM;
-        private readonly PartyEnhancementsVM _parent;
+        private MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
+        private PartyScreenLogic _partyLogic;
+        private PartyVM _partyVM;
+        private PartyEnhancementsVM _parent;
 
         private HintViewModel _recruitHint;
 
@@ -30,6 +30,15 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyLogic = logic;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
             this._recruitHint = new HintViewModel("Recruit All Prisoners.\nClick with CTRL pressed to ignore party size limits");
+        }
+
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            this._mainPartyPrisoners = null;
+            _partyLogic = null;
+            _partyVM = null;
+            _parent = null;
         }
 
         //TODO: Switch to cleaner RecruitByDefault=false logic.

@@ -29,6 +29,12 @@ namespace PartyScreenEnhancements.ViewModel
             this.IsEnabled = partyVm.OtherPartyTroops != null;
         }
 
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            this._partyVm = null;
+            this._logic = null;
+        }
 
         public void ExecuteTransfer()
         {

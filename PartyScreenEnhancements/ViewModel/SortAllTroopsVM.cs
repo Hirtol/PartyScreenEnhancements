@@ -18,15 +18,16 @@ namespace PartyScreenEnhancements.ViewModel
 {
     public class SortAllTroopsVM : TaleWorlds.Library.ViewModel
     {
-        private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
-        private readonly MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
-        private readonly PartyScreenLogic _partyLogic;
-        private readonly PartyVM _partyVM;
+        private MBBindingList<PartyCharacterVM> _mainPartyList;
+        private MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
+        private PartyScreenLogic _partyLogic;
+        private PartyVM _partyVM;
 
         private const int _leftSide = (int)PartyScreenLogic.PartyRosterSide.Left;
-            private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
+        private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
 
         private HintViewModel _sortHint;
+
         public SortAllTroopsVM(PartyVM partyVm, PartyScreenLogic logic)
         {
             this._partyVM = partyVm;
@@ -34,6 +35,15 @@ namespace PartyScreenEnhancements.ViewModel
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
             this._sortHint = new HintViewModel("Sort Troops\nCtrl Click to sort just main party");
+        }
+
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            _mainPartyPrisoners = null;
+            _mainPartyList = null;
+            _partyLogic = null;
+            _partyVM = null;
         }
 
         public void SortTroops()

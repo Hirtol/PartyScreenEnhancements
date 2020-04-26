@@ -26,6 +26,14 @@ namespace PartyScreenEnhancements.ViewModel
             this._woundedHint = new HintViewModel("Transfer All Wounded");
         }
 
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            _partyVm = null;
+            _parent = null;
+            _mainPartyList = null;
+        }
+
         private void ExecuteTransferWounded()
         {
             var enumerator = new PartyCharacterVM[_mainPartyList.Count];

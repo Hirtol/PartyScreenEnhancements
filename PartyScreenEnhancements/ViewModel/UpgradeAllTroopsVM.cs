@@ -13,10 +13,10 @@ namespace PartyScreenEnhancements.ViewModel
     {
         private const int HALF_HALF_VALUE = 2;
 
-        private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
-        private readonly PartyEnhancementsVM _parent;
-        private readonly PartyScreenLogic _partyLogic;
-        private readonly PartyVM _partyVM;
+        private MBBindingList<PartyCharacterVM> _mainPartyList;
+        private PartyEnhancementsVM _parent;
+        private PartyScreenLogic _partyLogic;
+        private PartyVM _partyVM;
 
         private HintViewModel _upgradeHint;
 
@@ -29,6 +29,15 @@ namespace PartyScreenEnhancements.ViewModel
             this._mainPartyList = _partyVM.MainPartyTroops;
 
             this._upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
+        }
+
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            _mainPartyList = null;
+            _partyLogic = null;
+            _parent = null;
+            _partyVM = null;
         }
 
         private void UpgradeAllTroopsPath(int shouldUseOnlyDictInt)
