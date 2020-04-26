@@ -18,6 +18,7 @@ namespace PartyScreenEnhancements.Comparers
     [XmlInclude(typeof(CultureComparer))]
     [XmlInclude(typeof(NumberComparer))]
     [XmlInclude(typeof(UpgradeableComparer))]
+    [XmlInclude(typeof(WoundedComparer))]
     public abstract class PartySort : IComparer<PartyCharacterVM>
     {
         [XmlElement("Descending")]

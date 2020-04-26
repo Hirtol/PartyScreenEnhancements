@@ -150,7 +150,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
                 SettingSide.LEFT, _parent.OpenSubSetting));
             _possibleSettingList.Add(new SettingSortVM(new NumberComparer(null, true), TransferSorter, SettingSide.LEFT,
                 _parent.OpenSubSetting));
-            _possibleSettingList.Add(new SettingSortVM(new UpgradeableComparer(null), TransferSorter, SettingSide.LEFT,
+            _possibleSettingList.Add(new SettingSortVM(new UpgradeableComparer(null, true), TransferSorter, SettingSide.LEFT,
+                _parent.OpenSubSetting));
+            _possibleSettingList.Add(new SettingSortVM(new WoundedComparer(null, true), TransferSorter, SettingSide.LEFT,
                 _parent.OpenSubSetting));
         }
 
