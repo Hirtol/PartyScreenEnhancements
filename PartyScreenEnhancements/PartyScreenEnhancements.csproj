@@ -190,10 +190,6 @@
       <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Network.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="TaleWorlds.ObjectSystem">
-      <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="TaleWorlds.PlatformService">
       <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.PlatformService.dll</HintPath>
       <Private>False</Private>
@@ -256,6 +252,7 @@
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
+    <Compile Include="Utilities.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
     <Compile Include="ViewModel\RecruitTillLimitVM.cs" />

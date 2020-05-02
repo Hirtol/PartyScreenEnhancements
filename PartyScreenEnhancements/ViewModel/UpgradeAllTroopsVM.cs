@@ -46,42 +46,50 @@ namespace PartyScreenEnhancements.ViewModel
             var toUpgrade = new Dictionary<PartyCharacterVM, int>();
             var shouldUseOnlyDict = shouldUseOnlyDictInt == 1;
 
-            foreach (PartyCharacterVM character in _mainPartyList)
+            try
             {
-                if (character == null) continue;
 
-                if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
+                foreach (PartyCharacterVM character in _mainPartyList)
                 {
-                    if (upgradePath != -1)
-                        toUpgrade.Add(character, upgradePath);
+                    if (character == null) continue;
+
+                    if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
+                    {
+                        if (upgradePath != -1)
+                            toUpgrade.Add(character, upgradePath);
+                    }
+                    else if (!shouldUseOnlyDict)
+                    {
+                        if (PartyScreenConfig.ExtraSettings.HalfHalfUpgrades && character.IsUpgrade1Available &&
+                            character.IsUpgrade2Available)
+                        {
+                            toUpgrade.Add(character, HALF_HALF_VALUE);
+                        }
+                        else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
+                        {
+                            toUpgrade.Add(character, 0);
+                        }
+                        else if (!character.IsUpgrade1Available && character.IsUpgrade2Available)
+                        {
+                            toUpgrade.Add(character, 1);
+                        }
+                    }
                 }
-                else if (!shouldUseOnlyDict)
+
+                foreach (var keyValuePair in toUpgrade)
                 {
-                    if (PartyScreenConfig.ExtraSettings.HalfHalfUpgrades && character.IsUpgrade1Available &&
-                        character.IsUpgrade2Available)
-                    {
-                        toUpgrade.Add(character, HALF_HALF_VALUE);
-                    }
-                    else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
-                    {
-                        toUpgrade.Add(character, 0);
-                    }
-                    else if (!character.IsUpgrade1Available && character.IsUpgrade2Available)
-                    {
-                        toUpgrade.Add(character, 1);
-                    }
+                    Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
                 }
+
+                _parent.RefreshValues();
+
+                if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                    InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
             }
-
-            foreach (var keyValuePair in toUpgrade)
+            catch (Exception e)
             {
-                Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
+                Utilities.DisplayMessage($"PSE UpgradeTroops exception: {e}");
             }
-
-            _parent.RefreshValues();
-
-            if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
-                InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
         }
 
         private void Upgrade(PartyCharacterVM character, int upgradeIndex, ref int totalUpgrades)

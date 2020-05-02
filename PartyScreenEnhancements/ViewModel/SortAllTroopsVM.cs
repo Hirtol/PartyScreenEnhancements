@@ -50,38 +50,47 @@ namespace PartyScreenEnhancements.ViewModel
         {
             var settings = PartyScreenConfig.ExtraSettings;
 
-            SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
-
-            if(!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
+            try
             {
-                SortAnyParty(_mainPartyPrisoners,
-                    _partyLogic.PrisonerRosters[_rightSide],
-                    settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
 
-                SortAnyParty(_partyVM.OtherPartyPrisoners,
-                    _partyLogic.PrisonerRosters[_leftSide], 
-                    settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
+                SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
 
-                if (_partyLogic.LeftOwnerParty?.MobileParty != null)
+                if (!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
                 {
-                    bool useGarrisonSorter = _partyLogic.LeftOwnerParty.MobileParty.IsGarrison &&
-                                             settings.SeparateSortingProfiles;
+                    SortAnyParty(_mainPartyPrisoners,
+                        _partyLogic.PrisonerRosters[_rightSide],
+                        settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
 
-                    SortAnyParty(_partyVM.OtherPartyTroops,
-                        _partyLogic.MemberRosters[_leftSide],
-                        useGarrisonSorter ? settings.GarrisonSorter : settings.PartySorter);
+                    SortAnyParty(_partyVM.OtherPartyPrisoners,
+                        _partyLogic.PrisonerRosters[_leftSide],
+                        settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
+
+                    if (_partyLogic.LeftOwnerParty?.MobileParty != null)
+                    {
+                        bool useGarrisonSorter = _partyLogic.LeftOwnerParty.MobileParty.IsGarrison &&
+                                                 settings.SeparateSortingProfiles;
+
+                        SortAnyParty(_partyVM.OtherPartyTroops,
+                            _partyLogic.MemberRosters[_leftSide],
+                            useGarrisonSorter ? settings.GarrisonSorter : settings.PartySorter);
+                    }
+                    else
+                    {
+                        SortAnyParty(_partyVM.OtherPartyTroops,
+                            _partyLogic.MemberRosters[_leftSide],
+                            settings.PartySorter);
+                    }
                 }
-                else
+
+                if (!_mainPartyList.IsEmpty() && (!_mainPartyList[0]?.Troop.Character?.IsPlayerCharacter ?? false))
                 {
-                    SortAnyParty(_partyVM.OtherPartyTroops,
-                        _partyLogic.MemberRosters[_leftSide],
-                        settings.PartySorter);
+                    InformationManager.DisplayMessage(new InformationMessage(
+                        "Your player character is no longer at the top of the list due to sorting, do NOT save your game and notify the mod manager"));
                 }
             }
-
-            if (!_mainPartyList.IsEmpty() && (!_mainPartyList[0]?.Troop.Character?.IsPlayerCharacter ?? false))
+            catch (Exception e)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Your player character is no longer at the top of the list due to sorting, do NOT save your game and notify the mod manager"));
+                Utilities.DisplayMessage($"PSE Sorting Unit Exception: {e}");
             }
         }
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)

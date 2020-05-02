@@ -47,47 +47,56 @@ namespace PartyScreenEnhancements.ViewModel
             bool shouldIgnoreLimit = ScreenManager.TopScreen.DebugInput.IsControlDown();
             int amountUpgraded = 0;
 
-            var enumerator = new PartyCharacterVM[_mainPartyPrisoners.Count];
-            _mainPartyPrisoners.CopyTo(enumerator, 0);
-
-            foreach (PartyCharacterVM prisoner in enumerator)
+            try
             {
-                if (prisoner == null) continue;
 
-                int remainingPartySize = _partyLogic.RightOwnerParty.PartySizeLimit - _partyLogic
-                                             .MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right]
-                                             .TotalManCount;
-                if (remainingPartySize > 0 || shouldIgnoreLimit)
+                var enumerator = new PartyCharacterVM[_mainPartyPrisoners.Count];
+                _mainPartyPrisoners.CopyTo(enumerator, 0);
+
+                foreach (PartyCharacterVM prisoner in enumerator)
                 {
-                    if (prisoner.IsTroopRecruitable)
+                    if (prisoner == null) continue;
+
+                    int remainingPartySize = _partyLogic.RightOwnerParty.PartySizeLimit - _partyLogic
+                        .MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right]
+                        .TotalManCount;
+                    if (remainingPartySize > 0 || shouldIgnoreLimit)
                     {
-                        _partyVM.CurrentCharacter = prisoner;
-
-                        if (PartyScreenConfig.PrisonersToRecruit.TryGetValue(prisoner.Character.StringId, out int val))
+                        if (prisoner.IsTroopRecruitable)
                         {
-                            if (val == -1 && PartyScreenConfig.ExtraSettings.RecruitByDefault)
-                                continue;
-                        }
-                        else if (!PartyScreenConfig.ExtraSettings.RecruitByDefault) continue;
+                            _partyVM.CurrentCharacter = prisoner;
 
-                        RecruitPrisoner(prisoner, 
-                            shouldIgnoreLimit ? prisoner.NumOfRecruitablePrisoners : remainingPartySize,
-                            ref amountUpgraded);
+                            if (PartyScreenConfig.PrisonersToRecruit.TryGetValue(prisoner.Character.StringId,
+                                out int val))
+                            {
+                                if (val == -1 && PartyScreenConfig.ExtraSettings.RecruitByDefault)
+                                    continue;
+                            }
+                            else if (!PartyScreenConfig.ExtraSettings.RecruitByDefault) continue;
+
+                            RecruitPrisoner(prisoner,
+                                shouldIgnoreLimit ? prisoner.NumOfRecruitablePrisoners : remainingPartySize,
+                                ref amountUpgraded);
+                        }
+                    }
+                    else
+                    {
+                        if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                            InformationManager.DisplayMessage(
+                                new InformationMessage($"Party size limit reached, {amountUpgraded} recruited!"));
+                        return;
                     }
                 }
-                else
-                {
-                    if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
-                        InformationManager.DisplayMessage(
-                            new InformationMessage($"Party size limit reached, {amountUpgraded} recruited!"));
-                    return;
-                }
+
+                if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
+                    InformationManager.DisplayMessage(new InformationMessage($"Recruited {amountUpgraded} prisoners"));
+
+                _parent.RefreshValues();
             }
-
-            if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
-                InformationManager.DisplayMessage(new InformationMessage($"Recruited {amountUpgraded} prisoners"));
-
-            _parent.RefreshValues();
+            catch (Exception e)
+            {
+                Utilities.DisplayMessage($"PSE Recruit Prisoner Exception {e}");
+            }
         }
 
         private void RecruitPrisoner(PartyCharacterVM character, int remainingSize, ref int amount)

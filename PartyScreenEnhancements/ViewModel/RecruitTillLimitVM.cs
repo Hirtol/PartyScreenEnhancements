@@ -50,25 +50,33 @@ namespace PartyScreenEnhancements.ViewModel
         {
             if (otherUnits == null || otherUnits.IsEmpty() || sizeLimit <= 0) return;
 
-            var enumerator = new PartyCharacterVM[otherUnits.Count];
-            otherUnits.CopyTo(enumerator, 0);
-
-            foreach (PartyCharacterVM character in enumerator)
+            try
             {
-                if (character == null) continue;
 
-                int remainingPartySize = sizeLimit - roster.TotalManCount;
+                var enumerator = new PartyCharacterVM[otherUnits.Count];
+                otherUnits.CopyTo(enumerator, 0);
 
-                if (remainingPartySize > 0 && character.IsTroopTransferrable)
+                foreach (PartyCharacterVM character in enumerator)
                 {
-                    _partyVm.CurrentCharacter = character;
-                    int toTransfer = Math.Min(remainingPartySize, character.Troop.Number);
+                    if (character == null) continue;
 
-                    character.OnTransfer(character, -1, toTransfer, character.Side);
+                    int remainingPartySize = sizeLimit - roster.TotalManCount;
+
+                    if (remainingPartySize > 0 && character.IsTroopTransferrable)
+                    {
+                        _partyVm.CurrentCharacter = character;
+                        int toTransfer = Math.Min(remainingPartySize, character.Troop.Number);
+
+                        character.OnTransfer(character, -1, toTransfer, character.Side);
+                    }
                 }
-            }
 
-            _partyVm.ExecuteRemoveZeroCounts();
+                _partyVm.ExecuteRemoveZeroCounts();
+            }
+            catch (Exception e)
+            {
+                Utilities.DisplayMessage($"PSE Transfer To Limit Exception: {e}");
+            }
         }
 
         [DataSourceProperty]

@@ -82,51 +82,58 @@ namespace PartyScreenEnhancements.ViewModel
 
         public new void RefreshValues()
         {
-            base.RefreshValues();
-            if(IsEnabled)
+            try
             {
-                int infantry = 0, archers = 0, cavalry = 0, horseArchers = 0;
-
-                foreach (PartyCharacterVM character in _mainPartyList)
+                base.RefreshValues();
+                if (IsEnabled)
                 {
-                    if (character?.Character != null)
-                    {
-                        if (character.Character.IsMounted && character.Character.IsArcher)
-                            horseArchers += character.Number;
-                        else if (character.Character.IsMounted) cavalry += character.Number;
-                        else if (character.Character.IsArcher) archers += character.Number;
-                        else if (character.Character.IsInfantry) infantry += character.Number;
+                    int infantry = 0, archers = 0, cavalry = 0, horseArchers = 0;
 
+                    foreach (PartyCharacterVM character in _mainPartyList)
+                    {
+                        if (character?.Character != null)
+                        {
+                            if (character.Character.IsMounted && character.Character.IsArcher)
+                                horseArchers += character.Number;
+                            else if (character.Character.IsMounted) cavalry += character.Number;
+                            else if (character.Character.IsArcher) archers += character.Number;
+                            else if (character.Character.IsInfantry) infantry += character.Number;
+
+                        }
                     }
+
+                    InfantryLabel = $"Infantry: {infantry}";
+                    ArchersLabel = $"Archers: {archers}";
+                    CavalryLabel = $"Cavalry: {cavalry}";
+                    HorseArcherLabel = $"Horse Archers: {horseArchers}";
                 }
 
-                InfantryLabel = $"Infantry: {infantry}";
-                ArchersLabel = $"Archers: {archers}";
-                CavalryLabel = $"Cavalry: {cavalry}";
-                HorseArcherLabel = $"Horse Archers: {horseArchers}";
+                if (ShouldShowGarrison && _otherPartyList != null)
+                {
+                    int infantry = 0, archers = 0, cavalry = 0, horseArchers = 0;
+
+                    foreach (PartyCharacterVM character in _otherPartyList)
+                    {
+                        if (character?.Character != null)
+                        {
+                            if (character.Character.IsMounted && character.Character.IsArcher)
+                                horseArchers += character.Number;
+                            else if (character.Character.IsMounted) cavalry += character.Number;
+                            else if (character.Character.IsArcher) archers += character.Number;
+                            else if (character.Character.IsInfantry) infantry += character.Number;
+
+                        }
+                    }
+
+                    InfantryGarrisonLabel = $"Infantry: {infantry}";
+                    ArchersGarrisonLabel = $"Archers: {archers}";
+                    CavalryGarrisonLabel = $"Cavalry: {cavalry}";
+                    HorseArcherGarrisonLabel = $"Horse Archers: {horseArchers}";
+                }
             }
-
-            if (ShouldShowGarrison && _otherPartyList != null)
+            catch (Exception e)
             {
-                int infantry = 0, archers = 0, cavalry = 0, horseArchers = 0;
-
-                foreach (PartyCharacterVM character in _otherPartyList)
-                {
-                    if (character?.Character != null)
-                    {
-                        if (character.Character.IsMounted && character.Character.IsArcher)
-                            horseArchers += character.Number;
-                        else if (character.Character.IsMounted) cavalry += character.Number;
-                        else if (character.Character.IsArcher) archers += character.Number;
-                        else if (character.Character.IsInfantry) infantry += character.Number;
-
-                    }
-                }
-
-                InfantryGarrisonLabel = $"Infantry: {infantry}";
-                ArchersGarrisonLabel = $"Archers: {archers}";
-                CavalryGarrisonLabel = $"Cavalry: {cavalry}";
-                HorseArcherGarrisonLabel = $"Horse Archers: {horseArchers}";
+                Utilities.DisplayMessage($"PSE Unit Tally Label Update Exception {e}");
             }
         }
 

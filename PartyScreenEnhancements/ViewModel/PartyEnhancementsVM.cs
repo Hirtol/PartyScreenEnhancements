@@ -69,20 +69,30 @@ namespace PartyScreenEnhancements.ViewModel
 
         public void UpdateLabel(PartyScreenLogic.PartyCommand command)
         {
-            if(!PartyScreenConfig.ExtraSettings.ShouldShowCompletePartyNumber) return;
-
-            var _otherParty = _partyVM.OtherPartyTroops;
-            var _mainParty = _partyVM.MainPartyTroops;
-
-            if (_mainParty != null && !_mainParty.IsEmpty() && (_partyScreenLogic.RightOwnerParty?.PartySizeLimit > 0))
+            try
             {
-                _partyVM.MainPartyTroopsLbl =
-                    PopulatePartyList(_mainParty, _partyScreenLogic.RightOwnerParty.PartySizeLimit);
+                if (!PartyScreenConfig.ExtraSettings.ShouldShowCompletePartyNumber) return;
+
+                var _otherParty = _partyVM.OtherPartyTroops;
+                var _mainParty = _partyVM.MainPartyTroops;
+
+                if (_mainParty != null && !_mainParty.IsEmpty() &&
+                    (_partyScreenLogic.RightOwnerParty?.PartySizeLimit > 0))
+                {
+                    _partyVM.MainPartyTroopsLbl =
+                        PopulatePartyList(_mainParty, _partyScreenLogic.RightOwnerParty.PartySizeLimit);
+                }
+
+                if (_otherParty != null && !_otherParty.IsEmpty() &&
+                    (_partyScreenLogic.LeftOwnerParty?.PartySizeLimit > 0))
+                {
+                    _partyVM.OtherPartyTroopsLbl =
+                        PopulatePartyList(_otherParty, _partyScreenLogic.LeftOwnerParty.PartySizeLimit);
+                }
             }
-
-            if (_otherParty != null && !_otherParty.IsEmpty() && (_partyScreenLogic.LeftOwnerParty?.PartySizeLimit > 0))
+            catch (Exception e)
             {
-                _partyVM.OtherPartyTroopsLbl = PopulatePartyList(_otherParty, _partyScreenLogic.LeftOwnerParty.PartySizeLimit);
+                Utilities.DisplayMessage($"PSE UpdateLabel Exception: {e}");
             }
         }
 

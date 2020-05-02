@@ -36,24 +36,31 @@ namespace PartyScreenEnhancements.ViewModel
 
         private void ExecuteTransferWounded()
         {
-            var enumerator = new PartyCharacterVM[_mainPartyList.Count];
-            _mainPartyList?.CopyTo(enumerator, 0);
-
-            foreach (PartyCharacterVM character in enumerator)
+            try
             {
-                if (character?.WoundedCount > 0)
+                var enumerator = new PartyCharacterVM[_mainPartyList.Count];
+                _mainPartyList?.CopyTo(enumerator, 0);
+
+                foreach (PartyCharacterVM character in enumerator)
                 {
-                    if(character.IsTroopTransferrable)
+                    if (character?.WoundedCount > 0)
                     {
-                        int wounded = Math.Min(character.WoundedCount, character.Number);
-                        character.OnTransfer(character, -1, wounded, character.Side);
-                        character.InitializeUpgrades();
+                        if (character.IsTroopTransferrable)
+                        {
+                            int wounded = Math.Min(character.WoundedCount, character.Number);
+                            character.OnTransfer(character, -1, wounded, character.Side);
+                            character.InitializeUpgrades();
+                        }
                     }
                 }
-            }
 
-            this._partyVm?.ExecuteRemoveZeroCounts();
-            _parent.RefreshValues();
+                this._partyVm?.ExecuteRemoveZeroCounts();
+                _parent.RefreshValues();
+            }
+            catch (Exception e)
+            {
+                Utilities.DisplayMessage($"PSE Transfer Wounded Exception: {e}");
+            }
         }
 
         [DataSourceProperty]
