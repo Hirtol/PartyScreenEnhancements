@@ -27,7 +27,7 @@ namespace PartyScreenEnhancements.Saving
         internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
-        private static readonly string modDir = Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
+        private static readonly string modDir = TaleWorlds.Engine.Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
         private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
