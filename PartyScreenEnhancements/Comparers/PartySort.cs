@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Serialization;
 using PartyScreenEnhancements.Saving;
-using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 
 namespace PartyScreenEnhancements.Comparers
 {
+    /// <summary>
+    /// This is the base class for all Sorters, it takes care of verifying that the to be compared units aren't heroes/companions.
+    /// The entire sorting structure is essentially a linked list, where the next link is used when a sorter encounters equality
+    /// </summary>
     [XmlInclude(typeof(TrueTierComparer))]
     [XmlInclude(typeof(TypeComparer))]
     [XmlInclude(typeof(AlphabetComparer))]
@@ -16,32 +18,17 @@ namespace PartyScreenEnhancements.Comparers
     [XmlInclude(typeof(CultureComparer))]
     [XmlInclude(typeof(NumberComparer))]
     [XmlInclude(typeof(UpgradeableComparer))]
+    [XmlInclude(typeof(WoundedComparer))]
     public abstract class PartySort : IComparer<PartyCharacterVM>
     {
-
-        private List<string> _customSettings;
-
         [XmlElement("Descending")]
-        public bool Descending
-        {
-            get;
-            set;
-        }
+        public bool Descending { get; set; }
+
         [XmlElement("SecondarySort", IsNullable = false)]
-        public PartySort EqualSorter
-        {
-            get;
-            set;
-        }
+        public PartySort EqualSorter { get; set; }
 
         [XmlElement("SortingOrder", IsNullable = false)]
-        public List<string> CustomSettingsList {
-            get
-            {
-                return _customSettings;
-            }
-            set => _customSettings = value;
-        }
+        public List<string> CustomSettingsList { get; set; }
 
         protected PartySort(PartySort equalSorter, bool descending, List<string> customSort)
         {
@@ -49,7 +36,7 @@ namespace PartyScreenEnhancements.Comparers
             Descending = descending;
             if (customSort != null)
             {
-                _customSettings = customSort;
+                CustomSettingsList = customSort;
             }
         }
 

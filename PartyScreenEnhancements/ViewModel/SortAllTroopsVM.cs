@@ -18,48 +18,79 @@ namespace PartyScreenEnhancements.ViewModel
 {
     public class SortAllTroopsVM : TaleWorlds.Library.ViewModel
     {
-        private readonly MBBindingList<PartyCharacterVM> _mainPartyList;
-        private readonly MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
-        private readonly PartyScreenLogic _partyLogic;
-        private readonly PartyVM _partyVM;
-        private readonly PartyEnhancementsVM _parent;
+        private MBBindingList<PartyCharacterVM> _mainPartyList;
+        private MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
+        private PartyScreenLogic _partyLogic;
+        private PartyVM _partyVM;
 
         private const int _leftSide = (int)PartyScreenLogic.PartyRosterSide.Left;
-            private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
+        private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
 
         private HintViewModel _sortHint;
-        public SortAllTroopsVM(PartyEnhancementsVM parent)
+
+        public SortAllTroopsVM(PartyVM partyVm, PartyScreenLogic logic)
         {
-            this._parent = parent;
-            this._partyVM = parent.EnhancementPartyVM;
-            this._partyLogic = parent.EnhancementPartyLogic;
+            this._partyVM = partyVm;
+            this._partyLogic = logic;
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
             this._sortHint = new HintViewModel("Sort Troops\nCtrl Click to sort just main party");
+        }
+
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            _mainPartyPrisoners = null;
+            _mainPartyList = null;
+            _partyLogic = null;
+            _partyVM = null;
         }
 
         public void SortTroops()
         {
             var settings = PartyScreenConfig.ExtraSettings;
 
-            SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
-
-            if(!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
+            try
             {
-                SortAnyParty(_mainPartyPrisoners,
-                    _partyLogic.PrisonerRosters[_rightSide],
-                    settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
-                if (_partyLogic.LeftOwnerParty?.MobileParty?.IsGarrison ?? false)
+
+                SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
+
+                if (!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
                 {
-                    SortAnyParty(_partyVM.OtherPartyTroops,
-                        _partyLogic.MemberRosters[_leftSide],
-                        settings.SeparateSortingProfiles ? settings.GarrisonSorter : settings.PartySorter);
+                    SortAnyParty(_mainPartyPrisoners,
+                        _partyLogic.PrisonerRosters[_rightSide],
+                        settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
+
+                    SortAnyParty(_partyVM.OtherPartyPrisoners,
+                        _partyLogic.PrisonerRosters[_leftSide],
+                        settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
+
+                    if (_partyLogic.LeftOwnerParty?.MobileParty != null)
+                    {
+                        bool useGarrisonSorter = _partyLogic.LeftOwnerParty.MobileParty.IsGarrison &&
+                                                 settings.SeparateSortingProfiles;
+
+                        SortAnyParty(_partyVM.OtherPartyTroops,
+                            _partyLogic.MemberRosters[_leftSide],
+                            useGarrisonSorter ? settings.GarrisonSorter : settings.PartySorter);
+                    }
+                    else
+                    {
+                        SortAnyParty(_partyVM.OtherPartyTroops,
+                            _partyLogic.MemberRosters[_leftSide],
+                            settings.PartySorter);
+                    }
+                }
+
+                if (!_mainPartyList.IsEmpty() && (!_mainPartyList[0]?.Troop.Character?.IsPlayerCharacter ?? false))
+                {
+                    InformationManager.DisplayMessage(new InformationMessage(
+                        "Your player character is no longer at the top of the list due to sorting, do NOT save your game and notify the mod manager"));
                 }
             }
-
-            if (!_mainPartyList.IsEmpty() && (!_mainPartyList[0]?.Troop.Character?.IsPlayerCharacter ?? false))
+            catch (Exception e)
             {
-                InformationManager.DisplayMessage(new InformationMessage("Your player character is no longer at the top of the list due to sorting, do NOT save your game and notify the mod manager"));
+                Utilities.DisplayMessage($"PSE Sorting Unit Exception: {e}");
             }
         }
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)
@@ -70,7 +101,7 @@ namespace PartyScreenEnhancements.ViewModel
 
             if(!toSort.IsOrdered(sorter))
             {
-                FileLog.Log($"Attempted sort on party {toSort.Count} with sorter {sorter} but the result wasn't ordered!");
+                //FileLog.Log($"Attempted sort on party {toSort.Count} with sorter {sorter} but the result wasn't ordered!");
                 toSort.Sort(sorter);
             }
 
@@ -87,10 +118,7 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public HintViewModel SortHint
         {
-            get
-            {
-                return _sortHint;
-            }
+            get => _sortHint;
             set
             {
                 if (value != this._sortHint)

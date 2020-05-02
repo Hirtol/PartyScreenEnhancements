@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System;
+using HarmonyLib;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
@@ -15,14 +16,20 @@ namespace PartyScreenEnhancements
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
-
-            PartyScreenConfig.Initialize();
             _extender = new UIExtender("PartyScreenEnhancements");
             _extender.Register();
 
             var harmony = new Harmony("top.hirtol.patch.partyenhancements");
             harmony.PatchAll();
 
+            try
+            {
+                PartyScreenConfig.Initialize();
+            }
+            catch (Exception e)
+            {
+                FileLog.Log($"PSE Config Load Exception: {e}");
+            }
 
             UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }

@@ -8,13 +8,16 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
 using HarmonyLib;
-using JetBrains.Annotations;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Engine;
 using Path = System.IO.Path;
 
 namespace PartyScreenEnhancements.Saving
 {
+    /// <summary>
+    /// Primary Setting class, used for both storing values as well as serialization to XML
+    /// Makes use of <see cref="ExtraSettings"/>
+    /// </summary>
     public static class PartyScreenConfig
     {
         internal const double VERSION = 1.02;
@@ -24,7 +27,7 @@ namespace PartyScreenEnhancements.Saving
         internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
-        private static readonly string modDir = Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
+        private static readonly string modDir = TaleWorlds.Engine.Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
         private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
@@ -167,15 +170,11 @@ namespace PartyScreenEnhancements.Saving
 
             using (var writer = node.CreateNavigator().InsertAfter())
             {
-                // WriteWhitespace needed to avoid error "WriteStartDocument cannot
-                // be called on writers created with ConformanceLevel.Fragment."
                 writer.WriteWhitespace("");
 
-                // Set up an appropriate initial namespace.
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                 ns.Add(node.GetNamespaceOfPrefix(node.NamespaceURI), node.NamespaceURI);
 
-                // Serialize
                 serializer.Serialize(writer, replacement, ns);
             }
 

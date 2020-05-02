@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.ViewModel.Settings.Sorting;
-using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -30,8 +25,10 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             this.SettingHint = new HintViewModel(SortingComparer.GetHintText());
             this._transferHint = new HintViewModel($"Click to transfer to the {side.GetOtherSide().ToString().ToLower()} side!");
             this.AscDescHint = new HintViewModel($"Current Mode: {(IsDescending ? "Descending" : "Ascending")}");
+
             this.IsTransferable = true;
             this.IsDescending = SortingComparer.Descending;
+
             this._transferCallBack = transferCallBack;
             this._openSubSetting = openSubSetting;
             this._side = side;
@@ -62,11 +59,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         }
 
         [DataSourceProperty]
-        public PartySort SortingComparer
-        {
-            get;
-            set;
-        }
+        public PartySort SortingComparer { get; set; }
 
         [DataSourceProperty]
         public string Name => SortingComparer.GetName();
@@ -92,7 +85,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public bool IsTransferable
         {
-            get { return _isTransferable; }
+            get => _isTransferable;
             set
             {
                 if (value != this._isTransferable)
@@ -106,7 +99,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public HintViewModel AscDescHint
         {
-            get { return _ascDescHint; }
+            get => _ascDescHint;
             set
             {
                 if (value != this._ascDescHint)
@@ -120,7 +113,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public HintViewModel SettingHint
         {
-            get { return _settingHint; }
+            get => _settingHint;
             set
             {
                 if (value != this._settingHint)
@@ -134,7 +127,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public HintViewModel TransferHint
         {
-            get { return _transferHint; }
+            get => _transferHint;
             set
             {
                 if (value != this._transferHint)
@@ -148,7 +141,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public SettingSide Side
         {
-            get { return _side; }
+            get => _side;
             set
             {
                 if (value != this._side)

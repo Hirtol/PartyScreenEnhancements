@@ -23,6 +23,10 @@ using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel.Settings
 {
+    /// <summary>
+    /// Primary VM for the Setting Screen.
+    /// Used to call OnFinalize for all child VMs
+    /// </summary>
     public class SettingScreenVM : TaleWorlds.Library.ViewModel
     {
 
@@ -67,6 +71,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             _partyEnhancementsVm.CloseSettingView();
             _sorterPane.OnFinalize();
             _generalPane.OnFinalize();
+            _miscPane.OnFinalize();
             this.OnFinalize();
         }
 
@@ -108,7 +113,6 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             _partyEnhancementsVm = null;
             _sorterPane = null;
             _generalPane = null;
-            
         }
 
         [DataSourceProperty]

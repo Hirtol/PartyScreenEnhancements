@@ -10,12 +10,17 @@ using PartyScreenEnhancements.Comparers;
 
 namespace PartyScreenEnhancements.Saving
 {
+    /// <summary>
+    /// Settings class used for any 'small' settings such as simple booleans
+    /// Instantiated and used primarily by <see cref="PartyScreenConfig"/>
+    /// </summary>
     public class ExtraSettings : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private bool _displayCategory = false;
         private bool _separateSorting = true;
+        private bool _shouldShowCompletePartyNumber = false;
 
         [XmlElement("GeneralLog")] public bool ShowGeneralLogMessage { get; set; } = true;
 
@@ -49,6 +54,17 @@ namespace PartyScreenEnhancements.Saving
 
         [XmlElement("KeepHeroesOnTop")]
         public bool KeepHeroesOnTop { get; set; } = true;
+
+        [XmlElement("ShouldShowCompletePartyNumber")]
+        public bool ShouldShowCompletePartyNumber 
+        {
+            get => _shouldShowCompletePartyNumber;
+            set
+            {
+                _shouldShowCompletePartyNumber = value;
+                OnPropertyChanged();
+            }
+        }
 
         [XmlElement("PartySorter")]
         public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
