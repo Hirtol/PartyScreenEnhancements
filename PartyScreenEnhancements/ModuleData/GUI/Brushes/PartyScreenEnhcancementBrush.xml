@@ -39,7 +39,7 @@
 	</Brush>
 	<Brush Name="Party.Enhancement.SortParty">
 		<Layers>
-			<BrushLayer Name="Default" Sprite="pse_sort_icon" Color="#dbb766FF" VerticalFlip="true"/>
+			<BrushLayer Name="Default" Sprite="StdAssets\sort" Color="#dbb766FF" VerticalFlip="true"/>
 		</Layers>
 		<Styles>
 			<Style Name="Default">
