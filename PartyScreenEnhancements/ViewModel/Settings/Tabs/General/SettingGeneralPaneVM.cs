@@ -29,6 +29,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs
 
         public void AddSettingVms()
         {
+            _options.Add(new BooleanOptionDataVM(_settings.ShowVisualAdditions, "Show Visual Additions (Restart Required)", "REQUIRES RESTART\nIf enabled will allow the modification of the base party interface, for example the addition of the upgrade icons on the unit plate.", (value) => _settings.ShowVisualAdditions = value));
             _options.Add(new BooleanOptionDataVM(_settings.ShouldShowCompletePartyNumber, "Show Combined Troop Total", "If enabled will change the party label on the top right to display the total amount of troops in your party, instead of healthy + wounded.", (value) => _settings.ShouldShowCompletePartyNumber = value));
             _options.Add(new BooleanOptionDataVM(_settings.KeepHeroesOnTop, "Keep Companions On Top", "If enabled sorts your companions to the top of the troop list, if disabled puts them on the bottom instead", (value) => _settings.KeepHeroesOnTop = value));
             _options.Add(new BooleanOptionDataVM(_settings.AutomaticSorting, "Automatic Sorting", "Automatically sort everything present upon opening the party screen, or when upgrading/recruiting units using the top buttons", (value) => _settings.AutomaticSorting = value));

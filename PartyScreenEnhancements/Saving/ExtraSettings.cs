@@ -66,6 +66,9 @@ namespace PartyScreenEnhancements.Saving
             }
         }
 
+        [XmlElement("ShowVisualAdditions")]
+        public bool ShowVisualAdditions { get; set; } = true;
+
         [XmlElement("PartySorter")]
         public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
 

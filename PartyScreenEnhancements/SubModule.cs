@@ -14,28 +14,28 @@ namespace PartyScreenEnhancements
     {
         private UIExtender _extender;
         private SpriteCategory test;
-        ResourceDepot resourceDepot = UIResourceManager.UIResourceDepot;
+        private ResourceDepot resourceDepot = UIResourceManager.UIResourceDepot;
 
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
 
-            InitializeSprites();
-
-            //AddSprites("PartyEnhancementSpriteData");
+            // InitializeSprites();
+            //
+            // AddSprites("pse_icons");
 
             ResourceDepot uiresourceDepot = UIResourceManager.UIResourceDepot;
             TwoDimensionEngineResourceContext resourceContext = UIResourceManager.ResourceContext;
             SpriteData spriteData = UIResourceManager.SpriteData;
-            SpriteData spriteData2 = new SpriteData("PartyEnhancementSpriteData");
+            SpriteData spriteData2 = new SpriteData("PSESpriteData");
             spriteData2.Load(uiresourceDepot);
-            TaleWorlds.TwoDimension.Texture item = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/PartyScreenEnhancements/GUI/SpriteSheets/enhancement_icons/", "enhancement_icons_1.png")));
-            spriteData.SpriteCategories.Add("enhancement_icons", spriteData2.SpriteCategories["enhancement_icons"]);
-            spriteData.SpritePartNames.Add("enhancement_sort_icons_1", spriteData2.SpritePartNames["enhancement_sort_icons_1"]);
-            spriteData.SpriteNames.Add("enhancement_sort_icons_1", new SpriteGeneric("enhancement_sort_icons_1", spriteData2.SpritePartNames["enhancement_sort_icons_1"]));
-            spriteData.SpritePartNames.Add("enhancement_empty_button", spriteData2.SpritePartNames["enhancement_empty_button"]);
-            spriteData.SpriteNames.Add("enhancement_empty_button", new SpriteGeneric("enhancement_empty_button", spriteData2.SpritePartNames["enhancement_empty_button"]));
-            SpriteCategory spriteCategory = spriteData.SpriteCategories["enhancement_icons"];
+            TaleWorlds.TwoDimension.Texture item = new TaleWorlds.TwoDimension.Texture(new EngineTexture(TaleWorlds.Engine.Texture.CreateTextureFromPath("../../Modules/PartyScreenEnhancements/GUI/SpriteSheets/pse_icons/", "pse_icons_1.png")));
+            spriteData.SpriteCategories.Add("pse_icons", spriteData2.SpriteCategories["pse_icons"]);
+            spriteData.SpritePartNames.Add("pse_sort_icon", spriteData2.SpritePartNames["pse_sort_icon"]);
+            spriteData.SpriteNames.Add("pse_sort_icon", new SpriteGeneric("pse_sort_icon", spriteData2.SpritePartNames["pse_sort_icon"]));
+            spriteData.SpritePartNames.Add("pse_empty_button", spriteData2.SpritePartNames["pse_empty_button"]);
+            spriteData.SpriteNames.Add("pse_empty_button", new SpriteGeneric("pse_empty_button", spriteData2.SpritePartNames["pse_empty_button"]));
+            SpriteCategory spriteCategory = spriteData.SpriteCategories["pse_icons"];
             spriteCategory.SpriteSheets.Add(item);
             spriteCategory.Load(resourceContext, uiresourceDepot);
             UIResourceManager.BrushFactory.Initialize();
@@ -89,6 +89,8 @@ namespace PartyScreenEnhancements
 
         public void AddSprites(string spriteSheet, int sheetId = 1)
         {
+            var test = UIResourceManager.SpriteData.SpriteCategories;
+
             SpriteCategory spriteCategory = UIResourceManager.SpriteData.SpriteCategories[spriteSheet];
             spriteCategory.Load(UIResourceManager.ResourceContext, resourceDepot);
             var texture = TaleWorlds.Engine.Texture.LoadTextureFromPath($"{spriteSheet}_{sheetId}.png",

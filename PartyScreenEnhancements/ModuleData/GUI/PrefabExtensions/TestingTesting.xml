@@ -46,8 +46,8 @@
 		              HeightSizePolicy="Fixed" SuggestedWidth="20"
 		              SuggestedHeight="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"
 		              MarginLeft="10" MarginRight="170" Command.AlternateClick="ExecuteUpgradeEncyclopediaLink"
-		              Command.Click="Upgrade" CommandParameter.AlternateClick="1" CommandParameter.Click="1"
-		              DefaultBrush="Stages.Bar.Empty.Button" IsVisible="@IsUpgrade1Exists" EmptyBrush="Party.Enhancement.Empty.Button" FullBrush="Stages.Bar.Full.Button" ButtonType="Toggle">
+		              Command.Click="Upgrade" CommandParameter.AlternateClick="0" CommandParameter.Click="0"
+		              Brush="Stages.Bar.Empty.Button" IsVisible="@IsUpgrade1Exists" EmptyBrush="Stages.Bar.Empty.Button" FullBrush="Stages.Bar.Full.Button" ButtonType="Toggle" UpgradePath="0" TroopId="@TroopID">
 			<Children>
 				<HintWidget DataSource="{Upgrade1Hint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 				            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
@@ -62,7 +62,7 @@
 		                   SuggestedHeight="15" HorizontalAlignment="Right" VerticalAlignment="Bottom"
 		                   MarginLeft="10" MarginRight="130" Command.AlternateClick="ExecuteUpgradeEncyclopediaLink"
 		                   Command.Click="Upgrade" CommandParameter.AlternateClick="1" CommandParameter.Click="1"
-		                   DefaultBrush="Stages.Bar.Empty.Button" IsVisible="@IsUpgrade2Exists" EmptyBrush="Party.Enhancement.Empty.Button" FullBrush="Stages.Bar.Full.Button" ButtonType="Toggle">
+		                   Brush="Stages.Bar.Empty.Button" IsVisible="@IsUpgrade2Exists" EmptyBrush="Stages.Bar.Empty.Button" FullBrush="Stages.Bar.Full.Button" ButtonType="Toggle" UpgradePath="1" TroopId="@TroopID">
 			<Children>
 				<HintWidget DataSource="{Upgrade2Hint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 				            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />

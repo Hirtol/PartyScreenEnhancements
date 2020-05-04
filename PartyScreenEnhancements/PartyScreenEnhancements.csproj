@@ -294,13 +294,13 @@
   <ItemGroup>
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
-    <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
+    <Content Include="ModuleData\GUI\PSESpriteData.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\PSESettingsTabToggle.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PartyEnhancementSortingTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSort.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\SettingSortingOrder.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSortRight.xml" />
-    <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
+    <Content Include="ModuleData\GUI\SpriteSheets\pse_icons\pse_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />
   </ItemGroup>
   <ItemGroup />

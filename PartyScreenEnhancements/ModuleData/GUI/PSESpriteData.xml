@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SpriteData>
+	<SpriteCategories>
+		<SpriteCategory>
+			<Name>pse_icons</Name>
+			<SpriteSheetCount>1</SpriteSheetCount>
+			<SpriteSheetSize ID='1' Width='193' Height='252'/>
+		</SpriteCategory>
+	</SpriteCategories>
+	<SpriteParts>
+		<SpritePart>
+			<SheetID>1</SheetID>
+			<Name>pse_sort_icon</Name>
+			<Width>192</Width>
+			<Height>192</Height>
+			<SheetX>0</SheetX>
+			<SheetY>0</SheetY>
+			<CategoryName>pse_icons</CategoryName>
+		</SpritePart>
+		<SpritePart>
+			<SheetID>1</SheetID>
+			<Name>pse_empty_button</Name>
+			<Width>59</Width>
+			<Height>59</Height>
+			<SheetX>0</SheetX>
+			<SheetY>193</SheetY>
+			<CategoryName>pse_icons</CategoryName>
+		</SpritePart>
+	</SpriteParts>
+	<Sprites>
+		<GenericSprite>
+			<Name>pse_sort_icon</Name>
+			<SpritePartName>pse_sort_icon</SpritePartName>
+		</GenericSprite>
+		<GenericSprite>
+			<Name>pse_empty_button</Name>
+			<SpritePartName>pse_empty_button</SpritePartName>
+		</GenericSprite>
+	</Sprites>
+</SpriteData>
