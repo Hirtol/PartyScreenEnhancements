@@ -7,6 +7,7 @@ using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
+using TaleWorlds.TwoDimension;
 
 namespace PartyScreenEnhancements.Patches
 {
@@ -29,7 +30,7 @@ namespace PartyScreenEnhancements.Patches
                 var traverser = Traverse.Create(partyScreen);
                 PartyVM partyVM = traverser.Field<PartyVM>("_dataSource").Value;
                 PartyState partyState = traverser.Field<PartyState>("_partyState").Value;
-
+                
                 enhancementVm = new PartyEnhancementsVM(partyVM, partyState.PartyScreenLogic, partyScreen);
                 screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVm);
                 screenLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);

@@ -24,7 +24,7 @@ namespace PartyScreenEnhancements.Saving
 
         internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
-        internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
+        internal static PartySort DefaultSorter = new BasicTypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
         private static readonly string modDir = TaleWorlds.Engine.Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;

@@ -284,7 +284,6 @@
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
     <Compile Include="Widgets\AscDescWidget.cs" />
     <Compile Include="Widgets\RadioButtonWidget.cs" />
-    <Compile Include="Widgets\RecruitAllPrisonersWidget.cs" />
     <Compile Include="Widgets\SettingSortWidget.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
