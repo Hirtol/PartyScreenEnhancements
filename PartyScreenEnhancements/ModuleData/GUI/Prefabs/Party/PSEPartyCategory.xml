@@ -1,13 +1,84 @@
 ﻿<Prefab>
+  <Constants>
+    <Constant Name="SidePanel.Width" Additive="28" Value="!PartyToggle.Width" />
+    <Constant Name="SidePanel.NegativeWidth" MultiplyResult="-1" Value="!SidePanel.Width" />
+
+    <Constant Name="PartyToggle.Margin" Value="30" />
+    <Constant Name="PartyToggle.Width" BrushLayer="Default" BrushName="Party.Toggle.Left" BrushValueType="Width" />
+    <Constant Name="PartyToggle.Height" BrushLayer="Default" BrushName="Party.Toggle.Left" BrushValueType="Height" />
+    <Constant Name="PartyToggle.Shadow.Height" SpriteName="PartyScreen\button_collapser_shadow" SpriteValueType="Height" />
+
+    <Constant Name="PartyToggle.Pressed.Width" BrushLayer="PressedLayer" BrushName="Party.Toggle.Left" BrushValueType="Width" />
+
+    <Constant Name="ToggleLabel.Margin" Value="260" />
+
+    <Constant Name="SidePanel.Stats.MarginTop" Value="90" />
+    <Constant Name="SidePanel.MarginTop" Value="25" />
+    <Constant Name="SidePanel.MarginBottom" Value="70" />
+
+    <Constant Name="SidePanel.ScrollablePanel.Width" Additive="20" Value="!PartyToggle.Width" />
+
+    <Constant Name="SidePanel.ScrollablePanel.MarginHorizontal" Value="5" />
+    <Constant Name="SidePanel.ScrollablePanel.MarginTop" Value="92" />
+    <Constant Name="SidePanel.ScrollablePanel.MarginBottom" Value="1" />
+
+    <Constant Name="Scrollbar.Margin" Value="2" />
+
+    <Constant Name="TopBackground.Width" BrushLayer="Default" BrushName="Party.TopLeft.Background" BrushValueType="Width" />
+    <Constant Name="TopBackground.Height" BrushLayer="Default" BrushName="Party.TopLeft.Background" BrushValueType="Height" />
+
+    <Constant Name="Party.QuestProgress.Background.Width" BrushLayer="Default" BrushName="Party.QuestProgress.Background" BrushValueType="Width" />
+    <Constant Name="Party.QuestProgress.Background.Height" BrushLayer="Default" BrushName="Party.QuestProgress.Background" BrushValueType="Height" />
+
+    <Constant Name="Party.QuestProgress.BarCanvas.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Width" />
+    <Constant Name="Party.QuestProgress.BarCanvas.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Height" />
+
+    <Constant Name="Party.QuestProgress.BarFrame.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame" BrushValueType="Width" />
+    <Constant Name="Party.QuestProgress.BarFrame.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame" BrushValueType="Height" />
+
+    <Constant Name="Party.Formation.MainButton.Width" BrushLayer="Default" BrushName="Party.Formation.MainButton" BrushValueType="Width" />
+    <Constant Name="Party.Formation.MainButton.Height" BrushLayer="Default" BrushName="Party.Formation.MainButton" BrushValueType="Height" />
+
+    <Constant Name="Party.Formation.Item.Width" BrushLayer="Default" BrushName="Party.Formation.Item" BrushValueType="Width" />
+    <Constant Name="Party.Formation.Item.Height" BrushLayer="Default" BrushName="Party.Formation.Item" BrushValueType="Height" />
+
+    <Constant Name="Party.Formation.Seperator.Width" BrushLayer="Default" BrushName="Party.Formation.Seperator" BrushValueType="Width" />
+    <Constant Name="Party.Formation.Seperator.Height" BrushLayer="Default" BrushName="Party.Formation.Seperator" BrushValueType="Height" />
+
+    <Constant Name="TransferAllButton.Margin" Value="5" />
+
+    <Constant Name="TransferAllButton.Width" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1" BrushValueType="Width" />
+    <Constant Name="TransferAllButton.Height" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1" BrushValueType="Height" />
+
+    <Constant Name="PartyNameLabel.Height" Value="80" />
+    <Constant Name="PartyToggle.LabelContainer.Margin" Value="10" />
+
+    <Constant Name="Prisoners.MarginTop" Value="4" />
+
+    <Constant Name="FormationListPanel.MarginTop" Value="13" />
+    <Constant Name="FormationListPanel.Height" Value="522" />
+    <Constant Name="FormationClipRect.Height" Additive="!FormationListPanel.MarginTop" Value="!FormationListPanel.Height" />
+    <Constant Name="FormationListPanel.NegativeHeight" MultiplyResult="-1" Value="!FormationListPanel.Height" />
+
+    <Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Width" />
+    <Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Height" />
+  </Constants>
+  <VisualDefinitions>
+    <VisualDefinition Name="Toggle" TransitionDuration="0.045">
+      <VisualState SuggestedWidth="!PartyToggle.Width" State="Default" />
+      <VisualState SuggestedWidth="!PartyToggle.Pressed.Width" State="Pressed" />
+      <VisualState SuggestedWidth="!PartyToggle.Width" State="Selected" />
+      <VisualState SuggestedWidth="!PartyToggle.Width" State="Hovered" />
+    </VisualDefinition>
+
+  </VisualDefinitions>
   <Window>
-    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+    <ListPanel Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop">
       <Children>
-        <PartyHeaderToggleWidget Id="CategoryWidget" WidthSizePolicy="Fixed"
-                             HeightSizePolicy="Fixed" SuggestedWidth="400"
-                             SuggestedHeight="400" HorizontalAlignment="Center" VerticalAlignment="Top"
+        <PartyHeaderToggleWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width" SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center" VerticalAlignment="Top"
                              Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
-                             ListPanel="..\MainPartyTroopsList\List" RenderLate="true"
-                             WidgetToClose="..\MainPartyTroopsList"
+                             ListPanel="..\TestList\List" RenderLate="true"
+                             WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
                              IsRelevant="true">
           <Children>
 
@@ -34,11 +105,11 @@
             <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
             <!--             Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
 
-            <!-- <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" -->
-            <!--               HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width" -->
-            <!--               SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Left" VerticalAlignment="Center" -->
-            <!--               MarginLeft="!TransferAllButton.Margin" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" -->
-            <!--               Command.Click="ExecuteTransferAllMainTroops"> -->
+            <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+                          HeightSizePolicy="Fixed" SuggestedWidth="50"
+                          SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Center"
+                          MarginLeft="30" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1"
+                          Command.Click="ExecuteTransferAllMainTroops" />
             <!--   <Children> -->
             <!--     <HintWidget DataSource="{TransferAllMainTroopsHint}" WidthSizePolicy="StretchToParent" -->
             <!--                 HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
@@ -48,7 +119,7 @@
           </Children>
         </PartyHeaderToggleWidget>
 
-        <Widget Id="MainPartyTroopsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+        <Widget Id="TestList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
           <Children>
 
             <!--_____Main Party Troops_______-->
@@ -61,9 +132,16 @@
                 </PartyTroopTuple>
               </ItemTemplate>
             </ListPanel>
+
+            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="0" VerticalAlignment="Top" IsDisabled="true">
+              <Children>
+                <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!PartyToggle.Shadow.Height" VerticalAlignment="Top" Sprite="PartyScreen\button_collapser_shadow" IsDisabled="true" />
+              </Children>
+            </Widget>
+
           </Children>
         </Widget>
       </Children>
-    </Widget>
+    </ListPanel>
   </Window>
 </Prefab>
