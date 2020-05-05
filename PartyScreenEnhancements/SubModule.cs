@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
+using Mono.CompilerServices.SymbolWriter;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
@@ -44,7 +47,30 @@ namespace PartyScreenEnhancements
 
         protected override void OnApplicationTick(float dt)
         {
+            var t = (bool) new Traverse(UIResourceManager.UIResourceDepot).Field("_isThereAnyUnhandledChange").GetValue();
+            var p = new Traverse(_extender).Field("RuntimeInstances");
             UIResourceManager.UIResourceDepot.CheckForChanges();
+            // if (t)
+            // {
+            //     var dictionary = (IDictionary)p.GetValueType();
+            //     var newDictionary = CastDict(dictionary)
+            //         .ToDictionary(entry => (string)entry.Key,
+            //             entry => entry.Value);
+            //
+            //     newDictionary.Remove("PartyScreenEnhancements");
+            //     _extender.Register();
+            // }
+            
+        }
+
+        
+
+        private IEnumerable<DictionaryEntry> CastDict(IDictionary dictionary)
+        {
+            foreach (DictionaryEntry entry in dictionary)
+            {
+                yield return entry;
+            }
         }
 
         protected override void OnSubModuleUnloaded()

@@ -1,0 +1,6 @@
+﻿<ListPanel Id="CategoryList" DataSource="{CategoryList}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" AcceptDrop="true" Command.Drop="..\ExecuteTransferWithParameters" CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
+  <ItemTemplate>
+    <PSEPartyCategory>
+    </PSEPartyCategory>
+  </ItemTemplate>
+</ListPanel>

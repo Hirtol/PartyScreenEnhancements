@@ -1,0 +1,69 @@
+﻿<Prefab>
+  <Window>
+    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent">
+      <Children>
+        <PartyHeaderToggleWidget Id="CategoryWidget" WidthSizePolicy="Fixed"
+                             HeightSizePolicy="Fixed" SuggestedWidth="400"
+                             SuggestedHeight="400" HorizontalAlignment="Center" VerticalAlignment="Top"
+                             Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
+                             ListPanel="..\MainPartyTroopsList\List" RenderLate="true"
+                             WidgetToClose="..\MainPartyTroopsList"
+                             IsRelevant="true">
+          <Children>
+
+            <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       MarginBottom="10" IsDisabled="true"
+                       LayoutImp.LayoutMethod="HorizontalLeftToRight">
+              <Children>
+                <Widget Id="CollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                        SuggestedWidth="50"
+                        SuggestedHeight="50" VerticalAlignment="Center"
+                        PositionYOffset="5" MarginRight="5" Brush="Party.Toggle.ExpandIndicator" />
+                <RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" MarginRight="5"
+                                Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Right" Text="@Label" />
+                <TextWidget Id="MainPartyTroopsLabel" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                            HorizontalAlignment="Center" VerticalAlignment="Center" MarginLeft="5"
+                            Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Left" Text="Testing"
+                            PositionYOffset="5" />
+              </Children>
+            </ListPanel>
+
+            <!-- <HintWidget DataSource="{MainPartyTroopSizeLimitHint}" WidthSizePolicy="StretchToParent" -->
+            <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
+            <!--             Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
+
+            <!-- <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" -->
+            <!--               HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width" -->
+            <!--               SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Left" VerticalAlignment="Center" -->
+            <!--               MarginLeft="!TransferAllButton.Margin" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" -->
+            <!--               Command.Click="ExecuteTransferAllMainTroops"> -->
+            <!--   <Children> -->
+            <!--     <HintWidget DataSource="{TransferAllMainTroopsHint}" WidthSizePolicy="StretchToParent" -->
+            <!--                 HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
+            <!--                 Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
+            <!--   </Children> -->
+            <!-- </ButtonWidget> -->
+          </Children>
+        </PartyHeaderToggleWidget>
+
+        <Widget Id="MainPartyTroopsList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+          <Children>
+
+            <!--_____Main Party Troops_______-->
+            <ListPanel Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
+                       HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
+                       AcceptDrop="true" Command.Drop="..\ExecuteTransferWithParameters"
+                       CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
+              <ItemTemplate>
+                <PartyTroopTuple ButtonType="Radio">
+                </PartyTroopTuple>
+              </ItemTemplate>
+            </ListPanel>
+          </Children>
+        </Widget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>
