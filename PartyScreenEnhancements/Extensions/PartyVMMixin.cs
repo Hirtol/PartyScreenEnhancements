@@ -19,12 +19,12 @@ namespace PartyScreenEnhancements.Extensions
     {
 
         private PartyVM _viewModel;
-        private MBBindingList<PartyCategoryVM> _categoryList;
+        private MBBindingList<PSEWrapperVM> _categoryList;
 
 
         public PartyVMMixin(PartyVM viewModel) : base(viewModel)
         {
-            this._categoryList = new MBBindingList<PartyCategoryVM>();
+            this._categoryList = new MBBindingList<PSEWrapperVM>();
 
             if (_vm.TryGetTarget(out PartyVM vm))
             {
@@ -38,9 +38,9 @@ namespace PartyScreenEnhancements.Extensions
             }
 
             //(_categoryList as IMBBindingList).ListChanged
-            
-            _categoryList.Add(new PartyCategoryVM(_viewModel.MainPartyTroops, "", CreateTroopLabel, Category.SYSTEM));
-            _categoryList.Add(new PartyCategoryVM(_viewModel.MainPartyTroops, "Normal Category", CreateTroopLabel, Category.USER_DEFINED));
+            _viewModel.MainPartyTroops.ApplyActionOnAllItems(character => _categoryList.Add(new PSEWrapperVM(character)));
+            //_categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "", CreateTroopLabel, Category.SYSTEM)));
+            _categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "Normal Category", CreateTroopLabel, Category.USER_DEFINED)));
         }
 
         public override void OnFinalize()
@@ -91,7 +91,7 @@ namespace PartyScreenEnhancements.Extensions
         }
 
         [DataSourceProperty]
-        public MBBindingList<PartyCategoryVM> CategoryList
+        public MBBindingList<PSEWrapperVM> CategoryList
         {
             get => _categoryList;
             set

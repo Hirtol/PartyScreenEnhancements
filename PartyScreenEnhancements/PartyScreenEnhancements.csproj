@@ -252,6 +252,7 @@
     <Content Include="ModuleData\GUI\PrefabExtensions\TestingTesting.xml" />
     <Compile Include="Comparers\WoundedComparer.cs" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PSEPartyCategory.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Party\PSEWrapper.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\General\PartyEnhancementGeneralTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Miscellaneous\PSEMiscTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\PartyEnhancementSettings.xml" />
@@ -270,6 +271,7 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="ViewModel\HackedIn\Category.cs" />
     <Compile Include="ViewModel\HackedIn\PartyCategoryVM.cs" />
+    <Compile Include="ViewModel\HackedIn\PSEWrapperVM.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
     <Compile Include="ViewModel\RecruitTillLimitVM.cs" />

@@ -1,0 +1,21 @@
+﻿<Prefab>
+  <Window>
+    <ListPanel Id="SecondarysList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" LayoutImp.LayoutMethod="VerticalBottomToTop">
+      <Children>
+
+        <Widget IsVisible="@IsCategory" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+          <Children>
+            <PSEPartyCategory DataSource="{WrapperViewModel}" />
+          </Children>
+        </Widget>
+
+
+        <Widget IsVisible="@IsPartyCharacter" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+          <Children>
+            <PartyTroopTuple DataSource="{WrapperViewModel}" ButtonType="Radio" />
+          </Children>
+        </Widget>
+      </Children>
+    </ListPanel>
+  </Window>
+</Prefab>
