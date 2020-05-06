@@ -11,12 +11,19 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
     public class PartyCategoryVM : TaleWorlds.Library.ViewModel
     {
         private MBBindingList<PartyCharacterVM> _subList;
+        private string _name;
+        private string _troopNumberLabel;
+        
 
-        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist)
+        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, Func<MBBindingList<PartyCharacterVM>, int, string> troopUpdate, Category category)
         {
             this._subList = sublist;
+            this._name = name;
+            this._troopNumberLabel = troopUpdate(sublist, sublist.Count);
+            this.Category = category;
         }
 
+        public Category Category { get; set; }
 
         [DataSourceProperty]
         public MBBindingList<PartyCharacterVM> TroopList
@@ -35,11 +42,35 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         [DataSourceProperty]
         public string Label
         {
-            get => "Testing World!";
+            get => _name;
             set
             {
-                
+                if (value != _name)
+                {
+                    _name = value;
+                    base.OnPropertyChanged(nameof(Label));
+                }
             }
+        }
+
+        [DataSourceProperty]
+        public string TroopNumberLabel
+        {
+            get => _troopNumberLabel;
+            set
+            {
+                if (value != _troopNumberLabel)
+                {
+                    _troopNumberLabel = value;
+                    base.OnPropertyChanged(nameof(TroopNumberLabel));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public bool IsHeaderVisible
+        {
+            get => this.Category != Category.SYSTEM;
         }
     }
 }

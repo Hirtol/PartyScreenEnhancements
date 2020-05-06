@@ -75,14 +75,14 @@
   <Window>
     <ListPanel Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop">
       <Children>
-        <PartyHeaderToggleWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width" SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center" VerticalAlignment="Top"
-                             Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
-                             ListPanel="..\TestList\List" RenderLate="true"
-                             WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
-                             IsRelevant="true">
+        <CategoryHeaderWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width" SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
+                                 ListPanel="..\TestList\List" RenderLate="true"
+                                 WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
+                                 IsRelevant="@IsHeaderVisible" MarginLeft="5">
           <Children>
 
-            <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+            <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="20"
                        HorizontalAlignment="Center" VerticalAlignment="Center"
                        MarginBottom="10" IsDisabled="true"
                        LayoutImp.LayoutMethod="HorizontalLeftToRight">
@@ -96,7 +96,7 @@
                                 Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Right" Text="@Label" />
                 <TextWidget Id="MainPartyTroopsLabel" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
                             HorizontalAlignment="Center" VerticalAlignment="Center" MarginLeft="5"
-                            Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Left" Text="Testing"
+                            Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Left" Text="@TroopNumberLabel"
                             PositionYOffset="5" />
               </Children>
             </ListPanel>
@@ -105,11 +105,11 @@
             <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
             <!--             Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
 
-            <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-                          HeightSizePolicy="Fixed" SuggestedWidth="50"
-                          SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Center"
-                          MarginLeft="30" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1"
-                          Command.Click="ExecuteTransferAllMainTroops" />
+            <!-- <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" -->
+            <!--               HeightSizePolicy="Fixed" SuggestedWidth="50" -->
+            <!--               SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Center" -->
+            <!--               MarginLeft="30" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" -->
+            <!--               Command.Click="ExecuteTransferAllMainTroops" /> -->
             <!--   <Children> -->
             <!--     <HintWidget DataSource="{TransferAllMainTroopsHint}" WidthSizePolicy="StretchToParent" -->
             <!--                 HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
@@ -117,7 +117,7 @@
             <!--   </Children> -->
             <!-- </ButtonWidget> -->
           </Children>
-        </PartyHeaderToggleWidget>
+        </CategoryHeaderWidget>
 
         <Widget Id="TestList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
           <Children>
@@ -125,7 +125,7 @@
             <!--_____Main Party Troops_______-->
             <ListPanel Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
                        HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
-                       AcceptDrop="true" Command.Drop="..\ExecuteTransferWithParameters"
+                       AcceptDrop="true" Command.Drop="..\..\..\ExecuteTransferWithParameters"
                        CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <ItemTemplate>
                 <PartyTroopTuple ButtonType="Radio">
