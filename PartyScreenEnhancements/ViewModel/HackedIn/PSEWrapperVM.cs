@@ -10,13 +10,35 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
 {
     public class PSEWrapperVM : TaleWorlds.Library.ViewModel
     {
-        private TaleWorlds.Library.ViewModel _primary;
+        private readonly TaleWorlds.Library.ViewModel _primary;
 
 
         public PSEWrapperVM(TaleWorlds.Library.ViewModel primaryViewModel)
         {
             _primary = primaryViewModel;
         }
+
+
+        public override bool Equals(object obj)
+        {
+            if (obj is PSEWrapperVM other)
+            {
+                return Equals(other);
+            }
+
+            return false;
+        }
+
+        protected bool Equals(PSEWrapperVM other)
+        {
+            return Equals(_primary, other._primary);
+        }
+
+        public override int GetHashCode()
+        {
+            return (_primary != null ? _primary.GetHashCode() : 0);
+        }
+
 
         [DataSourceProperty]
         public TaleWorlds.Library.ViewModel WrapperViewModel
@@ -30,6 +52,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             get => _primary.GetType() == typeof(PartyCategoryVM);
         }
 
+        [DataSourceProperty]
         public bool IsPartyCharacter
         {
             get => this._primary.GetType() == typeof(PartyCharacterVM);

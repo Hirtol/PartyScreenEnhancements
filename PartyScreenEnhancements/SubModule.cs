@@ -32,7 +32,7 @@ namespace PartyScreenEnhancements
             {
                 FileLog.Log($"PSE Config Load Exception: {e}");
             }
-            
+
             if (PartyScreenConfig.ExtraSettings.ShowVisualAdditions)
             {
                 _extender = new UIExtender("PartyScreenEnhancements");
@@ -47,20 +47,7 @@ namespace PartyScreenEnhancements
 
         protected override void OnApplicationTick(float dt)
         {
-            var t = (bool) new Traverse(UIResourceManager.UIResourceDepot).Field("_isThereAnyUnhandledChange").GetValue();
-            var p = new Traverse(_extender).Field("RuntimeInstances");
             UIResourceManager.UIResourceDepot.CheckForChanges();
-            // if (t)
-            // {
-            //     var dictionary = (IDictionary)p.GetValueType();
-            //     var newDictionary = CastDict(dictionary)
-            //         .ToDictionary(entry => (string)entry.Key,
-            //             entry => entry.Value);
-            //
-            //     newDictionary.Remove("PartyScreenEnhancements");
-            //     _extender.Register();
-            // }
-            
         }
 
         

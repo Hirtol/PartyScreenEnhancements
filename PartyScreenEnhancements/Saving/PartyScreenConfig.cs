@@ -24,6 +24,8 @@ namespace PartyScreenEnhancements.Saving
 
         internal static Dictionary<string, int> PathsToUpgrade = new Dictionary<string, int>();
         internal static Dictionary<string, int> PrisonersToRecruit = new Dictionary<string, int>();
+        internal static Dictionary<string, string> TroopCategoryBindings = new Dictionary<string, string>();
+
         internal static PartySort DefaultSorter = new BasicTypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
@@ -76,6 +78,7 @@ namespace PartyScreenEnhancements.Saving
 
                 addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
                 addDictionaryToXML(ref PrisonersToRecruit, ref xmlDocument, ref modNode, nameof(PrisonersToRecruit));
+                addDictionaryToXML(ref TroopCategoryBindings, ref xmlDocument, ref modNode, nameof(TroopCategoryBindings));
 
                 xmlDocument.Save(_filename);
             }
@@ -85,7 +88,7 @@ namespace PartyScreenEnhancements.Saving
             }
         }
 
-        private static void addDictionaryToXML(ref Dictionary<string, int> dictionary, ref XmlDocument document, ref XmlElement parent, string name)
+        private static void addDictionaryToXML<T>(ref Dictionary<string, T> dictionary, ref XmlDocument document, ref XmlElement parent, string name)
         {
             var el = new XElement(name,
                 dictionary.Select(kv => new XElement(kv.Key, kv.Value)));
@@ -119,6 +122,13 @@ namespace PartyScreenEnhancements.Saving
                         XElement rootElement = XElement.Parse(xmlNode.OuterXml);
                         PrisonersToRecruit = rootElement.Elements()
                             .ToDictionary(key => key.Name.LocalName, val => int.Parse(val.Value));
+                    }
+
+                    if (xmlNode.Name == nameof(TroopCategoryBindings))
+                    {
+                        XElement rootElement = XElement.Parse(xmlNode.OuterXml);
+                        TroopCategoryBindings = rootElement.Elements()
+                            .ToDictionary(key => key.Name.LocalName, val => val.Value);
                     }
 
                     if (xmlNode.Name == "Options")

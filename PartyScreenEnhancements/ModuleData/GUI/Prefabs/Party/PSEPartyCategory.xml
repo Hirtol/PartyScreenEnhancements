@@ -128,7 +128,7 @@
                        AcceptDrop="true" Command.Drop="..\..\..\ExecuteTransferWithParameters"
                        CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <ItemTemplate>
-                <PartyTroopTuple ButtonType="Radio">
+                <PartyTroopTuple ButtonType="Radio" MarginLeft="30">
                 </PartyTroopTuple>
               </ItemTemplate>
             </ListPanel>
