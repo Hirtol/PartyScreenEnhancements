@@ -112,10 +112,18 @@ namespace PartyScreenEnhancements.Extensions
             }
         }
 
-
-        public void ExecutePSETransferWithParameters(PSEWrapperVM party, int index, string targetTag)
+        //TODO: Patch <AutoScrollablePanelWidget Id="MainPartyScrollablePanel" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Left" VerticalAlignment="Bottom" MarginLeft="!SidePanel.ScrollablePanel.MarginHorizontal" MarginTop="!SidePanel.ScrollablePanel.MarginTop" MarginBottom="!SidePanel.ScrollablePanel.MarginBottom" AcceptDrop="true" AutoHideScrollBars="true" ClipRect="MyClipRect" Command.Drop="ExecuteTransferWithParameters" CommandParameter.Drop="MainParty" InnerPanel="MyClipRect\MainPartyInnerPanel" VerticalScrollbar="..\MainPartyScrollbar\Scrollbar">
+        // Actually, if we automatically intercept ListChangedType.Add it shouldn't matter!
+        public void ExecutePSETransferWithParameters(TaleWorlds.Library.ViewModel party, int index, string targetTag)
         {
+            if (party is PartyCharacterVM character)
+            {
 
+            }
+            else if(party is PSEWrapperVM wrapper)
+            {
+
+            }
         }
 
         public override void OnFinalize()
