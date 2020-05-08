@@ -26,7 +26,8 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             _partyVm = partyVm;
         }
 
-
+        //TODO: Fix transfer logic from main list to category and vice versa.
+        // Be careful of transfer from left to right.
         public void ExecutePSETransferWithParameters(TaleWorlds.Library.ViewModel party, int index, string targetTag)
         {
             Utilities.DisplayMessage("Hello World " + party + " at index: " + index + " with tag " + targetTag);
@@ -48,10 +49,14 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
                     _partyVm.ExecuteRemoveZeroCounts();
                     return;
                 }
-                if (side == partyRosterSide)
+                if (side == PartyScreenLogic.PartyRosterSide.Right)
                 {
                     _primary.OnShiftTroop(character, index);
                 }
+            }
+            else if (party is PartyCategoryVM category)
+            {
+                _primary.CategoryShift(category, index);
             }
             else if(party is PSEWrapperVM wrapper)
             {

@@ -14,7 +14,19 @@ namespace PartyScreenEnhancements.Widgets
 		{
 		}
 
-		protected override void OnClick(Widget widget)
+        protected override void OnDragBegin()
+        {
+            base.OnDragBegin();
+            _listPanel.IsVisible = false;
+        }
+
+        protected override void OnDragEnd()
+        {
+            base.OnDragEnd();
+            _listPanel.IsVisible = true;
+        }
+
+        protected override void OnClick(Widget widget)
 		{
 			base.OnClick(widget);
 			this.UpdateCollapseIndicator();

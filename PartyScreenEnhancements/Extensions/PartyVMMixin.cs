@@ -13,6 +13,7 @@ using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.SaveSystem.Save;
+using UIExtenderLib;
 using UIExtenderLib.Interface;
 
 namespace PartyScreenEnhancements.Extensions
@@ -35,7 +36,9 @@ namespace PartyScreenEnhancements.Extensions
 
         public PartyVMMixin(PartyVM viewModel) : base(viewModel)
         {
-            PartyScreenConfig.TroopCategoryBindings.Add("sturgian_recruit", "Normal Category");
+            if(PartyScreenConfig.TroopCategoryBindings.IsEmpty())
+                PartyScreenConfig.TroopCategoryBindings.Add("sturgian_recruit", "Normal Category");
+
             this._categoryList = new MBBindingList<PSEWrapperVM>();
             this._privateCategoryList = new MBBindingList<PSEWrapperVM>();
             this._indexToParty = new Dictionary<int, PartyCharacterVM>();
@@ -43,7 +46,7 @@ namespace PartyScreenEnhancements.Extensions
             if (_vm.TryGetTarget(out PartyVM vm))
             {
                 _viewModel = vm;
-                _logic = GetPrivate<PartyScreenLogic>("_partyScreenLogic");
+                _logic = new Traverse(_viewModel).Field<PartyScreenLogic>("_partyScreenLogic").Value;
             }
             else
             {
@@ -69,16 +72,31 @@ namespace PartyScreenEnhancements.Extensions
         {
             if(characterVm.Side == PartyScreenLogic.PartyRosterSide.None) return;
             _viewModel.CurrentCharacter = characterVm;
+
             if (ValidateShift(characterVm, newIndex))
             {
-                var character = characterVm.Character;
                 if (characterVm.Type == PartyScreenLogic.TroopType.Member)
                 {
-                    int num = this.MemberRosters[(int)command.RosterSide].FindIndexOfTroop(character);
-                    TroopRosterElement elementCopyAtIndex = this.MemberRosters[(int)command.RosterSide].GetElementCopyAtIndex(num);
-                    int num2 = (num < command.Index) ? (command.Index - 1) : command.Index;
-                    this.MemberRosters[(int)command.RosterSide].AddToCounts(character, -elementCopyAtIndex.Number, false, -elementCopyAtIndex.WoundedNumber, 0, true, num);
-                    this.MemberRosters[(int)command.RosterSide].AddToCounts(character, elementCopyAtIndex.Number, false, elementCopyAtIndex.WoundedNumber, elementCopyAtIndex.Xp, true, (this.MemberRosters[(int)command.RosterSide].Count < num2) ? -1 : num2);
+                    var sideList = GetPartyList(characterVm.Side);
+                    
+                    if (newIndex < 0)
+                    {
+                        return;
+                    }
+                    var currentCharacter = new PSEWrapperVM(_viewModel.CurrentCharacter);
+                    int num = sideList.IndexOf(currentCharacter);
+                    sideList.Remove(currentCharacter);
+                    if (sideList.Count < newIndex)
+                    {
+                        sideList.Add(currentCharacter);
+                    }
+                    else
+                    {
+                        int index = (num < newIndex) ? (newIndex - 1) : newIndex;
+                        sideList.Insert(index, currentCharacter);
+                    }
+                    characterVm.ThrowOnPropertyChanged();
+                    this.RefreshTopInformation();
                 }
                 else
                 {
@@ -91,14 +109,67 @@ namespace PartyScreenEnhancements.Extensions
             }
         }
 
+        private void RefreshTopInformation()
+        {
+            _viewModel.MainPartyTotalWeeklyCostLbl = MobileParty.MainParty.GetTotalWage(1f, null).ToString();
+            _viewModel.MainPartyTotalGoldLbl = Hero.MainHero.Gold.ToString();
+            _viewModel.MainPartyTotalMoraleLbl = ((int)MobileParty.MainParty.Morale).ToString("##.0");
+            _viewModel.MainPartyTotalSpeedLbl = CampaignUIHelper.FloatToString(MobileParty.MainParty.ComputeSpeed());
+        }
+
         public void OnTransferTroop(PartyCharacterVM character, int newIndex, int characterNumber, PartyScreenLogic.PartyRosterSide characterSide, string targetList)
         {
             throw new NotImplementedException();
         }
 
+        public void CategoryShift(PartyCategoryVM category, int newIndex)
+        {
+            var sideList = GetPartyList(PartyScreenLogic.PartyRosterSide.Right);
+
+            if (newIndex < 0)
+            {
+                return;
+            }
+
+            var wrapper = new PSEWrapperVM(category);
+
+            int num = sideList.IndexOf(wrapper);
+            sideList.Remove(wrapper);
+            if (sideList.Count < newIndex)
+            {
+                sideList.Add(wrapper);
+            }
+            else
+            {
+                int index = (num < newIndex) ? (newIndex - 1) : newIndex;
+                sideList.Insert(index, wrapper);
+            }
+
+            this.RefreshTopInformation();
+        }
+
         public void WrapperShift(PSEWrapperVM wrapper, int newIndex)
         {
-            throw new NotImplementedException();
+            var sideList = GetPartyList(PartyScreenLogic.PartyRosterSide.Right);
+
+            if (newIndex < 0)
+            {
+                return;
+            }
+
+            int num = sideList.IndexOf(wrapper);
+            sideList.Remove(wrapper);
+            if (sideList.Count < newIndex)
+            {
+                sideList.Add(wrapper);
+            }
+            else
+            {
+                int index = (num < newIndex) ? (newIndex - 1) : newIndex;
+                sideList.Insert(index, wrapper);
+            }
+
+            this.RefreshTopInformation();
         }
 
         //TODO: Clean this one up
@@ -112,8 +183,8 @@ namespace PartyScreenEnhancements.Extensions
                 num = _logic.MemberRosters[(int)character.Side].FindIndexOfTroop(character.Character);
                 return num != -1 &&  index != 0 && num != index;
             }
-            num = _logic.PrisonerRosters[(int)character.Side].FindIndexOfTroop(character.Character);
-            return num != -1 && num != index;
+
+            return false;
         }
 
         private MBBindingList<PSEWrapperVM> GetPartyList(PartyScreenLogic.PartyRosterSide side)
@@ -222,6 +293,8 @@ namespace PartyScreenEnhancements.Extensions
             _viewModel = null;
             _privateCategoryList = null;
             _indexToParty = null;
+            _logic = null;
+            _wrapper = null;
         }
 
         public override void OnRefresh()

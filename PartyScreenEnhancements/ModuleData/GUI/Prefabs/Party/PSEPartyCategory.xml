@@ -79,7 +79,7 @@
                                  Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
                                  ListPanel="..\TestList\List" RenderLate="true"
                                  WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
-                                 IsRelevant="@IsHeaderVisible" MarginLeft="5">
+                                 IsRelevant="@IsHeaderVisible" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
           <Children>
 
             <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="20"
@@ -100,6 +100,12 @@
                             PositionYOffset="5" />
               </Children>
             </ListPanel>
+
+            <Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="320" SuggestedHeight="40" HorizontalAlignment="Left" VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
+              <Children>
+                <RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="20" MarginTop="10" MarginBottom="10" Brush="Recruitment.Popup.Title.Text" Text="@Label" Brush.FontSize="40" IsDisabled="true" />
+              </Children>
+            </Widget>
 
             <!-- <HintWidget DataSource="{MainPartyTroopSizeLimitHint}" WidthSizePolicy="StretchToParent" -->
             <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
@@ -126,7 +132,7 @@
             <ListPanel Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
                        HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
                        AcceptDrop="true" Command.Drop="..\..\..\ExecutePSETransferWithParameters"
-                       CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                       CommandParameter.Drop="@TransferLabel" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <ItemTemplate>
                 <PartyTroopTuple ButtonType="Radio" MarginLeft="30">
                 </PartyTroopTuple>

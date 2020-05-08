@@ -12,6 +12,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
     {
         private MBBindingList<PartyCharacterVM> _subList;
         private string _name;
+        private string _transferLabel;
         private string _troopNumberLabel;
         
 
@@ -20,6 +21,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             this._subList = sublist;
             this._name = name;
             this._troopNumberLabel = troopUpdate(sublist, sublist.Count);
+            this._transferLabel = "PSE_" + _name;
             this.Category = category;
         }
 
@@ -65,6 +67,13 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
                     base.OnPropertyChanged(nameof(TroopNumberLabel));
                 }
             }
+        }
+
+
+        [DataSourceProperty]
+        public string TransferLabel
+        {
+            get => _transferLabel;
         }
 
         [DataSourceProperty]
