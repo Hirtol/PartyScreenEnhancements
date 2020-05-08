@@ -125,7 +125,7 @@
             <!--_____Main Party Troops_______-->
             <ListPanel Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
                        HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
-                       AcceptDrop="true" Command.Drop="..\..\..\ExecuteTransferWithParameters"
+                       AcceptDrop="true" Command.Drop="..\..\..\ExecutePSETransferWithParameters"
                        CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <ItemTemplate>
                 <PartyTroopTuple ButtonType="Radio" MarginLeft="30">

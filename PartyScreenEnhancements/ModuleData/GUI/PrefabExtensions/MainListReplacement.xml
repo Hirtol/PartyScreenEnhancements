@@ -1,6 +1,10 @@
-﻿<ListPanel Id="List" DataSource="{CategoryList}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" AcceptDrop="true" Command.Drop="..\ExecutePSETransferWithParameters" CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
-  <ItemTemplate>
-    <PSEWrapper>
-    </PSEWrapper>
-  </ItemTemplate>
-</ListPanel>
+﻿<Widget DataSource="{PSEListWrapper}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+  <Children>
+      <ListPanel Id="List" DataSource="{CategoryList}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" AcceptDrop="true" Command.Drop="..\ExecutePSETransferWithParameters" CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
+        <ItemTemplate>
+         <PSEWrapper>
+         </PSEWrapper>
+       </ItemTemplate>
+      </ListPanel>
+  </Children>
+</Widget>

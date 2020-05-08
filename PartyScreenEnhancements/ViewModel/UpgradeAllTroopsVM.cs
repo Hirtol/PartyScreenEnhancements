@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HarmonyLib;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -89,6 +90,7 @@ namespace PartyScreenEnhancements.ViewModel
             catch (Exception e)
             {
                 Utilities.DisplayMessage($"PSE UpgradeTroops exception: {e}");
+                FileLog.Log($"PSE UpgradeTroops exception: {e}");
             }
         }
 
