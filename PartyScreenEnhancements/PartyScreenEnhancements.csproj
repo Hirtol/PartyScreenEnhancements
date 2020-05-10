@@ -264,6 +264,7 @@
     <Compile Include="Comparers\UpgradeableComparer.cs" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PSESortingSelectorLayer.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
+    <Compile Include="Comparers\WrapperComparer.cs" />
     <Compile Include="Extensions\PartyCharacterVMMixin.cs" />
     <Compile Include="Extensions\MainPartyListReplacementPatch.cs" />
     <Compile Include="Extensions\PartyVMMixin.cs" />

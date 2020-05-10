@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using HarmonyLib;
+using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.HackedIn;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
-using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
-using TaleWorlds.SaveSystem.Save;
-using UIExtenderLib;
 using UIExtenderLib.Interface;
 
 namespace PartyScreenEnhancements.Extensions
@@ -28,6 +22,7 @@ namespace PartyScreenEnhancements.Extensions
         //TODO: Make own transfer (drag and drop) methods.
         // No need for the button clicks, as those should be handled by our eventhandler of ListChanged
         public delegate void VisualUpdateDelegate(MBBindingList<PSEWrapperVM> list);
+
         public event VisualUpdateDelegate Update;
 
         private PartyVM _viewModel;
@@ -37,19 +32,16 @@ namespace PartyScreenEnhancements.Extensions
         private MBBindingList<PSEWrapperVM> _mainPartyWrappers;
         private MBBindingList<PSEWrapperVM> _privateCategoryList;
 
-        private IList<PartyCharacterVM> _indexToParty;
-
-        private bool _reset;
+        private IList<PartyCharacterVM> _mainPartyIndexList;
 
 
         public PartyVMMixin(PartyVM viewModel) : base(viewModel)
         {
-            this._reset = false;
-            this._mainPartyWrappers = new MBBindingList<PSEWrapperVM>();
-            this._privateCategoryList = new MBBindingList<PSEWrapperVM>();
-            this._indexToParty = new List<PartyCharacterVM>();
-            
-            this.CategoryRosters = new List<MBBindingList<PSEWrapperVM>>() { _mainPartyWrappers };
+            _mainPartyWrappers = new MBBindingList<PSEWrapperVM>();
+            _privateCategoryList = new MBBindingList<PSEWrapperVM>();
+            _mainPartyIndexList = new List<PartyCharacterVM>();
+
+            CategoryRosters = new List<MBBindingList<PSEWrapperVM>> {_mainPartyWrappers};
 
             if (_vm.TryGetTarget(out PartyVM vm))
             {
@@ -58,29 +50,30 @@ namespace PartyScreenEnhancements.Extensions
             }
             else
             {
-                Utilities.DisplayMessage("Something went wrong when establishing the PSE View, Could not get PartyVM from reference.\nPlease report this issue and disable the mod for now.");
-                FileLog.Log("Something went wrong when establishing the PSE View, Could not get PartyVM from reference.\nPlease report this issue and disable the mod for now.");
+                Utilities.DisplayMessage(
+                    "Something went wrong when establishing the PSE View, Could not get PartyVM from reference.\nPlease report this issue and disable the mod for now.");
+                FileLog.Log(
+                    "Something went wrong when establishing the PSE View, Could not get PartyVM from reference.\nPlease report this issue and disable the mod for now.");
                 return;
             }
 
-            this._wrapper = new PSEListWrapperVM(this, _viewModel);
-            this.Update += UpdateLabels;
+            _wrapper = new PSEListWrapperVM(this, _viewModel);
+            Update += UpdateLabels;
             InitialiseCategories();
 
             (_viewModel.MainPartyTroops as IMBBindingList).ListChanged += PartyVMMixin_ListChanged;
-            
-            
+
+
             // _viewModel.MainPartyTroops.ApplyActionOnAllItems(character => _categoryList.Add(new PSEWrapperVM(character)));
             // //_categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "", CreateTroopLabel, Category.SYSTEM)));
             // _categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "Normal Category", CreateTroopLabel, Category.USER_DEFINED)));
-            
         }
 
         private void RefreshTopInformation()
         {
-            _viewModel.MainPartyTotalWeeklyCostLbl = MobileParty.MainParty.GetTotalWage(1f, null).ToString();
+            _viewModel.MainPartyTotalWeeklyCostLbl = MobileParty.MainParty.GetTotalWage().ToString();
             _viewModel.MainPartyTotalGoldLbl = Hero.MainHero.Gold.ToString();
-            _viewModel.MainPartyTotalMoraleLbl = ((int)MobileParty.MainParty.Morale).ToString("##.0");
+            _viewModel.MainPartyTotalMoraleLbl = ((int) MobileParty.MainParty.Morale).ToString("##.0");
             _viewModel.MainPartyTotalSpeedLbl = CampaignUIHelper.FloatToString(MobileParty.MainParty.ComputeSpeed());
         }
 
@@ -88,7 +81,7 @@ namespace PartyScreenEnhancements.Extensions
         public void OnTransferTroop(PartyCharacterVM character, int newIndex, int characterNumber,
             PartyScreenLogic.PartyRosterSide characterSide, PartyCategoryVM fromCategory, string targetList)
         {
-            if(newIndex < 0) return;
+            if (newIndex < 0) return;
 
             var characterWrapper = new PSEWrapperVM(character);
 
@@ -97,9 +90,7 @@ namespace PartyScreenEnhancements.Extensions
             if (fromCategory != null)
                 fromCategory.TroopList.Remove(character);
             else
-            {
                 _mainPartyWrappers.Remove(characterWrapper);
-            }
 
             // To Category
             if (targetList.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX))
@@ -108,7 +99,7 @@ namespace PartyScreenEnhancements.Extensions
 
                 if (targetCategory == null)
                 {
-                    this._mainPartyWrappers.Add(characterWrapper);
+                    _mainPartyWrappers.Add(characterWrapper);
                     Utilities.DisplayMessage("PSE Attempted to add to category which doesn't exist!");
                 }
                 else
@@ -123,7 +114,7 @@ namespace PartyScreenEnhancements.Extensions
                             indexToUse = 1;
                         character.OnTransfer(character, indexToUse, characterNumber, characterSide);
                         character.ThrowOnPropertyChanged();
-                        this.RefreshTopInformation();
+                        RefreshTopInformation();
                         _viewModel.ExecuteRemoveZeroCounts();
                         return;
                     }
@@ -131,7 +122,7 @@ namespace PartyScreenEnhancements.Extensions
                     InsertIntoBindingList(character, newIndex + 1, targetCategory.TroopList);
 
                     character.ThrowOnPropertyChanged();
-                    this.RefreshTopInformation();
+                    RefreshTopInformation();
                 }
             }
             // To Main List
@@ -142,9 +133,10 @@ namespace PartyScreenEnhancements.Extensions
 
                 newIndex++;
 
-                if (ValidateShift(character, newIndex) && character.Type == PartyScreenLogic.TroopType.Member && characterSide == PartyScreenLogic.PartyRosterSide.Left)
+                if (ValidateShift(character, newIndex) && character.Type == PartyScreenLogic.TroopType.Member &&
+                    characterSide == PartyScreenLogic.PartyRosterSide.Left)
                 {
-                    var newSide = characterSide == PartyScreenLogic.PartyRosterSide.Right
+                    PartyScreenLogic.PartyRosterSide newSide = characterSide == PartyScreenLogic.PartyRosterSide.Right
                         ? PartyScreenLogic.PartyRosterSide.Left
                         : PartyScreenLogic.PartyRosterSide.Right;
 
@@ -156,10 +148,11 @@ namespace PartyScreenEnhancements.Extensions
                     }
 
                     character.ThrowOnPropertyChanged();
-                    this.RefreshTopInformation();
+                    RefreshTopInformation();
                 }
                 else
                 {
+                    if(!ValidateShift(character, newIndex))
                     OnShiftTroop(character, newIndex);
                 }
             }
@@ -181,7 +174,7 @@ namespace PartyScreenEnhancements.Extensions
                     InsertIntoBindingList(new PSEWrapperVM(characterVm), newIndex, sideList);
 
                     characterVm.ThrowOnPropertyChanged();
-                    this.RefreshTopInformation();
+                    RefreshTopInformation();
                 }
                 else
                 {
@@ -193,13 +186,13 @@ namespace PartyScreenEnhancements.Extensions
 
         public void CategoryShift(PartyCategoryVM category, int newIndex)
         {
-            if(!IsValidIndex(newIndex)) return;
+            if (!IsValidIndex(newIndex)) return;
 
             var sideList = GetPartyList(PartyScreenLogic.PartyRosterSide.Right);
 
             InsertIntoBindingList(new PSEWrapperVM(category), newIndex, sideList);
 
-            this.RefreshTopInformation();
+            RefreshTopInformation();
         }
 
         public void WrapperShift(PSEWrapperVM wrapper, int newIndex)
@@ -208,14 +201,14 @@ namespace PartyScreenEnhancements.Extensions
 
             InsertIntoBindingList(wrapper, newIndex, sideList);
 
-            this.RefreshTopInformation();
+            RefreshTopInformation();
         }
 
         public void InsertIntoBindingList<T>(T model, int newIndex, MBBindingList<T> list)
         {
             var indexOfTroop = list.IndexOf(model);
-            
-            if(indexOfTroop != -1)
+
+            if (indexOfTroop != -1)
                 list.RemoveAt(indexOfTroop);
 
             if (list.Count < newIndex)
@@ -224,7 +217,7 @@ namespace PartyScreenEnhancements.Extensions
             }
             else
             {
-                int index = (indexOfTroop < newIndex) ? (newIndex - 1) : newIndex;
+                var index = indexOfTroop < newIndex ? newIndex - 1 : newIndex;
                 list.Insert(index, model);
             }
         }
@@ -235,106 +228,109 @@ namespace PartyScreenEnhancements.Extensions
             {
                 return _mainPartyWrappers;
             }
-            else
-            {
-                throw new NotImplementedException("PSE encountered unknown side");
-            }
+
+            throw new NotImplementedException("PSE encountered unknown side");
         }
 
         public void UpdateLabels(MBBindingList<PSEWrapperVM> list)
         {
             var enumerable = list.Where(wrapper => wrapper.IsCategory);
-            foreach (var wrapper in enumerable)
+            foreach (PSEWrapperVM wrapper in enumerable)
             {
                 (wrapper.WrapperViewModel as PartyCategoryVM).UpdateLabel();
             }
         }
 
-         private void PartyVMMixin_ListChanged(object sender, ListChangedEventArgs e)
-         {
-             var partyList = sender as MBBindingList<PartyCharacterVM>;
-        
-             switch (e.ListChangedType)
-             {
-                 case ListChangedType.ItemAdded:
-                     if(partyList != null)
-                     {
-                         var character = partyList[e.NewIndex];
-                         var categoryAdd = FindRelevantCategory(character?.Character?.StringId);
-                         
-                         if(e.NewIndex >= _indexToParty.Count)
-                            _indexToParty.Add(character);
-                         else
-                             _indexToParty.Insert(e.NewIndex, character);
+        private void PartyVMMixin_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            var partyList = sender as MBBindingList<PartyCharacterVM>;
 
-                         if (categoryAdd != null)
-                         {
-                             categoryAdd.TroopList.Add(character);
-                             categoryAdd.UpdateLabel();
-                         }
-                         else
-                         {
-                             if (e.NewIndex >= MainPartyWrappers.Count)
-                                 MainPartyWrappers.Add(new PSEWrapperVM(character));
-                             else
-                             {
-                                 if(e.NewIndex > 0)
-                                     MainPartyWrappers.Insert(e.NewIndex - 1, new PSEWrapperVM(character));
-                                 else
-                                     MainPartyWrappers.Insert(e.NewIndex, new PSEWrapperVM(character));
-                             }
-                                 
-                         }
-                     }
-                     break;
-                 case ListChangedType.ItemChanged:
-                     Utilities.DisplayMessage("PSE Unsupported operation just occured, please notify Mod Dev.");
-                     break;
-                 case ListChangedType.ItemDeleted:
-                     var removedChar = _indexToParty[e.NewIndex];
-                     var categoryRemove = FindRelevantCategory(removedChar?.Character?.StringId);
-        
-                     if (categoryRemove != null)
-                     {
-                         categoryRemove.TroopList.Remove(removedChar);
-                         categoryRemove.UpdateLabel();
-                     }
-                     else
-                     {
-                         MainPartyWrappers.Remove(new PSEWrapperVM(removedChar));
-                     }
-        
-                     _indexToParty.RemoveAt(e.NewIndex);
+            switch (e.ListChangedType)
+            {
+                case ListChangedType.ItemAdded:
+                    if (partyList != null)
+                    {
+                        PartyCharacterVM character = partyList[e.NewIndex];
+                        PartyCategoryVM categoryAdd = FindRelevantCategory(character?.Character?.StringId);
 
-                     break;
-                 case ListChangedType.Reset:
-                     Utilities.DisplayMessage("Hey, reset!");
-                     _reset = true;
-                     _mainPartyWrappers.Clear();
-                     _indexToParty.Clear();
-                     _privateCategoryList.Clear();
-                     InitialiseCategories();
-                     break;
+                        if (e.NewIndex >= _mainPartyIndexList.Count)
+                            _mainPartyIndexList.Add(character);
+                        else
+                            _mainPartyIndexList.Insert(e.NewIndex, character);
+
+                        if (categoryAdd != null)
+                        {
+                            categoryAdd.TroopList.Add(character);
+                            categoryAdd.UpdateLabel();
+                        }
+                        else
+                        {
+                            if (e.NewIndex >= MainPartyWrappers.Count)
+                                MainPartyWrappers.Add(new PSEWrapperVM(character));
+                            else
+                            {
+                                if (e.NewIndex > 0)
+                                    MainPartyWrappers.Insert(e.NewIndex - 1, new PSEWrapperVM(character));
+                                else
+                                    MainPartyWrappers.Insert(e.NewIndex, new PSEWrapperVM(character));
+                            }
+                        }
+                    }
+
+                    break;
+                case ListChangedType.ItemChanged:
+                    Utilities.DisplayMessage("PSE Unsupported operation just occured, please notify Mod Dev.");
+                    break;
+                case ListChangedType.ItemDeleted:
+                    PartyCharacterVM removedChar = _mainPartyIndexList[e.NewIndex];
+                    PartyCategoryVM categoryRemove = FindRelevantCategory(removedChar?.Character?.StringId);
+
+                    if (categoryRemove != null)
+                    {
+                        categoryRemove.TroopList.Remove(removedChar);
+                        categoryRemove.UpdateLabel();
+                    }
+                    else
+                    {
+                        MainPartyWrappers.Remove(new PSEWrapperVM(removedChar));
+                    }
+
+                    _mainPartyIndexList.RemoveAt(e.NewIndex);
+
+                    break;
+                case ListChangedType.Reset:
+                    Utilities.DisplayMessage("Hey, reset!");
+                    _mainPartyWrappers.Clear();
+                    _mainPartyIndexList.Clear();
+                    _privateCategoryList.Clear();
+                    InitialiseCategories();
+                    break;
                 case ListChangedType.Sorted:
                     Utilities.DisplayMessage("Hey, Sort!");
-                    _mainPartyWrappers.Clear();
-                     _indexToParty.Clear();
-                     _privateCategoryList.Clear();
-                     InitialiseCategories();
-                     break;
-             }
-         }
-
-         public void InitialiseCategories()
-        {
-            for (var i = 0; i < _viewModel.MainPartyTroops.Count; i++)
-            {
-                _indexToParty.Add(_viewModel.MainPartyTroops[i]);
+                    SortLocalLists();
+                    // _mainPartyWrappers.Clear();
+                    // _mainPartyIndexList.Clear();
+                    // _privateCategoryList.Clear();
+                    // InitialiseCategories();
+                    break;
             }
+        }
 
+        public void SortLocalLists()
+        {
+            _mainPartyIndexList.Clear();
+            InitialiseMirrorLists();
+
+            var wrapperComparer = new WrapperComparer(PartyScreenConfig.ExtraSettings.PartySorter);
+            _mainPartyWrappers.Sort(wrapperComparer);
+        }
+
+        public void InitialiseCategories()
+        {
+            InitialiseMirrorLists();
             var names = PartyScreenConfig.TroopCategoryBindings.Values.Distinct();
 
-            if(_privateCategoryList.IsEmpty())
+            if (_privateCategoryList.IsEmpty())
             {
                 foreach (var name in names)
                 {
@@ -347,16 +343,16 @@ namespace PartyScreenEnhancements.Extensions
             foreach (PartyCharacterVM character in _viewModel.MainPartyTroops)
             {
                 var id = character?.Character?.StringId ?? "NULL";
-                var relevantCategory = FindRelevantCategory(id);
+                PartyCategoryVM relevantCategory = FindRelevantCategory(id);
 
-                if(relevantCategory != null)
+                if (relevantCategory != null)
                 {
-                    if(!relevantCategory.TroopList.Contains(character))
+                    if (!relevantCategory.TroopList.Contains(character))
                     {
                         var wrappedCategory = new PSEWrapperVM(relevantCategory);
                         relevantCategory.TroopList.Add(character);
                         relevantCategory.UpdateLabel();
-                        if(!_mainPartyWrappers.Contains(wrappedCategory))
+                        if (!_mainPartyWrappers.Contains(wrappedCategory))
                             _mainPartyWrappers.Add(wrappedCategory);
                     }
                 }
@@ -369,14 +365,23 @@ namespace PartyScreenEnhancements.Extensions
             //TODO: Save order of the _categoryList and reapply here.
             _privateCategoryList.ApplyActionOnAllItems(wrapper =>
             {
-                if (!_mainPartyWrappers.Contains(wrapper)) 
+                if (!_mainPartyWrappers.Contains(wrapper))
                     _mainPartyWrappers.Add(wrapper);
             });
         }
 
+        private void InitialiseMirrorLists()
+        {
+            for (var i = 0; i < _viewModel.MainPartyTroops.Count; i++)
+            {
+                _mainPartyIndexList.Add(_viewModel.MainPartyTroops[i]);
+            }
+        }
+
         public PartyCategoryVM FindRelevantCategory(string characterId)
         {
-            if (!_mainPartyWrappers.IsEmpty() && PartyScreenConfig.TroopCategoryBindings.TryGetValue(characterId, out var category))
+            if (!_mainPartyWrappers.IsEmpty() &&
+                PartyScreenConfig.TroopCategoryBindings.TryGetValue(characterId, out var category))
             {
                 return _privateCategoryList.FirstOrDefault(wrapper =>
                 {
@@ -395,7 +400,7 @@ namespace PartyScreenEnhancements.Extensions
         public override void OnFinalize()
         {
             base.OnFinalize();
-            if(!_logic.IsCancelActive())
+            if (!_logic.IsCancelActive())
                 PropagateLayout();
             else
                 Utilities.DisplayMessage("Canceled!");
@@ -404,15 +409,16 @@ namespace PartyScreenEnhancements.Extensions
             _mainPartyWrappers = null;
             _viewModel = null;
             _privateCategoryList = null;
-            _indexToParty = null;
+            _mainPartyIndexList = null;
             _logic = null;
             _wrapper = null;
         }
 
         private PartyCategoryVM GetCategoryFromName(string targetList)
         {
-            return this._privateCategoryList.FirstOrDefault(wrapper =>
-                (wrapper.WrapperViewModel as PartyCategoryVM).TransferLabel.Equals(targetList))?.WrapperViewModel as PartyCategoryVM;
+            return _privateCategoryList.FirstOrDefault(wrapper =>
+                    (wrapper.WrapperViewModel as PartyCategoryVM).TransferLabel.Equals(targetList))
+                ?.WrapperViewModel as PartyCategoryVM;
         }
 
         //TODO: Clean this one up
@@ -422,7 +428,7 @@ namespace PartyScreenEnhancements.Extensions
             int num;
             if (character.Type == PartyScreenLogic.TroopType.Member)
             {
-                num = _logic.MemberRosters[(int)character.Side].FindIndexOfTroop(character.Character);
+                num = _logic.MemberRosters[(int) character.Side].FindIndexOfTroop(character.Character);
                 return num != -1 && IsValidIndex(index);
             }
 
@@ -436,8 +442,8 @@ namespace PartyScreenEnhancements.Extensions
 
         private void PropagateLayout()
         {
-            var _mainRoster = _logic.MemberRosters[_rightSide];
-            var _leftRoster = _logic.MemberRosters[_leftSide];
+            TroopRoster _mainRoster = _logic.MemberRosters[_rightSide];
+            TroopRoster _leftRoster = _logic.MemberRosters[_leftSide];
 
             _mainRoster.Clear();
             PropagateRelevantRoster(_mainRoster, _mainPartyWrappers);
@@ -445,7 +451,7 @@ namespace PartyScreenEnhancements.Extensions
 
         private void PropagateRelevantRoster(TroopRoster roster, MBBindingList<PSEWrapperVM> wrappers)
         {
-            foreach (var wrap in wrappers)
+            foreach (PSEWrapperVM wrap in wrappers)
             {
                 if (wrap.WrapperViewModel is PartyCategoryVM category)
                 {
@@ -473,7 +479,7 @@ namespace PartyScreenEnhancements.Extensions
             get => _mainPartyWrappers;
             set
             {
-                if (value != _mainPartyWrappers && _vm.TryGetTarget(out var pvm))
+                if (value != _mainPartyWrappers && _vm.TryGetTarget(out PartyVM pvm))
                 {
                     _mainPartyWrappers = value;
                     pvm.OnPropertyChanged(nameof(MainPartyWrappers));
