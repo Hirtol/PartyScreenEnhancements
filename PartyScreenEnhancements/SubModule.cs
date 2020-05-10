@@ -50,16 +50,6 @@ namespace PartyScreenEnhancements
             UIResourceManager.UIResourceDepot.CheckForChanges();
         }
 
-        
-
-        private IEnumerable<DictionaryEntry> CastDict(IDictionary dictionary)
-        {
-            foreach (DictionaryEntry entry in dictionary)
-            {
-                yield return entry;
-            }
-        }
-
         protected override void OnSubModuleUnloaded()
         {
         }

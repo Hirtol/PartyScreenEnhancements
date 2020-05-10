@@ -64,7 +64,7 @@ namespace PartyScreenEnhancements.Extensions
             }
 
             this._wrapper = new PSEListWrapperVM(this, _viewModel);
-            this.Update += UpdateLabel;
+            this.Update += UpdateLabels;
             InitialiseCategories();
 
             (_viewModel.MainPartyTroops as IMBBindingList).ListChanged += PartyVMMixin_ListChanged;
@@ -84,6 +84,7 @@ namespace PartyScreenEnhancements.Extensions
             _viewModel.MainPartyTotalSpeedLbl = CampaignUIHelper.FloatToString(MobileParty.MainParty.ComputeSpeed());
         }
 
+        //TODO: Fix cast exception when selecting PartyCharacterVM on the left side after transfering from the right.
         public void OnTransferTroop(PartyCharacterVM character, int newIndex, int characterNumber,
             PartyScreenLogic.PartyRosterSide characterSide, PartyCategoryVM fromCategory, string targetList)
         {
@@ -97,7 +98,6 @@ namespace PartyScreenEnhancements.Extensions
                 fromCategory.TroopList.Remove(character);
             else
             {
-                //TODO: Add left to right transfer
                 _mainPartyWrappers.Remove(characterWrapper);
             }
 
@@ -117,6 +117,7 @@ namespace PartyScreenEnhancements.Extensions
 
                     if (characterSide == PartyScreenLogic.PartyRosterSide.Left)
                     {
+                        //TODO: Make transfer respect your decided Index
                         var indexToUse = newIndex;
                         if (indexToUse <= 0)
                             indexToUse = 1;
@@ -240,7 +241,7 @@ namespace PartyScreenEnhancements.Extensions
             }
         }
 
-        public void UpdateLabel(MBBindingList<PSEWrapperVM> list)
+        public void UpdateLabels(MBBindingList<PSEWrapperVM> list)
         {
             var enumerable = list.Where(wrapper => wrapper.IsCategory);
             foreach (var wrapper in enumerable)
@@ -276,7 +277,13 @@ namespace PartyScreenEnhancements.Extensions
                              if (e.NewIndex >= MainPartyWrappers.Count)
                                  MainPartyWrappers.Add(new PSEWrapperVM(character));
                              else
-                                 MainPartyWrappers.Insert(e.NewIndex-1, new PSEWrapperVM(character));
+                             {
+                                 if(e.NewIndex > 0)
+                                     MainPartyWrappers.Insert(e.NewIndex - 1, new PSEWrapperVM(character));
+                                 else
+                                     MainPartyWrappers.Insert(e.NewIndex, new PSEWrapperVM(character));
+                             }
+                                 
                          }
                      }
                      break;
@@ -388,8 +395,10 @@ namespace PartyScreenEnhancements.Extensions
         public override void OnFinalize()
         {
             base.OnFinalize();
-            if(!_reset)
+            if(!_logic.IsCancelActive())
                 PropagateLayout();
+            else
+                Utilities.DisplayMessage("Canceled!");
             PartyScreenConfig.Save();
 
             _mainPartyWrappers = null;
