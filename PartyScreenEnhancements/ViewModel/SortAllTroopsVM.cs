@@ -17,6 +17,7 @@ namespace PartyScreenEnhancements.ViewModel
         private MBBindingList<PartyCharacterVM> _mainPartyList;
         private MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
         private MBBindingList<PSEWrapperVM> _enhancedMainParty;
+
         private PartyScreenLogic _partyLogic;
         private PartyVM _partyVM;
 
@@ -55,6 +56,8 @@ namespace PartyScreenEnhancements.ViewModel
             //     AlternateSort();
             //     return;
             // }
+
+            Utilities.DisplayMessage($"NULL? {_enhancedMainParty != null}");
 
             try
             {

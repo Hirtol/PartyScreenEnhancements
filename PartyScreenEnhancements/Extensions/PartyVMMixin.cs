@@ -257,9 +257,16 @@ namespace PartyScreenEnhancements.Extensions
                  case ListChangedType.Reset:
                      Utilities.DisplayMessage("Hey, reset!");
                      _reset = true;
-                 case ListChangedType.Sorted:
                      _mainPartyWrappers.Clear();
                      _indexToParty.Clear();
+                     _privateCategoryList.Clear();
+                     InitialiseCategories();
+                     break;
+                case ListChangedType.Sorted:
+                    Utilities.DisplayMessage("Hey, Sort!");
+                    _mainPartyWrappers.Clear();
+                     _indexToParty.Clear();
+                     _privateCategoryList.Clear();
                      InitialiseCategories();
                      break;
              }
