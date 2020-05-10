@@ -26,7 +26,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             _partyVm = partyVm;
         }
 
-        //TODO: Fix transfer logic from main list to category and vice versa.
+        //TODO: Add category shift.
         // Be careful of transfer from left to right.
         public void ExecutePSETransferWithParameters(TaleWorlds.Library.ViewModel party, int index, string targetTag)
         {

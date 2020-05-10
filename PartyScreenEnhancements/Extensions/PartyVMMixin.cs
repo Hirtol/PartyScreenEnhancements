@@ -96,23 +96,41 @@ namespace PartyScreenEnhancements.Extensions
             if (fromCategory != null)
                 fromCategory.TroopList.Remove(character);
             else
+            {
                 //TODO: Add left to right transfer
                 _mainPartyWrappers.Remove(characterWrapper);
+            }
 
             // To Category
             if (targetList.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX))
             {
                 PartyCategoryVM targetCategory = GetCategoryFromName(targetList);
 
-                if (targetCategory != null)
-                {
-                    InsertIntoBindingList(character, newIndex+1, targetCategory.TroopList);
-                    PartyScreenConfig.TroopCategoryBindings.Add(character.Character.StringId, targetCategory.Label);
-                }
-                else
+                if (targetCategory == null)
                 {
                     this._mainPartyWrappers.Add(characterWrapper);
                     Utilities.DisplayMessage("PSE Attempted to add to category which doesn't exist!");
+                }
+                else
+                {
+                    PartyScreenConfig.TroopCategoryBindings.Add(character.Character.StringId, targetCategory.Label);
+
+                    if (characterSide == PartyScreenLogic.PartyRosterSide.Left)
+                    {
+                        var indexToUse = newIndex;
+                        if (indexToUse <= 0)
+                            indexToUse = 1;
+                        character.OnTransfer(character, indexToUse, characterNumber, characterSide);
+                        character.ThrowOnPropertyChanged();
+                        this.RefreshTopInformation();
+                        _viewModel.ExecuteRemoveZeroCounts();
+                        return;
+                    }
+
+                    InsertIntoBindingList(character, newIndex + 1, targetCategory.TroopList);
+
+                    character.ThrowOnPropertyChanged();
+                    this.RefreshTopInformation();
                 }
             }
             // To Main List
@@ -120,9 +138,29 @@ namespace PartyScreenEnhancements.Extensions
             {
                 if (newIndex == 0)
                     newIndex = -1;
-                //TODO: Check if works for left right cases as well.
-                //+1 is temp fix for the unit being dropped one below where it should, investigate more later.
-                this.OnShiftTroop(character, newIndex+1);
+
+                newIndex++;
+
+                if (ValidateShift(character, newIndex) && character.Type == PartyScreenLogic.TroopType.Member && characterSide == PartyScreenLogic.PartyRosterSide.Left)
+                {
+                    var newSide = characterSide == PartyScreenLogic.PartyRosterSide.Right
+                        ? PartyScreenLogic.PartyRosterSide.Left
+                        : PartyScreenLogic.PartyRosterSide.Right;
+
+                    if (newSide == PartyScreenLogic.PartyRosterSide.Right)
+                    {
+                        character.OnTransfer(character, newIndex, characterNumber, characterSide);
+                        _viewModel.CurrentCharacter = character;
+                        return;
+                    }
+
+                    character.ThrowOnPropertyChanged();
+                    this.RefreshTopInformation();
+                }
+                else
+                {
+                    OnShiftTroop(character, newIndex);
+                }
             }
 
             Update?.Invoke(_mainPartyWrappers);
@@ -222,16 +260,23 @@ namespace PartyScreenEnhancements.Extensions
                      {
                          var character = partyList[e.NewIndex];
                          var categoryAdd = FindRelevantCategory(character?.Character?.StringId);
-        
-                         _indexToParty.Add(character);
+                         
+                         if(e.NewIndex >= _indexToParty.Count)
+                            _indexToParty.Add(character);
+                         else
+                             _indexToParty.Insert(e.NewIndex, character);
 
                          if (categoryAdd != null)
                          {
                              categoryAdd.TroopList.Add(character);
+                             categoryAdd.UpdateLabel();
                          }
                          else
                          {
-                             MainPartyWrappers.Add(new PSEWrapperVM(character));
+                             if (e.NewIndex >= MainPartyWrappers.Count)
+                                 MainPartyWrappers.Add(new PSEWrapperVM(character));
+                             else
+                                 MainPartyWrappers.Insert(e.NewIndex-1, new PSEWrapperVM(character));
                          }
                      }
                      break;
@@ -245,6 +290,7 @@ namespace PartyScreenEnhancements.Extensions
                      if (categoryRemove != null)
                      {
                          categoryRemove.TroopList.Remove(removedChar);
+                         categoryRemove.UpdateLabel();
                      }
                      else
                      {
