@@ -85,16 +85,13 @@ namespace PartyScreenEnhancements.Extensions
 
             var characterWrapper = new PSEWrapperVM(character);
 
+            PartyScreenConfig.TroopCategoryBindings.Remove(character.Character.StringId);
+
             if (fromCategory != null)
-            {
                 fromCategory.TroopList.Remove(character);
-                PartyScreenConfig.TroopCategoryBindings.Remove(character.Character.StringId);
-            }
             else
-            {
                 //TODO: Add left to right transfer
                 _categoryList.Remove(characterWrapper);
-            }
 
             // To Category
             if (targetList.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX))
@@ -103,12 +100,13 @@ namespace PartyScreenEnhancements.Extensions
 
                 if (targetCategory != null)
                 {
-                    targetCategory.TroopList.Add(character);
+                    InsertIntoBindingList(character, newIndex+1, targetCategory.TroopList);
                     PartyScreenConfig.TroopCategoryBindings.Add(character.Character.StringId, targetCategory.Label);
                 }
                 else
                 {
                     this._categoryList.Add(characterWrapper);
+                    Utilities.DisplayMessage("PSE Attempted to add to category which doesn't exist!");
                 }
             }
             // To Main List
@@ -137,7 +135,7 @@ namespace PartyScreenEnhancements.Extensions
                 {
                     var sideList = GetPartyList(characterVm.Side);
 
-                    InsertIntoWrapperList(new PSEWrapperVM(characterVm), newIndex, sideList);
+                    InsertIntoBindingList(new PSEWrapperVM(characterVm), newIndex, sideList);
 
                     characterVm.ThrowOnPropertyChanged();
                     this.RefreshTopInformation();
@@ -156,7 +154,7 @@ namespace PartyScreenEnhancements.Extensions
 
             var sideList = GetPartyList(PartyScreenLogic.PartyRosterSide.Right);
 
-            InsertIntoWrapperList(new PSEWrapperVM(category), newIndex, sideList);
+            InsertIntoBindingList(new PSEWrapperVM(category), newIndex, sideList);
 
             this.RefreshTopInformation();
         }
@@ -165,23 +163,23 @@ namespace PartyScreenEnhancements.Extensions
         {
             var sideList = GetPartyList(PartyScreenLogic.PartyRosterSide.Right);
 
-            InsertIntoWrapperList(wrapper, newIndex, sideList);
+            InsertIntoBindingList(wrapper, newIndex, sideList);
 
             this.RefreshTopInformation();
         }
 
-        public void InsertIntoWrapperList(PSEWrapperVM wrapper, int newIndex, MBBindingList<PSEWrapperVM> sideList)
+        public void InsertIntoBindingList<T>(T model, int newIndex, MBBindingList<T> list)
         {
-            var indexOfTroop = sideList.IndexOf(wrapper);
-            sideList.Remove(wrapper);
-            if (sideList.Count < newIndex)
+            var indexOfTroop = list.IndexOf(model);
+            list.Remove(model);
+            if (list.Count < newIndex)
             {
-                sideList.Add(wrapper);
+                list.Add(model);
             }
             else
             {
                 int index = (indexOfTroop < newIndex) ? (newIndex - 1) : newIndex;
-                sideList.Insert(index, wrapper);
+                list.Insert(index, model);
             }
         }
 

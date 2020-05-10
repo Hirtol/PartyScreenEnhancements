@@ -71,8 +71,8 @@ namespace PartyScreenEnhancements.Widgets
 			{
 				this.TransferButtonWidget.IsEnabled = false;
 			}
-			this._listPanel.ItemAfterRemoveEventHandlers.Add(new Action<Widget>(this.OnListSizeChange));
-			this._listPanel.ItemAddEventHandlers.Add(new Action<Widget, Widget>(this.OnListSizeChange));
+			this._listPanel.ItemAfterRemoveEventHandlers.Add(this.OnListSizeChange);
+			this._listPanel.ItemAddEventHandlers.Add(this.OnListSizeChange);
 
             this.UpdateSize();
 		}
@@ -132,7 +132,7 @@ namespace PartyScreenEnhancements.Widgets
 				if (this._transferButtonWidget != value)
 				{
 					this._transferButtonWidget = value;
-					base.OnPropertyChanged(value, "TransferButtonWidget");
+					base.OnPropertyChanged(value, nameof(TransferButtonWidget));
 					this.TransferButtonUpdated();
 				}
 			}
@@ -150,7 +150,7 @@ namespace PartyScreenEnhancements.Widgets
 				if (this._collapseIndicator != value)
 				{
 					this._collapseIndicator = value;
-					base.OnPropertyChanged(value, "CollapseIndicator");
+					base.OnPropertyChanged(value, nameof(CollapseIndicator));
 					this.CollapseIndicatorUpdated();
 				}
 			}
