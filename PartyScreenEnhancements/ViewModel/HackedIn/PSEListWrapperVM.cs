@@ -82,30 +82,10 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             }
         }
 
-        
-
-        // public void ExecutePSETransferWithParameters(PartyCharacterVM party, int index, string targetTag)
-        // {
-        //     Utilities.DisplayMessage("Hello World " + party + " at index: " + index + " with tag " + targetTag);
-        //     if (party is PartyCharacterVM character)
-        //     {
-        //
-        //     }
-        // }
-        //
-        // public void ExecutePSETransferWithParameters(PSEWrapperVM party, int index, string targetTag)
-        // {
-        //     Utilities.DisplayMessage("Hello World " + party + " at index: " + index + " with tag " + targetTag);
-        //     if (party is PSEWrapperVM wrapper)
-        //     {
-        //
-        //     }
-        // }
-
         [DataSourceProperty]
-        public MBBindingList<PSEWrapperVM> CategoryList
+        public MBBindingList<PSEWrapperVM> MainPartyWrappers
         {
-            get => _primary.CategoryList;
+            get => _primary.MainPartyWrappers;
         }
     }
 }

@@ -231,7 +231,7 @@ namespace PartyScreenEnhancements.Extensions
                          }
                          else
                          {
-                             CategoryList.Add(new PSEWrapperVM(character));
+                             MainPartyWrappers.Add(new PSEWrapperVM(character));
                          }
                      }
                      break;
@@ -248,7 +248,7 @@ namespace PartyScreenEnhancements.Extensions
                      }
                      else
                      {
-                         CategoryList.Remove(new PSEWrapperVM(removedChar));
+                         MainPartyWrappers.Remove(new PSEWrapperVM(removedChar));
                      }
         
                      _indexToParty.RemoveAt(e.NewIndex);
@@ -272,102 +272,7 @@ namespace PartyScreenEnhancements.Extensions
              }
          }
 
-        // TODO: Patch <AutoScrollablePanelWidget Id="MainPartyScrollablePanel" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Left" VerticalAlignment="Bottom" MarginLeft="!SidePanel.ScrollablePanel.MarginHorizontal" MarginTop="!SidePanel.ScrollablePanel.MarginTop" MarginBottom="!SidePanel.ScrollablePanel.MarginBottom" AcceptDrop="true" AutoHideScrollBars="true" ClipRect="MyClipRect" Command.Drop="ExecuteTransferWithParameters" CommandParameter.Drop="MainParty" InnerPanel="MyClipRect\MainPartyInnerPanel" VerticalScrollbar="..\MainPartyScrollbar\Scrollbar">
-        //  Actually, if we automatically intercept ListChangedType.Add it shouldn't matter!
-
-         [DataSourceMethod]
-         public void ExecutePSETransferWithParameters(TaleWorlds.Library.ViewModel party, int index, string targetTag)
-         {
-             Utilities.DisplayMessage("Hello World" + party);
-             if (party is PartyCharacterVM character)
-             {
-             
-             }
-             else if(party is PSEWrapperVM wrapper)
-             {
-             
-             }
-         }
-
-        //TODO: FIX REMOVE
-        // private void PartyVMMixin_ListChanged(object sender, ListChangedEventArgs e)
-        // {
-        //     var partyList = sender as MBBindingList<PartyCharacterVM>;
-        //
-        //     switch (e.ListChangedType)
-        //     {
-        //         case ListChangedType.ItemAdded:
-        //             if(partyList != null)
-        //             {
-        //                 var character = partyList[e.NewIndex];
-        //                 var categoryAdd = FindRelevantCategory(character?.Character?.StringId);
-        //
-        //                 _indexToParty.Clear();
-        //
-        //                 for (var i = 0; i < partyList.Count; i++)
-        //                 {
-        //                     _indexToParty.Add(i, _viewModel.MainPartyTroops[i]);
-        //                 }
-        //
-        //                 if (categoryAdd != null)
-        //                 {
-        //                     categoryAdd.TroopList.Add(character);
-        //                 }
-        //                 else
-        //                 {
-        //                     var test = new PSEWrapperVM(character);
-        //                     CategoryList.Add(test);
-        //                 }
-        //             }
-        //             break;
-        //         case ListChangedType.ItemChanged:
-        //             Utilities.DisplayMessage("PSE Unsupported operation just occured, please notify Mod Dev.");
-        //             break;
-        //         case ListChangedType.ItemDeleted:
-        //             var removedChar = _indexToParty[e.NewIndex];
-        //             var categoryRemove = FindRelevantCategory(removedChar?.Character?.StringId);
-        //
-        //             if (categoryRemove != null)
-        //             {
-        //                 categoryRemove.TroopList.Remove(removedChar);
-        //             }
-        //             else
-        //             {
-        //                 var test = new PSEWrapperVM(removedChar);
-        //                 CategoryList.Remove(test);
-        //             }
-        //
-        //             _indexToParty.Remove(e.NewIndex);
-        //             break;
-        //         case ListChangedType.Reset:
-        //         case ListChangedType.Sorted:
-        //             _categoryList.Clear();
-        //             _indexToParty.Clear();
-        //             InitialiseCategories();
-        //             break;
-        //     }
-        // }
-
-        //TODO: Patch <AutoScrollablePanelWidget Id="MainPartyScrollablePanel" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Left" VerticalAlignment="Bottom" MarginLeft="!SidePanel.ScrollablePanel.MarginHorizontal" MarginTop="!SidePanel.ScrollablePanel.MarginTop" MarginBottom="!SidePanel.ScrollablePanel.MarginBottom" AcceptDrop="true" AutoHideScrollBars="true" ClipRect="MyClipRect" Command.Drop="ExecuteTransferWithParameters" CommandParameter.Drop="MainParty" InnerPanel="MyClipRect\MainPartyInnerPanel" VerticalScrollbar="..\MainPartyScrollbar\Scrollbar">
-        // Actually, if we automatically intercept ListChangedType.Add it shouldn't matter!
-
-        // [DataSourceMethod]
-        // public void ExecutePSETransferWithParameters(TaleWorlds.Library.ViewModel party, int index, string targetTag)
-        // {
-        //     Utilities.DisplayMessage("Hello World" + party);
-        //     if (party is PartyCharacterVM character)
-        //     {
-        //     
-        //     }
-        //     else if(party is PSEWrapperVM wrapper)
-        //     {
-        //     
-        //     }
-        // }
-
-
-
-        public void InitialiseCategories()
+         public void InitialiseCategories()
         {
             for (var i = 0; i < _viewModel.MainPartyTroops.Count; i++)
             {
@@ -433,12 +338,6 @@ namespace PartyScreenEnhancements.Extensions
 
             return null;
         }
-
-        //TODO: Find way of overriding? Or rely on ListModificationEvent
-        // public override void ExecuteRemoveZeroCounts()
-        // {
-        //
-        // }
 
         public override void OnFinalize()
         {
@@ -514,7 +413,7 @@ namespace PartyScreenEnhancements.Extensions
         }
 
         [DataSourceProperty]
-        public MBBindingList<PSEWrapperVM> CategoryList
+        public MBBindingList<PSEWrapperVM> MainPartyWrappers
         {
             get => _mainPartyWrappers;
             set
@@ -522,7 +421,7 @@ namespace PartyScreenEnhancements.Extensions
                 if (value != _mainPartyWrappers && _vm.TryGetTarget(out var pvm))
                 {
                     _mainPartyWrappers = value;
-                    pvm.OnPropertyChanged(nameof(CategoryList));
+                    pvm.OnPropertyChanged(nameof(MainPartyWrappers));
                 }
             }
         }

@@ -1,10 +1,17 @@
-﻿<Widget DataSource="{PSEListWrapper}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+﻿<Widget Id="MainPartyTroopsList" DataSource="{PSEListWrapper}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
   <Children>
-      <ListPanel Id="List" DataSource="{CategoryList}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" AcceptDrop="true" Command.Drop="..\ExecutePSETransferWithParameters" CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
+      <ListPanel Id="List" DataSource="{MainPartyWrappers}" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top" AcceptDrop="true" Command.Drop="..\ExecutePSETransferWithParameters" CommandParameter.Drop="MainPartyTroops" LayoutImp.LayoutMethod="VerticalBottomToTop">
         <ItemTemplate>
          <PSEWrapper>
          </PSEWrapper>
        </ItemTemplate>
       </ListPanel>
+
+    <!--To remove? Not sure what they do exactly tbh-->
+    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="0" VerticalAlignment="Top" IsDisabled="true">
+      <Children>
+        <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!PartyToggle.Shadow.Height" VerticalAlignment="Top" Sprite="PartyScreen\button_collapser_shadow" IsDisabled="true" />
+      </Children>
+    </Widget>
   </Children>
 </Widget>
