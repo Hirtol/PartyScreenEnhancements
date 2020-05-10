@@ -52,6 +52,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -293,6 +297,7 @@
     <Compile Include="ViewModel\UpgradeAllTroopsVM.cs" />
     <Compile Include="Widgets\AscDescWidget.cs" />
     <Compile Include="Widgets\CategoryHeaderWidget.cs" />
+    <Compile Include="Widgets\CategoryListWidget.cs" />
     <Compile Include="Widgets\RadioButtonWidget.cs" />
     <Compile Include="Widgets\SettingSortWidget.cs" />
     <Compile Include="SubModule.cs" />

@@ -10,22 +10,41 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
 {
     public class PartyCategoryVM : TaleWorlds.Library.ViewModel
     {
+        public const string CATEGORY_LABEL_PREFIX = "PSE_CATEGORY_";
+
         private MBBindingList<PartyCharacterVM> _subList;
         private string _name;
         private string _transferLabel;
         private string _troopNumberLabel;
         
 
-        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, Func<MBBindingList<PartyCharacterVM>, int, string> troopUpdate, Category category)
+        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, Func<MBBindingList<PartyCharacterVM>, int, string> troopUpdate, string parentTag)
         {
             this._subList = sublist;
             this._name = name;
-            this._troopNumberLabel = troopUpdate(sublist, sublist.Count);
-            this._transferLabel = "PSE_" + _name;
-            this.Category = category;
+            this._transferLabel = CATEGORY_LABEL_PREFIX + _name;
+            this.ParentTag = parentTag;
+            UpdateLabel();
+            
         }
 
-        public Category Category { get; set; }
+        public void UpdateLabel()
+        {
+            int totalTroops = _subList.Sum(character => Math.Max(0, character.Troop.Number));
+            int healthyTroops = _subList.Sum(character => Math.Max(0, character.Troop.Number - character.WoundedCount));
+            int wounded = _subList.Sum(item =>
+            {
+                if (item.Number < item.WoundedCount)
+                {
+                    return 0;
+                }
+                return item.WoundedCount;
+            });
+            this.TroopNumberLabel = $"({healthyTroops} + {wounded}w / {totalTroops})";
+        }
+
+
+        public string ParentTag { get; set; }
 
         [DataSourceProperty]
         public MBBindingList<PartyCharacterVM> TroopList
@@ -74,12 +93,20 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         public string TransferLabel
         {
             get => _transferLabel;
+            set
+            {
+                if (value != _transferLabel)
+                {
+                    _transferLabel = value;
+                    base.OnPropertyChanged(nameof(TransferLabel));
+                }
+            }
         }
 
         [DataSourceProperty]
         public bool IsHeaderVisible
         {
-            get => this.Category != Category.SYSTEM;
+            get => true;
         }
     }
 }

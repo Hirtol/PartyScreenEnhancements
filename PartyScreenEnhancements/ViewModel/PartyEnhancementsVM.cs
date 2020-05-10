@@ -130,16 +130,25 @@ namespace PartyScreenEnhancements.ViewModel
 
         public void OpenSettingView()
         {
-            if (_settingLayer == null)
+            try
             {
-                _settingLayer = new GauntletLayer(200);
-                _settingScreenVm = new SettingScreenVM(this, _parentScreen);
-                _currentMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
-                _settingLayer.IsFocusLayer = true;
-                ScreenManager.TrySetFocus(_settingLayer);
-                _settingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
-                _parentScreen.AddLayer(_settingLayer);
-                _settingLayer.InputRestrictions.SetInputRestrictions();
+                if (_settingLayer == null)
+                {
+                    _settingLayer = new GauntletLayer(200);
+                    _settingScreenVm = new SettingScreenVM(this, _parentScreen);
+                    _currentMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
+                    _settingLayer.IsFocusLayer = true;
+                    ScreenManager.TrySetFocus(_settingLayer);
+                    _settingLayer.Input.RegisterHotKeyCategory(
+                        HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
+                    _parentScreen.AddLayer(_settingLayer);
+                    _settingLayer.InputRestrictions.SetInputRestrictions();
+                }
+            }
+            catch (Exception e)
+            {
+                FileLog.Log($"PSE Exception upon opening SettingScreen: {e}");
+                Utilities.DisplayMessage($"PSE Exception: {e}");
             }
         }
 

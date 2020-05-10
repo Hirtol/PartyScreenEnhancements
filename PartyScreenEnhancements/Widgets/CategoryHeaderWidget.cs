@@ -73,7 +73,8 @@ namespace PartyScreenEnhancements.Widgets
 			}
 			this._listPanel.ItemAfterRemoveEventHandlers.Add(new Action<Widget>(this.OnListSizeChange));
 			this._listPanel.ItemAddEventHandlers.Add(new Action<Widget, Widget>(this.OnListSizeChange));
-			this.UpdateSize();
+
+            this.UpdateSize();
 		}
 
 		private void TransferButtonUpdated()
@@ -102,7 +103,7 @@ namespace PartyScreenEnhancements.Widgets
 		}
 
 		[Editor(false)]
-		public ListPanel ListPanel
+		public CategoryListWidget ListPanel
 		{
 			get
 			{
@@ -113,9 +114,9 @@ namespace PartyScreenEnhancements.Widgets
 				if (this._listPanel != value)
 				{
 					this._listPanel = value;
-					base.OnPropertyChanged(value, "ListPanel");
+					base.OnPropertyChanged(value, nameof(ListPanel));
 					this.ListPanelUpdated();
-				}
+                }
 			}
 		}
 
@@ -167,7 +168,7 @@ namespace PartyScreenEnhancements.Widgets
 				if (this._isRelevant != value)
 				{
 					this._isRelevant = value;
-					base.OnPropertyChanged(value, "IsRelevant");
+					base.OnPropertyChanged(value, nameof(IsRelevant));
 					if (!this._isRelevant)
 					{
 						base.IsVisible = false;
@@ -176,14 +177,30 @@ namespace PartyScreenEnhancements.Widgets
 			}
 		}
 
+        [Editor(false)]
+		public string Label
+        {
+            get => _label;
+            set
+            {
+                if (this._label != value)
+                {
+                    this._label = value;
+					base.OnPropertyChanged(value, nameof(Label));
+                }
+            }
+        }
+
 		private int _latestChildCount;
 
-		private ListPanel _listPanel;
+		private CategoryListWidget _listPanel;
 
 		private ButtonWidget _transferButtonWidget;
 
 		private Widget _collapseIndicator;
 
 		private bool _isRelevant = true;
-	}
+
+        private string _label;
+    }
 }

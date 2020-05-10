@@ -76,7 +76,7 @@
     <ListPanel Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop">
       <Children>
         <CategoryHeaderWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width" SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                 Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
+                                 Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator" Label="@TransferLabel"
                                  ListPanel="..\TestList\List" RenderLate="true"
                                  WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
                                  IsRelevant="@IsHeaderVisible" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
@@ -128,16 +128,17 @@
         <Widget Id="TestList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
           <Children>
 
-            <!--_____Main Party Troops_______-->
-            <ListPanel Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
+            <!--Category Troops-->
+            <!--TODO: Fix CommandParameter.Drop since it doesn't accept variables sadly.-->
+            <CategoryListWidget Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
                        HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
-                       AcceptDrop="true" Command.Drop="..\..\..\ExecutePSETransferWithParameters"
-                       CommandParameter.Drop="@TransferLabel" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                       AcceptDrop="true" Command.Drop="..\..\..\..\ExecutePSETransferWithParameters"
+                       LayoutImp.LayoutMethod="VerticalBottomToTop" ParentCategory="..\..\CategoryWidget">
               <ItemTemplate>
                 <PartyTroopTuple ButtonType="Radio" MarginLeft="30">
                 </PartyTroopTuple>
               </ItemTemplate>
-            </ListPanel>
+            </CategoryListWidget>
 
             <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="0" VerticalAlignment="Top" IsDisabled="true">
               <Children>

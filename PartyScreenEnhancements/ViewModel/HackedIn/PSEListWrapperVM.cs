@@ -33,30 +33,48 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             Utilities.DisplayMessage("Hello World " + party + " at index: " + index + " with tag " + targetTag);
             if (party is PartyCharacterVM character)
             {
+                var currentCategory = _primary.FindRelevantCategory(character?.Character?.StringId ?? "NULL");
                 PartyScreenLogic.PartyRosterSide side = character.Side;
                 PartyScreenLogic.PartyRosterSide partyRosterSide = targetTag.StartsWith("MainParty") ? PartyScreenLogic.PartyRosterSide.Right : PartyScreenLogic.PartyRosterSide.Left;
+
+                // To Main party (head label)
                 if (targetTag == "MainParty")
                 {
                     index = -1;
                 }
+                // Prisoner, irrelevant for main troops.
                 else if (targetTag.EndsWith("Prisoners") != character.IsPrisoner)
                 {
                     index = -1;
                 }
+                // To category
+                if (targetTag.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX) || currentCategory != null)
+                {
+                    Utilities.DisplayMessage("Transfer Category");
+                    _primary.OnTransferTroop(character, index, character.Number, character.Side, currentCategory, targetTag);
+                    return;
+                }
+                // If different side (left to right, or vice-versa)
                 if (side != partyRosterSide && character.IsTroopTransferrable)
                 {
-                    _primary.OnTransferTroop(character, index, character.Number, character.Side, targetTag);
+                    Utilities.DisplayMessage("Transfer other");
+                    _primary.OnTransferTroop(character, index, character.Number, character.Side, currentCategory, targetTag);
                     _partyVm.ExecuteRemoveZeroCounts();
                     return;
                 }
+                // If we're on the same side as before, to account for in-category shift, TODO: Make better to account for left to right
                 if (side == PartyScreenLogic.PartyRosterSide.Right)
                 {
+                    Utilities.DisplayMessage("Shift");
                     _primary.OnShiftTroop(character, index);
                 }
             }
             else if (party is PartyCategoryVM category)
             {
-                _primary.CategoryShift(category, index);
+                if(category.ParentTag.Equals(targetTag))
+                    _primary.CategoryShift(category, index);
+                else
+                    Utilities.DisplayMessage("Category side switching is not implemented!");
             }
             else if(party is PSEWrapperVM wrapper)
             {
