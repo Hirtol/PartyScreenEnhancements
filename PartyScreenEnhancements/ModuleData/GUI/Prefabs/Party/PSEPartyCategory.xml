@@ -73,7 +73,7 @@
 
   </VisualDefinitions>
   <Window>
-    <ListPanel Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop">
+    <CategoryListWidget Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop" AcceptDrop="true" Command.Drop="..\..\..\ExecutePSETransferWithParameters" ParentCategory="CategoryWidget">
       <Children>
         <CategoryHeaderWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width" SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center" VerticalAlignment="Center"
                                  Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator" Label="@TransferLabel"
@@ -129,11 +129,10 @@
           <Children>
 
             <!--Category Troops-->
-            <!--TODO: Fix CommandParameter.Drop since it doesn't accept variables sadly.-->
             <CategoryListWidget Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
-                       HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
-                       AcceptDrop="true" Command.Drop="..\..\..\..\ExecutePSETransferWithParameters"
-                       LayoutImp.LayoutMethod="VerticalBottomToTop" ParentCategory="..\..\CategoryWidget">
+                                HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                AcceptDrop="true" Command.Drop="..\..\..\..\ExecutePSETransferWithParameters"
+                                LayoutImp.LayoutMethod="VerticalBottomToTop" ParentCategory="..\..\CategoryWidget">
               <ItemTemplate>
                 <PartyTroopTuple ButtonType="Radio" MarginLeft="30">
                 </PartyTroopTuple>
@@ -149,6 +148,6 @@
           </Children>
         </Widget>
       </Children>
-    </ListPanel>
+    </CategoryListWidget>
   </Window>
 </Prefab>

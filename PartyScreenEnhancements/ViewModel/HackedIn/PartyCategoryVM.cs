@@ -18,14 +18,14 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         private string _troopNumberLabel;
         
 
-        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, Func<MBBindingList<PartyCharacterVM>, int, string> troopUpdate, string parentTag)
+        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, string parentTag)
         {
             this._subList = sublist;
             this._name = name;
             this._transferLabel = CATEGORY_LABEL_PREFIX + _name;
             this.ParentTag = parentTag;
             UpdateLabel();
-            
+
         }
 
         public void UpdateLabel()

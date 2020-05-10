@@ -1,6 +1,8 @@
 ﻿using System;
+using HarmonyLib;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
+using PartyScreenEnhancements.ViewModel.HackedIn;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
@@ -14,6 +16,7 @@ namespace PartyScreenEnhancements.ViewModel
     {
         private MBBindingList<PartyCharacterVM> _mainPartyList;
         private MBBindingList<PartyCharacterVM> _mainPartyPrisoners;
+        private MBBindingList<PSEWrapperVM> _enhancedMainParty;
         private PartyScreenLogic _partyLogic;
         private PartyVM _partyVM;
 
@@ -28,6 +31,9 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyLogic = logic;
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
+            var traverser = new Traverse(_partyVM).Field("CategoryList");
+            if(traverser.FieldExists())
+                this._enhancedMainParty = traverser.GetValue<MBBindingList<PSEWrapperVM>>();
             this._sortHint = new HintViewModel("Sort Troops\nCtrl Click to sort just main party");
         }
 
@@ -44,10 +50,23 @@ namespace PartyScreenEnhancements.ViewModel
         {
             var settings = PartyScreenConfig.ExtraSettings;
 
+            // if (settings.ShowVisualAdditions)
+            // {
+            //     AlternateSort();
+            //     return;
+            // }
+
             try
             {
+                if (settings.ShowVisualAdditions && _enhancedMainParty != null)
+                {
 
-                SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
+                }
+                else
+                {
+                    SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
+                }
+                
 
                 if (!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
                 {
@@ -87,6 +106,12 @@ namespace PartyScreenEnhancements.ViewModel
                 Utilities.DisplayMessage($"PSE Sorting Unit Exception: {e}");
             }
         }
+
+        public void AlternateSort()
+        {
+            throw new NotImplementedException();
+        }
+
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)
         {
             if(rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
