@@ -7,8 +7,10 @@ using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.HackedIn;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.MountAndBlade;
 using UIExtenderLib.Interface;
 
 namespace PartyScreenEnhancements.Extensions
@@ -307,6 +309,9 @@ namespace PartyScreenEnhancements.Extensions
                     InitialiseCategories();
                     break;
                 case ListChangedType.Sorted:
+                    //TODO: Consider making this an explicit method call from SortAllTroopsVM instead
+                    // Currently this will only be called so long as the PartyVM's MainTroopList is unsorted.
+                    // Which will, at worst, only be once per entry to the party view, and thus you can't sort multiple times.
                     Utilities.DisplayMessage("Hey, Sort!");
                     SortLocalLists();
                     // _mainPartyWrappers.Clear();
@@ -317,13 +322,64 @@ namespace PartyScreenEnhancements.Extensions
             }
         }
 
+
+        //TODO: Consider making own MBBindingList implementation so we avoid the need for reflection.
+        // Will need to observe side effects, but so long as TaleWorlds use their IMBBindingList interface
+        // it should be fine.
         public void SortLocalLists()
         {
             _mainPartyIndexList.Clear();
             InitialiseMirrorLists();
 
             var wrapperComparer = new WrapperComparer(PartyScreenConfig.ExtraSettings.PartySorter);
-            _mainPartyWrappers.Sort(wrapperComparer);
+
+            var categoryPositions = _mainPartyWrappers.GetCategoryPositions();
+
+            // Yes, it's faster to use reflection than take out the categories and re-insert them.
+            // This is thanks to the (what I assume to be) incredibly slow Widget construction process.
+            var traverser = new Traverse(_mainPartyWrappers);
+
+            //TODO: Consider caching this upon construction of the VM.
+            
+            List<PSEWrapperVM> _mainList =
+                traverser.Field("_list").GetValue<List<PSEWrapperVM>>();
+
+            int n = 0;
+
+            // Move the categories to the end of the list while remembering their previous position
+            // This will allow us to soon move them back while keeping the list sorted.
+            foreach (var keyValuePair in categoryPositions)
+            {
+                n++;
+                _mainPartyWrappers.Swap(keyValuePair.Value, _mainPartyWrappers.Count-n);
+                // Also sort the sublist.
+                keyValuePair.Key.TroopList.Sort(PartyScreenConfig.ExtraSettings.PartySorter);
+            }
+
+            // Sort everything but the categories
+            _mainList.Sort(0, _mainPartyWrappers.Count-n, wrapperComparer);
+
+            // Move everything up to make space for the insertion
+            foreach (var keyValuePair in categoryPositions)
+            {
+                var last = _mainList[_mainPartyWrappers.Count - n];
+
+                for (int i = _mainPartyWrappers.Count - n; i > keyValuePair.Value; i--)
+                    _mainList[i] = _mainList[i - 1];
+                _mainPartyWrappers[keyValuePair.Value] = last;
+
+                n--;
+            }
+
+
+            // Called to make the game update the view.
+            traverser.Method("FireListChanged", new[] {typeof(ListChangedType), typeof(int)})
+                .GetValue(ListChangedType.Sorted, -1);
+        }
+
+        private void SortSubCategory(PartyCategoryVM category)
+        {
+            category.TroopList.Sort();
         }
 
         public void InitialiseCategories()
@@ -406,6 +462,7 @@ namespace PartyScreenEnhancements.Extensions
                 PropagateLayout();
             else
                 Utilities.DisplayMessage("Canceled!");
+            PropagateLayout();
             PartyScreenConfig.Save();
 
             _mainPartyWrappers = null;
@@ -504,5 +561,28 @@ namespace PartyScreenEnhancements.Extensions
         }
 
         public IList<MBBindingList<PSEWrapperVM>> CategoryRosters { get; set; }
+    }
+
+    public static class Extensions
+    {
+        public static void Swap<T>(this IList<T> list, int index1, int index2)
+        {
+            T temp = list[index1];
+            list[index1] = list[index2];
+            list[index2] = temp;
+        }
+
+        public static IDictionary<PartyCategoryVM, int> GetCategoryPositions(this MBBindingList<PSEWrapperVM> list)
+        {
+            var result = new Dictionary<PartyCategoryVM, int>(5);
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                if(list[i].IsCategory)
+                    result.Add((list[i].WrapperViewModel as PartyCategoryVM), i);
+            }
+
+            return result;
+        }
     }
 }

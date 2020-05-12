@@ -19,7 +19,6 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         private readonly PartyVMMixin _primary;
         private readonly PartyVM _partyVm;
 
-
         public PSEListWrapperVM(PartyVMMixin mixin, PartyVM partyVm)
         {
             _primary = mixin;
