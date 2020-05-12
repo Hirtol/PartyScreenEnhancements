@@ -265,6 +265,7 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PSESortingSelectorLayer.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
     <Compile Include="Comparers\WrapperComparer.cs" />
+    <Compile Include="Extensions\CustomPartyScreenWidgetPatch.cs" />
     <Compile Include="Extensions\PartyCharacterVMMixin.cs" />
     <Compile Include="Extensions\MainPartyListReplacementPatch.cs" />
     <Compile Include="Extensions\PartyVMMixin.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Extensions\PartyTroopTuplePatch.cs" />
+    <Compile Include="Patches\TempPartyScreenWidgetPatch.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="Utilities.cs" />
@@ -300,6 +302,7 @@
     <Compile Include="Widgets\AscDescWidget.cs" />
     <Compile Include="Widgets\CategoryHeaderWidget.cs" />
     <Compile Include="Widgets\CategoryListWidget.cs" />
+    <Compile Include="Widgets\CustomPartyScreenWidget.cs" />
     <Compile Include="Widgets\RadioButtonWidget.cs" />
     <Compile Include="Widgets\SettingSortWidget.cs" />
     <Compile Include="SubModule.cs" />

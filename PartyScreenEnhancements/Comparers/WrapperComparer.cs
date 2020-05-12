@@ -21,7 +21,7 @@ namespace PartyScreenEnhancements.Comparers
 
         public int Compare(PSEWrapperVM x, PSEWrapperVM y)
         {
-            if (x.IsPartyCharacter || y.IsPartyCharacter) 
+            if (x.IsCategory || y.IsCategory) 
                 return 0;
             else 
                 return _otherSorter.Compare(x.WrapperViewModel as PartyCharacterVM, y.WrapperViewModel as PartyCharacterVM);

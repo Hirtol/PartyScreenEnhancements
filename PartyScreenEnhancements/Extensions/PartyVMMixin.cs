@@ -85,16 +85,11 @@ namespace PartyScreenEnhancements.Extensions
 
             var characterWrapper = new PSEWrapperVM(character);
 
-            PartyScreenConfig.TroopCategoryBindings.Remove(character.Character.StringId);
-
-            if (fromCategory != null)
-                fromCategory.TroopList.Remove(character);
-            else
-                _mainPartyWrappers.Remove(characterWrapper);
-
             // To Category
             if (targetList.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX))
             {
+                RemoveCharacterFromLists(character, fromCategory, characterWrapper);
+
                 PartyCategoryVM targetCategory = GetCategoryFromName(targetList);
 
                 if (targetCategory == null)
@@ -133,31 +128,37 @@ namespace PartyScreenEnhancements.Extensions
 
                 newIndex++;
 
-                if (ValidateShift(character, newIndex) && character.Type == PartyScreenLogic.TroopType.Member &&
-                    characterSide == PartyScreenLogic.PartyRosterSide.Left)
-                {
-                    PartyScreenLogic.PartyRosterSide newSide = characterSide == PartyScreenLogic.PartyRosterSide.Right
-                        ? PartyScreenLogic.PartyRosterSide.Left
-                        : PartyScreenLogic.PartyRosterSide.Right;
+                if(!ValidateShift(character, newIndex))
+                    return;
 
-                    if (newSide == PartyScreenLogic.PartyRosterSide.Right)
-                    {
-                        character.OnTransfer(character, newIndex, characterNumber, characterSide);
-                        _viewModel.CurrentCharacter = character;
-                        return;
-                    }
+                RemoveCharacterFromLists(character, fromCategory, characterWrapper);
+
+                if (character.Type == PartyScreenLogic.TroopType.Member && characterSide == PartyScreenLogic.PartyRosterSide.Left)
+                {
+                    character.OnTransfer(character, newIndex, characterNumber, characterSide);
+                    _viewModel.CurrentCharacter = character;
 
                     character.ThrowOnPropertyChanged();
                     RefreshTopInformation();
                 }
                 else
                 {
-                    if(!ValidateShift(character, newIndex))
                     OnShiftTroop(character, newIndex);
                 }
             }
 
             Update?.Invoke(_mainPartyWrappers);
+        }
+
+        private void RemoveCharacterFromLists(PartyCharacterVM character, PartyCategoryVM fromCategory,
+            PSEWrapperVM characterWrapper)
+        {
+            PartyScreenConfig.TroopCategoryBindings.Remove(character.Character.StringId);
+
+            if (fromCategory != null)
+                fromCategory.TroopList.Remove(character);
+            else
+                _mainPartyWrappers.Remove(characterWrapper);
         }
 
         public void OnShiftTroop(PartyCharacterVM characterVm, int newIndex)
@@ -400,6 +401,7 @@ namespace PartyScreenEnhancements.Extensions
         public override void OnFinalize()
         {
             base.OnFinalize();
+            //TODO: Fix the fact that this is always called ?????
             if (!_logic.IsCancelActive())
                 PropagateLayout();
             else
