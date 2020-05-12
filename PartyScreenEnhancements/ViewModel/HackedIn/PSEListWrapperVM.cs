@@ -32,7 +32,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             Utilities.DisplayMessage("Hello World " + party + " at index: " + index + " with tag " + targetTag);
             if (party is PartyCharacterVM character)
             {
-                var currentCategory = _primary.FindRelevantCategory(character?.Character?.StringId ?? "NULL");
+                var currentCategory = _primary.FindRelevantCategory(character.Character?.StringId ?? "NULL");
                 PartyScreenLogic.PartyRosterSide side = character.Side;
                 PartyScreenLogic.PartyRosterSide partyRosterSide = targetTag.StartsWith("MainParty") ? PartyScreenLogic.PartyRosterSide.Right : PartyScreenLogic.PartyRosterSide.Left;
 
@@ -41,18 +41,32 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
                 {
                     index = -1;
                 }
-                // Prisoner, irrelevant for main troops.
-                else if (targetTag.EndsWith("Prisoners") != character.IsPrisoner)
+
+                //From category
+                if (currentCategory != null && !currentCategory.Label.Equals(targetTag))
                 {
-                    index = -1;
+                    if(!targetTag.StartsWith("MainParty"))
+                    {
+                        Utilities.DisplayMessage("Shift Category");
+                        _primary.OnShiftCategoryTroop(character, index, targetTag);
+                        return;
+                    }
+                    else
+                    {
+                        Utilities.DisplayMessage("Transfer From Category");
+                        _primary.OnTransferTroop(character, index, character.Number, character.Side, currentCategory, targetTag);
+                        return;
+                    }
                 }
+
                 // To category
-                if (targetTag.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX) || currentCategory != null)
+                if (targetTag.StartsWith(PartyCategoryVM.CATEGORY_LABEL_PREFIX))
                 {
                     Utilities.DisplayMessage("Transfer Category");
                     _primary.OnTransferTroop(character, index, character.Number, character.Side, currentCategory, targetTag);
                     return;
                 }
+
                 // If different side (left to right, or vice-versa)
                 if (side != partyRosterSide && character.IsTroopTransferrable)
                 {
@@ -61,6 +75,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
                     _partyVm.ExecuteRemoveZeroCounts();
                     return;
                 }
+
                 // If we're on the same side as before, to account for in-category shift, TODO: Make better to account for left to right
                 if (side == PartyScreenLogic.PartyRosterSide.Right)
                 {

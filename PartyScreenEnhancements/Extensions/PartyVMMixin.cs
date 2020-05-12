@@ -79,7 +79,6 @@ namespace PartyScreenEnhancements.Extensions
             _viewModel.MainPartyTotalSpeedLbl = CampaignUIHelper.FloatToString(MobileParty.MainParty.ComputeSpeed());
         }
 
-        //TODO: Fix cast exception when selecting PartyCharacterVM on the left side after transfering from the right.
         public void OnTransferTroop(PartyCharacterVM character, int newIndex, int characterNumber,
             PartyScreenLogic.PartyRosterSide characterSide, PartyCategoryVM fromCategory, string targetList)
         {
@@ -161,6 +160,32 @@ namespace PartyScreenEnhancements.Extensions
                 fromCategory.TroopList.Remove(character);
             else
                 _mainPartyWrappers.Remove(characterWrapper);
+        }
+
+        public void OnShiftCategoryTroop(PartyCharacterVM characterVm, int newIndex, string targetTag)
+        {
+            var category = GetCategoryFromName(targetTag);
+
+            if (characterVm.Side == PartyScreenLogic.PartyRosterSide.None) return;
+            _viewModel.CurrentCharacter = characterVm;
+
+            if (newIndex >= 0)
+            {
+                if (characterVm.Type == PartyScreenLogic.TroopType.Member)
+                {
+                    var sideList = category.TroopList;
+
+                    InsertIntoBindingList(characterVm, newIndex, sideList);
+
+                    characterVm.ThrowOnPropertyChanged();
+                    RefreshTopInformation();
+                }
+                else
+                {
+                    Utilities.DisplayMessage("You may not shift prisoners!");
+                    throw new NotImplementedException("You may not shift prisoners!");
+                }
+            }
         }
 
         public void OnShiftTroop(PartyCharacterVM characterVm, int newIndex)
@@ -312,12 +337,7 @@ namespace PartyScreenEnhancements.Extensions
                     //TODO: Consider making this an explicit method call from SortAllTroopsVM instead
                     // Currently this will only be called so long as the PartyVM's MainTroopList is unsorted.
                     // Which will, at worst, only be once per entry to the party view, and thus you can't sort multiple times.
-                    Utilities.DisplayMessage("Hey, Sort!");
                     SortLocalLists();
-                    // _mainPartyWrappers.Clear();
-                    // _mainPartyIndexList.Clear();
-                    // _privateCategoryList.Clear();
-                    // InitialiseCategories();
                     break;
             }
         }
@@ -357,6 +377,7 @@ namespace PartyScreenEnhancements.Extensions
             }
 
             // Sort everything but the categories
+            // The 'custom' sort call here is why we needed reflection, since MBBindingList doesn't have this.
             _mainList.Sort(0, _mainPartyWrappers.Count-n, wrapperComparer);
 
             // Move everything up to make space for the insertion
@@ -375,11 +396,6 @@ namespace PartyScreenEnhancements.Extensions
             // Called to make the game update the view.
             traverser.Method("FireListChanged", new[] {typeof(ListChangedType), typeof(int)})
                 .GetValue(ListChangedType.Sorted, -1);
-        }
-
-        private void SortSubCategory(PartyCategoryVM category)
-        {
-            category.TroopList.Sort();
         }
 
         public void InitialiseCategories()
