@@ -6,9 +6,11 @@
     <Constant Name="PartyToggle.Margin" Value="30" />
     <Constant Name="PartyToggle.Width" BrushLayer="Default" BrushName="Party.Toggle.Left" BrushValueType="Width" />
     <Constant Name="PartyToggle.Height" BrushLayer="Default" BrushName="Party.Toggle.Left" BrushValueType="Height" />
-    <Constant Name="PartyToggle.Shadow.Height" SpriteName="PartyScreen\button_collapser_shadow" SpriteValueType="Height" />
+    <Constant Name="PartyToggle.Shadow.Height" SpriteName="PartyScreen\button_collapser_shadow"
+              SpriteValueType="Height" />
 
-    <Constant Name="PartyToggle.Pressed.Width" BrushLayer="PressedLayer" BrushName="Party.Toggle.Left" BrushValueType="Width" />
+    <Constant Name="PartyToggle.Pressed.Width" BrushLayer="PressedLayer" BrushName="Party.Toggle.Left"
+              BrushValueType="Width" />
 
     <Constant Name="ToggleLabel.Margin" Value="260" />
 
@@ -24,31 +26,47 @@
 
     <Constant Name="Scrollbar.Margin" Value="2" />
 
-    <Constant Name="TopBackground.Width" BrushLayer="Default" BrushName="Party.TopLeft.Background" BrushValueType="Width" />
-    <Constant Name="TopBackground.Height" BrushLayer="Default" BrushName="Party.TopLeft.Background" BrushValueType="Height" />
+    <Constant Name="TopBackground.Width" BrushLayer="Default" BrushName="Party.TopLeft.Background"
+              BrushValueType="Width" />
+    <Constant Name="TopBackground.Height" BrushLayer="Default" BrushName="Party.TopLeft.Background"
+              BrushValueType="Height" />
 
-    <Constant Name="Party.QuestProgress.Background.Width" BrushLayer="Default" BrushName="Party.QuestProgress.Background" BrushValueType="Width" />
-    <Constant Name="Party.QuestProgress.Background.Height" BrushLayer="Default" BrushName="Party.QuestProgress.Background" BrushValueType="Height" />
+    <Constant Name="Party.QuestProgress.Background.Width" BrushLayer="Default"
+              BrushName="Party.QuestProgress.Background" BrushValueType="Width" />
+    <Constant Name="Party.QuestProgress.Background.Height" BrushLayer="Default"
+              BrushName="Party.QuestProgress.Background" BrushValueType="Height" />
 
-    <Constant Name="Party.QuestProgress.BarCanvas.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Width" />
-    <Constant Name="Party.QuestProgress.BarCanvas.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Height" />
+    <Constant Name="Party.QuestProgress.BarCanvas.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarCanvas"
+              BrushValueType="Width" />
+    <Constant Name="Party.QuestProgress.BarCanvas.Height" BrushLayer="Default"
+              BrushName="Party.QuestProgress.BarCanvas" BrushValueType="Height" />
 
-    <Constant Name="Party.QuestProgress.BarFrame.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame" BrushValueType="Width" />
-    <Constant Name="Party.QuestProgress.BarFrame.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame" BrushValueType="Height" />
+    <Constant Name="Party.QuestProgress.BarFrame.Width" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame"
+              BrushValueType="Width" />
+    <Constant Name="Party.QuestProgress.BarFrame.Height" BrushLayer="Default" BrushName="Party.QuestProgress.BarFrame"
+              BrushValueType="Height" />
 
-    <Constant Name="Party.Formation.MainButton.Width" BrushLayer="Default" BrushName="Party.Formation.MainButton" BrushValueType="Width" />
-    <Constant Name="Party.Formation.MainButton.Height" BrushLayer="Default" BrushName="Party.Formation.MainButton" BrushValueType="Height" />
+    <Constant Name="Party.Formation.MainButton.Width" BrushLayer="Default" BrushName="Party.Formation.MainButton"
+              BrushValueType="Width" />
+    <Constant Name="Party.Formation.MainButton.Height" BrushLayer="Default" BrushName="Party.Formation.MainButton"
+              BrushValueType="Height" />
 
-    <Constant Name="Party.Formation.Item.Width" BrushLayer="Default" BrushName="Party.Formation.Item" BrushValueType="Width" />
-    <Constant Name="Party.Formation.Item.Height" BrushLayer="Default" BrushName="Party.Formation.Item" BrushValueType="Height" />
+    <Constant Name="Party.Formation.Item.Width" BrushLayer="Default" BrushName="Party.Formation.Item"
+              BrushValueType="Width" />
+    <Constant Name="Party.Formation.Item.Height" BrushLayer="Default" BrushName="Party.Formation.Item"
+              BrushValueType="Height" />
 
-    <Constant Name="Party.Formation.Seperator.Width" BrushLayer="Default" BrushName="Party.Formation.Seperator" BrushValueType="Width" />
-    <Constant Name="Party.Formation.Seperator.Height" BrushLayer="Default" BrushName="Party.Formation.Seperator" BrushValueType="Height" />
+    <Constant Name="Party.Formation.Seperator.Width" BrushLayer="Default" BrushName="Party.Formation.Seperator"
+              BrushValueType="Width" />
+    <Constant Name="Party.Formation.Seperator.Height" BrushLayer="Default" BrushName="Party.Formation.Seperator"
+              BrushValueType="Height" />
 
     <Constant Name="TransferAllButton.Margin" Value="5" />
 
-    <Constant Name="TransferAllButton.Width" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1" BrushValueType="Width" />
-    <Constant Name="TransferAllButton.Height" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1" BrushValueType="Height" />
+    <Constant Name="TransferAllButton.Width" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1"
+              BrushValueType="Width" />
+    <Constant Name="TransferAllButton.Height" BrushLayer="Default" BrushName="ButtonLeftDoubleArrowBrush1"
+              BrushValueType="Height" />
 
     <Constant Name="PartyNameLabel.Height" Value="80" />
     <Constant Name="PartyToggle.LabelContainer.Margin" Value="10" />
@@ -57,13 +75,38 @@
 
     <Constant Name="FormationListPanel.MarginTop" Value="13" />
     <Constant Name="FormationListPanel.Height" Value="522" />
-    <Constant Name="FormationClipRect.Height" Additive="!FormationListPanel.MarginTop" Value="!FormationListPanel.Height" />
+    <Constant Name="FormationClipRect.Height" Additive="!FormationListPanel.MarginTop"
+              Value="!FormationListPanel.Height" />
     <Constant Name="FormationListPanel.NegativeHeight" MultiplyResult="-1" Value="!FormationListPanel.Height" />
 
-    <Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Width" />
-    <Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator" BrushValueType="Height" />
+    <Constant Name="Party.Toggle.ExpandIndicator.Width" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator"
+              BrushValueType="Width" />
+    <Constant Name="Party.Toggle.ExpandIndicator.Height" BrushLayer="Default" BrushName="Party.Toggle.ExpandIndicator"
+              BrushValueType="Height" />
   </Constants>
   <VisualDefinitions>
+    <VisualDefinition Name="LeftMenu" TransitionDuration="0.2">
+      <VisualState PositionXOffset="0" State="Default" />
+    </VisualDefinition>
+    <VisualDefinition Name="RightMenu" TransitionDuration="0.2">
+      <VisualState PositionXOffset="0" State="Default" />
+    </VisualDefinition>
+    <VisualDefinition Name="TopMenu" TransitionDuration="0.2">
+      <VisualState PositionYOffset="0" State="Default" />
+    </VisualDefinition>
+    <VisualDefinition Name="BottomMenu" DelayOnBegin="0.2" TransitionDuration="0.4">
+      <VisualState PositionYOffset="0" State="Default" />
+    </VisualDefinition>
+    <VisualDefinition Name="FormationListPanel" DelayOnBegin="0.0" TransitionDuration="0.2">
+      <VisualState PositionYOffset="!FormationListPanel.NegativeHeight" State="Default" />
+      <VisualState PositionYOffset="!FormationListPanel.NegativeHeight" State="Closed" />
+      <VisualState PositionYOffset="0" State="Opened" />
+    </VisualDefinition>
+    <VisualDefinition Name="FormationSeperator" TransitionDuration="0.01">
+      <VisualState SuggestedWidth="0" State="Default" />
+      <VisualState SuggestedWidth="26" State="Closed" />
+      <VisualState SuggestedWidth="!Party.Formation.Seperator.Width" State="Opened" />
+    </VisualDefinition>
     <VisualDefinition Name="Toggle" TransitionDuration="0.045">
       <VisualState SuggestedWidth="!PartyToggle.Width" State="Default" />
       <VisualState SuggestedWidth="!PartyToggle.Pressed.Width" State="Pressed" />
@@ -73,81 +116,180 @@
 
   </VisualDefinitions>
   <Window>
-    <CategoryListWidget Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren" SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top" LayoutImp.LayoutMethod="VerticalBottomToTop" AcceptDrop="true" Command.Drop="..\..\..\ExecutePSETransferWithParameters" ParentCategory="CategoryWidget">
+
+    <Widget WidthSizePolicy="CoverChildren" HeightSizePolicy="CoverChildren">
       <Children>
-        <CategoryHeaderWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width" SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center" VerticalAlignment="Center"
-                                 Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator" Label="@TransferLabel"
-                                 ListPanel="..\TestList\List" RenderLate="true"
-                                 WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
-                                 IsRelevant="@IsHeaderVisible" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
+
+        <CategoryListWidget Id="SecondaryList" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+                            SuggestedWidth="!PartyToggle.Width" HorizontalAlignment="Center" VerticalAlignment="Top"
+                            LayoutImp.LayoutMethod="VerticalBottomToTop" AcceptDrop="true"
+                            Command.Drop="..\..\..\ExecutePSETransferWithParameters" ParentCategory="CategoryWidget">
           <Children>
-
-            <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="20"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                       MarginBottom="10" IsDisabled="true"
-                       LayoutImp.LayoutMethod="HorizontalLeftToRight">
+            <CategoryHeaderWidget Id="CategoryWidget" VisualDefinition="Toggle" WidthSizePolicy="Fixed"
+                                  HeightSizePolicy="Fixed" SuggestedWidth="!PartyToggle.Width"
+                                  SuggestedHeight="!PartyToggle.Height" HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Brush="Party.Toggle.Right" CollapseIndicator="Description\CollapseIndicator"
+                                  Label="@TransferLabel"
+                                  ListPanel="..\TestList\List" RenderLate="true"
+                                  WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
+                                  IsRelevant="@IsHeaderVisible" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
               <Children>
-                <Widget Id="CollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                        SuggestedWidth="50"
-                        SuggestedHeight="50" VerticalAlignment="Center"
-                        PositionYOffset="5" MarginRight="5" Brush="Party.Toggle.ExpandIndicator" />
-                <RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
-                                HorizontalAlignment="Center" VerticalAlignment="Center" MarginRight="5"
-                                Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Right" Text="@Label" />
-                <TextWidget Id="MainPartyTroopsLabel" WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
-                            HorizontalAlignment="Center" VerticalAlignment="Center" MarginLeft="5"
-                            Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Left" Text="@TroopNumberLabel"
-                            PositionYOffset="5" />
+
+                <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="20"
+                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                           MarginBottom="10" MarginLeft="20" IsDisabled="true"
+                           LayoutImp.LayoutMethod="HorizontalLeftToRight">
+                  <Children>
+                    <Widget Id="CollapseIndicator" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                            SuggestedWidth="35"
+                            SuggestedHeight="35" VerticalAlignment="Center"
+                            PositionYOffset="5" MarginRight="5" Brush="Party.Toggle.ExpandIndicator" />
+                    <RichTextWidget WidthSizePolicy="CoverChildren" HeightSizePolicy="StretchToParent"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" MarginRight="5"
+                                    Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Right" Text="@Label" />
+                    <TextWidget Id="MainPartyTroopsLabel" WidthSizePolicy="CoverChildren"
+                                HeightSizePolicy="StretchToParent"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" MarginLeft="5"
+                                Brush="Party.Text.Toggle" Brush.TextHorizontalAlignment="Left" Text="@TroopNumberLabel"
+                                PositionYOffset="5" />
+
+                    <!--!Party.Formation.Item.Width  !FormationClipRect.Height-->
+
+
+
+                  </Children>
+                </ListPanel>
+
+                <Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+                        HeightSizePolicy="Fixed" SuggestedWidth="320" SuggestedHeight="40" HorizontalAlignment="Left"
+                        VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
+                  <Children>
+                    <RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320"
+                                    HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="20" MarginTop="10"
+                                    MarginBottom="10" Brush="Recruitment.Popup.Title.Text" Text="@Label"
+                                    Brush.FontSize="40" IsDisabled="true" />
+                  </Children>
+                </Widget>
+
+                <!-- <HintWidget DataSource="{MainPartyTroopSizeLimitHint}" WidthSizePolicy="StretchToParent" -->
+                <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
+                <!--             Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
+
+                <!-- <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" -->
+                <!--               HeightSizePolicy="Fixed" SuggestedWidth="50" -->
+                <!--               SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Center" -->
+                <!--               MarginLeft="30" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" -->
+                <!--               Command.Click="ExecuteTransferAllMainTroops" /> -->
+                <!--   <Children> -->
+                <!--     <HintWidget DataSource="{TransferAllMainTroopsHint}" WidthSizePolicy="StretchToParent" -->
+                <!--                 HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
+                <!--                 Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
+                <!--   </Children> -->
+                <!-- </ButtonWidget> -->
               </Children>
-            </ListPanel>
+            </CategoryHeaderWidget>
 
-            <Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="320" SuggestedHeight="40" HorizontalAlignment="Left" VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
+            <Widget Id="TestList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
               <Children>
-                <RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="20" MarginTop="10" MarginBottom="10" Brush="Recruitment.Popup.Title.Text" Text="@Label" Brush.FontSize="40" IsDisabled="true" />
+
+                <!--Category Troops-->
+                <CategoryListWidget Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                    AcceptDrop="true" Command.Drop="..\..\..\..\ExecutePSETransferWithParameters"
+                                    LayoutImp.LayoutMethod="VerticalBottomToTop" ParentCategory="..\..\CategoryWidget">
+                  <ItemTemplate>
+                    <PartyTroopTuple ButtonType="Radio" MarginLeft="30">
+                    </PartyTroopTuple>
+                  </ItemTemplate>
+                </CategoryListWidget>
+
+                <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="0"
+                        VerticalAlignment="Top" IsDisabled="true">
+                  <Children>
+                    <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed"
+                            SuggestedHeight="!PartyToggle.Shadow.Height" VerticalAlignment="Top"
+                            Sprite="PartyScreen\button_collapser_shadow" IsDisabled="true" />
+                  </Children>
+                </Widget>
+
               </Children>
             </Widget>
-
-            <!-- <HintWidget DataSource="{MainPartyTroopSizeLimitHint}" WidthSizePolicy="StretchToParent" -->
-            <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
-            <!--             Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
-
-            <!-- <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" -->
-            <!--               HeightSizePolicy="Fixed" SuggestedWidth="50" -->
-            <!--               SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Center" -->
-            <!--               MarginLeft="30" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" -->
-            <!--               Command.Click="ExecuteTransferAllMainTroops" /> -->
-            <!--   <Children> -->
-            <!--     <HintWidget DataSource="{TransferAllMainTroopsHint}" WidthSizePolicy="StretchToParent" -->
-            <!--                 HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
-            <!--                 Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
-            <!--   </Children> -->
-            <!-- </ButtonWidget> -->
           </Children>
-        </CategoryHeaderWidget>
+        </CategoryListWidget>
 
-        <Widget Id="TestList" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
+        <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+                              SuggestedWidth="!Party.Formation.Item.Width" HorizontalAlignment="Right"
+                              VerticalAlignment="Top" PositionXOffset="0" MarginRight="10" >
           <Children>
 
-            <!--Category Troops-->
-            <CategoryListWidget Id="List" DataSource="{TroopList}" WidthSizePolicy="StretchToParent"
-                                HeightSizePolicy="CoverChildren" HorizontalAlignment="Center" VerticalAlignment="Top"
-                                AcceptDrop="true" Command.Drop="..\..\..\..\ExecutePSETransferWithParameters"
-                                LayoutImp.LayoutMethod="VerticalBottomToTop" ParentCategory="..\..\CategoryWidget">
-              <ItemTemplate>
-                <PartyTroopTuple ButtonType="Radio" MarginLeft="30">
-                </PartyTroopTuple>
-              </ItemTemplate>
-            </CategoryListWidget>
-
-            <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="0" VerticalAlignment="Top" IsDisabled="true">
+            <PartyFormationDropdownWidget DataSource="{CharacterFormationSelector}"
+                                          WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
+                                          Button="DropdownButton" CurrentSelectedIndex="@SelectedIndex"
+                                          ListPanel="ClipRect\DropdownListPanel" ListStateChanger="ClipRect"
+                                          RichTextWidget="DropdownButton\SelectedTextWidget"
+                                          SeperatorStateChanger="Seperator">
               <Children>
-                <Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="!PartyToggle.Shadow.Height" VerticalAlignment="Top" Sprite="PartyScreen\button_collapser_shadow" IsDisabled="true" />
-              </Children>
-            </Widget>
+                <ButtonWidget Id="DropdownButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+                              HeightSizePolicy="Fixed" SuggestedWidth="50"
+                              SuggestedHeight="50" HorizontalAlignment="Center"
+                              VerticalAlignment="Top" Brush="Party.Formation.MainButton">
+                  <Children>
+                    <RichTextWidget Id="SelectedTextWidget" WidthSizePolicy="StretchToParent"
+                                    HeightSizePolicy="StretchToParent" HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" PositionYOffset="-5" Brush.FontSize="50"
+                                    Brush.TextVerticalAlignment="Center" Text=" " />
+                    <HintWidget DataSource="{..\..\..\..\FormationHint}" DoNotAcceptEvents="true"
+                                WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
+                                Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                  </Children>
+                </ButtonWidget>
 
+                <DelayedStateChanger Id="ClipRect" WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
+                                     SuggestedWidth="58" SuggestedHeight="50"
+                                     HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="86" DoNotAcceptEvents="true"
+                                     ClipContents="true" TargetWidget="DropdownListPanel">
+                  <Children>
+                    <ListPanel Id="DropdownListPanel" DataSource="{ItemList}" DoNotAcceptEvents="true"
+                               VisualDefinition="FormationListPanel" WidthSizePolicy="CoverChildren"
+                               HeightSizePolicy="CoverChildren" HorizontalAlignment="Center"
+                               MarginTop="!FormationListPanel.MarginTop" IsVisible="false"
+                               LayoutImp.LayoutMethod="VerticalBottomToTop">
+                      <ItemTemplate>
+                        <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+                                      HeightSizePolicy="Fixed" SuggestedWidth="!Party.Formation.Item.Width"
+                                      SuggestedHeight="!Party.Formation.Item.Height"
+                                      HorizontalAlignment="Center" VerticalAlignment="Bottom" MarginTop="4"
+                                      MarginBottom="4" Brush="Party.Formation.Item" ButtonType="Radio"
+                                      DominantSelectedState="false">
+                          <Children>
+                            <RichTextWidget WidthSizePolicy="StretchToParent"
+                                            HeightSizePolicy="StretchToParent" HorizontalAlignment="Center"
+                                            PositionYOffset="-5" Brush.FontSize="50"
+                                            Brush.TextVerticalAlignment="Center" Text="@StringItem" />
+                            <HintWidget DataSource="{Hint}" WidthSizePolicy="StretchToParent"
+                                        HeightSizePolicy="StretchToParent"
+                                        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                          </Children>
+                        </ButtonWidget>
+                      </ItemTemplate>
+                    </ListPanel>
+                  </Children>
+                </DelayedStateChanger>
+
+                <DelayedStateChanger Id="Seperator" VisualDefinition="FormationSeperator" DoNotAcceptEvents="true"
+                                     WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                     SuggestedWidth="!Party.Formation.Seperator.Width"
+                                     SuggestedHeight="!Party.Formation.Seperator.Height"
+                                     HorizontalAlignment="Center" MarginTop="75"
+                                     Brush="Party.Formation.Seperator" />
+
+              </Children>
+            </PartyFormationDropdownWidget>
           </Children>
         </Widget>
+
       </Children>
-    </CategoryListWidget>
+    </Widget>
   </Window>
 </Prefab>

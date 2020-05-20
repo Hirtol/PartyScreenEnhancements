@@ -9,7 +9,9 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
 using UIExtenderLib.Interface;
 
@@ -33,6 +35,9 @@ namespace PartyScreenEnhancements.Extensions
 
         private MBBindingList<PSEWrapperVM> _mainPartyWrappers;
         private MBBindingList<PSEWrapperVM> _privateCategoryList;
+
+        private List<Tuple<string, TextObject>> _formationNames;
+        private List<SelectorItemVM> _formationItemVms;
 
         private IList<PartyCharacterVM> _mainPartyIndexList;
 
@@ -59,11 +64,20 @@ namespace PartyScreenEnhancements.Extensions
                 return;
             }
 
+            _formationItemVms = new List<SelectorItemVM>(10);
+
+            for (int i = 0; i < this.FormationNames.Count; i++)
+            {
+                _formationItemVms.Add(new SelectorItemVM(this.FormationNames[i].Item1, this.FormationNames[i].Item2));
+            }
+
             _wrapper = new PSEListWrapperVM(this, _viewModel);
             Update += UpdateLabels;
             InitialiseCategories();
 
             (_viewModel.MainPartyTroops as IMBBindingList).ListChanged += PartyVMMixin_ListChanged;
+
+            
 
 
             // _viewModel.MainPartyTroops.ApplyActionOnAllItems(character => _categoryList.Add(new PSEWrapperVM(character)));
@@ -82,7 +96,7 @@ namespace PartyScreenEnhancements.Extensions
         public void OnTransferTroop(PartyCharacterVM character, int newIndex, int characterNumber,
             PartyScreenLogic.PartyRosterSide characterSide, PartyCategoryVM fromCategory, string targetList)
         {
-            if (newIndex < 0) return;
+            if (newIndex < 0 || character.Character == CharacterObject.PlayerCharacter) return;
 
             var characterWrapper = new PSEWrapperVM(character);
 
@@ -409,7 +423,7 @@ namespace PartyScreenEnhancements.Extensions
                 {
                     _privateCategoryList.Add(new PSEWrapperVM(new PartyCategoryVM(new MBBindingList<PartyCharacterVM>(),
                         name,
-                        "MainPartyTroops")));
+                        "MainPartyTroops", _formationItemVms)));
                 }
             }
 
@@ -548,6 +562,25 @@ namespace PartyScreenEnhancements.Extensions
                 character.Troop.Xp);
         }
 
+        public List<Tuple<string, TextObject>> FormationNames
+        {
+            get
+            {
+                if (this._formationNames == null)
+                {
+                    int num = 8;
+                    this._formationNames = new List<Tuple<string, TextObject>>(num + 1);
+                    for (int i = 0; i < num; i++)
+                    {
+                        string item = "<img src=\"PartyScreen\\FormationIcons\\" + (i + 1) + "\"/>";
+                        TextObject item2 = GameTexts.FindText("str_troop_group_name", i.ToString());
+                        this._formationNames.Add(new Tuple<string, TextObject>(item, item2));
+                    }
+                }
+                return this._formationNames;
+            }
+        }
+
         [DataSourceProperty]
         public MBBindingList<PSEWrapperVM> MainPartyWrappers
         {
@@ -599,6 +632,14 @@ namespace PartyScreenEnhancements.Extensions
             }
 
             return result;
+        }
+
+        public static void AddRange<T>(this IList<T> list, IEnumerable<T> toAdd)
+        {
+            foreach (T item in toAdd)
+            {
+                list.Add(item);
+            }
         }
     }
 }

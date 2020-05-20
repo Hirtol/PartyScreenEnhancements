@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PartyScreenEnhancements.Extensions;
+using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Core;
+using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel.HackedIn
@@ -13,19 +17,37 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         public const string CATEGORY_LABEL_PREFIX = "PSE_CATEGORY_";
 
         private MBBindingList<PartyCharacterVM> _subList;
+        private CategoryInformation _information;
+
+
+        //TODO: Fix  the listpanel being extended due to formation selector. will need custom parent widget to only expand based on the formation
+        // list expansion, as well as the basic id="SecondaryList"
+        private SelectorVM<SelectorItemVM> _currentFormationSelector;
         private string _name;
         private string _transferLabel;
         private string _troopNumberLabel;
         
 
-        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, string parentTag)
+        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, string parentTag, IEnumerable<SelectorItemVM> formationList)
         {
             this._subList = sublist;
+            this._currentFormationSelector = new SelectorVM<SelectorItemVM>(new List<string>(), (int) FormationClass.Infantry, ExecuteSetAllTroopsToFormation);
+            _currentFormationSelector.ItemList.AddRange(formationList);
             this._name = name;
             this._transferLabel = CATEGORY_LABEL_PREFIX + _name;
             this.ParentTag = parentTag;
             UpdateLabel();
+        }
 
+        public void ExecuteSetAllTroopsToFormation(SelectorVM<SelectorItemVM> vm)
+        {
+            if((FormationClass) vm.SelectedIndex != FormationClass.Unset)
+            {
+                foreach (PartyCharacterVM character in _subList)
+                {
+                    character.Character.CurrentFormationClass = (FormationClass) vm.SelectedIndex;
+                }
+            }
         }
 
         public void UpdateLabel()
@@ -45,6 +67,21 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
 
 
         public string ParentTag { get; set; }
+
+
+        [DataSourceProperty]
+        public SelectorVM<SelectorItemVM> CharacterFormationSelector
+        {
+            get => this._currentFormationSelector;
+            set
+            {
+                if (value != this._currentFormationSelector)
+                {
+                    this._currentFormationSelector = value;
+                    base.OnPropertyChanged(nameof(CharacterFormationSelector));
+                }
+            }
+        }
 
         [DataSourceProperty]
         public MBBindingList<PartyCharacterVM> TroopList

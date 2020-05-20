@@ -274,6 +274,7 @@
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Extensions\PartyTroopTuplePatch.cs" />
     <Compile Include="Patches\TempPartyScreenWidgetPatch.cs" />
+    <Compile Include="Saving\CategoryInformation.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="Utilities.cs" />
