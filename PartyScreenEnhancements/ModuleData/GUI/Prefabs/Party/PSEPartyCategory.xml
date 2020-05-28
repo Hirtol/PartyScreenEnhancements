@@ -218,6 +218,8 @@
           </Children>
         </CategoryListWidget>
 
+        <!--Formation Selector-->
+
         <Widget WidthSizePolicy="Fixed" HeightSizePolicy="CoverChildren"
                               SuggestedWidth="!Party.Formation.Item.Width" HorizontalAlignment="Right"
                               VerticalAlignment="Top" PositionXOffset="0" MarginRight="10" >

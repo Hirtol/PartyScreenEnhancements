@@ -17,8 +17,6 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         public const string CATEGORY_LABEL_PREFIX = "PSE_CATEGORY_";
 
         private MBBindingList<PartyCharacterVM> _subList;
-        private CategoryInformation _information;
-
 
         //TODO: Fix  the listpanel being extended due to formation selector. will need custom parent widget to only expand based on the formation
         // list expansion, as well as the basic id="SecondaryList"
@@ -26,22 +24,38 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         private string _name;
         private string _transferLabel;
         private string _troopNumberLabel;
-        
 
-        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, string name, string parentTag, IEnumerable<SelectorItemVM> formationList)
+        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, CategoryInformation information, string parentTag, IEnumerable<SelectorItemVM> formationList)
         {
             this._subList = sublist;
-            this._currentFormationSelector = new SelectorVM<SelectorItemVM>(new List<string>(), (int) FormationClass.Infantry, ExecuteSetAllTroopsToFormation);
-            _currentFormationSelector.ItemList.AddRange(formationList);
-            this._name = name;
+            this.Information = information;
+            this._currentFormationSelector = new SelectorVM<SelectorItemVM>(new List<string>(), information.SelectedFormation, ExecuteSetAllTroopsToFormation);
+            this._currentFormationSelector.ItemList.AddRange(formationList);
+            this._name = information.Name;
             this._transferLabel = CATEGORY_LABEL_PREFIX + _name;
             this.ParentTag = parentTag;
             UpdateLabel();
         }
 
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+
+            this.Information = null;
+            this.TroopList = null;
+            this.CharacterFormationSelector = null;
+        }
+
+        public void Rename(string newName)
+        {
+            this.Label = newName;
+        }
+
         public void ExecuteSetAllTroopsToFormation(SelectorVM<SelectorItemVM> vm)
         {
-            if((FormationClass) vm.SelectedIndex != FormationClass.Unset)
+            this.Information.SelectedFormation = CharacterFormationSelector.SelectedIndex;
+
+            if ((FormationClass) vm.SelectedIndex != FormationClass.Unset)
             {
                 foreach (PartyCharacterVM character in _subList)
                 {
@@ -65,6 +79,8 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             this.TroopNumberLabel = $"({healthyTroops} + {wounded}w / {totalTroops})";
         }
 
+
+        public CategoryInformation Information { get; private set; }
 
         public string ParentTag { get; set; }
 
@@ -106,6 +122,7 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
                 if (value != _name)
                 {
                     _name = value;
+                    this.Information.Name = value;
                     base.OnPropertyChanged(nameof(Label));
                 }
             }

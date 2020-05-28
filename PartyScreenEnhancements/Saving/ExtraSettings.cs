@@ -22,9 +22,11 @@ namespace PartyScreenEnhancements.Saving
         private bool _separateSorting = true;
         private bool _shouldShowCompletePartyNumber = false;
 
-        [XmlElement("GeneralLog")] public bool ShowGeneralLogMessage { get; set; } = true;
+        [XmlElement("GeneralLog")] 
+        public bool ShowGeneralLogMessage { get; set; } = true;
 
-        [XmlElement("RecruitByDefault")] public bool RecruitByDefault { get; set; } = true;
+        [XmlElement("RecruitByDefault")] 
+        public bool RecruitByDefault { get; set; } = true;
 
         [XmlElement("CategoryNumbers")]
         public bool DisplayCategoryNumbers
@@ -77,6 +79,9 @@ namespace PartyScreenEnhancements.Saving
 
         [XmlElement("GarrisonSorter")]
         public PartySort GarrisonSorter { get; set; } = PartyScreenConfig.DefaultSorter;
+
+        [XmlElement("CategoryInformationList")]
+        public List<CategoryInformation> CategoryInformationList { get; set; } = new List<CategoryInformation>();
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

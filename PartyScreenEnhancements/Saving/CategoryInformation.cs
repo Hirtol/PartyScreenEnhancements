@@ -19,5 +19,12 @@ namespace PartyScreenEnhancements.Saving
         public CategoryInformation()
         {
         }
+
+        public CategoryInformation(string name, int initialFormation = 1, int initialIndex = -1)
+        {
+            this.Name = name;
+            this.SelectedFormation = initialFormation;
+            this.CurrentIndexInMainList = initialIndex;
+        }
     }
 }

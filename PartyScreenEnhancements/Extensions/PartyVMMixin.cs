@@ -234,6 +234,8 @@ namespace PartyScreenEnhancements.Extensions
 
             InsertIntoBindingList(new PSEWrapperVM(category), newIndex, sideList);
 
+            category.Information.CurrentIndexInMainList = newIndex;
+
             RefreshTopInformation();
         }
 
@@ -419,10 +421,10 @@ namespace PartyScreenEnhancements.Extensions
 
             if (_privateCategoryList.IsEmpty())
             {
-                foreach (var name in names)
+                foreach (var categoryInformation in PartyScreenConfig.ExtraSettings.CategoryInformationList)
                 {
                     _privateCategoryList.Add(new PSEWrapperVM(new PartyCategoryVM(new MBBindingList<PartyCharacterVM>(),
-                        name,
+                        categoryInformation,
                         "MainPartyTroops", _formationItemVms)));
                 }
             }
@@ -439,8 +441,8 @@ namespace PartyScreenEnhancements.Extensions
                         var wrappedCategory = new PSEWrapperVM(relevantCategory);
                         relevantCategory.TroopList.Add(character);
                         relevantCategory.UpdateLabel();
-                        if (!_mainPartyWrappers.Contains(wrappedCategory))
-                            _mainPartyWrappers.Add(wrappedCategory);
+                        // if (!_mainPartyWrappers.Contains(wrappedCategory))
+                        //     _mainPartyWrappers.Add(wrappedCategory);
                     }
                 }
                 else
@@ -453,7 +455,18 @@ namespace PartyScreenEnhancements.Extensions
             _privateCategoryList.ApplyActionOnAllItems(wrapper =>
             {
                 if (!_mainPartyWrappers.Contains(wrapper))
-                    _mainPartyWrappers.Add(wrapper);
+                {
+                    var insertLocation =
+                        ((PartyCategoryVM) wrapper.WrapperViewModel).Information.CurrentIndexInMainList;
+                    if (insertLocation > 0 && insertLocation < _mainPartyWrappers.Count)
+                    {
+                        _mainPartyWrappers.Insert(insertLocation, wrapper);
+                    }
+                    else
+                    {
+                        _mainPartyWrappers.Add(wrapper);
+                    }
+                }
             });
         }
 
@@ -492,7 +505,12 @@ namespace PartyScreenEnhancements.Extensions
                 PropagateLayout();
             else
                 Utilities.DisplayMessage("Canceled!");
+            
             PropagateLayout();
+
+            //Has to be called after propagate
+            _privateCategoryList.ApplyActionOnAllItems(wrapper => ((PartyCategoryVM) wrapper.WrapperViewModel).OnFinalize());
+
             PartyScreenConfig.Save();
 
             _mainPartyWrappers = null;
@@ -506,7 +524,7 @@ namespace PartyScreenEnhancements.Extensions
         private PartyCategoryVM GetCategoryFromName(string targetList)
         {
             return _privateCategoryList.FirstOrDefault(wrapper =>
-                    (wrapper.WrapperViewModel as PartyCategoryVM).TransferLabel.Equals(targetList))
+                    ((PartyCategoryVM) wrapper.WrapperViewModel).TransferLabel.Equals(targetList))
                 ?.WrapperViewModel as PartyCategoryVM;
         }
 
