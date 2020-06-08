@@ -7,10 +7,10 @@ using UIExtenderLib.Interface;
 
 namespace PartyScreenEnhancements.Extensions
 {
-    [PrefabExtension("PartyScreen", "descendant::PartyHeaderToggleWidget[@Id='MainPartyTroopsToggleWidget']")]
+    [PrefabExtension("PartyScreen", "descendant::PartyHeaderToggleWidget[@Id='MainPartyTroopsToggleWidget']/Children")]
     public class CategoryAdditionPartyPatch : PrefabExtensionInsertPatch
     {
-        public override int Position => 3;
+        public override int Position => PositionLast;
         public override string Name => "CategoryAddition";
     }
 }

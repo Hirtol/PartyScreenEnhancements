@@ -101,6 +101,7 @@ namespace PartyScreenEnhancements.Extensions
             // _categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "Normal Category", CreateTroopLabel, Category.USER_DEFINED)));
         }
 
+        [DataSourceMethod]
         public void ExecuteOpenCategoryManager()
         {
             try
@@ -133,6 +134,7 @@ namespace PartyScreenEnhancements.Extensions
                 _parentScreen.RemoveLayer(_addCategoryLayer);
                 _addCategoryLayer.InputRestrictions.ResetInputRestrictions();
                 _addCategoryLayer = null;
+                _categoryManager.OnFinalize();
                 _categoryManager = null;
             }
         }
@@ -551,6 +553,10 @@ namespace PartyScreenEnhancements.Extensions
         public override void OnFinalize()
         {
             base.OnFinalize();
+
+            (_viewModel.MainPartyTroops as IMBBindingList).ListChanged -= PartyVMMixin_ListChanged;
+            this.Update -= UpdateLabels;
+
             //TODO: Fix the fact that this is always called ?????
             if (!_logic.IsCancelActive())
                 PropagateLayout();

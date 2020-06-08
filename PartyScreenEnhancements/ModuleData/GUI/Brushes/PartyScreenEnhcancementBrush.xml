@@ -37,7 +37,26 @@
 			</Style>
 		</Styles>
 	</Brush>
-	<Brush Name="Party.Enhancement.SortParty">
+  <Brush Name="Party.Enhancement.AddCategory">
+    <Layers>
+      <BrushLayer Name="Default" Sprite="StdAssets\plus_icon" Color="#FF9900FF"	/>
+    </Layers>
+    <Styles>
+      <Style Name="Default">
+        <BrushLayer Name="Default" ColorFactor="1.0"/>
+      </Style>
+      <Style Name="Hovered">
+        <BrushLayer Name="Default" ColorFactor="1.2" />
+      </Style>
+      <Style Name="Pressed">
+        <BrushLayer Name="Default" ColorFactor="0.8" />
+      </Style>
+      <Style Name="Disabled">
+        <BrushLayer Name="Default" ColorFactor="0.6" />
+      </Style>
+    </Styles>
+  </Brush>
+  <Brush Name="Party.Enhancement.SortParty">
 		<Layers>
 			<BrushLayer Name="Default" Sprite="StdAssets\sort" Color="#dbb766FF" VerticalFlip="true"/>
 		</Layers>
