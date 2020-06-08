@@ -31,6 +31,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         public override void OnFinalize()
         {
             base.OnFinalize();
+            PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
             _mainParty.OnFinalize();
             _mainPrisoners.OnFinalize();
             _mainGarrison.OnFinalize();

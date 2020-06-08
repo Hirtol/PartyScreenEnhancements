@@ -59,6 +59,7 @@ namespace PartyScreenEnhancements.ViewModel
             base.OnFinalize();
 
             _logic.UpdateDelegate = Delegate.Remove(_logic.UpdateDelegate, new PartyScreenLogic.PresentationUpdate(RefreshDelegate)) as PartyScreenLogic.PresentationUpdate;
+            PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
 
             this._mainPartyList = null;
             this._otherPartyList = null;

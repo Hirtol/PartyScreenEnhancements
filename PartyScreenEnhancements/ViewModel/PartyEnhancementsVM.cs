@@ -126,6 +126,18 @@ namespace PartyScreenEnhancements.ViewModel
             _partyScreenLogic.AfterReset -= AfterReset;
             _partyScreenLogic.Update -= UpdateLabel;
             PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
+
+            _unitTallyVm.OnFinalize();
+            _recruitLimitVM.OnFinalize();
+            _recruitPrisonerVm.OnFinalize();
+            _upgradeTroopsVM.OnFinalize();
+            _sortTroopsVM.OnFinalize();
+
+            _unitTallyVm = null;
+            _recruitLimitVM = null;
+            _recruitPrisonerVm = null;
+            _upgradeTroopsVM = null;
+            _sortTroopsVM = null;
         }
 
         public void OpenSettingView()
@@ -160,6 +172,7 @@ namespace PartyScreenEnhancements.ViewModel
                 _parentScreen.RemoveLayer(_settingLayer);
                 _settingLayer.InputRestrictions.ResetInputRestrictions();
                 _settingLayer = null;
+                _settingScreenVm.OnFinalize();
                 _settingScreenVm = null;
                 RefreshValues();
             }
