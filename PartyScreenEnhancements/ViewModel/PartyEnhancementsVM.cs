@@ -158,7 +158,6 @@ namespace PartyScreenEnhancements.ViewModel
                 _parentScreen.RemoveLayer(_settingLayer);
                 _settingLayer.InputRestrictions.ResetInputRestrictions();
                 _settingLayer = null;
-                _settingScreenVm.OnFinalize();
                 _settingScreenVm = null;
                 RefreshValues();
             }
