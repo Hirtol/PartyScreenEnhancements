@@ -1,0 +1,5 @@
+﻿<ButtonWidget Id="AddCategoryButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width" SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right" VerticalAlignment="Center" MarginLeft="!TransferAllButton.Margin" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" Sprite="StdAssets\plus_icon" Command.Click="ExecuteOpenCategoryManager">
+  <Children>
+    <HintWidget DataSource="{AddCategoryHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsDisabled="true"/>
+  </Children>
+</ButtonWidget>

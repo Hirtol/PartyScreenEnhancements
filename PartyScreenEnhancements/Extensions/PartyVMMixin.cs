@@ -5,11 +5,17 @@ using HarmonyLib;
 using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.HackedIn;
+using PartyScreenEnhancements.ViewModel.Settings;
+using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.CampaignSystem.ViewModelCollection.ClanManagement;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Engine.GauntletUI;
+using TaleWorlds.Engine.Screens;
+using TaleWorlds.GauntletUI.Data;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using TaleWorlds.MountAndBlade;
@@ -33,6 +39,13 @@ namespace PartyScreenEnhancements.Extensions
         private PartyScreenLogic _logic;
         private PSEListWrapperVM _wrapper;
 
+        private HintViewModel _addCategoryHint;
+
+        private GauntletLayer _addCategoryLayer;
+        private readonly GauntletPartyScreen _parentScreen;
+        private GauntletMovie _currentMovie;
+        private CategoryManagerVM _categoryManager;
+
         private MBBindingList<PSEWrapperVM> _mainPartyWrappers;
         private MBBindingList<PSEWrapperVM> _privateCategoryList;
 
@@ -47,6 +60,9 @@ namespace PartyScreenEnhancements.Extensions
             _mainPartyWrappers = new MBBindingList<PSEWrapperVM>();
             _privateCategoryList = new MBBindingList<PSEWrapperVM>();
             _mainPartyIndexList = new List<PartyCharacterVM>();
+            _addCategoryHint = new HintViewModel("Add Category");
+
+            _parentScreen = ScreenManager.TopScreen as GauntletPartyScreen;
 
             CategoryRosters = new List<MBBindingList<PSEWrapperVM>> {_mainPartyWrappers};
 
@@ -83,6 +99,42 @@ namespace PartyScreenEnhancements.Extensions
             // _viewModel.MainPartyTroops.ApplyActionOnAllItems(character => _categoryList.Add(new PSEWrapperVM(character)));
             // //_categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "", CreateTroopLabel, Category.SYSTEM)));
             // _categoryList.Add(new PSEWrapperVM(new PartyCategoryVM(_viewModel.MainPartyTroops, "Normal Category", CreateTroopLabel, Category.USER_DEFINED)));
+        }
+
+        public void ExecuteOpenCategoryManager()
+        {
+            try
+            {
+                if (_addCategoryLayer == null)
+                {
+                    _addCategoryLayer = new GauntletLayer(201);
+                    _categoryManager = new CategoryManagerVM(CloseSettingView);
+                    _currentMovie = _addCategoryLayer.LoadMovie("PSECategoryManager", _categoryManager);
+                    _addCategoryLayer.IsFocusLayer = true;
+                    ScreenManager.TrySetFocus(_addCategoryLayer);
+                    _addCategoryLayer.Input.RegisterHotKeyCategory(
+                        HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
+                    _parentScreen.AddLayer(_addCategoryLayer);
+                    _addCategoryLayer.InputRestrictions.SetInputRestrictions();
+                }
+            }
+            catch (Exception e)
+            {
+                FileLog.Log($"PSE Exception upon opening SettingScreen: {e}");
+                Utilities.DisplayMessage($"PSE Exception: {e}");
+            }
+        }
+
+        private void CloseSettingView()
+        {
+            if (_addCategoryLayer != null)
+            {
+                _addCategoryLayer.ReleaseMovie(_currentMovie);
+                _parentScreen.RemoveLayer(_addCategoryLayer);
+                _addCategoryLayer.InputRestrictions.ResetInputRestrictions();
+                _addCategoryLayer = null;
+                _categoryManager = null;
+            }
         }
 
         private void RefreshTopInformation()
@@ -451,7 +503,6 @@ namespace PartyScreenEnhancements.Extensions
                 }
             }
 
-            //TODO: Save order of the _categoryList and reapply here.
             _privateCategoryList.ApplyActionOnAllItems(wrapper =>
             {
                 if (!_mainPartyWrappers.Contains(wrapper))
@@ -623,6 +674,19 @@ namespace PartyScreenEnhancements.Extensions
                 {
                     _wrapper = value;
                     _viewModel.OnPropertyChanged(nameof(PSEListWrapper));
+                }
+            }
+        }
+
+        [DataSourceProperty]
+        public HintViewModel AddCategoryHint {
+            get => _addCategoryHint;
+            set
+            {
+                if (value != this._addCategoryHint)
+                {
+                    this._addCategoryHint = value;
+                    _viewModel.OnPropertyChanged(nameof(AddCategoryHint));
                 }
             }
         }

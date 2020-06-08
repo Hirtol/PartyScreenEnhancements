@@ -53,13 +53,16 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
 
         public void ExecuteSetAllTroopsToFormation(SelectorVM<SelectorItemVM> vm)
         {
-            this.Information.SelectedFormation = CharacterFormationSelector.SelectedIndex;
-
-            if ((FormationClass) vm.SelectedIndex != FormationClass.Unset)
+            if(this.Information != null && this.CharacterFormationSelector != null)
             {
-                foreach (PartyCharacterVM character in _subList)
+                this.Information.SelectedFormation = CharacterFormationSelector.SelectedIndex;
+
+                if ((FormationClass) vm.SelectedIndex != FormationClass.Unset)
                 {
-                    character.Character.CurrentFormationClass = (FormationClass) vm.SelectedIndex;
+                    foreach (PartyCharacterVM character in _subList)
+                    {
+                        character.Character.CurrentFormationClass = (FormationClass) vm.SelectedIndex;
+                    }
                 }
             }
         }

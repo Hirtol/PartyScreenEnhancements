@@ -253,9 +253,11 @@
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
+    <Content Include="ModuleData\GUI\PrefabExtensions\CategoryAddition.xml" />
     <Content Include="ModuleData\GUI\PrefabExtensions\MainListReplacement.xml" />
     <Content Include="ModuleData\GUI\PrefabExtensions\TestingTesting.xml" />
     <Compile Include="Comparers\WoundedComparer.cs" />
+    <Content Include="ModuleData\GUI\Prefabs\Party\PSECategoryManager.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PSEPartyCategory.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PSEWrapper.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\General\PartyEnhancementGeneralTab.xml" />
@@ -265,6 +267,7 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PSESortingSelectorLayer.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
     <Compile Include="Comparers\WrapperComparer.cs" />
+    <Compile Include="Extensions\CategoryAdditionPartyPatch.cs" />
     <Compile Include="Extensions\CustomPartyScreenWidgetPatch.cs" />
     <Compile Include="Extensions\PartyCharacterVMMixin.cs" />
     <Compile Include="Extensions\MainPartyListReplacementPatch.cs" />
@@ -279,6 +282,7 @@
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="Utilities.cs" />
     <Compile Include="ViewModel\HackedIn\Category.cs" />
+    <Compile Include="ViewModel\HackedIn\CategoryManagerVM.cs" />
     <Compile Include="ViewModel\HackedIn\PartyCategoryVM.cs" />
     <Compile Include="ViewModel\HackedIn\PSEListWrapperVM.cs" />
     <Compile Include="ViewModel\HackedIn\PSEWrapperVM.cs" />

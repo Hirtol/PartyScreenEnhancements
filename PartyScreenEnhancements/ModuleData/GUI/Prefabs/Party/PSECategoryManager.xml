@@ -1,0 +1,18 @@
+﻿<Prefab>
+  <Constants />
+  <Variables />
+  <Window>
+    <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
+		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
+      <Children>
+        <Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1600"
+				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
+          <Children>
+
+            <ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="50" SuggestedWidth="50" VerticalAlignment="Top" HorizontalAlignment="Center" MarginTop="20" MarginLeft="1500" Brush="Popup.CloseButton"/>
+          </Children>
+        </Widget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>
