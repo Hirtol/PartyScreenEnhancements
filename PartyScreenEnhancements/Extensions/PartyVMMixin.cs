@@ -87,8 +87,8 @@ namespace PartyScreenEnhancements.Extensions
                 _formationItemVms.Add(new SelectorItemVM(this.FormationNames[i].Item1, this.FormationNames[i].Item2));
             }
 
-            _wrapper = new PSEListWrapperVM(this, _viewModel);
-            Update += UpdateLabels;
+            this._wrapper = new PSEListWrapperVM(this, _viewModel);
+            this.Update += UpdateLabels;
             InitialiseCategories();
 
             (_viewModel.MainPartyTroops as IMBBindingList).ListChanged += PartyVMMixin_ListChanged;
@@ -109,7 +109,7 @@ namespace PartyScreenEnhancements.Extensions
                 if (_addCategoryLayer == null)
                 {
                     _addCategoryLayer = new GauntletLayer(201);
-                    _categoryManager = new CategoryManagerVM(CloseSettingView);
+                    _categoryManager = new CategoryManagerVM(CloseSettingView, OnCategoryAddition);
                     _currentMovie = _addCategoryLayer.LoadMovie("PSECategoryManager", _categoryManager);
                     _addCategoryLayer.IsFocusLayer = true;
                     ScreenManager.TrySetFocus(_addCategoryLayer);
@@ -124,6 +124,27 @@ namespace PartyScreenEnhancements.Extensions
                 FileLog.Log($"PSE Exception upon opening SettingScreen: {e}");
                 Utilities.DisplayMessage($"PSE Exception: {e}");
             }
+        }
+
+        public void OnRemoveCategory(PartyCategoryVM category)
+        {
+            PartyScreenConfig.ExtraSettings.CategoryInformationList.Remove(category.Information);
+            foreach (var item in PartyScreenConfig.TroopCategoryBindings.Where(kvp => kvp.Value == category.Information.Name).ToList())
+            {
+                PartyScreenConfig.TroopCategoryBindings.Remove(item.Key);
+            }
+            _privateCategoryList.Remove(new PSEWrapperVM(category));
+            this.PartyVMMixin_ListChanged(this, new ListChangedEventArgs(ListChangedType.Reset, 0));
+            category.OnFinalize();
+        }
+
+        private void OnCategoryAddition(CategoryInformation categoryInformation)
+        {
+            var wrapper = new PSEWrapperVM(new PartyCategoryVM(new MBBindingList<PartyCharacterVM>(),
+                categoryInformation,
+                "MainPartyTroops", _formationItemVms, OnRemoveCategory));
+            this._privateCategoryList.Add(wrapper);
+            AddCategoryWrapperToParty(wrapper);
         }
 
         private void CloseSettingView()
@@ -479,7 +500,7 @@ namespace PartyScreenEnhancements.Extensions
                 {
                     _privateCategoryList.Add(new PSEWrapperVM(new PartyCategoryVM(new MBBindingList<PartyCharacterVM>(),
                         categoryInformation,
-                        "MainPartyTroops", _formationItemVms)));
+                        "MainPartyTroops", _formationItemVms, OnRemoveCategory)));
                 }
             }
 
@@ -505,22 +526,24 @@ namespace PartyScreenEnhancements.Extensions
                 }
             }
 
-            _privateCategoryList.ApplyActionOnAllItems(wrapper =>
+            _privateCategoryList.ApplyActionOnAllItems(AddCategoryWrapperToParty);
+        }
+
+        private void AddCategoryWrapperToParty(PSEWrapperVM wrapper)
+        {
+            if (!_mainPartyWrappers.Contains(wrapper))
             {
-                if (!_mainPartyWrappers.Contains(wrapper))
+                var insertLocation =
+                    ((PartyCategoryVM)wrapper.WrapperViewModel).Information.CurrentIndexInMainList;
+                if (insertLocation > 0 && insertLocation < _mainPartyWrappers.Count)
                 {
-                    var insertLocation =
-                        ((PartyCategoryVM) wrapper.WrapperViewModel).Information.CurrentIndexInMainList;
-                    if (insertLocation > 0 && insertLocation < _mainPartyWrappers.Count)
-                    {
-                        _mainPartyWrappers.Insert(insertLocation, wrapper);
-                    }
-                    else
-                    {
-                        _mainPartyWrappers.Add(wrapper);
-                    }
+                    _mainPartyWrappers.Insert(insertLocation, wrapper);
                 }
-            });
+                else
+                {
+                    _mainPartyWrappers.Add(wrapper);
+                }
+            }
         }
 
         private void InitialiseMirrorLists()
@@ -570,6 +593,8 @@ namespace PartyScreenEnhancements.Extensions
 
             PartyScreenConfig.Save();
 
+            _wrapper.OnFinalize();
+
             _mainPartyWrappers = null;
             _viewModel = null;
             _privateCategoryList = null;
@@ -615,14 +640,17 @@ namespace PartyScreenEnhancements.Extensions
 
         private void PropagateRelevantRoster(TroopRoster roster, MBBindingList<PSEWrapperVM> wrappers)
         {
-            foreach (PSEWrapperVM wrap in wrappers)
+            for (int i = 0; i < wrappers.Count; i++)
             {
+                var wrap = wrappers[i];
                 if (wrap.WrapperViewModel is PartyCategoryVM category)
                 {
-                    for (var i = 0; i < category.TroopList.Count; i++)
+                    for (var j = 0; j < category.TroopList.Count; j++)
                     {
                         AddToRoster(category.TroopList[i], roster);
                     }
+
+                    category.Information.CurrentIndexInMainList = i;
                 }
                 else if (wrap.WrapperViewModel is PartyCharacterVM character)
                 {

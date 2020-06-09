@@ -254,6 +254,7 @@
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
     <Content Include="ModuleData\GUI\PrefabExtensions\CategoryAddition.xml" />
+    <Content Include="ModuleData\GUI\PrefabExtensions\DevCategoryAddition.xml" />
     <Content Include="ModuleData\GUI\PrefabExtensions\MainListReplacement.xml" />
     <Content Include="ModuleData\GUI\PrefabExtensions\TestingTesting.xml" />
     <Compile Include="Comparers\WoundedComparer.cs" />

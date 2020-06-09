@@ -23,10 +23,13 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
     {
 
         private Action _parentCloseLayer;
+        private Action<CategoryInformation> _parentUpdateList;
+        private string _newCategoryName;
 
-        public CategoryManagerVM(Action parentCloseLayer)
+        public CategoryManagerVM(Action parentCloseLayer, Action<CategoryInformation> parentUpdateList)
         {
             _parentCloseLayer = parentCloseLayer;
+            _parentUpdateList = parentUpdateList;
 
             if (Game.Current != null)
                 Game.Current.AfterTick =
@@ -42,6 +45,15 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             // }
         }
 
+        public void AddCategory()
+        {
+            var categoryInfo = new CategoryInformation(this.NewCategoryName);
+            if(!PartyScreenConfig.ExtraSettings.CategoryInformationList.Contains(categoryInfo))
+                PartyScreenConfig.ExtraSettings.CategoryInformationList.Add(categoryInfo);
+            _parentUpdateList(categoryInfo);
+            this.ExecuteCloseSettings();
+        }
+
         public void ExecuteCloseSettings()
         {
             _parentCloseLayer();
@@ -55,6 +67,23 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             if (Game.Current != null)
                 Game.Current.AfterTick =
                     (Action<float>) Delegate.Remove(Game.Current.AfterTick, new Action<float>(this.AfterTick));
+            this._parentCloseLayer = null;
+            this._parentUpdateList = null;
+        }
+
+
+        [DataSourceProperty]
+        public string NewCategoryName
+        {
+            get => _newCategoryName;
+            set
+            {
+                if (value != _newCategoryName)
+                {
+                    this._newCategoryName = value;
+                    base.OnPropertyChanged(nameof(NewCategoryName));
+                }
+            }
         }
     }
 }

@@ -1,0 +1,9 @@
+﻿<Prefab>
+  <Window>
+    <ButtonWidget Id="AddCategoryButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!TransferAllButton.Width" SuggestedHeight="!TransferAllButton.Height" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="20" MarginTop="1" Brush="Party.Enhancement.AddCategory" Command.Click="ExecuteOpenCategoryManager">
+      <Children>
+        <HintWidget DataSource="{AddCategoryHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" IsDisabled="true"/>
+      </Children>
+    </ButtonWidget>
+  </Window>
+</Prefab>

@@ -12,9 +12,11 @@ namespace PartyScreenEnhancements.Saving
 
         [XmlElement("Name")] public string Name { get; set; }
 
-        [XmlElement("SelectedFormation")] public int SelectedFormation { get; set; } = 1;
+        [XmlElement("SelectedFormation")] public int SelectedFormation { get; set; } = 0;
 
         [XmlElement("CurrentMainListIndex")] public int CurrentIndexInMainList { get; set; } = -1;
+
+        [XmlElement("IsCollapsed")] public bool IsCollapsed { get; set; } = false;
 
         public CategoryInformation()
         {

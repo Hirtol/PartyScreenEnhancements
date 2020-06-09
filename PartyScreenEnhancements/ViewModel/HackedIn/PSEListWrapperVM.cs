@@ -16,13 +16,20 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
     /// </summary>
     public class PSEListWrapperVM : TaleWorlds.Library.ViewModel
     {
-        private readonly PartyVMMixin _primary;
-        private readonly PartyVM _partyVm;
+        private PartyVMMixin _primary;
+        private PartyVM _partyVm;
 
         public PSEListWrapperVM(PartyVMMixin mixin, PartyVM partyVm)
         {
             _primary = mixin;
             _partyVm = partyVm;
+        }
+
+        public override void OnFinalize()
+        {
+            base.OnFinalize();
+            this._primary = null;
+            this._partyVm = null;
         }
 
         //TODO: Add category shift.

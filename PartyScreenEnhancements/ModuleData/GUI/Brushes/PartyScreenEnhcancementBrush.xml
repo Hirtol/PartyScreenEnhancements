@@ -56,6 +56,18 @@
       </Style>
     </Styles>
   </Brush>
+  <Brush Name="Party.Enhancement.Text" Font="FiraSansExtraCondensed-Regular" TextHorizontalAlignment="Left">
+    <Styles>
+      <Style Name="Default"
+             FontColor="#F9EAD2FF"
+             TextGlowColor="#000000FF"
+             TextOutlineColor="#000000FF"
+             TextOutlineAmount="0"
+             TextGlowRadius="0"
+             TextBlur="0"
+             FontSize="35" />
+    </Styles>
+  </Brush>
   <Brush Name="Party.Enhancement.SortParty">
 		<Layers>
 			<BrushLayer Name="Default" Sprite="StdAssets\sort" Color="#dbb766FF" VerticalFlip="true"/>

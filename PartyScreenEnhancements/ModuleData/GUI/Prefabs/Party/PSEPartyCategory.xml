@@ -133,7 +133,7 @@
                                   Label="@TransferLabel"
                                   ListPanel="..\TestList\List" RenderLate="true"
                                   WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
-                                  IsRelevant="@IsHeaderVisible" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
+                                  IsRelevant="@IsHeaderVisible" StartCollapsed="@IsCollapsed" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
               <Children>
 
                 <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="20"
@@ -161,6 +161,10 @@
                   </Children>
                 </ListPanel>
 
+                <ButtonWidget Command.Click="ExecuteRemoveSelf" HeightSizePolicy="Fixed" WidthSizePolicy="Fixed"
+                              SuggestedHeight="50" SuggestedWidth="50" VerticalAlignment="Center" HorizontalAlignment="Right"
+                              MarginRight="150" Brush="Popup.CloseButton" />
+
                 <Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
                         HeightSizePolicy="Fixed" SuggestedWidth="320" SuggestedHeight="40" HorizontalAlignment="Left"
                         VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
@@ -171,22 +175,6 @@
                                     Brush.FontSize="40" IsDisabled="true" />
                   </Children>
                 </Widget>
-
-                <!-- <HintWidget DataSource="{MainPartyTroopSizeLimitHint}" WidthSizePolicy="StretchToParent" -->
-                <!--             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
-                <!--             Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
-
-                <!-- <ButtonWidget Id="TransferMainTroopsButton" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" -->
-                <!--               HeightSizePolicy="Fixed" SuggestedWidth="50" -->
-                <!--               SuggestedHeight="50" HorizontalAlignment="Left" VerticalAlignment="Center" -->
-                <!--               MarginLeft="30" MarginTop="1" Brush="ButtonRightDoubleArrowBrush1" -->
-                <!--               Command.Click="ExecuteTransferAllMainTroops" /> -->
-                <!--   <Children> -->
-                <!--     <HintWidget DataSource="{TransferAllMainTroopsHint}" WidthSizePolicy="StretchToParent" -->
-                <!--                 HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" -->
-                <!--                 Command.HoverEnd="ExecuteEndHint" IsDisabled="true" /> -->
-                <!--   </Children> -->
-                <!-- </ButtonWidget> -->
               </Children>
             </CategoryHeaderWidget>
 

@@ -24,10 +24,12 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
         private string _name;
         private string _transferLabel;
         private string _troopNumberLabel;
+        private Action<PartyCategoryVM> _onRemoveSelf;
 
-        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, CategoryInformation information, string parentTag, IEnumerable<SelectorItemVM> formationList)
+        public PartyCategoryVM(MBBindingList<PartyCharacterVM> sublist, CategoryInformation information, string parentTag, IEnumerable<SelectorItemVM> formationList, Action<PartyCategoryVM> onRemoveSelf)
         {
             this._subList = sublist;
+            this._onRemoveSelf = onRemoveSelf;
             this.Information = information;
             this._currentFormationSelector = new SelectorVM<SelectorItemVM>(new List<string>(), information.SelectedFormation, ExecuteSetAllTroopsToFormation);
             this._currentFormationSelector.ItemList.AddRange(formationList);
@@ -44,11 +46,17 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             this.Information = null;
             this.TroopList = null;
             this.CharacterFormationSelector = null;
+            this._onRemoveSelf = null;
         }
 
         public void Rename(string newName)
         {
             this.Label = newName;
+        }
+
+        public void ExecuteRemoveSelf()
+        {
+            _onRemoveSelf(this);
         }
 
         public void ExecuteSetAllTroopsToFormation(SelectorVM<SelectorItemVM> vm)
@@ -87,6 +95,20 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
 
         public string ParentTag { get; set; }
 
+        //TODO: Make functional
+        [DataSourceProperty]
+        public bool IsCollapsed
+        {
+            get => this.Information.IsCollapsed;
+            set
+            {
+                if (value != this.Information.IsCollapsed)
+                {
+                    this.Information.IsCollapsed = value;
+                    base.OnPropertyChanged(nameof(IsCollapsed));
+                }
+            }
+        }
 
         [DataSourceProperty]
         public SelectorVM<SelectorItemVM> CharacterFormationSelector

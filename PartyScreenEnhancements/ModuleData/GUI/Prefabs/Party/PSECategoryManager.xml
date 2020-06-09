@@ -3,13 +3,48 @@
   <Variables />
   <Window>
     <Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
-		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
+            Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
       <Children>
-        <Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1600"
-				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
+        <Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="800" SuggestedWidth="600"
+                HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
           <Children>
 
-            <ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy ="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="50" SuggestedWidth="50" VerticalAlignment="Top" HorizontalAlignment="Center" MarginTop="20" MarginLeft="1500" Brush="Popup.CloseButton"/>
+            <!-- Close Settings -->
+            <ButtonWidget Command.Click="ExecuteCloseSettings" HeightSizePolicy="Fixed" WidthSizePolicy="Fixed"
+                          SuggestedHeight="50" SuggestedWidth="50" VerticalAlignment="Top" HorizontalAlignment="Center"
+                          MarginTop="20" MarginLeft="500" Brush="Popup.CloseButton" />
+
+            <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="400"
+                              PositionYOffset="-5" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
+                              DoNotAcceptEvents="true">
+              <Children>
+                <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
+																PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
+																Text="Categories" Brush.FontSize="40" />
+              </Children>
+            </Widget>
+
+            <Widget
+              DoNotAcceptEvents="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="55"
+              SuggestedWidth="500" VerticalAlignment="Center" HorizontalAlignment="Center" MarginRight="5" MarginTop="5"
+              Sprite="CharacterCreation\name_input_area">
+
+              <Children>
+                <EditableTextWidget Id="CategoryInputArea" Text="@NewCategoryName" SuggestedHeight="14" SuggestedWidth="600" HorizontalAlignment="Left"
+                  VerticalAlignment="Center" MarginLeft="5" Brush="Party.Enhancement.Text" />
+              </Children>
+
+            </Widget>
+
+            <ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="338" SuggestedHeight="42" HorizontalAlignment="Center" VerticalAlignment="Center" MarginTop="120" Command.Click="AddCategory" UpdateChildrenStates="true">
+              <Children>
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="362" SuggestedHeight="38" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Canvas" IsEnabled="false" />
+                <Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="400" SuggestedHeight="65" HorizontalAlignment="Center" VerticalAlignment="Center" Brush="SPOptions.GameKey.Button.Frame" IsEnabled="false" />
+                <TextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Brush="SPOptions.Dropdown.Center.Text" Text="Add Category" />
+              </Children>
+            </ButtonWidget>
+
+
           </Children>
         </Widget>
       </Children>

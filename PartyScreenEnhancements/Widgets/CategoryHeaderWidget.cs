@@ -102,7 +102,28 @@ namespace PartyScreenEnhancements.Widgets
 			}
 		}
 
+        private void SetCollapsed(bool collapsed)
+        {
+            base.WidgetToClose.IsVisible = !collapsed;
+            UpdateCollapseIndicator();
+        }
+
 		[Editor(false)]
+        public bool StartCollapsed
+        {
+            get => _startCollapsed;
+            set
+            {
+                if (value != _startCollapsed)
+                {
+                    this._startCollapsed = value;
+					base.OnPropertyChanged(value, nameof(StartCollapsed));
+                    this.SetCollapsed(value);
+                }
+            }
+        }
+
+        [Editor(false)]
 		public CategoryListWidget ListPanel
 		{
 			get
@@ -200,6 +221,7 @@ namespace PartyScreenEnhancements.Widgets
 		private Widget _collapseIndicator;
 
 		private bool _isRelevant = true;
+        private bool _startCollapsed = false;
 
         private string _label;
     }
