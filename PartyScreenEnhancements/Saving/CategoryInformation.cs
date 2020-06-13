@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 
 namespace PartyScreenEnhancements.Saving
 {
-    public class CategoryInformation
+    public class CategoryInformation : IComparable<CategoryInformation>
     {
 
         [XmlElement("Name")] public string Name { get; set; }
@@ -27,6 +27,11 @@ namespace PartyScreenEnhancements.Saving
             this.Name = name;
             this.SelectedFormation = initialFormation;
             this.CurrentIndexInMainList = initialIndex;
+        }
+
+        public int CompareTo(CategoryInformation other)
+        {
+            return other != null ? this.CurrentIndexInMainList.CompareTo(other.CurrentIndexInMainList) : 1;
         }
     }
 }

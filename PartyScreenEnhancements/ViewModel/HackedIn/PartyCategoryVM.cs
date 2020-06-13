@@ -54,6 +54,11 @@ namespace PartyScreenEnhancements.ViewModel.HackedIn
             this.Label = newName;
         }
 
+        public void ExecuteCollapse()
+        {
+            this.IsCollapsed = !this.IsCollapsed;
+        }
+
         public void ExecuteRemoveSelf()
         {
             _onRemoveSelf(this);

@@ -133,7 +133,7 @@
                                   Label="@TransferLabel"
                                   ListPanel="..\TestList\List" RenderLate="true"
                                   WidgetToClose="..\TestList" TransferButtonWidget="TransferMainTroopsButton"
-                                  IsRelevant="@IsHeaderVisible" StartCollapsed="@IsCollapsed" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget">
+                                  IsRelevant="@IsHeaderVisible" StartCollapsed="@IsCollapsed" MarginLeft="5" AcceptDrag="true" DragWidget="DragWidget" Command.Click="ExecuteCollapse">
               <Children>
 
                 <ListPanel Id="Description" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="20"

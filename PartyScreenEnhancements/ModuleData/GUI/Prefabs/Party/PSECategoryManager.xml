@@ -31,7 +31,7 @@
 
               <Children>
                 <EditableTextWidget Id="CategoryInputArea" Text="@NewCategoryName" SuggestedHeight="14" SuggestedWidth="600" HorizontalAlignment="Left"
-                  VerticalAlignment="Center" MarginLeft="5" Brush="Party.Enhancement.Text" />
+                  VerticalAlignment="Center" MarginLeft="5" Brush="Party.Enhancement.Text" IsFocused="true"/>
               </Children>
 
             </Widget>

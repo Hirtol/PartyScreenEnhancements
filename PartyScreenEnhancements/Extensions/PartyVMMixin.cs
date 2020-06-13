@@ -492,10 +492,10 @@ namespace PartyScreenEnhancements.Extensions
         public void InitialiseCategories()
         {
             InitialiseMirrorLists();
-            var names = PartyScreenConfig.TroopCategoryBindings.Values.Distinct();
 
             if (_privateCategoryList.IsEmpty())
             {
+                PartyScreenConfig.ExtraSettings.CategoryInformationList.Sort();
                 foreach (var categoryInformation in PartyScreenConfig.ExtraSettings.CategoryInformationList)
                 {
                     _privateCategoryList.Add(new PSEWrapperVM(new PartyCategoryVM(new MBBindingList<PartyCharacterVM>(),
@@ -511,14 +511,11 @@ namespace PartyScreenEnhancements.Extensions
 
                 if (relevantCategory != null)
                 {
-                    if (!relevantCategory.TroopList.Contains(character))
-                    {
-                        var wrappedCategory = new PSEWrapperVM(relevantCategory);
-                        relevantCategory.TroopList.Add(character);
-                        relevantCategory.UpdateLabel();
-                        // if (!_mainPartyWrappers.Contains(wrappedCategory))
-                        //     _mainPartyWrappers.Add(wrappedCategory);
-                    }
+                    if (relevantCategory.TroopList.Contains(character)) 
+                        continue;
+
+                    relevantCategory.TroopList.Add(character);
+                    relevantCategory.UpdateLabel();
                 }
                 else
                 {
@@ -642,19 +639,21 @@ namespace PartyScreenEnhancements.Extensions
         {
             for (int i = 0; i < wrappers.Count; i++)
             {
-                var wrap = wrappers[i];
-                if (wrap.WrapperViewModel is PartyCategoryVM category)
+                switch (wrappers[i].WrapperViewModel)
                 {
-                    for (var j = 0; j < category.TroopList.Count; j++)
+                    case PartyCategoryVM category:
                     {
-                        AddToRoster(category.TroopList[i], roster);
-                    }
+                        for (var j = 0; j < category.TroopList.Count; j++)
+                        {
+                            AddToRoster(category.TroopList[j], roster);
+                        }
 
-                    category.Information.CurrentIndexInMainList = i;
-                }
-                else if (wrap.WrapperViewModel is PartyCharacterVM character)
-                {
-                    AddToRoster(character, roster);
+                        category.Information.CurrentIndexInMainList = i;
+                        break;
+                    }
+                    case PartyCharacterVM character:
+                        AddToRoster(character, roster);
+                        break;
                 }
             }
         }
