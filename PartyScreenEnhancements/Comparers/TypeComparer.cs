@@ -1,16 +1,16 @@
-﻿using TaleWorlds.CampaignSystem.ViewModelCollection;
+﻿using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ViewModelCollection;
 
 namespace PartyScreenEnhancements.Comparers
 {
     public class TypeComparer : PartySort
     {
-        public TypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, @descending, null)
+        public TypeComparer(PartySort equalSorter, bool descending) : base(equalSorter, descending, null)
         {
         }
 
         internal TypeComparer()
         {
-
         }
 
         public override string GetHintText()
@@ -32,8 +32,9 @@ namespace PartyScreenEnhancements.Comparers
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             if (Descending
-                ? x.Character.DefaultFormationClass < y.Character.DefaultFormationClass
-                : x.Character.DefaultFormationClass > y.Character.DefaultFormationClass) return 1;
+                ? x.Character.GetFormationClass(PartyBase.MainParty) < y.Character.GetFormationClass(PartyBase.MainParty)
+                : x.Character.GetFormationClass(PartyBase.MainParty) > y.Character.GetFormationClass(PartyBase.MainParty))
+                return 1;
 
             if (y.Character.DefaultFormationClass == x.Character.DefaultFormationClass)
             {
