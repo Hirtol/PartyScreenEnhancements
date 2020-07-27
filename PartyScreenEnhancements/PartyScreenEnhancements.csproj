@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="0Harmony, Version=2.0.0.10, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Lib.Harmony.2.0.0.10\lib\net472\0Harmony.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="0Harmony, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lib.Harmony.2.0.1\lib\net472\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="SandBox">
       <HintPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\SandBox\bin\Win64_Shipping_Client\SandBox.dll</HintPath>
@@ -283,9 +282,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ModuleData\GUI\Brushes\PartyScreenEnhcancementBrush.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Party\PartyScreenEnhancements.xml" />
     <Content Include="ModuleData\GUI\PartyEnhancementSpriteData.xml" />
@@ -296,6 +292,9 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SettingSortRight.xml" />
     <Content Include="ModuleData\GUI\SpriteSheets\enhancement_icons\enhancement_sort_icons_1.png" />
     <Content Include="ModuleData\SubModule.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

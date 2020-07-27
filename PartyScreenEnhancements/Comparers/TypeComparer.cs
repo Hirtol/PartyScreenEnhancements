@@ -32,10 +32,10 @@ namespace PartyScreenEnhancements.Comparers
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             if (Descending
-                ? x.Character.CurrentFormationClass < y.Character.CurrentFormationClass
-                : x.Character.CurrentFormationClass > y.Character.CurrentFormationClass) return 1;
+                ? x.Character.DefaultFormationClass < y.Character.DefaultFormationClass
+                : x.Character.DefaultFormationClass > y.Character.DefaultFormationClass) return 1;
 
-            if (y.Character.CurrentFormationClass == x.Character.CurrentFormationClass)
+            if (y.Character.DefaultFormationClass == x.Character.DefaultFormationClass)
             {
                 if (EqualSorter != null)
                     return EqualSorter.Compare(x, y);
