@@ -35,17 +35,13 @@ namespace PartyScreenEnhancements.Comparers
             {
                 return 1;
             }
+
             if (x.Character.Tier == y.Character.Tier)
             {
-                if (EqualSorter != null)
-                {
-                    return EqualSorter.Compare(x, y);
-                }
-                return 0;
-            }else
-            {
-                return -1;
+                return EqualSorter?.Compare(x, y) ?? 0;
             }
+
+            return -1;
         }
     }
 }

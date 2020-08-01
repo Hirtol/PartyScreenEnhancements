@@ -38,12 +38,7 @@ namespace PartyScreenEnhancements.Comparers
                 result = StringComparer.CurrentCulture.Compare(x.Name.ToString(), y.Name.ToString());
 
             if (result == 0)
-            {
-                if (EqualSorter != null)
-                {
-                    return EqualSorter.Compare(x, y);
-                }
-            }
+                return EqualSorter?.Compare(x, y) ?? 0;
 
             return result;
         }

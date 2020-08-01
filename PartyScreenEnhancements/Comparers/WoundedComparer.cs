@@ -37,7 +37,8 @@ namespace PartyScreenEnhancements.Comparers
 
             if (Descending ? x.Troop.WoundedNumber > y.Troop.WoundedNumber : y.Troop.WoundedNumber > x.Troop.WoundedNumber) return -1;
 
-            if (x.Troop.WoundedNumber == y.Troop.WoundedNumber) return EqualSorter?.Compare(x, y) ?? 0;
+            if (x.Troop.WoundedNumber == y.Troop.WoundedNumber) 
+                return EqualSorter?.Compare(x, y) ?? 0;
 
             return 1;
         }

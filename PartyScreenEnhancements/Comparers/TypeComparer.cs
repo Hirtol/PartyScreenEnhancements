@@ -38,9 +38,7 @@ namespace PartyScreenEnhancements.Comparers
 
             if (y.Character.GetFormationClass(PartyBase.MainParty) == x.Character.GetFormationClass(PartyBase.MainParty))
             {
-                if (EqualSorter != null)
-                    return EqualSorter.Compare(x, y);
-                return 0;
+                return EqualSorter?.Compare(x, y) ?? 0;
             }
 
             return -1;

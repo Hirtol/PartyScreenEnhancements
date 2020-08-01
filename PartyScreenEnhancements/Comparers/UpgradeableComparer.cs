@@ -37,7 +37,8 @@ namespace PartyScreenEnhancements.Comparers
                 : y.Troop.NumberReadyToUpgrade > x.Troop.NumberReadyToUpgrade) return -1;
 
 
-            if (y.Troop.NumberReadyToUpgrade == x.Troop.NumberReadyToUpgrade) return EqualSorter?.Compare(x, y) ?? 0;
+            if (y.Troop.NumberReadyToUpgrade == x.Troop.NumberReadyToUpgrade) 
+                return EqualSorter?.Compare(x, y) ?? 0;
 
             return 1;
         }
