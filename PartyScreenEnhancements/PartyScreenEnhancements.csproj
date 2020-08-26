@@ -255,6 +255,7 @@
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
+    <Compile Include="Patches\UpgradeButtonTooltipPatch.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="Utilities.cs" />

@@ -13,7 +13,7 @@ namespace PartyScreenEnhancements.Patches
     {
         public static bool Prefix(ref PartyCharacterVM __instance)
         {
-            if (ScreenManager.TopScreen is GauntletPartyScreen screen && screen.DebugInput.IsControlDown())
+            if (ScreenManager.TopScreen is GauntletPartyScreen && Utilities.IsControlDown() && Utilities.IsShiftDown())
             {
                 if (!PartyScreenConfig.PrisonersToRecruit.ContainsKey(__instance.Character.StringId))
                 {

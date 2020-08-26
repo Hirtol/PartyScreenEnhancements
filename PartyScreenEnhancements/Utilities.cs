@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.Core;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements
@@ -14,6 +15,16 @@ namespace PartyScreenEnhancements
         public static void DisplayMessage(string message)
         {
             InformationManager.DisplayMessage(new InformationMessage(message, Color.White));
+        }
+
+        public static bool IsControlDown()
+        {
+            return InputKey.LeftControl.IsDown() || InputKey.RightControl.IsDown();
+        }
+
+        public static bool IsShiftDown()
+        {
+            return InputKey.LeftShift.IsDown() || InputKey.RightShift.IsDown();
         }
 
     }

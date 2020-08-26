@@ -66,6 +66,9 @@ namespace PartyScreenEnhancements.Saving
             }
         }
 
+        [XmlElement("UpgradeTooltips")] 
+        public bool PathSelectTooltips { get; set; } = true;
+
         [XmlElement("PartySorter")]
         public PartySort PartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
 

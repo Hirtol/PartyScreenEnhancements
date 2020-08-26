@@ -55,7 +55,7 @@ namespace PartyScreenEnhancements.ViewModel
 
                 SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
 
-                if (!ScreenManager.TopScreen?.DebugInput.IsControlDown() ?? true)
+                if (!Utilities.IsControlDown())
                 {
                     SortAnyParty(_mainPartyPrisoners,
                         _partyLogic.PrisonerRosters[_rightSide],

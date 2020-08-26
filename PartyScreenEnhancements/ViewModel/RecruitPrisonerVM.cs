@@ -44,7 +44,7 @@ namespace PartyScreenEnhancements.ViewModel
         //TODO: Switch to cleaner RecruitByDefault=false logic.
         public void RecruitAll()
         {
-            bool shouldIgnoreLimit = ScreenManager.TopScreen.DebugInput.IsControlDown();
+            bool shouldIgnoreLimit = Utilities.IsControlDown();
             int amountUpgraded = 0;
 
             try

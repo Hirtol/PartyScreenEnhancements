@@ -4,6 +4,7 @@ using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
+using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.Patches
@@ -18,7 +19,7 @@ namespace PartyScreenEnhancements.Patches
     {
         public static bool Prefix(int upgradeIndex, ref PartyCharacterVM __instance)
         {
-            if (ScreenManager.TopScreen is GauntletPartyScreen screen && screen.DebugInput.IsControlDown())
+            if (ScreenManager.TopScreen is GauntletPartyScreen screen && Utilities.IsControlDown() && Utilities.IsShiftDown())
             {
                 if (PartyScreenConfig.PathsToUpgrade.TryGetValue(__instance.Character.StringId, out var upgradeValue))
                 {
