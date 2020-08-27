@@ -19,7 +19,7 @@ namespace PartyScreenEnhancements.Patches
     {
         public static bool Prefix(int upgradeIndex, ref PartyCharacterVM __instance)
         {
-            if (ScreenManager.TopScreen is GauntletPartyScreen screen && Utilities.IsControlDown() && Utilities.IsShiftDown())
+            if (ScreenManager.TopScreen is GauntletPartyScreen && Utilities.IsControlDown() && Utilities.IsShiftDown())
             {
                 if (PartyScreenConfig.PathsToUpgrade.TryGetValue(__instance.Character.StringId, out var upgradeValue))
                 {

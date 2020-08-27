@@ -25,9 +25,9 @@ namespace PartyScreenEnhancements.Patches
                 if(current_char == null) return;
 
                 // Pretty dirty way to do this, but ㄟ( ▔, ▔ )ㄏ it'll work for now.
-                if (current_char.Upgrade1Hint != null && !current_char.Upgrade1Hint.HintText.Contains(UPGRADE_TOOLTIP))
+                if (!current_char.Upgrade1Hint?.HintText.Contains(UPGRADE_TOOLTIP) ?? false) 
                     __instance.CurrentCharacter.Upgrade1Hint.HintText += UPGRADE_TOOLTIP;
-                if (current_char.Upgrade2Hint != null && !current_char.Upgrade2Hint.HintText.Contains(UPGRADE_TOOLTIP))
+                if (!current_char.Upgrade2Hint?.HintText.Contains(UPGRADE_TOOLTIP) ?? false)
                     __instance.CurrentCharacter.Upgrade2Hint.HintText += UPGRADE_TOOLTIP;
             }
         }
