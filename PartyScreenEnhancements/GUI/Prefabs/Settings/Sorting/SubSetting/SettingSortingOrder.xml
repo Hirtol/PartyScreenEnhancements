@@ -48,56 +48,21 @@
 
 		<Constant Name="IconAlpha" Value="0.7" />
 	</Constants>
-	<VisualDefinitions>
-		<VisualDefinition Name="Container" TransitionDuration="0.075">
-			<VisualState SuggestedWidth="!Toggle.Width" State="Default" />
-			<VisualState SuggestedWidth="!Toggle.Pressed.Width" State="Pressed" />
-			<VisualState SuggestedWidth="!Toggle.Width" State="Selected" />
-			<VisualState SuggestedWidth="!Toggle.Width" State="Hovered" />
-			<VisualState SuggestedWidth="!Toggle.Width" State="Disabled" />
-		</VisualDefinition>
-		<VisualDefinition Name="Extension" TransitionDuration="0.15">
-			<VisualState SuggestedHeight="!Extension.Hidden.Height" MarginTop="!Extension.Hidden.MarginTop" State="Default" />
-			<VisualState SuggestedHeight="!Extension.Hidden.Height" MarginTop="!Extension.Hidden.MarginTop" State="Pressed" />
-			<VisualState SuggestedHeight="!Extension.Height" MarginTop="!Extension.Selected.MarginTop" State="Selected" />
-			<VisualState SuggestedHeight="!Extension.Hidden.Height" MarginTop="!Extension.Hidden.MarginTop" State="Hovered" />
-			<VisualState SuggestedHeight="!Extension.Hidden.Height" MarginTop="!Extension.Hidden.MarginTop" State="Disabled" />
-		</VisualDefinition>
-		<VisualDefinition Name="Main" TransitionDuration="0.075">
-			<VisualState SuggestedWidth="!Toggle.Width" State="Default" />
-			<VisualState SuggestedWidth="!Toggle.Pressed.Width" State="Pressed" />
-			<VisualState SuggestedWidth="!Toggle.Width" State="Selected" />
-			<VisualState SuggestedWidth="!Toggle.Width" State="Hovered" />
-			<VisualState SuggestedWidth="!Toggle.Width" State="Disabled" />
-		</VisualDefinition>
-	</VisualDefinitions>
 	<Window>
-		<SettingSortWidget Id="SettingSort" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" DragWidget="DragWidget" IsTransferable="@IsTransferable" HasCustomSettings="@HasCustomSetting" NameWidget="Main\NameWidget" Main="Main" Command.AlternateClick="ExecuteOpenSubSetting">
+		<SettingSortWidget Id="SettingSortingOrder" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" DragWidget="DragWidget" Main="Main">
 			<Children>
-        <BrushWidget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Left">
+				<Widget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Left">
 					<Children>
-						<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Button.TransferAll.Width" SuggestedHeight="!Button.TransferAll.Height" HorizontalAlignment="Right" VerticalAlignment="Center" Brush="ButtonLeftArrowBrush1" Command.Click="TransferSides" IsVisible="@IsTransferable">
-							<Children>
-								<HintWidget DataSource="{TransferHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-							</Children>
-						</ButtonWidget>
 
-						<RichTextWidget Id="NameWidget" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="!NameLeft" MarginTop="10" MarginBottom="10" Brush="Party.Text.Tuple" Brush.TextHorizontalAlignment="Left" IsDisabled="true" Text="@Name"  />
+						<RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="!NameLeft" MarginTop="10" MarginBottom="10" Brush="Party.Text.Tuple" Brush.TextHorizontalAlignment="Left" IsDisabled="true" Text="@Name"  />
 
 						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="20" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="50" MarginTop="10" MarginBottom="10" IsDisabled="false" Sprite="Icons\icon_quest_available">
 							<Children>
 								<HintWidget DataSource="{SettingHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
 							</Children>
 						</Widget>
-
-						<AscDescWidget Id="OrderWidget"  WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="20" SuggestedWidth="20" HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="70" MarginTop="10" MarginBottom="10" IsDisabled="false" Brush="Party.Enhancement.ArrowUp" UpArrowBrush="Party.Enhancement.ArrowUp" DownArrowBrush="Party.Enhancement.ArrowDown" IsDescending="@IsDescending" Command.Click="ExecuteChangeDirection">
-							<Children>
-								<HintWidget DataSource="{AscDescHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-							</Children>
-						</AscDescWidget>
-
 					</Children>
-				</BrushWidget>
+				</Widget>
 
 				<Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Image.Width" SuggestedHeight="!Image.Height" HorizontalAlignment="Left" VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
 					<Children>

@@ -51,7 +51,7 @@
 	<Window>
 		<SettingSortWidget Id="SettingSortingOrder" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" DragWidget="DragWidget" Main="Main">
 			<Children>
-				<Widget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Left">
+        <BrushWidget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Left">
 					<Children>
 
 						<RichTextWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="320" HorizontalAlignment="Left" VerticalAlignment="Center" MarginLeft="!NameLeft" MarginTop="10" MarginBottom="10" Brush="Party.Text.Tuple" Brush.TextHorizontalAlignment="Left" IsDisabled="true" Text="@Name"  />
@@ -62,7 +62,7 @@
 							</Children>
 						</Widget>
 					</Children>
-				</Widget>
+				</BrushWidget>
 
 				<Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Image.Width" SuggestedHeight="!Image.Height" HorizontalAlignment="Left" VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
 					<Children>

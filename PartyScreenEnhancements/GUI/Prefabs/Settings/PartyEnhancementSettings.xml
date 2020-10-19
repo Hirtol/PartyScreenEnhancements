@@ -2,17 +2,17 @@
 	<Constants />
 	<Variables />
 	<Window>
-		<BrushWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
+		<Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
 		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
 			<Children>
-				<BrushWidget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1600"
+				<Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1600"
 				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
 					<Children>
 						<OptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget" CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget" CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
 							<Children>
 								<ScrollablePanel Id="ScrollablePanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center" AutoHideScrollBarHandle="true" AutoHideScrollBars="false" ClipRect="TabRectangle" InnerPanel="TabRectangle\TabControl" VerticalScrollbar="..\VerticalScrollbar">
 									<Children>
-										<BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="800"
+										<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="800"
 												PositionYOffset="-5" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
 												DoNotAcceptEvents="true">
 											<Children>
@@ -20,10 +20,10 @@
 																PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
 																Text="Party Enhancement Settings" Brush.FontSize="40" />
 											</Children>
-										</BrushWidget>
+										</Widget>
 
 										<!--TabControl-->
-										<BrushWidget Id="TabRectangle" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
+										<Widget Id="TabRectangle" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" ClipContents="true">
 											<Children>
 												<TabControl Id="TabControl" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" HorizontalAlignment="Center">
 													<Children>
@@ -33,7 +33,7 @@
 													</Children>
 												</TabControl>
 											</Children>
-										</BrushWidget>
+										</Widget>
 
 										<!--Tabs themselves-->
 										<ListPanel WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedHeight="128" MarginTop="60" MarginLeft="20" HorizontalAlignment="Left" VerticalAlignment="Top" LayoutImp.LayoutMethod="HorizontalLeftToRight">
@@ -44,21 +44,21 @@
 											</Children>
 										</ListPanel>
 
-										<BrushWidget Id="DescriptionsRightPanel" MarginTop="110" MarginRight="40" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" SuggestedWidth="650" HorizontalAlignment="Right" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
+										<Widget Id="DescriptionsRightPanel" MarginTop="110" MarginRight="40" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" SuggestedWidth="650" HorizontalAlignment="Right" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
 											<Children>
 
 												<ListPanel Id="DescriptionsListPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="40" MarginTop="100" LayoutImp.LayoutMethod="VerticalBottomToTop" >
 													<Children>
 														<RichTextWidget Id="CurrentOptionNameWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" Brush="SPOptions.Description.Title.Text" Text=" " />
 														<RichTextWidget Id="CurrentOptionDescriptionWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="25" Brush="SPOptions.Description.Text" Text=" " />
-														<BrushWidget Id="CurrentOptionImageWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="576" SuggestedHeight="324" MarginTop="35" />
+														<Widget Id="CurrentOptionImageWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="576" SuggestedHeight="324" MarginTop="35" />
 													</Children>
 												</ListPanel>
 
 											</Children>
-										</BrushWidget>
+										</Widget>
 
-										<BrushWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="150" VerticalAlignment="Bottom" Sprite="StdAssets\Popup\scrollable_field_gradient" IsEnabled="false" />
+										<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedHeight="150" VerticalAlignment="Bottom" Sprite="StdAssets\Popup\scrollable_field_gradient" IsEnabled="false" />
 
 										<!--End TabControl-->
 
@@ -69,7 +69,7 @@
 
 								<ScrollbarWidget Id="VerticalScrollbar" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="8" HorizontalAlignment="Right" VerticalAlignment="Center" MarginTop="26" MarginBottom="85" AlignmentAxis="Vertical" Handle="VerticalScrollbarHandle" MaxValue="100" MinValue="0">
 									<Children>
-										<BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Center" Sprite="MPLobby\CustomServer\lobby_slider_bed" Brush.AlphaFactor="0.4" />
+										<Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Center" Sprite="MPLobby\CustomServer\lobby_slider_bed" Brush.AlphaFactor="0.4" />
 										<ImageWidget Id="VerticalScrollbarHandle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="8" SuggestedHeight="10" HorizontalAlignment="Center" Brush="FaceGen.Scrollbar.Handle" />
 									</Children>
 								</ScrollbarWidget>
@@ -77,8 +77,8 @@
 							</Children>
 						</OptionsScreenWidget>
 					</Children>
-				</BrushWidget>
+				</Widget>
 			</Children>
-		</BrushWidget>
+		</Widget>
 	</Window>
 </Prefab>

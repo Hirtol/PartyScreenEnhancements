@@ -2,8 +2,8 @@
 	<Constants />
 	<Variables />
 	<Window>
-    <BrushWidget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
-                 Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
+		<Widget HeightSizePolicy="StretchToParent" WidthSizePolicy="StretchToParent" Brush="Encyclopedia.SoundBrush"
+		        Sprite="BlankWhiteSquare_9" Brush.Color="#000000DD">
 			<Children>
 				<Widget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1200"
 				        HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
@@ -31,10 +31,10 @@
 									</Children>
 								</Widget>
 
-                <BrushWidget Id="SortingOrderList" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
-                             SuggestedWidth="500" SuggestedHeight="780" HorizontalAlignment="Left" VerticalAlignment="Center"
-                             PositionXOffset="100" MarginTop="150" MarginBottom="0"
-                             Brush="Frame1.Broken.Right">
+								<Widget Id="SortingOrderList" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+								        SuggestedWidth="500" SuggestedHeight="780" HorizontalAlignment="Left" VerticalAlignment="Center"
+								        PositionXOffset="100" MarginTop="150" MarginBottom="0"
+								        Brush="Frame1.Broken.Right">
 									<Children>
 										<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="576"
 												PositionYOffset="-17" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
@@ -60,7 +60,7 @@
 											</Children>
 										</Widget>
 									</Children>
-								</BrushWidget>
+								</Widget>
 							</Children>
 						</Widget>
 
@@ -69,6 +69,6 @@
 					</Children>
 				</Widget>
 			</Children>
-		</BrushWidget>
+		</Widget>
 	</Window>
 </Prefab>

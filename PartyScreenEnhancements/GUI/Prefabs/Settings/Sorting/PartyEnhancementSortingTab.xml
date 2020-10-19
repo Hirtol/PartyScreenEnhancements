@@ -6,10 +6,10 @@
 		<!--Might affect tab selection, may need to shrink this slightly-->
 		<Widget WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" HorizontalAlignment="Center" VerticalAlignment="Center">
 			<Children>
-        <BrushWidget Id="PossibleSettingsList" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
-                     SuggestedWidth="500" HorizontalAlignment="Left" VerticalAlignment="Center"
-                     PositionXOffset="50" MarginTop="200" MarginBottom="100"
-                     Brush="Frame1.Broken.Left" isVisible="true" isEnabled="true">
+				<Widget Id="PossibleSettingsList" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+				        SuggestedWidth="500" HorizontalAlignment="Left" VerticalAlignment="Center"
+				        PositionXOffset="50" MarginTop="200" MarginBottom="100"
+				        Brush="Frame1.Broken.Left" isVisible="true" isEnabled="true">
 					<Children>
 						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="576"
 								PositionYOffset="-17" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
@@ -34,12 +34,12 @@
 							</Children>
 						</Widget>
 					</Children>
-				</BrushWidget>
+				</Widget>
 
-        <BrushWidget Id="ExistingSettingsList" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
-                     SuggestedWidth="500" HorizontalAlignment="Right" VerticalAlignment="Center"
-                     PositionXOffset="-50" MarginTop="200" MarginBottom="100"
-                     Brush="Frame1.Broken.Right">
+				<Widget Id="ExistingSettingsList" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+						SuggestedWidth="500" HorizontalAlignment="Right" VerticalAlignment="Center"
+						PositionXOffset="-50" MarginTop="200" MarginBottom="100"
+						Brush="Frame1.Broken.Right">
 					<Children>
 						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedHeight="150" SuggestedWidth="576"
 								PositionYOffset="-17" HorizontalAlignment="Center" Sprite="StdAssets\tabbar_popup"
@@ -65,7 +65,7 @@
 							</Children>
 						</Widget>
 					</Children>
-				</BrushWidget>
+				</Widget>
 			</Children>
 		</Widget>
 	</Window>

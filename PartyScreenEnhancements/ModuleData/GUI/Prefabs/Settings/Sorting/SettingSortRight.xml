@@ -74,7 +74,7 @@
 	<Window>
 		<SettingSortWidget Id="SettingSort" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" SuggestedWidth="200" HorizontalAlignment="Center" MarginTop="2" Brush="Party.TroopTuple.SoundBrush" AcceptDrag="true" DragWidget="DragWidget" IsTransferable="@IsTransferable" HasCustomSettings="@HasCustomSetting" NameWidget="Main\NameWidget" Main="Main" Command.AlternateClick="ExecuteOpenSubSetting">
 			<Children>
-				<Widget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Right">
+        <BrushWidget Id="Main" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="!Toggle.Height" HorizontalAlignment="Center" Brush="Party.Enhancement.Right">
 					<Children>
 						<ButtonWidget DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Button.TransferAll.Width" MarginLeft="20" SuggestedHeight="!Button.TransferAll.Height" HorizontalAlignment="Left" VerticalAlignment="Center" Brush="ButtonRightArrowBrush1" Command.Click="TransferSides" IsVisible="@IsTransferable">
 							<Children>
@@ -97,7 +97,7 @@
 						</AscDescWidget>
 
 					</Children>
-				</Widget>
+				</BrushWidget>
 
 				<Widget Id="DragWidget" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="!Image.Width" SuggestedHeight="!Image.Height" HorizontalAlignment="Left" VerticalAlignment="Top" IsDisabled="true" IsVisible="false">
 					<Children>

@@ -25,9 +25,9 @@
 					<Children>
 						<HintWidget DataSource="{RecruitHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 									Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-						<BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" DoNotAcceptEvents="false"
-                         SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="0"
-                         VerticalAlignment="Center" MarginLeft="4" IsDisabled="false" Brush="Party.Enhancement.RecruitPrisoners" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40" DoNotAcceptEvents="false"
+								SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="0"
+								VerticalAlignment="Center" MarginLeft="4" IsDisabled="false" Brush="Party.Enhancement.RecruitPrisoners" />
 					</Children>
 				</ButtonWidget>
 
@@ -40,9 +40,9 @@
 					<Children>
 						<HintWidget DataSource="{SortHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" DoNotAcceptEvents="false"
-                         SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="2"
-                         VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.SortParty" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" DoNotAcceptEvents="false"
+						        SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="2"
+						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.SortParty" />
 					</Children>
 				</ButtonWidget>
 
@@ -55,9 +55,9 @@
 					<Children>
 						<HintWidget DataSource="{UpgradeHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" DoNotAcceptEvents="false"
-                         SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="0"
-                         VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.UpgradeAll" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" DoNotAcceptEvents="false"
+						        SuggestedHeight="50" HorizontalAlignment="Center" MarginTop="0"
+						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.UpgradeAll" />
 					</Children>
 				</ButtonWidget>
 
@@ -82,9 +82,9 @@
 					<Children>
 						<HintWidget DataSource="{WoundedHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" DoNotAcceptEvents="false"
-                         SuggestedHeight="30" HorizontalAlignment="Center" MarginTop="0"
-                         VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.TransferWounded" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" DoNotAcceptEvents="false"
+						        SuggestedHeight="30" HorizontalAlignment="Center" MarginTop="0"
+						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.TransferWounded" />
 					</Children>
 				</ButtonWidget>
 
@@ -96,9 +96,9 @@
 					<Children>
 						<HintWidget DataSource="{LimitHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
 						            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" DoNotAcceptEvents="false"
-                         SuggestedHeight="30" HorizontalAlignment="Center" MarginTop="0"
-                         VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="ButtonLeftArrowBrush1" />
+						<Widget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" DoNotAcceptEvents="false"
+						        SuggestedHeight="30" HorizontalAlignment="Center" MarginTop="0"
+						        VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="ButtonLeftArrowBrush1" />
 					</Children>
 				</ButtonWidget>
 
