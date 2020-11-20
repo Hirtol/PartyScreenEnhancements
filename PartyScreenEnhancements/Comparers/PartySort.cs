@@ -73,7 +73,6 @@ namespace PartyScreenEnhancements.Comparers
             if (y.IsHero && !x.IsHero)
             {
                 return PartyScreenConfig.ExtraSettings.KeepHeroesOnTop ? 1 : -1;
-
             }
             if (x.IsHero && y.IsHero)
             {

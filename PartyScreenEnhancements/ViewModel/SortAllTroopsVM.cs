@@ -67,8 +67,7 @@ namespace PartyScreenEnhancements.ViewModel
 
                     if (_partyLogic.LeftOwnerParty?.MobileParty != null)
                     {
-                        bool useGarrisonSorter = _partyLogic.LeftOwnerParty.MobileParty.IsGarrison &&
-                                                 settings.SeparateSortingProfiles;
+                        bool useGarrisonSorter = settings.SeparateSortingProfiles;
                         PartySort sorterToUse = useGarrisonSorter
                             ? settings.GarrisonAndAlliedPartySorter
                             : settings.PartySorter;
