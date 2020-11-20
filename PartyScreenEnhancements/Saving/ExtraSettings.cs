@@ -76,7 +76,7 @@ namespace PartyScreenEnhancements.Saving
         public PartySort PrisonerSorter { get; set; } = PartyScreenConfig.DefaultSorter;
 
         [XmlElement("GarrisonSorter")]
-        public PartySort GarrisonSorter { get; set; } = PartyScreenConfig.DefaultSorter;
+        public PartySort GarrisonAndAlliedPartySorter { get; set; } = PartyScreenConfig.DefaultSorter;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -13,7 +13,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
     {
         private SettingSorterPaneVM _mainParty;
         private SettingSorterPaneVM _mainPrisoners;
-        private SettingSorterPaneVM _mainGarrison;
+        private SettingSorterPaneVM _mainGarrisonAllied;
 
         private string _name;
         private bool _hasSeparateSorting;
@@ -23,7 +23,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             PartyScreenConfig.ExtraSettings.PropertyChanged += OnEnableChange;
             this._mainParty = new SettingSorterPaneVM(_parent, "Main Party", PartyScreenConfig.ExtraSettings.PartySorter, value => PartyScreenConfig.ExtraSettings.PartySorter = value);
             this._mainPrisoners = new SettingSorterPaneVM(_parent, "Prisoners", PartyScreenConfig.ExtraSettings.PrisonerSorter, value => PartyScreenConfig.ExtraSettings.PrisonerSorter = value);
-            this._mainGarrison = new SettingSorterPaneVM(_parent, "Garrisons", PartyScreenConfig.ExtraSettings.GarrisonSorter, value => PartyScreenConfig.ExtraSettings.GarrisonSorter = value);
+            this._mainGarrisonAllied = new SettingSorterPaneVM(_parent, "Garrisons/Allied", PartyScreenConfig.ExtraSettings.GarrisonAndAlliedPartySorter, value => PartyScreenConfig.ExtraSettings.GarrisonAndAlliedPartySorter = value);
             this._name = "Sorters";
             this._hasSeparateSorting = PartyScreenConfig.ExtraSettings.SeparateSortingProfiles;
         }
@@ -34,11 +34,11 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
             PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
             _mainParty.OnFinalize();
             _mainPrisoners.OnFinalize();
-            _mainGarrison.OnFinalize();
+            _mainGarrisonAllied.OnFinalize();
 
             _mainParty = null;
             _mainPrisoners = null;
-            _mainGarrison = null;
+            _mainGarrisonAllied = null;
             _name = null;
         }
 
@@ -96,12 +96,12 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         [DataSourceProperty]
         public SettingSorterPaneVM GarrisonSorterPane
         {
-            get => this._mainGarrison;
+            get => this._mainGarrisonAllied;
             set
             {
-                if (value != _mainGarrison)
+                if (value != _mainGarrisonAllied)
                 {
-                    _mainGarrison = value;
+                    _mainGarrisonAllied = value;
                     base.OnPropertyChanged(nameof(GarrisonSorterPane));
                 }
             }

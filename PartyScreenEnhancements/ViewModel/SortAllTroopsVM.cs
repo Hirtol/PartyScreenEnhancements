@@ -65,20 +65,17 @@ namespace PartyScreenEnhancements.ViewModel
                         _partyLogic.PrisonerRosters[_leftSide],
                         settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
 
-                    if (_partyLogic.LeftOwnerParty?.MobileParty != null && _partyLogic.LeftOwnerParty.MobileParty.IsLeaderless)
+                    if (_partyLogic.LeftOwnerParty?.MobileParty != null)
                     {
                         bool useGarrisonSorter = _partyLogic.LeftOwnerParty.MobileParty.IsGarrison &&
                                                  settings.SeparateSortingProfiles;
+                        PartySort sorterToUse = useGarrisonSorter
+                            ? settings.GarrisonAndAlliedPartySorter
+                            : settings.PartySorter;
 
                         SortAnyParty(_partyVM.OtherPartyTroops,
                             _partyLogic.MemberRosters[_leftSide],
-                            useGarrisonSorter ? settings.GarrisonSorter : settings.PartySorter);
-                    }
-                    else if (_partyLogic.LeftOwnerParty?.MobileParty == null)
-                    {
-                            SortAnyParty(_partyVM.OtherPartyTroops,
-                                _partyLogic.MemberRosters[_leftSide],
-                                settings.PartySorter);
+                            sorterToUse);
                     }
                 }
 
