@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HarmonyLib;
 using PartyScreenEnhancements.Comparers;
+using PartyScreenEnhancements.Patches;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -91,15 +92,9 @@ namespace PartyScreenEnhancements.ViewModel
         }
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)
         {
-            if(rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
+            if (rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
 
-            toSort.Sort(sorter);
-
-            if(!toSort.IsOrdered(sorter))
-            {
-                //FileLog.Log($"Attempted sort on party {toSort.Count} with sorter {sorter} but the result wasn't ordered!");
-                toSort.Sort(sorter);
-            }
+            toSort.StableSort(sorter);
 
             rosterToSort.Clear();
 

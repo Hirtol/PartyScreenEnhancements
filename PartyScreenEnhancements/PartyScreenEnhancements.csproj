@@ -253,6 +253,7 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
     <Compile Include="Comparers\WoundedComparer.cs" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
+    <Compile Include="Patches\MBBindingListExtensions.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Patches\UpgradeButtonTooltipPatch.cs" />

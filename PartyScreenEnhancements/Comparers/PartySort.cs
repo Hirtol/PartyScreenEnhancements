@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Serialization;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -58,6 +59,7 @@ namespace PartyScreenEnhancements.Comparers
 
         public int Compare(PartyCharacterVM x, PartyCharacterVM y)
         {
+            Console.WriteLine("Sorting");
             if (x.Character.IsPlayerCharacter)
             {
                 return -1;
