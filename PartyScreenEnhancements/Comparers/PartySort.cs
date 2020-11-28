@@ -59,7 +59,6 @@ namespace PartyScreenEnhancements.Comparers
 
         public int Compare(PartyCharacterVM x, PartyCharacterVM y)
         {
-            Console.WriteLine("Sorting");
             if (x.Character.IsPlayerCharacter)
             {
                 return -1;
