@@ -103,7 +103,6 @@ namespace PartyScreenEnhancements.ViewModel
         {
             if (!this._partyLogic.IsPrisonerRecruitable(character.Type, character.Character, character.Side)) return;
 
-            var numberOfRecruitables = character.NumOfRecruitablePrisoners;
             var number = Math.Min(character.NumOfRecruitablePrisoners, remainingSize);
 
             if(number > 0)
@@ -113,11 +112,7 @@ namespace PartyScreenEnhancements.ViewModel
                     character.Character, number);
 
                 this._partyLogic.AddCommand(partyCommand);
-
-                // Currently the game subtracts 1 every time you recruit a prisoner, no matter how many you actually recruit
-                // (Even if you press Shift to recruit 5!)
-                // Therefore this fix is necessary for now.
-                Campaign.Current.GetCampaignBehavior<IRecruitPrisonersCampaignBehavior>()?.SetRecruitableNumber(character.Character, numberOfRecruitables - number);
+                
                 amount += number;
                 character.UpdateRecruitable();
             }
