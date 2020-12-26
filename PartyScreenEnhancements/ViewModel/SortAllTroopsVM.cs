@@ -54,15 +54,17 @@ namespace PartyScreenEnhancements.ViewModel
             try
             {
 
-                SortAnyParty(_mainPartyList, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
+                SortAnyParty(_mainPartyList, _partyLogic.RightOwnerParty, _partyLogic.MemberRosters[_rightSide], settings.PartySorter);
 
                 if (!Utilities.IsControlDown())
                 {
                     SortAnyParty(_mainPartyPrisoners,
+                        null,
                         _partyLogic.PrisonerRosters[_rightSide],
                         settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
 
                     SortAnyParty(_partyVM.OtherPartyPrisoners,
+                        null,
                         _partyLogic.PrisonerRosters[_leftSide],
                         settings.SeparateSortingProfiles ? settings.PrisonerSorter : settings.PartySorter);
 
@@ -73,9 +75,7 @@ namespace PartyScreenEnhancements.ViewModel
                             ? settings.GarrisonAndAlliedPartySorter
                             : settings.PartySorter;
 
-                        SortAnyParty(_partyVM.OtherPartyTroops,
-                            _partyLogic.MemberRosters[_leftSide],
-                            sorterToUse);
+                        SortAnyParty(_partyVM.OtherPartyTroops, _partyLogic.LeftOwnerParty, _partyLogic.MemberRosters[_leftSide], sorterToUse);
                     }
                 }
 
@@ -90,11 +90,19 @@ namespace PartyScreenEnhancements.ViewModel
                 Utilities.DisplayMessage($"PSE Sorting Unit Exception: {e}");
             }
         }
-        private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, TroopRoster rosterToSort, PartySort sorter)
+        private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, PartyBase party, TroopRoster rosterToSort, PartySort sorter)
         {
             if (rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
-
+            var leaderOfParty = party?.Leader;
             toSort.StableSort(sorter);
+
+            if (leaderOfParty != null)
+            {
+                var index = toSort.FindIndex((character) => character.Character.Equals(leaderOfParty));
+                PartyCharacterVM leaderVm = toSort[index];
+                toSort.RemoveAt(index);
+                toSort.Insert(0, leaderVm);
+            }
 
             rosterToSort.Clear();
 

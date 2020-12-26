@@ -59,6 +59,8 @@ namespace PartyScreenEnhancements.Comparers
 
         public int Compare(PartyCharacterVM x, PartyCharacterVM y)
         {
+            // Potentially a duplicate check, as we should already sort the player character to the top in SortAllTroopsVM
+            // But since this is so critical, better safe than sorry.
             if (x.Character.IsPlayerCharacter)
             {
                 return -1;
