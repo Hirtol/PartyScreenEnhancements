@@ -6,10 +6,11 @@
         <BrushWidget HeightSizePolicy="Fixed" WidthSizePolicy="Fixed" SuggestedHeight="1000" SuggestedWidth="1600"
                      HorizontalAlignment="Center" VerticalAlignment="Top" MarginTop="20" Brush="Encyclopedia.Frame">
           <Children>
-            <ClassicOptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                                 CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget"
-                                 CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget"
-                                 CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
+            <ClassicOptionsScreenWidget Id="Options" WidthSizePolicy="StretchToParent"
+                                        HeightSizePolicy="StretchToParent"
+                                        CurrentOptionDescriptionWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionDescriptionWidget"
+                                        CurrentOptionImageWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionImageWidget"
+                                        CurrentOptionNameWidget="ScrollablePanel\DescriptionsRightPanel\DescriptionsListPanel\CurrentOptionNameWidget">
               <Children>
                 <ScrollablePanel Id="ScrollablePanel" WidthSizePolicy="StretchToParent"
                                  HeightSizePolicy="StretchToParent" HorizontalAlignment="Center"
@@ -81,14 +82,23 @@
                       </Children>
                     </Widget>
 
-                    <Widget Id="DescriptionsRightPanel" MarginTop="110" MarginRight="40" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" VerticalAlignment="Center" SuggestedWidth="650" HorizontalAlignment="Right" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" >
+                    <Widget Id="DescriptionsRightPanel" MarginTop="110" MarginRight="40" WidthSizePolicy="Fixed"
+                            HeightSizePolicy="StretchToParent" VerticalAlignment="Center" SuggestedWidth="650"
+                            HorizontalAlignment="Right" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true">
                       <Children>
 
-                        <ListPanel Id="DescriptionsListPanel" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginLeft="40" MarginTop="65" LayoutImp.LayoutMethod="VerticalBottomToTop">
+                        <ListPanel Id="DescriptionsListPanel" WidthSizePolicy="StretchToParent"
+                                   HeightSizePolicy="CoverChildren" MarginLeft="40" MarginTop="65"
+                                   LayoutImp.LayoutMethod="VerticalBottomToTop">
                           <Children>
-                            <RichTextWidget Id="CurrentOptionNameWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" Brush="SPOptions.Description.Title.Text" Text=" " />
-                            <RichTextWidget Id="CurrentOptionDescriptionWidget" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" MarginTop="25" Brush="SPOptions.Description.Text" Text=" " />
-                            <Widget Id="CurrentOptionImageWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="576" SuggestedHeight="324" MarginTop="35" />
+                            <RichTextWidget Id="CurrentOptionNameWidget" WidthSizePolicy="StretchToParent"
+                                            HeightSizePolicy="CoverChildren" Brush="SPOptions.Description.Title.Text"
+                                            Text=" " />
+                            <RichTextWidget Id="CurrentOptionDescriptionWidget" WidthSizePolicy="StretchToParent"
+                                            HeightSizePolicy="CoverChildren" MarginTop="25"
+                                            Brush="SPOptions.Description.Text" Text=" " />
+                            <Widget Id="CurrentOptionImageWidget" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                    SuggestedWidth="576" SuggestedHeight="324" MarginTop="35" />
                           </Children>
                         </ListPanel>
                       </Children>
@@ -108,10 +118,17 @@
                   </Children>
                 </ScrollablePanel>
 
-                <ScrollbarWidget Id="VerticalScrollbar" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="8" HorizontalAlignment="Right" VerticalAlignment="Center" MarginTop="26" MarginBottom="85" AlignmentAxis="Vertical" Handle="VerticalScrollbarHandle" MaxValue="100" MinValue="0">
+                <ScrollbarWidget Id="VerticalScrollbar" WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent"
+                                 SuggestedWidth="8" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                 MarginTop="26" MarginBottom="85" AlignmentAxis="Vertical"
+                                 Handle="VerticalScrollbarHandle" MaxValue="100" MinValue="0">
                   <Children>
-                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4" HorizontalAlignment="Center" Sprite="MPLobby\CustomServer\lobby_slider_bed" AlphaFactor="0.4" />
-                    <ImageWidget Id="VerticalScrollbarHandle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="8" SuggestedHeight="10" HorizontalAlignment="Center" Brush="FaceGen.Scrollbar.Handle" />
+                    <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="4"
+                            HorizontalAlignment="Center" Sprite="MPLobby\CustomServer\lobby_slider_bed"
+                            AlphaFactor="0.4" />
+                    <ImageWidget Id="VerticalScrollbarHandle" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed"
+                                 SuggestedWidth="8" SuggestedHeight="10" HorizontalAlignment="Center"
+                                 Brush="FaceGen.Scrollbar.Handle" />
                   </Children>
                 </ScrollbarWidget>
 
