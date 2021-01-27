@@ -27,16 +27,15 @@ namespace PartyScreenEnhancements.Saving
         internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
-        private static readonly string modDir = TaleWorlds.Engine.Utilities.GetConfigsPath() + "Mods" + Path.DirectorySeparatorChar;
-        private static readonly string _filename = modDir + "PartyScreenEnhancements.xml";
+        private static readonly string _FILENAME = Directories.MOD_DIR + "PartyScreenEnhancements.xml";
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
 
         public static void Initialize()
         {
-            Directory.CreateDirectory(modDir);
+            Directory.CreateDirectory(Directories.MOD_DIR);
             
-            if (!File.Exists(_filename))
+            if (!File.Exists(_FILENAME))
             {
                 Save();
             }
@@ -77,7 +76,7 @@ namespace PartyScreenEnhancements.Saving
                 addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
                 addDictionaryToXML(ref PrisonersToRecruit, ref xmlDocument, ref modNode, nameof(PrisonersToRecruit));
 
-                xmlDocument.Save(_filename);
+                xmlDocument.Save(_FILENAME);
             }
             catch (Exception e)
             {
@@ -97,12 +96,12 @@ namespace PartyScreenEnhancements.Saving
 
         public static void Load()
         {
-            if (!File.Exists(_filename)) return;
+            if (!File.Exists(_FILENAME)) return;
 
             try
             {
                 var xmlDocument = new XmlDocument();
-                xmlDocument.Load(_filename);
+                xmlDocument.Load(_FILENAME);
 
                 foreach (object obj in xmlDocument.DocumentElement.ChildNodes)
                 {
