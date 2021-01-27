@@ -134,6 +134,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Unit Tally: {e}");
                 Utilities.DisplayMessage($"PSE Unit Tally Label Update Exception {e}");
             }
         }

@@ -75,6 +75,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Recruit Till Limit: {e}");
                 Utilities.DisplayMessage($"PSE Transfer To Limit Exception: {e}");
             }
         }

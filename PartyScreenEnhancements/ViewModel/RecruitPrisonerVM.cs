@@ -95,6 +95,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Recruit Prisoners: {e}");
                 Utilities.DisplayMessage($"PSE Recruit Prisoner Exception {e}");
             }
         }

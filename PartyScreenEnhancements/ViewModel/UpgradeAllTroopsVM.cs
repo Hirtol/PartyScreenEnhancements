@@ -88,6 +88,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Upgrade All Troops: {e}");
                 Utilities.DisplayMessage($"PSE UpgradeTroops exception: {e}");
             }
         }

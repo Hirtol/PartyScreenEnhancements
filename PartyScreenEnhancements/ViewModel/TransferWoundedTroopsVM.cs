@@ -59,6 +59,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Transfer Wounded Troops: {e}");
                 Utilities.DisplayMessage($"PSE Transfer Wounded Exception: {e}");
             }
         }

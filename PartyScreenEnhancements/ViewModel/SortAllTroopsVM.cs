@@ -87,6 +87,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Sorting: {e}");
                 Utilities.DisplayMessage($"PSE Sorting Unit Exception: {e}");
             }
         }

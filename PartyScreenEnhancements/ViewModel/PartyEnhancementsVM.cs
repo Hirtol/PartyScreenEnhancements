@@ -92,6 +92,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Update Label: {e}");
                 Utilities.DisplayMessage($"PSE UpdateLabel Exception: {e}");
             }
         }
