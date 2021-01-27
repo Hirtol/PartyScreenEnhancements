@@ -22,7 +22,7 @@ namespace PartyScreenEnhancements
 
         public static void Log(Levels level, string message)
         {
-            File.AppendText($"[{level.ToString()}] {message}");
+            File.AppendAllText(LOG_FILE, $"[{level}] {message}");
         }
 
 

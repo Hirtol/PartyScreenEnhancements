@@ -48,7 +48,6 @@ namespace PartyScreenEnhancements.ViewModel
 
             try
             {
-
                 foreach (PartyCharacterVM character in _mainPartyList)
                 {
                     if (character == null) continue;
@@ -88,8 +87,8 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
-                Logging.Log(Logging.Levels.ERROR, $"Upgrade All Troops: {e}");
                 Utilities.DisplayMessage($"PSE UpgradeTroops exception: {e}");
+                Logging.Log(Logging.Levels.ERROR, $"Upgrade All Troops: {e}");
             }
         }
 
@@ -98,7 +97,7 @@ namespace PartyScreenEnhancements.ViewModel
             //Somehow, for some people, character seems to be null at random times. Haven't been able to reproduce it so far
             //So this simple null check will have to stay.
             if (character == null) return;
-
+            
             var anyInsufficient =
                 upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
             anyInsufficient = upgradeIndex == HALF_HALF_VALUE
