@@ -98,11 +98,21 @@ namespace PartyScreenEnhancements.ViewModel
             //So this simple null check will have to stay.
             if (character == null) return;
             
+            // Sanity check in case troop trees change due to game update or mod configs.
+            if ((upgradeIndex == 0 && !character.IsUpgrade1Exists) ||
+                (upgradeIndex == 1 && !character.IsUpgrade2Exists))
+            {
+                Utilities.DisplayMessage($"Tried to upgrade { character.Name } to a troop that doesn't exist! Please reset your upgrade preferences.");
+                return;
+            }
+
             var anyInsufficient =
                 upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
+
             anyInsufficient = upgradeIndex == HALF_HALF_VALUE
                 ? character.IsUpgrade1Insufficient || character.IsUpgrade2Insufficient
                 : anyInsufficient;
+
             if (!anyInsufficient)
             {
                 if (character.Character.UpgradeTargets.Length > upgradeIndex || upgradeIndex == HALF_HALF_VALUE)
