@@ -11,6 +11,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -29,7 +30,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyVM = partyVm;
             this._partyLogic = logic;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
-            this._recruitHint = new HintViewModel("Recruit All Prisoners.\nClick with CTRL pressed to ignore party size limits");
+            this._recruitHint = new HintViewModel(new TextObject("Recruit All Prisoners.\nClick with CTRL pressed to ignore party size limits"));
         }
 
         public override void OnFinalize()

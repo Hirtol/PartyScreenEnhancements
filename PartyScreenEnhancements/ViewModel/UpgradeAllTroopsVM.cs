@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -28,7 +29,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyLogic = logic;
             this._mainPartyList = _partyVM.MainPartyTroops;
 
-            this._upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
+            this._upgradeHint = new HintViewModel(new TextObject("Upgrade All Troops\nRight click to upgrade only paths set by you"));
         }
 
         public override void OnFinalize()

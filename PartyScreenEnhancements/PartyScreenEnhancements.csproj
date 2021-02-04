@@ -301,6 +301,9 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ModuleData\Languages\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy /Y /E /I "$(ProjectDir)ModuleData" "$(TargetDir)..\.."</PostBuildEvent>

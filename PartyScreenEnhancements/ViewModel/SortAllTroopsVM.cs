@@ -14,6 +14,7 @@ using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -35,7 +36,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyLogic = logic;
             this._mainPartyList = this._partyVM.MainPartyTroops;
             this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
-            this._sortHint = new HintViewModel("Sort Troops\nCtrl Click to sort just main party");
+            this._sortHint = new HintViewModel(new TextObject("Sort Troops\nCtrl Click to sort just main party"));
         }
 
         public override void OnFinalize()
@@ -93,7 +94,8 @@ namespace PartyScreenEnhancements.ViewModel
         }
         private static void SortAnyParty(MBBindingList<PartyCharacterVM> toSort, PartyBase party, TroopRoster rosterToSort, PartySort sorter)
         {
-            if (rosterToSort == null || rosterToSort.IsEmpty() || toSort == null || toSort.IsEmpty()) return;
+            if (rosterToSort == null || rosterToSort.Count == 0 || toSort == null || toSort.IsEmpty()) return;
+
             var leaderOfParty = party?.Leader;
             toSort.StableSort(sorter);
 

@@ -18,6 +18,7 @@ using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -50,7 +51,7 @@ namespace PartyScreenEnhancements.ViewModel
             _partyVM = partyVM;
             _partyScreenLogic = partyScreenLogic;
             _parentScreen = parentScreen;
-            _settingsHint = new HintViewModel("Settings");
+            _settingsHint = new HintViewModel(new TextObject("Settings"));
 
             _sortTroopsVM = new SortAllTroopsVM(_partyVM, _partyScreenLogic);
             _upgradeTroopsVM = new UpgradeAllTroopsVM(this, _partyVM, _partyScreenLogic);

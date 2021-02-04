@@ -7,6 +7,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -23,7 +24,7 @@ namespace PartyScreenEnhancements.ViewModel
             _partyVm = partyVm;
             _mainPartyList = partyVm?.MainPartyTroops;
             this._shouldShowTransferWounded = shouldShow;
-            this._woundedHint = new HintViewModel("Transfer All Wounded");
+            this._woundedHint = new HintViewModel(new TextObject("Transfer All Wounded"));
         }
 
         public override void OnFinalize()
