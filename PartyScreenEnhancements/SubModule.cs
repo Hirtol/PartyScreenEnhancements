@@ -19,6 +19,7 @@ namespace PartyScreenEnhancements
 
             try
             {
+                Logging.Initialise();
                 PartyScreenConfig.Initialize();
             }
             catch (Exception e)

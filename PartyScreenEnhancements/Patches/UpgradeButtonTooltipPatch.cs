@@ -9,6 +9,7 @@ using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.Patches
 {
@@ -26,9 +27,9 @@ namespace PartyScreenEnhancements.Patches
 
                 // Pretty dirty way to do this, but ㄟ( ▔, ▔ )ㄏ it'll work for now.
                 if (!current_char.Upgrade1Hint?.HintText.Contains(UPGRADE_TOOLTIP) ?? false) 
-                    __instance.CurrentCharacter.Upgrade1Hint.HintText += UPGRADE_TOOLTIP;
+                    __instance.CurrentCharacter.Upgrade1Hint.HintText = new TextObject(__instance.CurrentCharacter.Upgrade1Hint.HintText.ToString() + UPGRADE_TOOLTIP);
                 if (!current_char.Upgrade2Hint?.HintText.Contains(UPGRADE_TOOLTIP) ?? false)
-                    __instance.CurrentCharacter.Upgrade2Hint.HintText += UPGRADE_TOOLTIP;
+                    __instance.CurrentCharacter.Upgrade2Hint.HintText = new TextObject(__instance.CurrentCharacter.Upgrade2Hint.HintText.ToString() + UPGRADE_TOOLTIP);
             }
         }
 

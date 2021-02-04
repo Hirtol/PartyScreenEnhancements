@@ -3,6 +3,7 @@ using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.ViewModel.Settings.Sorting;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 {
@@ -22,9 +23,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         public SettingSortVM(PartySort sortingComparer, Action<SettingSortVM, SettingSide> transferCallBack, SettingSide side, Action<SettingSortVM> openSubSetting)
         {
             this.SortingComparer = sortingComparer;
-            this.SettingHint = new HintViewModel(SortingComparer.GetHintText());
-            this._transferHint = new HintViewModel($"Click to transfer to the {side.GetOtherSide().ToString().ToLower()} side!");
-            this.AscDescHint = new HintViewModel($"Current Mode: {(IsDescending ? "Descending" : "Ascending")}");
+            this.SettingHint = new HintViewModel(new TextObject(SortingComparer.GetHintText()));;
+            this._transferHint = new HintViewModel(new TextObject($"Click to transfer to the {side.GetOtherSide().ToString().ToLower()} side!"));;
+            this.AscDescHint = new HintViewModel(new TextObject($"Current Mode: {(IsDescending ? "Descending" : "Ascending")}"));;
 
             this.IsTransferable = true;
             this.IsDescending = SortingComparer.Descending;
@@ -77,7 +78,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
                 {
                     this.SortingComparer.Descending = value;
                     base.OnPropertyChanged(nameof(IsDescending));
-                    this.AscDescHint.HintText = $"Current Mode: {(value ? "Descending" : "Ascending")}";
+                    this.AscDescHint.HintText = new TextObject($"Current Mode: {(value ? "Descending" : "Ascending")}");
                 }
             }
         }
@@ -148,7 +149,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
                 {
                     this._side = value;
                     base.OnPropertyChanged(nameof(Side));
-                    this.TransferHint.HintText = $"Click to transfer to the {Side.GetOtherSide().ToString().ToLower()} side!";
+                    this.TransferHint.HintText = new TextObject($"Click to transfer to the {Side.GetOtherSide().ToString().ToLower()} side!");
                 }
             }
         }

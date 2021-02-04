@@ -9,6 +9,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -25,7 +26,7 @@ namespace PartyScreenEnhancements.ViewModel
         {
             this._partyVm = partyVm;
             this._logic = logic;
-            this.LimitHint = new HintViewModel("Transfer all units up to your party limit.\nRight click to transfer all prisoners up to your prisoner limit");
+            this.LimitHint = new HintViewModel(new TextObject("Transfer all units up to your party limit.\nRight click to transfer all prisoners up to your prisoner limit"));
             this.IsEnabled = partyVm.OtherPartyTroops != null;
         }
 
@@ -75,6 +76,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             catch (Exception e)
             {
+                Logging.Log(Logging.Levels.ERROR, $"Recruit Till Limit: {e}");
                 Utilities.DisplayMessage($"PSE Transfer To Limit Exception: {e}");
             }
         }

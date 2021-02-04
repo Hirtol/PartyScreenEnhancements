@@ -6,6 +6,7 @@ using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -28,7 +29,7 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyLogic = logic;
             this._mainPartyList = _partyVM.MainPartyTroops;
 
-            this._upgradeHint = new HintViewModel("Upgrade All Troops\nRight click to upgrade only paths set by you");
+            this._upgradeHint = new HintViewModel(new TextObject("Upgrade All Troops\nRight click to upgrade only paths set by you"));
         }
 
         public override void OnFinalize()
@@ -48,7 +49,6 @@ namespace PartyScreenEnhancements.ViewModel
 
             try
             {
-
                 foreach (PartyCharacterVM character in _mainPartyList)
                 {
                     if (character == null) continue;
@@ -89,6 +89,7 @@ namespace PartyScreenEnhancements.ViewModel
             catch (Exception e)
             {
                 Utilities.DisplayMessage($"PSE UpgradeTroops exception: {e}");
+                Logging.Log(Logging.Levels.ERROR, $"Upgrade All Troops: {e}");
             }
         }
 
@@ -97,12 +98,22 @@ namespace PartyScreenEnhancements.ViewModel
             //Somehow, for some people, character seems to be null at random times. Haven't been able to reproduce it so far
             //So this simple null check will have to stay.
             if (character == null) return;
+            
+            // Sanity check in case troop trees change due to game update or mod configs.
+            if ((upgradeIndex == 0 && !character.IsUpgrade1Exists) ||
+                (upgradeIndex == 1 && !character.IsUpgrade2Exists))
+            {
+                Utilities.DisplayMessage($"Tried to upgrade { character.Name } to a troop that doesn't exist! Please reset your upgrade preferences.");
+                return;
+            }
 
             var anyInsufficient =
                 upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
+
             anyInsufficient = upgradeIndex == HALF_HALF_VALUE
                 ? character.IsUpgrade1Insufficient || character.IsUpgrade2Insufficient
                 : anyInsufficient;
+
             if (!anyInsufficient)
             {
                 if (character.Character.UpgradeTargets.Length > upgradeIndex || upgradeIndex == HALF_HALF_VALUE)

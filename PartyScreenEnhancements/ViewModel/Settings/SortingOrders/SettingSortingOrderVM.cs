@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PartyScreenEnhancements.Comparers;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel.Settings
 {
@@ -15,7 +16,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public SettingSortingOrderVM(string displayText)
         {
-            this.SettingHint = new HintViewModel(displayText);
+            this.SettingHint = new HintViewModel(new TextObject(displayText));;
             this.Name = displayText;
         }
 

@@ -252,11 +252,13 @@
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\PSESortingSelectorLayer.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Sorting\SubSetting\PartyEnhancementSortingSettings.xml" />
     <Compile Include="Comparers\WoundedComparer.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="Patches\ChooseIgnorePrisonerPatch.cs" />
     <Compile Include="Patches\MBBindingListExtensions.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
     <Compile Include="Patches\UpgradeButtonTooltipPatch.cs" />
+    <Compile Include="Saving\Directories.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />
     <Compile Include="Saving\PartyScreenConfig.cs" />
     <Compile Include="Utilities.cs" />
@@ -298,6 +300,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ModuleData\Languages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
