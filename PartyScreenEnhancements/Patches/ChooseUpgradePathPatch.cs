@@ -4,7 +4,6 @@ using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.Screens;
-using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.Patches

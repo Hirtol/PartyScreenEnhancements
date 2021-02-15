@@ -9,8 +9,6 @@ using System.Xml.Serialization;
 using System.Xml.XPath;
 using HarmonyLib;
 using PartyScreenEnhancements.Comparers;
-using TaleWorlds.Engine;
-using Path = System.IO.Path;
 
 namespace PartyScreenEnhancements.Saving
 {

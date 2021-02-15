@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PartyScreenEnhancements.Comparers;
-using TaleWorlds.GauntletUI;
-using TaleWorlds.Library;
+﻿using TaleWorlds.GauntletUI;
 
 namespace PartyScreenEnhancements.Widgets
 {

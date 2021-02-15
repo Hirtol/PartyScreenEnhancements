@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaleWorlds.Engine.Options;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
-using TaleWorlds.MountAndBlade.ViewModelCollection.GameOptions;
 
 namespace PartyScreenEnhancements.ViewModel.Settings.Options
 {

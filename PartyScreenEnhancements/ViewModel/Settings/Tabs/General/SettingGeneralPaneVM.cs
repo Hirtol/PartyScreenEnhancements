@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
-using PartyScreenEnhancements.Saving;
+﻿using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.Options;
-using TaleWorlds.Engine.Options;
 using TaleWorlds.Library;
-using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.ViewModel.Settings.Tabs
 {
