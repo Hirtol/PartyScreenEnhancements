@@ -33,8 +33,6 @@ namespace PartyScreenEnhancements.Saving
 
         public static void Initialize()
         {
-            Directory.CreateDirectory(Directories.MOD_DIR);
-            
             if (!File.Exists(_FILENAME))
             {
                 Save();

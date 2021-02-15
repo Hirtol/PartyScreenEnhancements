@@ -19,6 +19,7 @@ namespace PartyScreenEnhancements
 
             try
             {
+                Directories.Initialize();
                 Logging.Initialise();
                 PartyScreenConfig.Initialize();
             }
