@@ -29,7 +29,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         private GauntletLayer _subSettingLayer;
         private GauntletPartyScreen _parentScreen;
-        private GauntletMovie _currentMovie;
+        private IGauntletMovie _currentMovie;
         private SettingSortingOrderScreenVM _subScreen;
 
         public SettingScreenVM(PartyEnhancementsVM parent, GauntletPartyScreen parentScreen)

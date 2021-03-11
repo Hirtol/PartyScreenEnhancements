@@ -37,7 +37,7 @@ namespace PartyScreenEnhancements.ViewModel
 
         private GauntletLayer _settingLayer;
         private readonly GauntletPartyScreen _parentScreen;
-        private GauntletMovie _currentMovie;
+        private IGauntletMovie _currentMovie;
 
         private HintViewModel _settingsHint;
 
