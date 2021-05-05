@@ -9,6 +9,8 @@ using System.Xml.Serialization;
 using System.Xml.XPath;
 using HarmonyLib;
 using PartyScreenEnhancements.Comparers;
+using TaleWorlds.Library;
+using StringWriter = System.IO.StringWriter;
 
 namespace PartyScreenEnhancements.Saving
 {
@@ -25,13 +27,12 @@ namespace PartyScreenEnhancements.Saving
         internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
-        private static readonly string _FILENAME = Directories.MOD_DIR + "PartyScreenEnhancements.xml";
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
 
         public static void Initialize()
         {
-            if (!File.Exists(_FILENAME))
+            if (!FileManager.ConfigExists())
             {
                 Save();
             }
@@ -72,7 +73,13 @@ namespace PartyScreenEnhancements.Saving
                 addDictionaryToXML(ref PathsToUpgrade, ref xmlDocument, ref modNode, "UpgradePaths");
                 addDictionaryToXML(ref PrisonersToRecruit, ref xmlDocument, ref modNode, nameof(PrisonersToRecruit));
 
-                xmlDocument.Save(_FILENAME);
+                var stringWriter = new StringWriter();
+                var xmlTextWriter = new XmlTextWriter(stringWriter);
+                xmlTextWriter.Formatting = Formatting.Indented;
+
+                xmlDocument.WriteTo(xmlTextWriter);
+
+                FileManager.SaveConfig(stringWriter.ToString());
             }
             catch (Exception e)
             {
@@ -92,12 +99,14 @@ namespace PartyScreenEnhancements.Saving
 
         public static void Load()
         {
-            if (!File.Exists(_FILENAME)) return;
+            if (!FileManager.ConfigExists()) return;
 
             try
             {
                 var xmlDocument = new XmlDocument();
-                xmlDocument.Load(_FILENAME);
+                var xmlContent = FileManager.ReadConfig();
+                Logging.Log(Logging.Levels.DEBUG, xmlContent);
+                xmlDocument.LoadXml(xmlContent);
 
                 foreach (object obj in xmlDocument.DocumentElement.ChildNodes)
                 {

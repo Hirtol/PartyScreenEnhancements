@@ -16,7 +16,7 @@ namespace PartyScreenEnhancements
 
             try
             {
-                Directories.Initialize();
+                FileManager.Initialize();
                 Logging.Initialise();
                 PartyScreenConfig.Initialize();
             }
