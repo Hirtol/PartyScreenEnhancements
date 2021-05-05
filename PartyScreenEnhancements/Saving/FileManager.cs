@@ -8,10 +8,7 @@ namespace PartyScreenEnhancements.Saving
 {
     public static class FileManager
     {
-        public static readonly string MOD_DIR = EngineFilePaths.ConfigsDirectoryName + Path.DirectorySeparatorChar + "Mods";
         public static readonly string MOD_DIR_RELATIVE = EngineFilePaths.ConfigsDirectoryName + Path.DirectorySeparatorChar + "Mods";
-        private static readonly PlatformDirectoryPath CONFIGS_DIR = new PlatformDirectoryPath(PlatformFileType.User, MOD_DIR_RELATIVE);
-        //TaleWorlds.Engine.EngineFilePaths.ConfigsPath.Path + "Mods" + Path.DirectorySeparatorChar;
         public static PlatformDirectoryPath DEFAULT_MOD_DIR => new PlatformDirectoryPath(PlatformFileType.User, MOD_DIR_RELATIVE);
         public static PlatformFilePath DEFAULT_LOG_FILE => new PlatformFilePath(DEFAULT_MOD_DIR, "PSE.log");
         public static PlatformFilePath DEFAULT_CONF_FILE => new PlatformFilePath(DEFAULT_MOD_DIR, "PartyScreenEnhancements.xml");
