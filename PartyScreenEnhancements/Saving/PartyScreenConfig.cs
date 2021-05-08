@@ -105,7 +105,6 @@ namespace PartyScreenEnhancements.Saving
             {
                 var xmlDocument = new XmlDocument();
                 var xmlContent = FileManager.ReadConfig();
-                Logging.Log(Logging.Levels.DEBUG, xmlContent);
                 xmlDocument.LoadXml(xmlContent);
 
                 foreach (object obj in xmlDocument.DocumentElement.ChildNodes)
