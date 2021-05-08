@@ -25,7 +25,7 @@ namespace PartyScreenEnhancements.Saving
         internal static PartySort DefaultSorter = new TypeComparer(new TrueTierComparer(new AlphabetComparer(null, false), true), false);
         internal static ExtraSettings ExtraSettings = new ExtraSettings();
 
-        private static readonly string _FILENAME = Directories.MOD_DIR + "PartyScreenEnhancements.xml";
+        private static readonly string _FILENAME = Directories.GetConfigPathForFile("PartyScreenEnhancements.xml");
         // Used to reset Sorters to their initial state in case some changes were made.
         private static bool _upgradedVersion = true;
 

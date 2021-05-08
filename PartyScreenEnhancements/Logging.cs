@@ -5,7 +5,7 @@ namespace PartyScreenEnhancements
 {
     public static class Logging
     {
-        public static readonly string LOG_FILE = Directories.MOD_DIR + "PSE.log";
+        public static readonly string LOG_FILE = Directories.GetConfigPathForFile("PSE.log");
 
         public static void Initialise()
         {
