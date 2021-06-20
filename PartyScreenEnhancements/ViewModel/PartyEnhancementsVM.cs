@@ -33,11 +33,12 @@ namespace PartyScreenEnhancements.ViewModel
         private SettingScreenVM _settingScreenVm;
         private UnitTallyVM _unitTallyVm;
         private TransferWoundedTroopsVM _transferWounded;
-        private RecruitTillLimitVM _recruitLimitVM;
 
-        private GauntletLayer _settingLayer;
         private readonly GauntletPartyScreen _parentScreen;
-        private IGauntletMovie _currentMovie;
+        private GauntletLayer _settingLayer;
+        private GauntletLayer _popupLayer;
+        private IGauntletMovie _settingMovie;
+        private IGauntletMovie _popupMovie;
 
         private HintViewModel _settingsHint;
 
@@ -47,14 +48,13 @@ namespace PartyScreenEnhancements.ViewModel
             _partyVM = partyVM;
             _partyScreenLogic = partyScreenLogic;
             _parentScreen = parentScreen;
-            _settingsHint = new HintViewModel(new TextObject("Settings"));
+            _settingsHint = new HintViewModel(new TextObject("PSE Settings"));
 
             _sortTroopsVM = new SortAllTroopsVM(_partyVM, _partyScreenLogic);
             _upgradeTroopsVM = new UpgradeAllTroopsVM(this, _partyVM, _partyScreenLogic);
             _recruitPrisonerVm = new RecruitPrisonerVM(this, _partyVM, _partyScreenLogic);
             _unitTallyVm = new UnitTallyVM(partyVM.MainPartyTroops, partyVM.OtherPartyTroops, partyScreenLogic, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
             _transferWounded = new TransferWoundedTroopsVM(this, partyVM, _partyScreenLogic?.LeftOwnerParty?.MobileParty?.IsGarrison ?? false);
-            _recruitLimitVM = new RecruitTillLimitVM(_partyVM,_partyScreenLogic);
 
             _partyScreenLogic.AfterReset += AfterReset;
             _partyScreenLogic.Update += UpdateLabel;
@@ -121,16 +121,55 @@ namespace PartyScreenEnhancements.ViewModel
             PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
 
             _unitTallyVm.OnFinalize();
-            _recruitLimitVM.OnFinalize();
             _recruitPrisonerVm.OnFinalize();
             _upgradeTroopsVM.OnFinalize();
             _sortTroopsVM.OnFinalize();
 
             _unitTallyVm = null;
-            _recruitLimitVM = null;
             _recruitPrisonerVm = null;
             _upgradeTroopsVM = null;
             _sortTroopsVM = null;
+        }
+
+        /*
+         * Screen layer methods
+         */
+
+        public void OpenPopupViewEnhancements(PartyTroopManagerVM openedPopup)
+        {
+            if (_popupLayer != null)
+            {
+                return;
+            }
+
+            _popupLayer = new GauntletLayer(200);
+
+            if (openedPopup is PartyUpgradeTroopVM)
+            {
+                _popupMovie = _popupLayer.LoadMovie("PSEUpgradePopup", _upgradeTroopsVM);
+                
+            }
+            else if (openedPopup is PartyRecruitTroopVM)
+            {
+                _popupMovie = _popupLayer.LoadMovie("PSERecruitPopup", _recruitPrisonerVm);
+            }
+
+            _popupLayer.IsFocusLayer = true;
+            ScreenManager.TrySetFocus(_popupLayer);
+            _popupLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
+            _parentScreen.AddLayer(_popupLayer);
+            _popupLayer.InputRestrictions.SetInputRestrictions();
+        }
+
+        public void ClosePopupViewEnhancements()
+        {
+            if (_popupLayer != null)
+            {
+                _popupLayer.ReleaseMovie(_popupMovie);
+                _parentScreen.RemoveLayer(_popupLayer);
+                _popupLayer.InputRestrictions.ResetInputRestrictions();
+                _popupLayer = null;
+            }
         }
 
         public void OpenSettingView()
@@ -139,7 +178,7 @@ namespace PartyScreenEnhancements.ViewModel
             {
                 _settingLayer = new GauntletLayer(200);
                 _settingScreenVm = new SettingScreenVM(this, _parentScreen);
-                _currentMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
+                _settingMovie = _settingLayer.LoadMovie("PartyEnhancementSettings", _settingScreenVm);
                 _settingLayer.IsFocusLayer = true;
                 ScreenManager.TrySetFocus(_settingLayer);
                 _settingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
@@ -152,7 +191,7 @@ namespace PartyScreenEnhancements.ViewModel
         {
             if (_settingLayer != null)
             {
-                _settingLayer.ReleaseMovie(_currentMovie);
+                _settingLayer.ReleaseMovie(_settingMovie);
                 _parentScreen.RemoveLayer(_settingLayer);
                 _settingLayer.InputRestrictions.ResetInputRestrictions();
                 _settingLayer = null;
@@ -160,6 +199,10 @@ namespace PartyScreenEnhancements.ViewModel
                 RefreshValues();
             }
         }
+
+        /*
+         * Misc Methods
+         */
 
         public bool IsHotKeyPressed(string hotkey)
         {
@@ -267,20 +310,6 @@ namespace PartyScreenEnhancements.ViewModel
                 {
                     _transferWounded = value;
                     OnPropertyChanged(nameof(TransferWoundedTroops));
-                }
-            }
-        }
-
-        [DataSourceProperty]
-        public RecruitTillLimitVM RecruitTillLimit
-        {
-            get => _recruitLimitVM;
-            set
-            {
-                if (value != _recruitLimitVM)
-                {
-                    _recruitLimitVM = value;
-                    OnPropertyChanged(nameof(RecruitTillLimit));
                 }
             }
         }

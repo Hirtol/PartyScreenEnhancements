@@ -1,0 +1,32 @@
+﻿<Prefab>
+  <Constants>
+  </Constants>
+  <Variables>
+  </Variables>
+  <Window>
+    <Widget Id="EnhancementScreenTopBar" WidthSizePolicy="StretchToParent"
+            HeightSizePolicy="StretchToParent"
+            SuggestedWidth="650" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="140"
+            DoNotAcceptEvents="true">
+      <Children>
+        <ButtonWidget Id="RecruitAllPrisonersButton"
+                      DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
+                      HeightSizePolicy="Fixed" SuggestedWidth="50"
+                      SuggestedHeight="50" HorizontalAlignment="Right"
+                      VerticalAlignment="Top" MarginRight="10"
+                      Brush="Party.Enhancement.ButtonBackground" Command.Click="RecruitAll">
+          <Children>
+            <HintWidget DataSource="{RecruitHint}" WidthSizePolicy="StretchToParent"
+                        HeightSizePolicy="StretchToParent"
+                        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="40"
+                         DoNotAcceptEvents="false"
+                         SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="0"
+                         VerticalAlignment="Center" MarginLeft="4" IsDisabled="false"
+                         Brush="Party.Enhancement.RecruitPrisoners" />
+          </Children>
+        </ButtonWidget>
+      </Children>
+    </Widget>
+  </Window>
+</Prefab>

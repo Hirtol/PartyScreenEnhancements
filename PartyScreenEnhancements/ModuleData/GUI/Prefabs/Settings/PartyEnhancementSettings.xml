@@ -26,7 +26,7 @@
                         <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
                                         VerticalAlignment="Center"
                                         PositionYOffset="-27" PositionXOffset="-8" Brush="Recruitment.Popup.Title.Text"
-                                        Text="Party Enhancement Settings" Brush.FontSize="40" />
+                                        Text="Party Screen Enhancements Settings" Brush.FontSize="30" />
                       </Children>
                     </BrushWidget>
 

@@ -170,7 +170,6 @@ namespace PartyScreenEnhancements.ViewModel
             partyCommand.FillForUpgradeTroop(character.Side, character.Type, character.Character, amount, target);
             _partyVM.CurrentCharacter = character;
             _partyLogic.AddCommand(partyCommand);
-            character.InitializeUpgrades();
         }
 
         [DataSourceProperty]

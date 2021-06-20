@@ -1,7 +1,10 @@
-﻿using HarmonyLib;
+﻿using System.Runtime.CompilerServices;
+using HarmonyLib;
 using PartyScreenEnhancements.Saving;
+using PartyScreenEnhancements.ViewModel;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.Engine.Screens;
 using TaleWorlds.Localization;
 
@@ -14,24 +17,30 @@ namespace PartyScreenEnhancements.Patches
     {
         [HarmonyPostfix]
         [HarmonyPatch("OpenPopUp")]
-        public static void PostfixOpen()
+        public static void PostfixOpen(ref PartyTroopManagerVM __instance)
         {
-            PartyEnhancementLayerPatch.enhancementVm.OnPropertyChanged(nameof(PartyEnhancementLayerPatch.enhancementVm.AnyOtherPopupOpen));
+            PartyEnhancementLayerPatch.enhancementVm.OnPropertyChanged(nameof(PartyEnhancementLayerPatch.enhancementVm
+                .AnyOtherPopupOpen));
+
+            PartyEnhancementLayerPatch.enhancementVm.OpenPopupViewEnhancements(__instance);
         }
 
         [HarmonyPostfix]
         [HarmonyPatch("ExecuteDone")]
         public static void PostfixClose()
         {
-            PartyEnhancementLayerPatch.enhancementVm.OnPropertyChanged(nameof(PartyEnhancementLayerPatch.enhancementVm.AnyOtherPopupOpen));
+            PartyEnhancementLayerPatch.enhancementVm.ClosePopupViewEnhancements();
+            PartyEnhancementLayerPatch.enhancementVm.OnPropertyChanged(nameof(PartyEnhancementLayerPatch.enhancementVm
+                .AnyOtherPopupOpen));
         }
 
         [HarmonyPostfix]
         [HarmonyPatch("ConfirmCancel")]
         public static void PostfixCancel()
         {
-            PartyEnhancementLayerPatch.enhancementVm.OnPropertyChanged(nameof(PartyEnhancementLayerPatch.enhancementVm.AnyOtherPopupOpen));
+            PartyEnhancementLayerPatch.enhancementVm.ClosePopupViewEnhancements();
+            PartyEnhancementLayerPatch.enhancementVm.OnPropertyChanged(nameof(PartyEnhancementLayerPatch.enhancementVm
+                .AnyOtherPopupOpen));
         }
-
     }
 }

@@ -245,6 +245,8 @@
     <Compile Include="Comparers\PartySort.cs" />
     <Compile Include="Comparers\TrueTierComparer.cs" />
     <Compile Include="Comparers\TypeComparer.cs" />
+    <Content Include="ModuleData\GUI\Prefabs\Party\PSERecruitPopup.xml" />
+    <Content Include="ModuleData\GUI\Prefabs\Party\PSEUpgradePopup.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\General\PartyEnhancementGeneralTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\Miscellaneous\PSEMiscTab.xml" />
     <Content Include="ModuleData\GUI\Prefabs\Settings\PartyEnhancementSettings.xml" />
@@ -265,7 +267,6 @@
     <Compile Include="Utilities.cs" />
     <Compile Include="ViewModel\PartyEnhancementsVM.cs" />
     <Compile Include="ViewModel\RecruitPrisonerVM.cs" />
-    <Compile Include="ViewModel\RecruitTillLimitVM.cs" />
     <Compile Include="ViewModel\Settings\Options\BooleanOptionDataVM.cs" />
     <Compile Include="ViewModel\Settings\Options\GenericOptionDataVM.cs" />
     <Compile Include="ViewModel\Settings\SortingOrders\SettingSortingOrderScreenVM.cs" />
