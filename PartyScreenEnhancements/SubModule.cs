@@ -2,6 +2,7 @@
 using HarmonyLib;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.Core;
+using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.MountAndBlade;
 
 namespace PartyScreenEnhancements
@@ -30,6 +31,7 @@ namespace PartyScreenEnhancements
 
         protected override void OnApplicationTick(float dt)
         {
+
             //UIResourceManager.UIResourceDepot.CheckForChanges();
         }
 

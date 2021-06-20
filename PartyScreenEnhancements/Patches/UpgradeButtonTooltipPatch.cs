@@ -7,7 +7,7 @@ using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.Patches
 {
-    [HarmonyPatch(typeof(PartyVM), "UpdateCurrentCharacterUpgrades")]
+    [HarmonyPatch(typeof(PartyVM), "RefreshCurrentCharacterInformation")]
     public class UpgradeButtonTooltipPatch
     {
         private const string UPGRADE_TOOLTIP = "\nHold [CTRL] and [SHIFT] to select as preferred upgrade path";

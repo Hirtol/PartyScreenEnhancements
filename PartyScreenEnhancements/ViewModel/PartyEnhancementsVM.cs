@@ -182,6 +182,12 @@ namespace PartyScreenEnhancements.ViewModel
         }
 
         [DataSourceProperty]
+        public bool AnyOtherPopupOpen
+        {
+            get => _partyVM.IsAnyPopUpOpen;
+        }
+
+        [DataSourceProperty]
         public HintViewModel SettingHint
         {
             get => _settingsHint;

@@ -257,6 +257,7 @@
     <Compile Include="Patches\MBBindingListExtensions.cs" />
     <Compile Include="Patches\PartyEnhancementLayerPatch.cs" />
     <Compile Include="Patches\ChooseUpgradePathPatch.cs" />
+    <Compile Include="Patches\PopupPatch.cs" />
     <Compile Include="Patches\UpgradeButtonTooltipPatch.cs" />
     <Compile Include="Saving\Directories.cs" />
     <Compile Include="Saving\ExtraSettings.cs" />

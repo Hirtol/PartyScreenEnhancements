@@ -82,6 +82,7 @@ namespace PartyScreenEnhancements.ViewModel
                 }
 
                 _parent.RefreshValues();
+                _partyVM.ExecuteRemoveZeroCounts();
 
                 if (PartyScreenConfig.ExtraSettings.ShowGeneralLogMessage)
                     InformationManager.DisplayMessage(new InformationMessage($"Upgraded {totalUpgrades} troops!"));
@@ -169,6 +170,7 @@ namespace PartyScreenEnhancements.ViewModel
             partyCommand.FillForUpgradeTroop(character.Side, character.Type, character.Character, amount, target);
             _partyVM.CurrentCharacter = character;
             _partyLogic.AddCommand(partyCommand);
+            character.InitializeUpgrades();
         }
 
         [DataSourceProperty]

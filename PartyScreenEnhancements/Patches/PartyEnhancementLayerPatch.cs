@@ -24,7 +24,7 @@ namespace PartyScreenEnhancements.Patches
         {
             if (__instance is GauntletPartyScreen partyScreen && screenLayer == null)
             {
-                screenLayer = new GauntletLayer(100);
+                screenLayer = new GauntletLayer(10);
 
                 var traverser = Traverse.Create(partyScreen);
                 PartyVM partyVM = traverser.Field<PartyVM>("_dataSource").Value;
