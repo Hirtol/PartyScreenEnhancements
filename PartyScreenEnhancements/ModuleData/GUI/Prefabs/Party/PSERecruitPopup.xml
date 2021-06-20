@@ -13,7 +13,7 @@
                       DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
                       HeightSizePolicy="Fixed" SuggestedWidth="50"
                       SuggestedHeight="50" HorizontalAlignment="Right"
-                      VerticalAlignment="Top" MarginRight="10"
+                      VerticalAlignment="Top" MarginRight="550"
                       Brush="Party.Enhancement.ButtonBackground" Command.Click="RecruitAll">
           <Children>
             <HintWidget DataSource="{RecruitHint}" WidthSizePolicy="StretchToParent"
