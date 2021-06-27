@@ -154,9 +154,6 @@ namespace PartyScreenEnhancements.ViewModel
                 _popupMovie = _popupLayer.LoadMovie("PSERecruitPopup", _recruitPrisonerVm);
             }
 
-            _popupLayer.IsFocusLayer = true;
-            ScreenManager.TrySetFocus(_popupLayer);
-            _popupLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
             _parentScreen.AddLayer(_popupLayer);
             _popupLayer.InputRestrictions.SetInputRestrictions();
         }
