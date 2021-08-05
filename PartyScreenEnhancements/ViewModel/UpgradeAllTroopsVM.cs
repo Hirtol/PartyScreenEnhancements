@@ -143,10 +143,6 @@ namespace PartyScreenEnhancements.ViewModel
                     var upgradeCounts = character.Upgrades.Select(upgrade =>
                         Math.Min(upgrade.AvailableUpgrades, upgradeableTroops / upgradesCount)).ToList();
 
-                    Logging.Log(Logging.Levels.DEBUG, $"For Unit: {character.Name} - Upgrades:");
-
-                    upgradeCounts.ForEach(i => Logging.Log(Logging.Levels.DEBUG, $"{character.Name} - {i}"));
-
                     var remainingUpgrades = upgradeableTroops - upgradeCounts.Sum();
 
                     if (remainingUpgrades > 0)
