@@ -13,15 +13,12 @@ namespace PartyScreenEnhancements.ViewModel
 {
     public class UpgradeAllTroopsVM : TaleWorlds.Library.ViewModel
     {
-        private const int HALF_HALF_VALUE = 2;
-
         private MBBindingList<PartyCharacterVM> _mainPartyList;
         private PartyEnhancementsVM _parent;
         private PartyScreenLogic _partyLogic;
         private PartyVM _partyVM;
 
         private HintViewModel _upgradeHint;
-
 
         public UpgradeAllTroopsVM(PartyEnhancementsVM parent, PartyVM partyVm, PartyScreenLogic logic)
         {
@@ -62,20 +59,16 @@ namespace PartyScreenEnhancements.ViewModel
                     }
                     else if (!shouldUseOnlyDict)
                     {
-                        if (PartyScreenConfig.ExtraSettings.EqualUpgrades && character.Upgrades.Count >= 2)
+                        if (character.Upgrades.Count >= 2)
                         {
-                            toUpgrade.Add(character, new EqualDistributionTarget());
+                            if (PartyScreenConfig.ExtraSettings.EqualUpgrades)
+                                toUpgrade.Add(character, new EqualDistributionTarget());
                         }
                         else if(character.Upgrades[0].IsAvailable)
                         {
                             toUpgrade.Add(character, new SpecificUpgradeTarget(0));
                         }
                     }
-                }
-
-                foreach (var upgradeTarget in toUpgrade)
-                {
-                    Logging.Log(Logging.Levels.DEBUG, $"Key: {upgradeTarget.Key.Name} - Value: {upgradeTarget.Value}");
                 }
 
                 foreach (var keyValuePair in toUpgrade)
@@ -93,21 +86,25 @@ namespace PartyScreenEnhancements.ViewModel
             {
                 Utilities.DisplayMessage($"PSE UpgradeTroops exception: {e}");
                 Logging.Log(Logging.Levels.ERROR, $"Upgrade All Troops: {e}");
+
+                foreach (var upgradeTarget in toUpgrade)
+                {
+                    Logging.Log(Logging.Levels.DEBUG, $"Key: {upgradeTarget.Key.Name} - Value: {upgradeTarget.Value}");
+                }
             }
         }
 
         private int Upgrade(PartyCharacterVM character, UpgradeTarget upgradeTarget)
         {
-            Logging.Log(Logging.Levels.DEBUG, $"Examining {character.Name} - {upgradeTarget} - Size: {character.Upgrades.Count}");
             //Somehow, for some people, character seems to be null at random times. Haven't been able to reproduce it so far
             //So this simple null check will have to stay.
             if (character == null) return 0;
 
-            bool anyInsufficient;
+            bool allInsufficient;
 
             if (upgradeTarget is SpecificUpgradeTarget target)
             {
-                anyInsufficient = character.Upgrades[target.targetIndex].IsInsufficient;
+                allInsufficient = character.Upgrades[target.targetIndex].IsInsufficient;
 
                 // Sanity check in case troop trees change due to game update or mod configs.
                 if (target.targetIndex > character.Upgrades.Count ||
@@ -119,10 +116,10 @@ namespace PartyScreenEnhancements.ViewModel
             }
             else
             {
-                anyInsufficient = character.Upgrades.All(upgradeTarg => !upgradeTarg.IsInsufficient);
+                allInsufficient = character.Upgrades.All(upgradeTarg => !upgradeTarg.IsAvailable);
             }
 
-            if (!anyInsufficient)
+            if (!allInsufficient)
             {
                 return ExecuteUpgrade(upgradeTarget, character);
             }

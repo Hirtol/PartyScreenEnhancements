@@ -116,7 +116,7 @@
 
             <Widget WidthSizePolicy="Fixed" HeightSizePolicy="StretchToParent" SuggestedWidth="20"
                     HorizontalAlignment="Right" VerticalAlignment="Center" MarginRight="40" MarginTop="10"
-                    MarginBottom="10" IsDisabled="false" Sprite="Icons\icon_quest_available">
+                    MarginBottom="10" IsDisabled="false" Sprite="General\Icons\icon_quest_available">
               <Children>
                 <HintWidget DataSource="{SettingHint}" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent"
                             HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint"

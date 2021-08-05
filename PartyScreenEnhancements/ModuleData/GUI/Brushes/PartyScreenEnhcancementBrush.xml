@@ -77,7 +77,7 @@
   </Brush>
   <Brush Name="Party.Enhancement.Settings">
     <Layers>
-      <BrushLayer Name="Default" Sprite="TownManagement\production_icon" />
+      <BrushLayer Name="Default" Sprite="SPGeneral\TownManagement\production_icon" />
     </Layers>
     <Styles>
       <Style Name="Default">
@@ -96,7 +96,7 @@
   </Brush>
   <Brush Name="Party.Enhancement.ArrowUp">
     <Layers>
-      <BrushLayer Name="Default" Sprite="SPScoreboard\arrow_up" ExtendTop="2" ExtendBottom="2" />
+      <BrushLayer Name="Default" Sprite="SPGeneral\SPScoreboard\arrow_up" ExtendTop="2" ExtendBottom="2" />
     </Layers>
     <Styles>
       <Style Name="Default">
@@ -115,7 +115,7 @@
   </Brush>
   <Brush Name="Party.Enhancement.ArrowDown">
     <Layers>
-      <BrushLayer Name="Default" Sprite="SPScoreboard\arrow_down" ExtendTop="2" ExtendBottom="2" />
+      <BrushLayer Name="Default" Sprite="SPGeneral\SPScoreboard\arrow_down" ExtendTop="2" ExtendBottom="2" />
     </Layers>
     <Styles>
       <Style Name="Default">
