@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
@@ -29,7 +30,8 @@ namespace PartyScreenEnhancements.ViewModel
             this._partyLogic = logic;
             this._mainPartyList = _partyVM.MainPartyTroops;
 
-            this._upgradeHint = new HintViewModel(new TextObject("Upgrade All Troops\nRight click to upgrade only paths set by you"));
+            this._upgradeHint =
+                new HintViewModel(new TextObject("Upgrade All Troops\nRight click to upgrade only paths set by you"));
         }
 
         public override void OnFinalize()
@@ -44,41 +46,41 @@ namespace PartyScreenEnhancements.ViewModel
         private void UpgradeAllTroopsPath(int shouldUseOnlyDictInt)
         {
             var totalUpgrades = 0;
-            var toUpgrade = new Dictionary<PartyCharacterVM, int>();
+            var toUpgrade = new Dictionary<PartyCharacterVM, UpgradeTarget>();
             var shouldUseOnlyDict = shouldUseOnlyDictInt == 1;
 
             try
             {
                 foreach (PartyCharacterVM character in _mainPartyList)
                 {
-                    if (character == null) continue;
+                    if (character == null || character.Upgrades.Count == 0) continue;
 
                     if (PartyScreenConfig.PathsToUpgrade.TryGetValue(character.Character.StringId, out var upgradePath))
                     {
                         if (upgradePath != -1)
-                            toUpgrade.Add(character, upgradePath);
+                            toUpgrade.Add(character, new SpecificUpgradeTarget(upgradePath));
                     }
                     else if (!shouldUseOnlyDict)
                     {
-                        if (PartyScreenConfig.ExtraSettings.HalfHalfUpgrades && character.IsUpgrade1Available &&
-                            character.IsUpgrade2Available)
+                        if (PartyScreenConfig.ExtraSettings.EqualUpgrades && character.Upgrades.Count >= 2)
                         {
-                            toUpgrade.Add(character, HALF_HALF_VALUE);
+                            toUpgrade.Add(character, new EqualDistributionTarget());
                         }
-                        else if (character.IsUpgrade1Available && !character.IsUpgrade2Available)
+                        else if(character.Upgrades[0].IsAvailable)
                         {
-                            toUpgrade.Add(character, 0);
-                        }
-                        else if (!character.IsUpgrade1Available && character.IsUpgrade2Available)
-                        {
-                            toUpgrade.Add(character, 1);
+                            toUpgrade.Add(character, new SpecificUpgradeTarget(0));
                         }
                     }
                 }
 
+                foreach (var upgradeTarget in toUpgrade)
+                {
+                    Logging.Log(Logging.Levels.DEBUG, $"Key: {upgradeTarget.Key.Name} - Value: {upgradeTarget.Value}");
+                }
+
                 foreach (var keyValuePair in toUpgrade)
                 {
-                    Upgrade(keyValuePair.Key, keyValuePair.Value, ref totalUpgrades);
+                    totalUpgrades += Upgrade(keyValuePair.Key, keyValuePair.Value);
                 }
 
                 _parent.RefreshValues();
@@ -94,77 +96,98 @@ namespace PartyScreenEnhancements.ViewModel
             }
         }
 
-        private void Upgrade(PartyCharacterVM character, int upgradeIndex, ref int totalUpgrades)
+        private int Upgrade(PartyCharacterVM character, UpgradeTarget upgradeTarget)
         {
+            Logging.Log(Logging.Levels.DEBUG, $"Examining {character.Name} - {upgradeTarget} - Size: {character.Upgrades.Count}");
             //Somehow, for some people, character seems to be null at random times. Haven't been able to reproduce it so far
             //So this simple null check will have to stay.
-            if (character == null) return;
-            
-            // Sanity check in case troop trees change due to game update or mod configs.
-            if ((upgradeIndex == 0 && !character.IsUpgrade1Exists) ||
-                (upgradeIndex == 1 && !character.IsUpgrade2Exists))
+            if (character == null) return 0;
+
+            bool anyInsufficient;
+
+            if (upgradeTarget is SpecificUpgradeTarget target)
             {
-                Utilities.DisplayMessage($"Tried to upgrade { character.Name } to a troop that doesn't exist! Please reset your upgrade preferences.");
-                return;
+                anyInsufficient = character.Upgrades[target.targetIndex].IsInsufficient;
+
+                // Sanity check in case troop trees change due to game update or mod configs.
+                if (target.targetIndex > character.Upgrades.Count ||
+                    (!character.Upgrades[target.targetIndex]?.IsAvailable ?? true))
+                {
+                    Utilities.DisplayMessage(
+                        $"Tried to upgrade {character.Name} to a troop that doesn't exist! Please reset your upgrade preferences.");
+                }
             }
-
-            var anyInsufficient =
-                upgradeIndex == 0 ? character.IsUpgrade1Insufficient : character.IsUpgrade2Insufficient;
-
-            anyInsufficient = upgradeIndex == HALF_HALF_VALUE
-                ? character.IsUpgrade1Insufficient || character.IsUpgrade2Insufficient
-                : anyInsufficient;
+            else
+            {
+                anyInsufficient = character.Upgrades.All(upgradeTarg => !upgradeTarg.IsInsufficient);
+            }
 
             if (!anyInsufficient)
             {
-                if (character.Character.UpgradeTargets.Length > upgradeIndex || upgradeIndex == HALF_HALF_VALUE)
-                {
-                    ExecuteUpgrade((PartyScreenLogic.PartyCommand.UpgradeTargetType) upgradeIndex, character,
-                        ref totalUpgrades);
-                }
+                return ExecuteUpgrade(upgradeTarget, character);
             }
+
+            return 0;
         }
 
-        private void ExecuteUpgrade(PartyScreenLogic.PartyCommand.UpgradeTargetType upgradeTargetType,
-            PartyCharacterVM character, ref int totalUpgrades)
+        private int ExecuteUpgrade(UpgradeTarget upgradeTarget,
+            PartyCharacterVM character)
         {
             character.InitializeUpgrades();
 
             if (character.Side == PartyScreenLogic.PartyRosterSide.Right &&
                 character.Type == PartyScreenLogic.TroopType.Member)
             {
-                //HALF_HALF upgrade
-                if (upgradeTargetType == PartyScreenLogic.PartyCommand.UpgradeTargetType.UpgradeTarget3)
+                if (upgradeTarget is EqualDistributionTarget)
                 {
-                    //Not sure how necessary this is, but better to be safe.
-                    var upgOne = Math.Min(character.NumOfTarget1UpgradesAvailable,
-                        character.NumOfUpgradeableTroops / 2);
-                    var upgTwo = Math.Min(character.NumOfTarget2UpgradesAvailable,
-                        character.NumOfUpgradeableTroops - upgOne);
+                    var upgradeableTroops = character.NumOfReadyToUpgradeTroops;
+                    var upgradesCount = character.Upgrades.Count;
 
-                    totalUpgrades += upgOne + upgTwo;
+                    var upgradeCounts = character.Upgrades.Select(upgrade =>
+                        Math.Min(upgrade.AvailableUpgrades, upgradeableTroops / upgradesCount)).ToList();
 
-                    if (upgOne > 0)
-                        SendCommand(character, upgOne, PartyScreenLogic.PartyCommand.UpgradeTargetType.UpgradeTarget1);
+                    var remainingUpgrades = upgradeableTroops - upgradeCounts.Sum();
 
-                    if (upgTwo > 0)
-                        SendCommand(character, upgTwo, PartyScreenLogic.PartyCommand.UpgradeTargetType.UpgradeTarget2);
-                    return;
+                    if (remainingUpgrades > 0)
+                    {
+                        // Distribute the remaining upgrades as best as possible (in case of uneven number of upgrades available)
+                        for (int i = 0; i < upgradeCounts.Count; i++)
+                        {
+                            UpgradeTargetVM reprCharacter = character.Upgrades[i];
+                            var toAdd = reprCharacter.AvailableUpgrades - upgradeCounts[i];
+                            remainingUpgrades -= toAdd;
+                            upgradeCounts[i] += toAdd;
+                        }
+                    }
+
+                    for (int i = 0; i < upgradeCounts.Count; i++)
+                    {
+                        if (upgradeCounts[i] > 0)
+                        {
+                            SendCommand(character, upgradeCounts[i], i);
+                        }
+                    }
+
+                    return upgradeCounts.Sum();
                 }
-
-                var val = upgradeTargetType == PartyScreenLogic.PartyCommand.UpgradeTargetType.UpgradeTarget1
-                    ? character.NumOfTarget1UpgradesAvailable
-                    : character.NumOfTarget2UpgradesAvailable;
-                if (val > 0)
+                else if (upgradeTarget is SpecificUpgradeTarget target)
                 {
-                    totalUpgrades += val;
-                    SendCommand(character, val, upgradeTargetType);
+                    var availableUpgrades = character.Upgrades[target.targetIndex].AvailableUpgrades;
+
+                    if (availableUpgrades > 0)
+                    {
+                        SendCommand(character, availableUpgrades, target.targetIndex);
+                    }
+
+                    return availableUpgrades;
                 }
             }
+
+            return 0;
         }
 
         private void SendCommand(PartyCharacterVM character, int amount,
-            PartyScreenLogic.PartyCommand.UpgradeTargetType target)
+            int target)
         {
             var partyCommand = new PartyScreenLogic.PartyCommand();
             partyCommand.FillForUpgradeTroop(character.Side, character.Type, character.Character, amount, target);
@@ -183,6 +206,31 @@ namespace PartyScreenEnhancements.ViewModel
                     _upgradeHint = value;
                     OnPropertyChanged(nameof(UpgradeHint));
                 }
+            }
+        }
+
+        // Best approximation of Rust enums ._.
+        private abstract class UpgradeTarget
+        {
+        }
+
+        private class EqualDistributionTarget : UpgradeTarget
+        {
+        }
+
+        private class SpecificUpgradeTarget : UpgradeTarget
+        {
+            public int targetIndex { get; }
+
+            public SpecificUpgradeTarget(int targetIndex)
+            {
+                this.targetIndex = targetIndex;
+            }
+
+
+            public override string ToString()
+            {
+                return targetIndex.ToString();
             }
         }
     }

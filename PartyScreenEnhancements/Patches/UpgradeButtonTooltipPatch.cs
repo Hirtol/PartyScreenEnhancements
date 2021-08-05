@@ -8,24 +8,16 @@ using TaleWorlds.Localization;
 
 namespace PartyScreenEnhancements.Patches
 {
-    [HarmonyPatch(typeof(PartyCharacterVM), "UpdateUpgradeHint")]
+    [HarmonyPatch(typeof(UpgradeTargetVM), "Refresh")]
     public class UpgradeButtonTooltipPatch
     {
         private const string UPGRADE_TOOLTIP = "\nHold [CTRL] and [SHIFT] to select as preferred upgrade path";
 
-        public static void Postfix(ref PartyCharacterVM __instance, int index)
+        public static void Prefix(ref string hint)
         {
             if (ScreenManager.TopScreen is GauntletPartyScreen && PartyScreenConfig.ExtraSettings.PathSelectTooltips)
             {
-                if (index == 0)
-                {
-                    if (!__instance.Upgrade1Hint?.HintText.Contains(UPGRADE_TOOLTIP) ?? false)
-                        __instance.Upgrade1Hint.HintText = new TextObject(__instance.Upgrade1Hint.HintText + UPGRADE_TOOLTIP);
-                } else if (index == 1)
-                {
-                    if (!__instance.Upgrade2Hint?.HintText.Contains(UPGRADE_TOOLTIP) ?? false)
-                        __instance.Upgrade2Hint.HintText = new TextObject(__instance.Upgrade2Hint.HintText + UPGRADE_TOOLTIP);
-                }
+                hint += UPGRADE_TOOLTIP;
             }
         }
     }

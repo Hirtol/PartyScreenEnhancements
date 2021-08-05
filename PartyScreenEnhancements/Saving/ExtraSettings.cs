@@ -32,7 +32,7 @@ namespace PartyScreenEnhancements.Saving
             }
         }
 
-        [XmlElement("HalfHalfUpgrades")] public bool HalfHalfUpgrades { get; set; }
+        [XmlElement("HalfHalfUpgrades")] public bool EqualUpgrades { get; set; }
 
         [XmlElement("SeparateSortingProfiles")]
         public bool SeparateSortingProfiles
