@@ -116,7 +116,7 @@ namespace PartyScreenEnhancements.ViewModel
             }
             else
             {
-                allInsufficient = character.Upgrades.All(upgradeTarg => !upgradeTarg.IsAvailable);
+                allInsufficient = character.Upgrades.All(upgradeTarg => upgradeTarg.IsInsufficient);
             }
 
             if (!allInsufficient)
@@ -151,11 +151,17 @@ namespace PartyScreenEnhancements.ViewModel
                         for (int i = 0; i < upgradeCounts.Count; i++)
                         {
                             UpgradeTargetVM reprCharacter = character.Upgrades[i];
+                            var toAdd = reprCharacter.AvailableUpgrades - upgradeCounts[i];
 
-                            while (upgradeCounts[i] <= reprCharacter.AvailableUpgrades && remainingUpgrades > 0)
+                            if (toAdd >= remainingUpgrades)
                             {
-                                upgradeCounts[i] += 1;
-                                remainingUpgrades -= 1;
+                                upgradeCounts[i] += remainingUpgrades;
+                                remainingUpgrades = 0;
+                            }
+                            else
+                            {
+                                upgradeCounts[i] += toAdd;
+                                remainingUpgrades -= toAdd;
                             }
                         }
                     }

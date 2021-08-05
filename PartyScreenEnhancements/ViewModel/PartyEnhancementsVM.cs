@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Linq;
 using HarmonyLib;
+using JetBrains.Annotations;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
@@ -64,7 +65,7 @@ namespace PartyScreenEnhancements.ViewModel
             UpdateLabel(null);
         }
 
-        public void UpdateLabel(PartyScreenLogic.PartyCommand command)
+        public void UpdateLabel([CanBeNull] PartyScreenLogic.PartyCommand command)
         {
             try
             {
@@ -110,6 +111,7 @@ namespace PartyScreenEnhancements.ViewModel
             base.RefreshValues();
 
             if (PartyScreenConfig.ExtraSettings.AutomaticSorting) _sortTroopsVM.SortTroops();
+            this.UpdateLabel(null);
 
             _unitTallyVm.RefreshValues();
         }
