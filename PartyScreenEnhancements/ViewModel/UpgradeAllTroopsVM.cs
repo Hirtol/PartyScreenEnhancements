@@ -143,6 +143,10 @@ namespace PartyScreenEnhancements.ViewModel
                     var upgradeCounts = character.Upgrades.Select(upgrade =>
                         Math.Min(upgrade.AvailableUpgrades, upgradeableTroops / upgradesCount)).ToList();
 
+                    Logging.Log(Logging.Levels.DEBUG, $"For Unit: {character.Name} - Upgrades:");
+
+                    upgradeCounts.ForEach(i => Logging.Log(Logging.Levels.DEBUG, $"{character.Name} - {i}"));
+
                     var remainingUpgrades = upgradeableTroops - upgradeCounts.Sum();
 
                     if (remainingUpgrades > 0)
@@ -151,9 +155,12 @@ namespace PartyScreenEnhancements.ViewModel
                         for (int i = 0; i < upgradeCounts.Count; i++)
                         {
                             UpgradeTargetVM reprCharacter = character.Upgrades[i];
-                            var toAdd = reprCharacter.AvailableUpgrades - upgradeCounts[i];
-                            remainingUpgrades -= toAdd;
-                            upgradeCounts[i] += toAdd;
+
+                            while (upgradeCounts[i] <= reprCharacter.AvailableUpgrades && remainingUpgrades > 0)
+                            {
+                                upgradeCounts[i] += 1;
+                                remainingUpgrades -= 1;
+                            }
                         }
                     }
 
