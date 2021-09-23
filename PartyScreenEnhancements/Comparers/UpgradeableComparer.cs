@@ -33,11 +33,11 @@ namespace PartyScreenEnhancements.Comparers
         protected override int localCompare(ref PartyCharacterVM x, ref PartyCharacterVM y)
         {
             if (Descending
-                ? x.Troop.NumberReadyToUpgrade > y.Troop.NumberReadyToUpgrade
-                : y.Troop.NumberReadyToUpgrade > x.Troop.NumberReadyToUpgrade) return -1;
+                ? x.NumOfReadyToUpgradeTroops > y.NumOfReadyToUpgradeTroops
+                : y.NumOfReadyToUpgradeTroops > x.NumOfReadyToUpgradeTroops) return -1;
 
 
-            if (y.Troop.NumberReadyToUpgrade == x.Troop.NumberReadyToUpgrade) 
+            if (y.NumOfReadyToUpgradeTroops == x.NumOfReadyToUpgradeTroops) 
                 return EqualSorter?.Compare(x, y) ?? 0;
 
             return 1;

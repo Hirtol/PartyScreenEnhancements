@@ -41,8 +41,8 @@ namespace PartyScreenEnhancements.Comparers
             if (xChar == null || yChar == null)
                 return 1;
 
-            bool isXHorseArcher = xChar.IsArcher && xChar.IsMounted;
-            bool isYHorseArcher = yChar.IsArcher && yChar.IsMounted;
+            bool isXHorseArcher = xChar.IsRanged && xChar.IsMounted;
+            bool isYHorseArcher = yChar.IsRanged && yChar.IsMounted;
 
             if (isXHorseArcher || isYHorseArcher)
             {
@@ -51,7 +51,7 @@ namespace PartyScreenEnhancements.Comparers
             }
             else
             {
-                if ((x.Character.IsInfantry && y.Character.IsInfantry) || (x.Character.IsMounted && y.Character.IsMounted) || (x.Character.IsArcher && y.Character.IsArcher))
+                if ((x.Character.IsInfantry && y.Character.IsInfantry) || (x.Character.IsMounted && y.Character.IsMounted) || (x.Character.IsRanged && y.Character.IsRanged))
                     return EqualSorter?.Compare(x, y) ?? 0;
             }
 
@@ -96,8 +96,8 @@ namespace PartyScreenEnhancements.Comparers
 
         private int ArcherCompare(CharacterObject x, CharacterObject y)
         {
-            if (Descending ? !x.IsMounted && x.IsArcher : !y.IsMounted && y.IsArcher) return -1;
-            if (Descending ? !y.IsMounted && y.IsArcher : !x.IsMounted && x.IsArcher) return 1;
+            if (Descending ? !x.IsMounted && x.IsRanged : !y.IsMounted && y.IsRanged) return -1;
+            if (Descending ? !y.IsMounted && y.IsRanged : !x.IsMounted && x.IsRanged) return 1;
 
             // Need some sort of null value to indicate no match whatsoever.
             return int.MaxValue;
@@ -105,8 +105,8 @@ namespace PartyScreenEnhancements.Comparers
 
         private int CavalryCompare(CharacterObject x, CharacterObject y)
         {
-            if (Descending ? x.IsMounted && !x.IsArcher : y.IsMounted && !y.IsArcher) return -1;
-            if (Descending ? y.IsMounted && !y.IsArcher : x.IsMounted && !x.IsArcher) return 1;
+            if (Descending ? x.IsMounted && !x.IsRanged : y.IsMounted && !y.IsRanged) return -1;
+            if (Descending ? y.IsMounted && !y.IsRanged : x.IsMounted && !x.IsRanged) return 1;
 
             // Need some sort of null value to indicate no match whatsoever.
             return int.MaxValue;
@@ -114,8 +114,8 @@ namespace PartyScreenEnhancements.Comparers
 
         private int HorseArcherCompare(CharacterObject x, CharacterObject y)
         {
-            if (Descending ? x.IsMounted && x.IsArcher : y.IsMounted && y.IsArcher) return -1;
-            if (Descending ? y.IsMounted && y.IsArcher : x.IsMounted && x.IsArcher) return 1;
+            if (Descending ? x.IsMounted && x.IsRanged : y.IsMounted && y.IsRanged) return -1;
+            if (Descending ? y.IsMounted && y.IsRanged : x.IsMounted && x.IsRanged) return 1;
 
             // Need some sort of null value to indicate no match whatsoever.
             return int.MaxValue;
