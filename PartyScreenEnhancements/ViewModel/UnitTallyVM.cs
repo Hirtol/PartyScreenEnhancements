@@ -87,10 +87,10 @@ namespace PartyScreenEnhancements.ViewModel
                     {
                         if (character?.Character != null)
                         {
-                            if (character.Character.IsMounted && character.Character.IsArcher)
+                            if (character.Character.IsMounted && character.Character.IsRanged)
                                 horseArchers += character.Number;
                             else if (character.Character.IsMounted) cavalry += character.Number;
-                            else if (character.Character.IsArcher) archers += character.Number;
+                            else if (character.Character.IsRanged) archers += character.Number;
                             else if (character.Character.IsInfantry) infantry += character.Number;
 
                         }
@@ -110,10 +110,10 @@ namespace PartyScreenEnhancements.ViewModel
                     {
                         if (character?.Character != null)
                         {
-                            if (character.Character.IsMounted && character.Character.IsArcher)
+                            if (character.Character.IsMounted && character.Character.IsRanged)
                                 horseArchers += character.Number;
                             else if (character.Character.IsMounted) cavalry += character.Number;
-                            else if (character.Character.IsArcher) archers += character.Number;
+                            else if (character.Character.IsRanged) archers += character.Number;
                             else if (character.Character.IsInfantry) infantry += character.Number;
 
                         }

@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>pdbonly</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>C:\Games\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\PartyScreenEnhancements\bin\Win64_Shipping_Client\</OutputPath>
+    <OutputPath>F:\Game\SteamLibrary\steamapps\common\Mount &amp; Blade II Bannerlord\Modules\PartyScreenEnhancements\bin\Win64_Shipping_Client\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
