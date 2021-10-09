@@ -40,7 +40,7 @@ namespace PartyScreenEnhancements.ViewModel
             _partyVM = null;
         }
 
-        private void UpgradeAllTroopsPath(int shouldUseOnlyDictInt)
+        public void UpgradeAllTroopsPath(int shouldUseOnlyDictInt)
         {
             var totalUpgrades = 0;
             var toUpgrade = new Dictionary<PartyCharacterVM, UpgradeTarget>();
