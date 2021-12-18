@@ -89,7 +89,7 @@ namespace PartyScreenEnhancements.ViewModel
         {
             if (rosterToSort == null || rosterToSort.Count == 0 || toSort == null || toSort.IsEmpty()) return;
 
-            var leaderOfParty = party?.Leader;
+            var leaderOfParty = party?.LeaderHero.CharacterObject;
             toSort.StableSort(sorter);
 
             if (leaderOfParty != null)
