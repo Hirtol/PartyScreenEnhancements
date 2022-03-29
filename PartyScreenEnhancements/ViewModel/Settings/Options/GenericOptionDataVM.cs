@@ -19,13 +19,13 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Options
         {
             get
             {
-                return this._imageIDs;
+                return _imageIDs;
             }
             set
             {
-                if (value != this._imageIDs)
+                if (value != _imageIDs)
                 {
-                    this._imageIDs = value;
+                    _imageIDs = value;
                     base.OnPropertyChanged(nameof(ImageIDs));
                 }
             }

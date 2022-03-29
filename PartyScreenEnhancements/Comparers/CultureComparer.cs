@@ -9,7 +9,7 @@ namespace PartyScreenEnhancements.Comparers
     {
         public CultureComparer(PartySort equalSorter, bool descending, List<string> customSort = null) : base(equalSorter, @descending, customSort)
         {
-            
+
         }
 
         public CultureComparer()
@@ -62,7 +62,7 @@ namespace PartyScreenEnhancements.Comparers
             base.FillCustomList();
             var cultures = Enum.GetValues(typeof(CultureCode));
 
-            foreach (CultureCode cultureCode in cultures) 
+            foreach (CultureCode cultureCode in cultures)
             {
                 CustomSettingsList.Add(cultureCode.ToString());
             }

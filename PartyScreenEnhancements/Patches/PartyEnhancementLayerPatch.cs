@@ -1,12 +1,12 @@
 ﻿using HarmonyLib;
 using PartyScreenEnhancements.ViewModel;
 using SandBox.GauntletUI;
-using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.GameState;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
+using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.Patches
 {

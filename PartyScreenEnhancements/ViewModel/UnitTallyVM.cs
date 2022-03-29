@@ -1,7 +1,7 @@
-﻿using System;
+﻿using PartyScreenEnhancements.Saving;
+using System;
 using System.ComponentModel;
-using PartyScreenEnhancements.Saving;
-using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Library;
 
@@ -28,22 +28,22 @@ namespace PartyScreenEnhancements.ViewModel
         public UnitTallyVM(MBBindingList<PartyCharacterVM> mainPartyList, MBBindingList<PartyCharacterVM> otherParty, PartyScreenLogic logic, bool shouldShowGarrison)
         {
             PartyScreenConfig.ExtraSettings.PropertyChanged += OnEnableChange;
-            this.InfantryLabel = "Infantry: NaN";
-            this.ArchersLabel = "Archers: NaN";
-            this.CavalryLabel = "Cavalry: NaN";
-            this.HorseArcherLabel = "Horse Archers: NaN";
+            InfantryLabel = "Infantry: NaN";
+            ArchersLabel = "Archers: NaN";
+            CavalryLabel = "Cavalry: NaN";
+            HorseArcherLabel = "Horse Archers: NaN";
 
-            this.InfantryGarrisonLabel = "Infantry: NaN";
-            this.ArchersGarrisonLabel = "Archers: NaN";
-            this.CavalryGarrisonLabel = "Cavalry: NaN";
-            this._horseArcherGarrisonLabel = "Horse Archers: NaN";
+            InfantryGarrisonLabel = "Infantry: NaN";
+            ArchersGarrisonLabel = "Archers: NaN";
+            CavalryGarrisonLabel = "Cavalry: NaN";
+            _horseArcherGarrisonLabel = "Horse Archers: NaN";
 
-            this._mainPartyList = mainPartyList;
-            this._otherPartyList = otherParty;
-            this.IsEnabled = PartyScreenConfig.ExtraSettings.DisplayCategoryNumbers;
-            this.ShouldShowGarrison = shouldShowGarrison;
+            _mainPartyList = mainPartyList;
+            _otherPartyList = otherParty;
+            IsEnabled = PartyScreenConfig.ExtraSettings.DisplayCategoryNumbers;
+            ShouldShowGarrison = shouldShowGarrison;
 
-            this._logic = logic;
+            _logic = logic;
             _logic.UpdateDelegate = Delegate.Combine(_logic.UpdateDelegate, new PartyScreenLogic.PresentationUpdate(RefreshDelegate)) as PartyScreenLogic.PresentationUpdate;
         }
 
@@ -54,15 +54,15 @@ namespace PartyScreenEnhancements.ViewModel
             _logic.UpdateDelegate = Delegate.Remove(_logic.UpdateDelegate, new PartyScreenLogic.PresentationUpdate(RefreshDelegate)) as PartyScreenLogic.PresentationUpdate;
             PartyScreenConfig.ExtraSettings.PropertyChanged -= OnEnableChange;
 
-            this._mainPartyList = null;
-            this._otherPartyList = null;
-            this._logic = null;
+            _mainPartyList = null;
+            _otherPartyList = null;
+            _logic = null;
 
         }
 
         public void RefreshDelegate(PartyScreenLogic.PartyCommand command)
         {
-            this.RefreshValues();
+            RefreshValues();
         }
 
         public void OnEnableChange(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -70,7 +70,7 @@ namespace PartyScreenEnhancements.ViewModel
             if (propertyChangedEventArgs.PropertyName.Equals(nameof(PartyScreenConfig.ExtraSettings
                 .DisplayCategoryNumbers)))
             {
-                this.IsEnabled = PartyScreenConfig.ExtraSettings.DisplayCategoryNumbers;
+                IsEnabled = PartyScreenConfig.ExtraSettings.DisplayCategoryNumbers;
             }
         }
 
@@ -135,12 +135,12 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public bool IsEnabled
         {
-            get => this._isEnabled;
+            get => _isEnabled;
             set
             {
-                if (value != this._isEnabled)
+                if (value != _isEnabled)
                 {
-                    this._isEnabled = value;
+                    _isEnabled = value;
                     base.OnPropertyChanged(nameof(IsEnabled));
                 }
             }
@@ -149,12 +149,12 @@ namespace PartyScreenEnhancements.ViewModel
         [DataSourceProperty]
         public bool ShouldShowGarrison
         {
-            get => this._shouldShowGarrison && this._isEnabled;
+            get => _shouldShowGarrison && _isEnabled;
             set
             {
-                if (value != this._shouldShowGarrison)
+                if (value != _shouldShowGarrison)
                 {
-                    this._shouldShowGarrison = value;
+                    _shouldShowGarrison = value;
                     base.OnPropertyChanged(nameof(ShouldShowGarrison));
                 }
             }
@@ -167,13 +167,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._infantryLabel;
+                return _infantryLabel;
             }
             set
             {
-                if (value != this._infantryLabel)
+                if (value != _infantryLabel)
                 {
-                    this._infantryLabel = value;
+                    _infantryLabel = value;
                     base.OnPropertyChanged(nameof(InfantryLabel));
                 }
             }
@@ -184,13 +184,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._archersLabel;
+                return _archersLabel;
             }
             set
             {
-                if (value != this._archersLabel)
+                if (value != _archersLabel)
                 {
-                    this._archersLabel = value;
+                    _archersLabel = value;
                     base.OnPropertyChanged(nameof(ArchersLabel));
                 }
             }
@@ -201,13 +201,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._cavalryLabel;
+                return _cavalryLabel;
             }
             set
             {
-                if (value != this._cavalryLabel)
+                if (value != _cavalryLabel)
                 {
-                    this._cavalryLabel = value;
+                    _cavalryLabel = value;
                     base.OnPropertyChanged(nameof(CavalryLabel));
                 }
             }
@@ -218,13 +218,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._horseArcherLabel;
+                return _horseArcherLabel;
             }
             set
             {
-                if (value != this._horseArcherLabel)
+                if (value != _horseArcherLabel)
                 {
-                    this._horseArcherLabel = value;
+                    _horseArcherLabel = value;
                     base.OnPropertyChanged(nameof(HorseArcherLabel));
                 }
             }
@@ -237,13 +237,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._infantryGarrisonLabel;
+                return _infantryGarrisonLabel;
             }
             set
             {
-                if (value != this._infantryGarrisonLabel)
+                if (value != _infantryGarrisonLabel)
                 {
-                    this._infantryGarrisonLabel = value;
+                    _infantryGarrisonLabel = value;
                     base.OnPropertyChanged(nameof(InfantryGarrisonLabel));
                 }
             }
@@ -254,13 +254,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._archersGarrisonLabel;
+                return _archersGarrisonLabel;
             }
             set
             {
-                if (value != this._archersGarrisonLabel)
+                if (value != _archersGarrisonLabel)
                 {
-                    this._archersGarrisonLabel = value;
+                    _archersGarrisonLabel = value;
                     base.OnPropertyChanged(nameof(ArchersGarrisonLabel));
                 }
             }
@@ -271,13 +271,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._cavalryGarrisonLabel;
+                return _cavalryGarrisonLabel;
             }
             set
             {
-                if (value != this._cavalryGarrisonLabel)
+                if (value != _cavalryGarrisonLabel)
                 {
-                    this._cavalryGarrisonLabel = value;
+                    _cavalryGarrisonLabel = value;
                     base.OnPropertyChanged(nameof(CavalryGarrisonLabel));
                 }
             }
@@ -288,13 +288,13 @@ namespace PartyScreenEnhancements.ViewModel
         {
             get
             {
-                return this._horseArcherGarrisonLabel;
+                return _horseArcherGarrisonLabel;
             }
             set
             {
-                if (value != this._horseArcherGarrisonLabel)
+                if (value != _horseArcherGarrisonLabel)
                 {
-                    this._horseArcherGarrisonLabel = value;
+                    _horseArcherGarrisonLabel = value;
                     base.OnPropertyChanged(nameof(HorseArcherGarrisonLabel));
                 }
             }

@@ -11,10 +11,10 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Options
     {
         public BooleanOptionDataVM(bool initialValue, string name, string description, Action<bool> setter) : base(name, description, 0)
         {
-            this._optionValue = initialValue;
-            this.OptionValueAsBoolean = this._optionValue;
-            this._setter = setter;
-            this.ImageIDs = new string[]
+            _optionValue = initialValue;
+            OptionValueAsBoolean = _optionValue;
+            _setter = setter;
+            ImageIDs = new string[]
             {
                 name.ToString() + "_0",
                 name.ToString() + "_1"
@@ -26,13 +26,13 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Options
         {
             get
             {
-                return this._optionValue;
+                return _optionValue;
             }
             set
             {
-                if (value != this._optionValue)
+                if (value != _optionValue)
                 {
-                    this._optionValue = value;
+                    _optionValue = value;
                     _setter(value);
                     base.OnPropertyChanged(nameof(OptionValueAsBoolean));
                 }

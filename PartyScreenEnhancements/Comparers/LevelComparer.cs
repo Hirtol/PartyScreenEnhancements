@@ -31,7 +31,7 @@ namespace PartyScreenEnhancements.Comparers
         {
             if (Descending ? x.Character.Level > y.Character.Level : y.Character.Level > x.Character.Level) return -1;
 
-            if (x.Character.Level == y.Character.Level) 
+            if (x.Character.Level == y.Character.Level)
                 return EqualSorter?.Compare(x, y) ?? 0;
 
             return 1;

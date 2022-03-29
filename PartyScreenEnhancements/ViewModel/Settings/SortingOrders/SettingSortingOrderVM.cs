@@ -10,8 +10,8 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public SettingSortingOrderVM(string displayText)
         {
-            this.SettingHint = new HintViewModel(new TextObject(displayText));;
-            this.Name = displayText;
+            SettingHint = new HintViewModel(new TextObject(displayText)); ;
+            Name = displayText;
         }
 
         [DataSourceProperty]
@@ -23,9 +23,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             get => _settingHint;
             set
             {
-                if (value != this._settingHint)
+                if (value != _settingHint)
                 {
-                    this._settingHint = value;
+                    _settingHint = value;
                     base.OnPropertyChanged(nameof(SettingHint));
                 }
             }

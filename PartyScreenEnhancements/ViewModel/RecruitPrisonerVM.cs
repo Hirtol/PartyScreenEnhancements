@@ -1,6 +1,6 @@
-﻿using System;
-using PartyScreenEnhancements.Saving;
-using TaleWorlds.CampaignSystem;
+﻿using PartyScreenEnhancements.Saving;
+using System;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -20,17 +20,17 @@ namespace PartyScreenEnhancements.ViewModel
 
         public RecruitPrisonerVM(PartyEnhancementsVM parent, PartyVM partyVm, PartyScreenLogic logic)
         {
-            this._parent = parent;
-            this._partyVM = partyVm;
-            this._partyLogic = logic;
-            this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
-            this._recruitHint = new HintViewModel(new TextObject("Recruit All Prisoners.\nClick with CTRL pressed to ignore party size limits"));
+            _parent = parent;
+            _partyVM = partyVm;
+            _partyLogic = logic;
+            _mainPartyPrisoners = _partyVM.MainPartyPrisoners;
+            _recruitHint = new HintViewModel(new TextObject("Recruit All Prisoners.\nClick with CTRL pressed to ignore party size limits"));
         }
 
         public override void OnFinalize()
         {
             base.OnFinalize();
-            this._mainPartyPrisoners = null;
+            _mainPartyPrisoners = null;
             _partyLogic = null;
             _partyVM = null;
             _parent = null;
@@ -53,7 +53,7 @@ namespace PartyScreenEnhancements.ViewModel
                     if (prisoner == null) continue;
 
                     int remainingPartySize = _partyLogic.RightOwnerParty.PartySizeLimit - _partyLogic
-                        .MemberRosters[(int) PartyScreenLogic.PartyRosterSide.Right]
+                        .MemberRosters[(int)PartyScreenLogic.PartyRosterSide.Right]
                         .TotalManCount;
                     if (remainingPartySize > 0 || shouldIgnoreLimit)
                     {
@@ -97,18 +97,18 @@ namespace PartyScreenEnhancements.ViewModel
 
         private void RecruitPrisoner(PartyCharacterVM character, int remainingSize, ref int amount)
         {
-            if (!this._partyLogic.IsPrisonerRecruitable(character.Type, character.Character, character.Side)) return;
+            if (!_partyLogic.IsPrisonerRecruitable(character.Type, character.Character, character.Side)) return;
 
             var number = Math.Min(character.NumOfRecruitablePrisoners, remainingSize);
 
-            if(number > 0)
+            if (number > 0)
             {
                 PartyScreenLogic.PartyCommand partyCommand = new PartyScreenLogic.PartyCommand();
                 partyCommand.FillForRecruitTroop(character.Side, character.Type,
                     character.Character, number);
 
-                this._partyLogic.AddCommand(partyCommand);
-                
+                _partyLogic.AddCommand(partyCommand);
+
                 amount += number;
                 character.UpdateRecruitable();
             }
@@ -120,9 +120,9 @@ namespace PartyScreenEnhancements.ViewModel
             get => _recruitHint;
             set
             {
-                if (value != this._recruitHint)
+                if (value != _recruitHint)
                 {
-                    this._recruitHint = value;
+                    _recruitHint = value;
                     base.OnPropertyChanged(nameof(RecruitHint));
                 }
             }

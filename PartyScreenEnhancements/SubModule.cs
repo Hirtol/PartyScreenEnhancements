@@ -1,6 +1,6 @@
-﻿using System;
-using HarmonyLib;
+﻿using HarmonyLib;
 using PartyScreenEnhancements.Saving;
+using System;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.MountAndBlade;
@@ -26,12 +26,12 @@ namespace PartyScreenEnhancements
                 FileLog.Log($"PSE Config Load Exception: {e}");
             }
 
-            //UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
+            UIResourceManager.UIResourceDepot.StartWatchingChangesInDepot();
         }
 
         protected override void OnApplicationTick(float dt)
         {
-            //UIResourceManager.UIResourceDepot.CheckForChanges();
+            UIResourceManager.UIResourceDepot.CheckForChanges();
         }
 
         protected override void OnSubModuleUnloaded()

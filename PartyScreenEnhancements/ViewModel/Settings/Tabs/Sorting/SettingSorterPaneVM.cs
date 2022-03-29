@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using PartyScreenEnhancements.Comparers;
+﻿using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.Sorting;
+using System;
+using System.Collections.Generic;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
@@ -18,12 +18,12 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
 
         public SettingSorterPaneVM(SettingScreenVM parent, string name, PartySort sorter, Action<PartySort> newSorterCallback)
         {
-            this._sorter = sorter;
-            this._parent = parent;
-            this._newSorterCallBack = newSorterCallback;
-            this.PossibleSettingList = new MBBindingList<SettingSortVM>();
-            this.SettingList = new MBBindingList<SettingSortVM>();
-            this.Name = name;
+            _sorter = sorter;
+            _parent = parent;
+            _newSorterCallBack = newSorterCallback;
+            PossibleSettingList = new MBBindingList<SettingSortVM>();
+            SettingList = new MBBindingList<SettingSortVM>();
+            Name = name;
 
             InitialiseSettingLists();
         }
@@ -165,14 +165,14 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
                 {
                     freshSorter =
                         currentSort.GetType()
-                            .GetConstructor(new[] {typeof(PartySort), typeof(bool), typeof(List<string>)})
+                            .GetConstructor(new[] { typeof(PartySort), typeof(bool), typeof(List<string>) })
                             ?.Invoke(new object[]
                                 {null, currentSort.Descending, currentSort.CustomSettingsList}) as PartySort;
                 }
                 else
                 {
-                    freshSorter = currentSort.GetType().GetConstructor(new[] {typeof(PartySort), typeof(bool)})
-                        ?.Invoke(new object[] {null, currentSort.Descending}) as PartySort;
+                    freshSorter = currentSort.GetType().GetConstructor(new[] { typeof(PartySort), typeof(bool) })
+                        ?.Invoke(new object[] { null, currentSort.Descending }) as PartySort;
                 }
 
                 var settingSortVM = new SettingSortVM(freshSorter, TransferSorter, SettingSide.RIGHT, _parent.OpenSubSetting);

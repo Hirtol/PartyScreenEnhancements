@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using PartyScreenEnhancements.Saving;
+using System.Collections.Generic;
 using System.Xml.Serialization;
-using PartyScreenEnhancements.Saving;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 
@@ -71,7 +71,7 @@ namespace PartyScreenEnhancements.Comparers
             if (x.IsHero && !y.IsHero)
             {
                 return PartyScreenConfig.ExtraSettings.KeepHeroesOnTop ? -1 : 1;
-            } 
+            }
             if (y.IsHero && !x.IsHero)
             {
                 return PartyScreenConfig.ExtraSettings.KeepHeroesOnTop ? 1 : -1;
@@ -81,7 +81,7 @@ namespace PartyScreenEnhancements.Comparers
                 return 0;
             }
 
-            if(HasCustomSettings() && (CustomSettingsList == null || CustomSettingsList.IsEmpty())) 
+            if (HasCustomSettings() && (CustomSettingsList == null || CustomSettingsList.IsEmpty()))
                 FillCustomList();
 
             return localCompare(ref x, ref y);
