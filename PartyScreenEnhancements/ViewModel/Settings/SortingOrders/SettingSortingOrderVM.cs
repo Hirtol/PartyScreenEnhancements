@@ -10,7 +10,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public SettingSortingOrderVM(string displayText)
         {
-            SettingHint = new HintViewModel(new TextObject(displayText)); ;
+            SettingHint = new HintViewModel(new TextObject(displayText));
             Name = displayText;
         }
 

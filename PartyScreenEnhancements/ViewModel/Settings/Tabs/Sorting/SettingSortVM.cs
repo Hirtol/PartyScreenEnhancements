@@ -23,9 +23,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting
         public SettingSortVM(PartySort sortingComparer, Action<SettingSortVM, SettingSide> transferCallBack, SettingSide side, Action<SettingSortVM> openSubSetting)
         {
             SortingComparer = sortingComparer;
-            SettingHint = new HintViewModel(new TextObject(SortingComparer.GetHintText())); ;
-            _transferHint = new HintViewModel(new TextObject($"Click to transfer to the {side.GetOtherSide().ToString().ToLower()} side!")); ;
-            AscDescHint = new HintViewModel(new TextObject($"Current Mode: {(IsDescending ? "Descending" : "Ascending")}")); ;
+            SettingHint = new HintViewModel(new TextObject(SortingComparer.GetHintText()));
+            _transferHint = new HintViewModel(new TextObject($"Click to transfer to the {side.GetOtherSide().ToString().ToLower()} side!"));
+            AscDescHint = new HintViewModel(new TextObject($"Current Mode: {(IsDescending ? "Descending" : "Ascending")}"));
 
             IsTransferable = true;
             IsDescending = SortingComparer.Descending;
