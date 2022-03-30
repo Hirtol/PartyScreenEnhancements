@@ -31,7 +31,7 @@ namespace PartyScreenEnhancements.Comparers
         {
             if (Descending ? x.Number > y.Number : y.Number > x.Number) return -1;
 
-            if (x.Number == y.Number) 
+            if (x.Number == y.Number)
                 return EqualSorter?.Compare(x, y) ?? 0;
 
             return 1;

@@ -1,10 +1,8 @@
-﻿using System.Runtime.CompilerServices;
-using HarmonyLib;
+﻿using HarmonyLib;
 using PartyScreenEnhancements.Saving;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
-using TaleWorlds.Engine.Screens;
-using TaleWorlds.Localization;
+using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.Patches
 {

@@ -18,8 +18,8 @@ namespace PartyScreenEnhancements.ViewModel
             _parent = parent;
             _partyVm = partyVm;
             _mainPartyList = partyVm?.MainPartyTroops;
-            this._shouldShowTransferWounded = shouldShow;
-            this._woundedHint = new HintViewModel(new TextObject("Transfer All Wounded"));
+            _shouldShowTransferWounded = shouldShow;
+            _woundedHint = new HintViewModel(new TextObject("Transfer All Wounded"));
         }
 
         public override void OnFinalize()
@@ -50,7 +50,7 @@ namespace PartyScreenEnhancements.ViewModel
                     }
                 }
 
-                this._partyVm?.ExecuteRemoveZeroCounts();
+                _partyVm?.ExecuteRemoveZeroCounts();
                 _parent.RefreshValues();
             }
             catch (Exception e)
@@ -80,9 +80,9 @@ namespace PartyScreenEnhancements.ViewModel
             get => _shouldShowTransferWounded;
             set
             {
-                if (value != this._shouldShowTransferWounded)
+                if (value != _shouldShowTransferWounded)
                 {
-                    this._shouldShowTransferWounded = value;
+                    _shouldShowTransferWounded = value;
                     base.OnPropertyChanged(nameof(ShouldShowTransferWounded));
                 }
             }

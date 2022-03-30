@@ -3,8 +3,8 @@ using PartyScreenEnhancements.Saving;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
+using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.Patches
 {

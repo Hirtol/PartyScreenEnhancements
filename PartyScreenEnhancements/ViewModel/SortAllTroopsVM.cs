@@ -1,9 +1,10 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using PartyScreenEnhancements.Comparers;
+﻿using PartyScreenEnhancements.Comparers;
 using PartyScreenEnhancements.Patches;
 using PartyScreenEnhancements.Saving;
+using System;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -19,18 +20,18 @@ namespace PartyScreenEnhancements.ViewModel
         private PartyScreenLogic _partyLogic;
         private PartyVM _partyVM;
 
-        private const int _leftSide = (int) PartyScreenLogic.PartyRosterSide.Left;
-        private const int _rightSide = (int) PartyScreenLogic.PartyRosterSide.Right;
+        private const int _leftSide = (int)PartyScreenLogic.PartyRosterSide.Left;
+        private const int _rightSide = (int)PartyScreenLogic.PartyRosterSide.Right;
 
         private HintViewModel _sortHint;
 
         public SortAllTroopsVM(PartyVM partyVm, PartyScreenLogic logic)
         {
-            this._partyVM = partyVm;
-            this._partyLogic = logic;
-            this._mainPartyList = this._partyVM.MainPartyTroops;
-            this._mainPartyPrisoners = this._partyVM.MainPartyPrisoners;
-            this._sortHint = new HintViewModel(new TextObject("Sort Troops\nCtrl Click to sort just main party"));
+            _partyVM = partyVm;
+            _partyLogic = logic;
+            _mainPartyList = _partyVM.MainPartyTroops;
+            _mainPartyPrisoners = _partyVM.MainPartyPrisoners;
+            _sortHint = new HintViewModel(new TextObject("Sort Troops\nCtrl Click to sort just main party"));
         }
 
         public override void OnFinalize()
@@ -131,9 +132,9 @@ namespace PartyScreenEnhancements.ViewModel
             get => _sortHint;
             set
             {
-                if (value != this._sortHint)
+                if (value != _sortHint)
                 {
-                    this._sortHint = value;
+                    _sortHint = value;
                     base.OnPropertyChanged(nameof(SortHint));
                 }
             }

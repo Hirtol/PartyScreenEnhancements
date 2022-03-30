@@ -1,16 +1,16 @@
-﻿using System;
-using PartyScreenEnhancements.Saving;
+﻿using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings.SortingOrders;
 using PartyScreenEnhancements.ViewModel.Settings.Tabs;
 using PartyScreenEnhancements.ViewModel.Settings.Tabs.Miscellaneous;
 using PartyScreenEnhancements.ViewModel.Settings.Tabs.Sorting;
 using SandBox.GauntletUI;
+using System;
 using TaleWorlds.Core;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
+using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.ViewModel.Settings
 {
@@ -34,14 +34,14 @@ namespace PartyScreenEnhancements.ViewModel.Settings
 
         public SettingScreenVM(PartyEnhancementsVM parent, GauntletPartyScreen parentScreen)
         {
-            this._partyEnhancementsVm = parent;
-            this._parentScreen = parentScreen;
-            this._sorterPane = new SettingSorterOverlayVM(this);
-            this._generalPane = new SettingGeneralPaneVM();
-            this._miscPane = new SettingMiscPaneVM();
+            _partyEnhancementsVm = parent;
+            _parentScreen = parentScreen;
+            _sorterPane = new SettingSorterOverlayVM(this);
+            _generalPane = new SettingGeneralPaneVM();
+            _miscPane = new SettingMiscPaneVM();
 
             if (Game.Current != null)
-                Game.Current.AfterTick = (Action<float>)Delegate.Combine(Game.Current.AfterTick, new Action<float>(this.AfterTick));
+                Game.Current.AfterTick = (Action<float>)Delegate.Combine(Game.Current.AfterTick, new Action<float>(AfterTick));
         }
 
         public void AfterTick(float dt)
@@ -63,7 +63,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             _sorterPane.OnFinalize();
             _generalPane.OnFinalize();
             _miscPane.OnFinalize();
-            this.OnFinalize();
+            OnFinalize();
         }
 
         public void OpenSubSetting(SettingSortVM sortVm)
@@ -75,9 +75,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 _currentMovie = _subSettingLayer.LoadMovie("PartyEnhancementSortingSettings", _subScreen);
                 _subSettingLayer.IsFocusLayer = true;
                 ScreenManager.TrySetFocus(_subSettingLayer);
-                this._subSettingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
+                _subSettingLayer.Input.RegisterHotKeyCategory(HotKeyManager.GetCategory("GenericPanelGameKeyCategory"));
                 _parentScreen.AddLayer(_subSettingLayer);
-                this._subSettingLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
+                _subSettingLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
             }
         }
 
@@ -90,7 +90,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
                 _subSettingLayer.InputRestrictions.ResetInputRestrictions();
                 _subSettingLayer = null;
                 _subScreen = null;
-                this.RefreshValues();
+                RefreshValues();
             }
         }
 
@@ -99,7 +99,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             base.OnFinalize();
             PartyScreenConfig.Save();
             if (Game.Current != null)
-                Game.Current.AfterTick = (Action<float>)Delegate.Remove(Game.Current.AfterTick, new Action<float>(this.AfterTick));
+                Game.Current.AfterTick = (Action<float>)Delegate.Remove(Game.Current.AfterTick, new Action<float>(AfterTick));
 
             _partyEnhancementsVm = null;
             _sorterPane = null;
@@ -112,9 +112,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             get => _sorterPane;
             set
             {
-                if (value != this._sorterPane)
+                if (value != _sorterPane)
                 {
-                    this._sorterPane = value;
+                    _sorterPane = value;
                     base.OnPropertyChanged(nameof(SorterPane));
                 }
             }
@@ -126,9 +126,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             get => _generalPane;
             set
             {
-                if (value != this._generalPane)
+                if (value != _generalPane)
                 {
-                    this._generalPane = value;
+                    _generalPane = value;
                     base.OnPropertyChanged(nameof(GeneralPane));
                 }
             }
@@ -140,9 +140,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings
             get => _miscPane;
             set
             {
-                if (value != this._miscPane)
+                if (value != _miscPane)
                 {
-                    this._miscPane = value;
+                    _miscPane = value;
                     base.OnPropertyChanged(nameof(MiscPane));
                 }
             }
