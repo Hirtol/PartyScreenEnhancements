@@ -1,21 +1,21 @@
-﻿using System;
-using System.ComponentModel;
-using System.Linq;
-using HarmonyLib;
+﻿using HarmonyLib;
 using JetBrains.Annotations;
 using PartyScreenEnhancements.Saving;
 using PartyScreenEnhancements.ViewModel.Settings;
 using SandBox.GauntletUI;
-using TaleWorlds.CampaignSystem;
+using System;
+using System.ComponentModel;
+using System.Linq;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
 using TaleWorlds.Engine.GauntletUI;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.ViewModel
 {
@@ -101,7 +101,7 @@ namespace PartyScreenEnhancements.ViewModel
             return $"({troopNumb} / {sizeLimit})";
         }
 
-        public void AfterReset(PartyScreenLogic logic)
+        public void AfterReset(PartyScreenLogic logic, bool fromCancel)
         {
             RefreshValues();
         }
@@ -111,7 +111,7 @@ namespace PartyScreenEnhancements.ViewModel
             base.RefreshValues();
 
             if (PartyScreenConfig.ExtraSettings.AutomaticSorting) _sortTroopsVM.SortTroops();
-            this.UpdateLabel(null);
+            UpdateLabel(null);
 
             _unitTallyVm.RefreshValues();
         }
@@ -149,7 +149,7 @@ namespace PartyScreenEnhancements.ViewModel
             if (openedPopup is PartyUpgradeTroopVM)
             {
                 _popupMovie = _popupLayer.LoadMovie("PSEUpgradePopup", _upgradeTroopsVM);
-                
+
             }
             else if (openedPopup is PartyRecruitTroopVM)
             {

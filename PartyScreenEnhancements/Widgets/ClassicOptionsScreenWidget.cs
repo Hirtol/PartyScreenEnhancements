@@ -14,12 +14,12 @@ namespace PartyScreenEnhancements.Widgets
         private bool _initialized;
 
         public ClassicOptionsScreenWidget(UIContext context) : base(context)
-		{
-		}
+        {
+        }
 
-		protected override void OnUpdate(float dt)
-		{
-            if (!this._initialized)
+        protected override void OnUpdate(float dt)
+        {
+            if (!_initialized)
             {
                 using (IEnumerator<Widget> enumerator = base.AllChildren.GetEnumerator())
                 {
@@ -32,9 +32,9 @@ namespace PartyScreenEnhancements.Widgets
                         }
                     }
                 }
-                this._initialized = true;
+                _initialized = true;
             }
-		} 
+        }
 
-	}
+    }
 }

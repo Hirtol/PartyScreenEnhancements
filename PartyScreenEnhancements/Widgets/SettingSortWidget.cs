@@ -12,9 +12,9 @@ namespace PartyScreenEnhancements.Widgets
         }
 
         private void SetWidgetsState(string state)
-		{
-			base.SetState(state);
-            this._main.SetState(state);
+        {
+            base.SetState(state);
+            _main.SetState(state);
         }
 
         protected override void OnLateUpdate(float dt)
@@ -27,58 +27,58 @@ namespace PartyScreenEnhancements.Widgets
         }
 
         protected override void RefreshState()
-		{
-			base.RefreshState();
+        {
+            base.RefreshState();
 
             if (base.IsDisabled)
-			{
-				this.SetWidgetsState("Disabled");
-				return;
-			}
-			if (base.IsPressed)
-			{
-				this.SetWidgetsState("Pressed");
-				return;
-			}
-			if (base.IsHovered)
-			{
-				this.SetWidgetsState("Hovered");
-				return;
-			}
-			if (base.IsSelected)
-			{
-				this.SetWidgetsState("Selected");
-				return;
-			}
-			this.SetWidgetsState("Default");
-            
-		}
+            {
+                SetWidgetsState("Disabled");
+                return;
+            }
+            if (base.IsPressed)
+            {
+                SetWidgetsState("Pressed");
+                return;
+            }
+            if (base.IsHovered)
+            {
+                SetWidgetsState("Hovered");
+                return;
+            }
+            if (base.IsSelected)
+            {
+                SetWidgetsState("Selected");
+                return;
+            }
+            SetWidgetsState("Default");
+
+        }
 
         public void ResetIsSelected()
-		{
-			base.IsSelected = false;
-		}
+        {
+            base.IsSelected = false;
+        }
 
-		private void OnValueChanged(PropertyOwnerObject arg1, string arg2, object arg3)
-		{
-			if (arg2 == "ValueInt")
-			{
-				base.AcceptDrag = ((int)arg3 > 0);
-			}
-		}
+        private void OnValueChanged(PropertyOwnerObject arg1, string arg2, object arg3)
+        {
+            if (arg2 == "ValueInt")
+            {
+                base.AcceptDrag = ((int)arg3 > 0);
+            }
+        }
 
         [Editor(false)]
         public Widget Main
         {
             get
             {
-                return this._main;
+                return _main;
             }
             set
             {
-                if (this._main != value)
+                if (_main != value)
                 {
-                    this._main = value;
+                    _main = value;
                     base.OnPropertyChanged(value, nameof(Main));
                 }
             }
@@ -89,9 +89,9 @@ namespace PartyScreenEnhancements.Widgets
             get => _nameWidget;
             set
             {
-                if (this._nameWidget != value)
+                if (_nameWidget != value)
                 {
-                    this._nameWidget = value;
+                    _nameWidget = value;
                     base.OnPropertyChanged(value, nameof(NameWidget));
                 }
             }
@@ -102,9 +102,9 @@ namespace PartyScreenEnhancements.Widgets
             get => _hasCustomSettings;
             set
             {
-                if (this._hasCustomSettings != value)
+                if (_hasCustomSettings != value)
                 {
-                    this._hasCustomSettings = value;
+                    _hasCustomSettings = value;
                     base.OnPropertyChanged(value, nameof(HasCustomSettings));
                 }
             }

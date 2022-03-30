@@ -14,18 +14,18 @@ namespace PartyScreenEnhancements.Widgets
 
         private void UpdateVisual()
         {
-            if (this.UpArrowBrush == null || this.DownArrowBrush == null)
+            if (UpArrowBrush == null || DownArrowBrush == null)
             {
                 return;
             }
 
-            if (this.IsDescending)
+            if (IsDescending)
             {
-                base.Brush = this.DownArrowBrush;
+                base.Brush = DownArrowBrush;
             }
             else
             {
-                base.Brush = this.UpArrowBrush;
+                base.Brush = UpArrowBrush;
             }
         }
 
@@ -34,13 +34,13 @@ namespace PartyScreenEnhancements.Widgets
         {
             get
             {
-                return this._upBrush;
+                return _upBrush;
             }
             set
             {
-                if (this._upBrush != value)
+                if (_upBrush != value)
                 {
-                    this._upBrush = value;
+                    _upBrush = value;
                     base.OnPropertyChanged(value, nameof(UpArrowBrush));
                 }
             }
@@ -51,13 +51,13 @@ namespace PartyScreenEnhancements.Widgets
         {
             get
             {
-                return this._downBrush;
+                return _downBrush;
             }
             set
             {
-                if (this._downBrush != value)
+                if (_downBrush != value)
                 {
-                    this._downBrush = value;
+                    _downBrush = value;
                     base.OnPropertyChanged(value, nameof(DownArrowBrush));
                 }
             }
@@ -68,16 +68,16 @@ namespace PartyScreenEnhancements.Widgets
         {
             get
             {
-                return this._isDescending;
+                return _isDescending;
             }
             set
             {
-                if (this._isDescending != value)
+                if (_isDescending != value)
                 {
-                    this._isDescending = value;
+                    _isDescending = value;
                     base.OnPropertyChanged(value, nameof(IsDescending));
                 }
-                this.UpdateVisual();
+                UpdateVisual();
             }
         }
     }

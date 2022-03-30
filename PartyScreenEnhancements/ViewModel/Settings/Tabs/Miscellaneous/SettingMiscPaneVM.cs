@@ -8,7 +8,7 @@ namespace PartyScreenEnhancements.ViewModel.Settings.Tabs.Miscellaneous
     {
         public SettingMiscPaneVM()
         {
-            this.Name = "Miscellaneous";
+            Name = "Miscellaneous";
         }
 
         public void ExecuteResetUpgradePaths()

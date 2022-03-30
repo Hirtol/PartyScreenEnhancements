@@ -1,8 +1,8 @@
-﻿using System;
+﻿using PartyScreenEnhancements.Saving;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using PartyScreenEnhancements.Saving;
-using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
@@ -22,12 +22,12 @@ namespace PartyScreenEnhancements.ViewModel
 
         public UpgradeAllTroopsVM(PartyEnhancementsVM parent, PartyVM partyVm, PartyScreenLogic logic)
         {
-            this._parent = parent;
-            this._partyVM = partyVm;
-            this._partyLogic = logic;
-            this._mainPartyList = _partyVM.MainPartyTroops;
+            _parent = parent;
+            _partyVM = partyVm;
+            _partyLogic = logic;
+            _mainPartyList = _partyVM.MainPartyTroops;
 
-            this._upgradeHint =
+            _upgradeHint =
                 new HintViewModel(new TextObject("Upgrade All Troops\nRight click to upgrade only paths set by you"));
         }
 
@@ -64,7 +64,7 @@ namespace PartyScreenEnhancements.ViewModel
                             if (PartyScreenConfig.ExtraSettings.EqualUpgrades)
                                 toUpgrade.Add(character, new EqualDistributionTarget());
                         }
-                        else if(character.Upgrades[0].IsAvailable)
+                        else if (character.Upgrades[0].IsAvailable)
                         {
                             toUpgrade.Add(character, new SpecificUpgradeTarget(0));
                         }

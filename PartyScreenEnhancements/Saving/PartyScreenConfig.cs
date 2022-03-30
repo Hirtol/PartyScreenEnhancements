@@ -1,4 +1,6 @@
-﻿using System;
+﻿using HarmonyLib;
+using PartyScreenEnhancements.Comparers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -7,8 +9,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Xml.XPath;
-using HarmonyLib;
-using PartyScreenEnhancements.Comparers;
 
 namespace PartyScreenEnhancements.Saving
 {
@@ -101,7 +101,7 @@ namespace PartyScreenEnhancements.Saving
 
                 foreach (object obj in xmlDocument.DocumentElement.ChildNodes)
                 {
-                    var xmlNode = (XmlNode) obj;
+                    var xmlNode = (XmlNode)obj;
                     if (xmlNode.Name == "UpgradePaths")
                     {
                         XElement rootElement = XElement.Parse(xmlNode.OuterXml);
@@ -123,7 +123,7 @@ namespace PartyScreenEnhancements.Saving
                         {
                             if (element.Name == "Version")
                             {
-                                if(double.Parse(element.Value) == VERSION)
+                                if (double.Parse(element.Value) == VERSION)
                                     _upgradedVersion = false;
                             }
 

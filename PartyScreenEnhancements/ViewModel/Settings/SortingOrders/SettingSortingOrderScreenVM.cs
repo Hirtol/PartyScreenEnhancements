@@ -14,10 +14,10 @@ namespace PartyScreenEnhancements.ViewModel.Settings.SortingOrders
 
         public SettingSortingOrderScreenVM(SettingScreenVM parent, PartySort sorter)
         {
-            this._settingScreen = parent;
-            this._sorter = sorter;
-            this._sortingOrder = new MBBindingList<SettingSortingOrderVM>();
-            this.Name = sorter.GetName();
+            _settingScreen = parent;
+            _sorter = sorter;
+            _sortingOrder = new MBBindingList<SettingSortingOrderVM>();
+            Name = sorter.GetName();
 
             InitializeList();
         }
@@ -25,9 +25,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.SortingOrders
         public void ExecuteCloseSettings()
         {
             _settingScreen.CloseSubSetting();
-            this.OnFinalize();
+            OnFinalize();
         }
-        
+
         public new void OnFinalize()
         {
             base.OnFinalize();
@@ -73,9 +73,9 @@ namespace PartyScreenEnhancements.ViewModel.Settings.SortingOrders
             get => _sortingOrder;
             set
             {
-                if (value != this._sortingOrder)
+                if (value != _sortingOrder)
                 {
-                    this._sortingOrder = value;
+                    _sortingOrder = value;
                     base.OnPropertyChanged(nameof(SortingOrder));
                 }
             }

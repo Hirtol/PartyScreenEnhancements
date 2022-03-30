@@ -46,7 +46,7 @@ namespace PartyScreenEnhancements.Comparers
 
             if (isXHorseArcher || isYHorseArcher)
             {
-                if(isXHorseArcher && isYHorseArcher)
+                if (isXHorseArcher && isYHorseArcher)
                     return EqualSorter?.Compare(x, y) ?? 0;
             }
             else
@@ -72,13 +72,13 @@ namespace PartyScreenEnhancements.Comparers
         public override void FillCustomList()
         {
             base.FillCustomList();
-            CustomSettingsList.AddRange(new[]{"Infantry", "Archers", "Cavalry", "Horse Archers"});
-            if(_compDictionary == null) FillDictionary();
+            CustomSettingsList.AddRange(new[] { "Infantry", "Archers", "Cavalry", "Horse Archers" });
+            if (_compDictionary == null) FillDictionary();
         }
 
         private void FillDictionary()
         {
-            this._compDictionary = new Dictionary<string, Func<CharacterObject, CharacterObject, int>>();
+            _compDictionary = new Dictionary<string, Func<CharacterObject, CharacterObject, int>>();
             _compDictionary.Add("Infantry", InfantryCompare);
             _compDictionary.Add("Archers", ArcherCompare);
             _compDictionary.Add("Cavalry", CavalryCompare);

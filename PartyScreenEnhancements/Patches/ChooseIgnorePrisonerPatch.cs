@@ -3,8 +3,8 @@ using PartyScreenEnhancements.Saving;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
-using TaleWorlds.Engine.Screens;
 using TaleWorlds.Library;
+using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.Patches
 {
@@ -19,7 +19,7 @@ namespace PartyScreenEnhancements.Patches
                 {
                     PartyScreenConfig.PrisonersToRecruit.Add(__instance.Character.StringId, -1);
 
-                    if(PartyScreenConfig.ExtraSettings.RecruitByDefault)
+                    if (PartyScreenConfig.ExtraSettings.RecruitByDefault)
                         DisplayRemoved(__instance);
                     else
                         DisplayAllowed(__instance);

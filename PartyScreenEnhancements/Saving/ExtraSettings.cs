@@ -1,7 +1,7 @@
-﻿using System.ComponentModel;
+﻿using PartyScreenEnhancements.Comparers;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Xml.Serialization;
-using PartyScreenEnhancements.Comparers;
 
 namespace PartyScreenEnhancements.Saving
 {
