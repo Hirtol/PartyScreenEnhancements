@@ -1,4 +1,5 @@
 ﻿using TaleWorlds.GauntletUI;
+using TaleWorlds.GauntletUI.BaseTypes;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.Widgets

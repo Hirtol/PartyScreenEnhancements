@@ -8,8 +8,11 @@ using System.ComponentModel;
 using System.Linq;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Party.PartyTroopManagerPopUp;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection;
+using TaleWorlds.Core.ViewModelCollection.Information;
 using TaleWorlds.Engine.GauntletUI;
 using TaleWorlds.GauntletUI.Data;
 using TaleWorlds.InputSystem;
@@ -25,8 +28,8 @@ namespace PartyScreenEnhancements.ViewModel
     /// </summary>
     public class PartyEnhancementsVM : TaleWorlds.Library.ViewModel
     {
-        protected readonly PartyVM _partyVM;
-        protected readonly PartyScreenLogic _partyScreenLogic;
+        private readonly PartyVM _partyVM;
+        private readonly PartyScreenLogic _partyScreenLogic;
 
         private SortAllTroopsVM _sortTroopsVM;
         private UpgradeAllTroopsVM _upgradeTroopsVM;

@@ -1,5 +1,6 @@
 ﻿using HarmonyLib;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
 
 namespace PartyScreenEnhancements.Patches
 {

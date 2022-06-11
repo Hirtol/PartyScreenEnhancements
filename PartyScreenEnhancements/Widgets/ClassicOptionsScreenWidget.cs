@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TaleWorlds.GauntletUI;
+using TaleWorlds.GauntletUI.BaseTypes;
 using TaleWorlds.MountAndBlade.GauntletUI.Widgets.Options;
 
 namespace PartyScreenEnhancements.Widgets

@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
 using TaleWorlds.Library;
 
 namespace PartyScreenEnhancements.ViewModel

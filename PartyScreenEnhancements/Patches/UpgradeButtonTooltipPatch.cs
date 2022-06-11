@@ -2,6 +2,7 @@
 using PartyScreenEnhancements.Saving;
 using SandBox.GauntletUI;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
+using TaleWorlds.CampaignSystem.ViewModelCollection.Party;
 using TaleWorlds.ScreenSystem;
 
 namespace PartyScreenEnhancements.Patches
