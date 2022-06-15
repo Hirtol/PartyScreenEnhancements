@@ -9,119 +9,59 @@
     </VisualDefinition>
   </VisualDefinitions>
   <Window>
-    <Widget Id="EnhancementScreenTopBar" VisualDefinition="TopMenu" WidthSizePolicy="StretchToParent"
-            HeightSizePolicy="StretchToParent"
-            SuggestedWidth="650" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="30"
-            DoNotAcceptEvents="true" IsHidden="@AnyOtherPopupOpen">
+    <Widget Id="EnhancementScreenTopBar" VisualDefinition="TopMenu" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" SuggestedWidth="650" HorizontalAlignment="Right" VerticalAlignment="Top" MarginTop="30" DoNotAcceptEvents="true" IsHidden="@AnyOtherPopupOpen">
       <Children>
 
         <!-- Main Party Buttons-->
-        <Widget Id="TopRightButtons" MarginRight="200" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent"
-                HeightSizePolicy="CoverChildren">
+        <Widget Id="TopRightButtons" MarginRight="175" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren">
           <Children>
-            <ButtonWidget DataSource="{SortAllTroops}" Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true"
-                          WidthSizePolicy="Fixed"
-                          HeightSizePolicy="Fixed" SuggestedWidth="90" SuggestedHeight="45"
-                          HorizontalAlignment="Right"
-                          VerticalAlignment="Top" MarginRight="5"
-                          MarginTop="15" Brush="Inventory.Tuple.Extension.StockButton" Command.Click="SortTroops">
+            <ButtonWidget DataSource="{SortAllTroops}" Id="SortAllTroopsWidget" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="90" SuggestedHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" MarginRight="5" MarginTop="15" Brush="Inventory.Tuple.Extension.StockButton" Command.Click="SortTroops">
               <Children>
-                <HintWidget DataSource="{SortHint}" WidthSizePolicy="StretchToParent"
-                            HeightSizePolicy="StretchToParent"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50"
-                             DoNotAcceptEvents="false"
-                             SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="2"
-                             VerticalAlignment="Center" MarginRight="0" IsDisabled="false"
-                             Brush="Party.Enhancement.SortParty" />
+                <HintWidget DataSource="{SortHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="50" DoNotAcceptEvents="false" SuggestedHeight="40" HorizontalAlignment="Center" MarginTop="2" VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.SortParty" />
               </Children>
             </ButtonWidget>
 
-            <ButtonWidget Id="OpenSettings" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed"
-                          HeightSizePolicy="Fixed" SuggestedWidth="45"
-                          SuggestedHeight="45" HorizontalAlignment="Right"
-                          VerticalAlignment="Top" MarginRight="400"
-                          MarginTop="12" Brush="Party.Enhancement.Settings" Command.Click="OpenSettingView">
+            <ButtonWidget Id="OpenSettings" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="45" SuggestedHeight="45" HorizontalAlignment="Right" VerticalAlignment="Top" MarginRight="410" MarginTop="12" Brush="Party.Enhancement.Settings" Command.Click="OpenSettingView">
               <Children>
-                <HintWidget DataSource="{SettingHint}" WidthSizePolicy="StretchToParent"
-                            HeightSizePolicy="StretchToParent"
-                            Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+                <HintWidget DataSource="{SettingHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
               </Children>
             </ButtonWidget>
           </Children>
         </Widget>
 
         <!-- Left Party Buttons-->
-        <ButtonWidget DataSource="{TransferWoundedTroops}" Id="TransferWoundedTroops" DoNotPassEventsToChildren="true"
-                      WidthSizePolicy="Fixed"
-                      HeightSizePolicy="Fixed" SuggestedWidth="45"
-                      SuggestedHeight="45" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" MarginLeft="15"
-                      MarginTop="12" Brush="Party.Enhancement.ButtonBackground" Command.Click="ExecuteTransferWounded"
-                      IsVisible="@ShouldShowTransferWounded">
+        <ButtonWidget DataSource="{TransferWoundedTroops}" Id="TransferWoundedTroops" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="45" SuggestedHeight="45" HorizontalAlignment="Left" VerticalAlignment="Top" MarginLeft="15" MarginTop="12" Brush="Party.Enhancement.ButtonBackground" Command.Click="ExecuteTransferWounded" IsVisible="@ShouldShowTransferWounded">
           <Children>
-            <HintWidget DataSource="{WoundedHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent"
-                        Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
-            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" DoNotAcceptEvents="false"
-                         SuggestedHeight="30" HorizontalAlignment="Center" MarginTop="0"
-                         VerticalAlignment="Center" MarginRight="0" IsDisabled="false"
-                         Brush="Party.Enhancement.TransferWounded" />
+            <HintWidget DataSource="{WoundedHint}" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" Command.HoverBegin="ExecuteBeginHint" Command.HoverEnd="ExecuteEndHint" />
+            <BrushWidget WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="30" DoNotAcceptEvents="false" SuggestedHeight="30" HorizontalAlignment="Center" MarginTop="0" VerticalAlignment="Center" MarginRight="0" IsDisabled="false" Brush="Party.Enhancement.TransferWounded" />
           </Children>
         </ButtonWidget>
 
         <!-- Party Unit Tally-->
 
-        <Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true"
-                WidthSizePolicy="Fixed"
-                HeightSizePolicy="Fixed" SuggestedWidth="200"
-                SuggestedHeight="180" HorizontalAlignment="Right"
-                VerticalAlignment="Bottom" MarginRight="670" MarginBottom="50" IsVisible="@IsEnabled">
+        <Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="180" HorizontalAlignment="Right" VerticalAlignment="Bottom" MarginRight="670" MarginBottom="50" IsVisible="@IsEnabled">
           <Children>
-            <ListPanel Id="UnitTallyList" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent"
-                       HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop">
+            <ListPanel Id="UnitTallyList" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <Children>
-                <Widget Id="InfantryLabelWidget" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Right"
-                        VerticalAlignment="Top">
+                <Widget Id="InfantryLabelWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Right" VerticalAlignment="Top">
                   <Children>
-                    <RichTextWidget isVisible="@IsEnabled" WidthSizePolicy="StretchToParent"
-                                    HeightSizePolicy="CoverChildren" VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@InfantryLabel" Brush.FontSize="22" isDisabled="true" />
+                    <RichTextWidget isVisible="@IsEnabled" WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@InfantryLabel" Brush.FontSize="22" isDisabled="true" />
                   </Children>
                 </Widget>
-                <Widget Id="ArchersLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                <Widget Id="ArchersLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@ArchersLabel" Brush.FontSize="22" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@ArchersLabel" Brush.FontSize="22" />
                   </Children>
                 </Widget>
-                <Widget Id="CavalryLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                <Widget Id="CavalryLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@CavalryLabel" Brush.FontSize="22" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@CavalryLabel" Brush.FontSize="22" />
                   </Children>
                 </Widget>
-                <Widget Id="HorseArchersLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom">
+                <Widget Id="HorseArchersLabelWidget" isVisible="@IsEnabled" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@HorseArcherLabel" Brush.FontSize="22" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@HorseArcherLabel" Brush.FontSize="22" />
                   </Children>
                 </Widget>
               </Children>
@@ -131,57 +71,28 @@
 
         <!-- Garrison Unit Tally-->
 
-        <Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true"
-                WidthSizePolicy="Fixed"
-                HeightSizePolicy="Fixed" SuggestedWidth="200"
-                SuggestedHeight="180" HorizontalAlignment="Left"
-                VerticalAlignment="Bottom" MarginLeft="670" MarginBottom="50" IsVisible="@ShouldShowGarrison">
+        <Widget DataSource="{UnitTally}" DoNotAcceptEvents="true" DoNotPassEventsToChildren="true" WidthSizePolicy="Fixed" HeightSizePolicy="Fixed" SuggestedWidth="200" SuggestedHeight="180" HorizontalAlignment="Left" VerticalAlignment="Bottom" MarginLeft="670" MarginBottom="50" IsVisible="@ShouldShowGarrison">
           <Children>
-            <ListPanel Id="UnitTallyGarrisonList" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent"
-                       HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop">
+            <ListPanel Id="UnitTallyGarrisonList" DoNotAcceptEvents="true" WidthSizePolicy="StretchToParent" HeightSizePolicy="StretchToParent" LayoutImp.LayoutMethod="VerticalBottomToTop">
               <Children>
-                <Widget Id="InfantryGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Right"
-                        VerticalAlignment="Top">
+                <Widget Id="InfantryGarrisonLabelWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Right" VerticalAlignment="Top">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@InfantryGarrisonLabel" Brush.FontSize="22" isDisabled="true" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@InfantryGarrisonLabel" Brush.FontSize="22" isDisabled="true" />
                   </Children>
                 </Widget>
-                <Widget Id="ArchersGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                <Widget Id="ArchersGarrisonLabelWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@ArchersGarrisonLabel" Brush.FontSize="22" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@ArchersGarrisonLabel" Brush.FontSize="22" />
                   </Children>
                 </Widget>
-                <Widget Id="CavalryGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+                <Widget Id="CavalryGarrisonLabelWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Center" VerticalAlignment="Center">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@CavalryGarrisonLabel" Brush.FontSize="22" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@CavalryGarrisonLabel" Brush.FontSize="22" />
                   </Children>
                 </Widget>
-                <Widget Id="HorseArchersGarrisonLabelWidget" WidthSizePolicy="CoverChildren"
-                        HeightSizePolicy="Fixed" SuggestedWidth="50"
-                        SuggestedHeight="40" HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom">
+                <Widget Id="HorseArchersGarrisonLabelWidget" WidthSizePolicy="CoverChildren" HeightSizePolicy="Fixed" SuggestedWidth="50" SuggestedHeight="40" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                   <Children>
-                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren"
-                                    VerticalAlignment="Center"
-                                    Brush="Recruitment.Popup.Title.Text"
-                                    Text="@HorseArcherGarrisonLabel" Brush.FontSize="22" />
+                    <RichTextWidget WidthSizePolicy="StretchToParent" HeightSizePolicy="CoverChildren" VerticalAlignment="Center" Brush="Recruitment.Popup.Title.Text" Text="@HorseArcherGarrisonLabel" Brush.FontSize="22" />
                   </Children>
                 </Widget>
               </Children>

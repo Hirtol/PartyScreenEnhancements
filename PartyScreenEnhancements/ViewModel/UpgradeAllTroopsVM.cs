@@ -106,6 +106,13 @@ namespace PartyScreenEnhancements.ViewModel
 
             if (upgradeTarget is SpecificUpgradeTarget target)
             {
+                // The upgrade target changed possible upgrade paths and therefore errors out, reset the upgrade preference
+                if (target.targetIndex >= character.Upgrades.Count)
+                {
+                    Utilities.DisplayMessage($"Detected outdated upgrade preference, resetting upgrade preference for {character.Name}", Colors.Red);
+                    PartyScreenConfig.PathsToUpgrade.Remove(character.Character.StringId);
+                    return 0;
+                }
                 allInsufficient = character.Upgrades[target.targetIndex].IsInsufficient;
 
                 // Sanity check in case troop trees change due to game update or mod configs.

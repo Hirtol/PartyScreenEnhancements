@@ -10,6 +10,11 @@ namespace PartyScreenEnhancements
         {
             InformationManager.DisplayMessage(new InformationMessage(message, Color.White));
         }
+        
+        public static void DisplayMessage(string message, Color color)
+        {
+            InformationManager.DisplayMessage(new InformationMessage(message, color));
+        }
 
         public static bool IsControlDown()
         {
