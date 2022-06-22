@@ -114,18 +114,10 @@ namespace PartyScreenEnhancements.ViewModel
                     return 0;
                 }
                 allInsufficient = character.Upgrades[target.targetIndex].IsInsufficient;
-
-                // Sanity check in case troop trees change due to game update or mod configs.
-                if (target.targetIndex > character.Upgrades.Count ||
-                    (!character.Upgrades[target.targetIndex]?.IsAvailable ?? true))
-                {
-                    Utilities.DisplayMessage(
-                        $"Tried to upgrade {character.Name} to a troop that doesn't exist! Please reset your upgrade preferences.");
-                }
             }
             else
             {
-                allInsufficient = character.Upgrades.All(upgradeTarg => upgradeTarg.IsInsufficient);
+                allInsufficient = character.Upgrades.All(uTarget => uTarget.IsInsufficient);
             }
 
             if (!allInsufficient)
