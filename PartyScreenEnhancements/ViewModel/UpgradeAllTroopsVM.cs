@@ -109,10 +109,13 @@ namespace PartyScreenEnhancements.ViewModel
                 // The upgrade target changed possible upgrade paths and therefore errors out, reset the upgrade preference
                 if (target.targetIndex >= character.Upgrades.Count)
                 {
-                    Utilities.DisplayMessage($"Detected outdated upgrade preference, resetting upgrade preference for {character.Name}", Colors.Red);
+                    Utilities.DisplayMessage(
+                        $"Detected outdated upgrade preference, resetting upgrade preference for {character.Name}",
+                        Colors.Red);
                     PartyScreenConfig.PathsToUpgrade.Remove(character.Character.StringId);
                     return 0;
                 }
+
                 allInsufficient = character.Upgrades[target.targetIndex].IsInsufficient;
             }
             else
@@ -193,8 +196,7 @@ namespace PartyScreenEnhancements.ViewModel
             return 0;
         }
 
-        private void SendCommand(PartyCharacterVM character, int amount,
-            int target)
+        private void SendCommand(PartyCharacterVM character, int amount, int target)
         {
             var partyCommand = new PartyScreenLogic.PartyCommand();
             partyCommand.FillForUpgradeTroop(character.Side, character.Type, character.Character, amount, target);

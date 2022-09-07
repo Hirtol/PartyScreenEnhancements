@@ -23,31 +23,36 @@ namespace PartyScreenEnhancements.Patches
         [HarmonyPatch("AddLayer")]
         public static void Postfix(ref ScreenBase __instance)
         {
-            if (__instance is GauntletPartyScreen partyScreen && screenLayer == null)
-            {
-                screenLayer = new GauntletLayer(10);
+            if (__instance is not GauntletPartyScreen partyScreen || screenLayer != null) return;
 
-                var traverser = Traverse.Create(partyScreen);
-                PartyVM partyVM = traverser.Field<PartyVM>("_dataSource").Value;
-                PartyState partyState = traverser.Field<PartyState>("_partyState").Value;
+            var traverser = Traverse.Create(partyScreen);
+            PartyVM partyVM = traverser.Field<PartyVM>("_dataSource").Value;
 
-                enhancementVm = new PartyEnhancementsVM(partyVM, partyState.PartyScreenLogic, partyScreen);
-                screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVm);
-                screenLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
-                partyScreen.AddLayer(screenLayer);
-            }
+            // Some other mods might hook PartyVM constructor methods, and insert their own layers during that initialisation.
+            // In theory that would be fine, as the Party Screen Layer doesn't get added until *after* PartyVM construction.
+            // But, the GauntletPartyScreen *is* already the top screen, and thus the guard above gets passed, even though PartyVM isn't yet constructed.
+            // Therefore we need a guard here to protect against an uninitialised PartyVM.
+            if (partyVM == null) return;
+
+            screenLayer = new GauntletLayer(10);
+            PartyState partyState = traverser.Field<PartyState>("_partyState").Value;
+
+            enhancementVm = new PartyEnhancementsVM(partyVM, partyState.PartyScreenLogic, partyScreen);
+            screenLayer.LoadMovie("PartyScreenEnhancements", enhancementVm);
+            screenLayer.InputRestrictions.SetInputRestrictions(true, InputUsageMask.All);
+            partyScreen.AddLayer(screenLayer);
         }
 
         [HarmonyPatch("RemoveLayer")]
         public static void Prefix(ref ScreenBase __instance, ref ScreenLayer layer)
         {
-            if (__instance is GauntletPartyScreen && screenLayer != null && layer.Input.IsCategoryRegistered(HotKeyManager.GetCategory("PartyHotKeyCategory")))
-            {
-                __instance.RemoveLayer(screenLayer);
-                enhancementVm.OnFinalize();
-                enhancementVm = null;
-                screenLayer = null;
-            }
+            if (__instance is not GauntletPartyScreen || screenLayer == null ||
+                !layer.Input.IsCategoryRegistered(HotKeyManager.GetCategory("PartyHotKeyCategory"))) return;
+            
+            __instance.RemoveLayer(screenLayer);
+            enhancementVm?.OnFinalize();
+            enhancementVm = null;
+            screenLayer = null;
         }
     }
 }
